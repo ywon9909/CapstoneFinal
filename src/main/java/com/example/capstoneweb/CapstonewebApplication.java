@@ -9,7 +9,7 @@ public class CapstonewebApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(CapstonewebApplication.class, args);
-        System.out.println("TEST");
+
     }
 
 }
