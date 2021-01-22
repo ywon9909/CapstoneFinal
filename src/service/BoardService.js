@@ -13,8 +13,12 @@ class BoardService {
     createBoard(board){
         return axios.post(BOARD_API_BASE_URL,board);
     }
+
     getOneBoard(num){
         return axios.get(BOARD_API_BASE_URL+"/"+num);
+    }
+    updateBoard(no, board) {
+        return axios.put(BOARD_API_BASE_URL + "/" + no, board);
     }
 }
 

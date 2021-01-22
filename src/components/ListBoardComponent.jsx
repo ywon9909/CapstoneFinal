@@ -18,13 +18,11 @@ class ListBoardComponent extends Component {
     }
 
     createBoard(){
-        this.props.history.push('/create-board/');
+        this.props.history.push('/create-board/_create');
     }
-    readBoard(num){
-       
+    readBoard(num) {
         this.props.history.push(`/read-board/${num}`);
     }
-
     render() {
         return (
             <div>
@@ -50,7 +48,7 @@ class ListBoardComponent extends Component {
                                     <tr key ={kin.num}>
                                         <td>{kin.num}</td>
                                         <td> <a onClick ={()=> this.readBoard(kin.num)}>{kin.title}</a></td>
-                                        
+                            
                                     </tr>
                                 )
                             }
