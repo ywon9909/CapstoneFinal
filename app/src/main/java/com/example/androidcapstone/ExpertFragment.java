@@ -1,7 +1,9 @@
 package com.example.androidcapstone;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -29,7 +31,7 @@ public class ExpertFragment extends Fragment {
     View mView;
     TextView textView;
 
-    static final String URL = "http://192.168.35.91:8080/";
+    static final String URL = "http://192.168.35.91:8080";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,13 +40,6 @@ public class ExpertFragment extends Fragment {
 
         //textView = (TextView)mView.findViewById(R.id.text);
 
-        index();
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_expert, container, false);
-        return  mView;
-    }
-
-    public void index() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -52,12 +47,14 @@ public class ExpertFragment extends Fragment {
 
         jsonApi = retrofit.create(JsonApi.class);
 
-        call = jsonApi.getBoard();
-        call.enqueue(new Callback<List<BoardData>>() {
+        //call = jsonApi.getBoard();
+        Callback<List<BoardData>> callback = new Callback<List<BoardData>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<BoardData>> call, Response<List<BoardData>> response) {
 
                 if(response.isSuccessful()) {
+                    /*
                     List<BoardData> mList = response.body();
                     String result = "";
                     for(BoardData item : mList) {
@@ -65,8 +62,11 @@ public class ExpertFragment extends Fragment {
                                 + " answer1: " + item.getAnswer1() + " answer2: " + item.getAnswer2() + " answer3: " + item.getAnswer3() + "\n";
                     }
                     textView.setText(result);
-                    //textView = (TextView)mView.findViewById(R.id.text);
-                    //textView.setText(response.body().toString());
+
+                     */
+
+                    textView = (TextView)mView.findViewById(R.id.text);
+                    textView.setText(response.body().toString());
                 } else {
                     Log.d("log", "Status Code" + response.code());
                 }
@@ -79,7 +79,57 @@ public class ExpertFragment extends Fragment {
             public void onFailure(Call<List<BoardData>> call, Throwable t) {
                 Log.d("log", "Fail");
             }
-        });
+        };
+        jsonApi.getBoard().enqueue(callback);
+        // Inflate the layout for this fragment
+        //return inflater.inflate(R.layout.fragment_expert, container, false);
+        return  mView;
+    }
+
+    /*
+    public void index() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        jsonApi = retrofit.create(JsonApi.class);
+
+        call = jsonApi.getBoard();
+        Callback<List<BoardData>> callback = new Callback<List<BoardData>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<List<BoardData>> call, Response<List<BoardData>> response) {
+
+                if(response.isSuccessful()) {
+
+                    List<BoardData> mList = response.body();
+                    String result = "";
+                    for(BoardData item : mList) {
+                        result += "num: " + item.getNum() + " title: " + item.getTitle() + " question: " + item.getQuestion()
+                                + " answer1: " + item.getAnswer1() + " answer2: " + item.getAnswer2() + " answer3: " + item.getAnswer3() + "\n";
+                    }
+                    textView.setText(result);
+
+
+
+                    textView = (TextView)mView.findViewById(R.id.text);
+                    textView.setText(response.body().toString());
+                } else {
+                    Log.d("log", "Status Code" + response.code());
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<BoardData>> call, Throwable t) {
+                Log.d("log", "Fail");
+            }
+        };
 
     }
+
+     */
 }
