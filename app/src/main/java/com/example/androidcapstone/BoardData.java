@@ -6,7 +6,6 @@ public class BoardData {
 
     Integer num;
 
-
     String title;
     String question;
     String answer1;
