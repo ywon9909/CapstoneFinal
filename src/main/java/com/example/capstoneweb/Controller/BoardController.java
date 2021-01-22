@@ -1,6 +1,7 @@
 package com.example.capstoneweb.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.capstoneweb.model.Board;
@@ -24,5 +25,15 @@ public class BoardController {
     @PostMapping("/board")
     public Board createBoard(@RequestBody Board board) {
         return boardService.createBoard(board);
+    }
+
+
+
+
+    @PutMapping("/board/{no}")
+    public ResponseEntity<Board> updateBoardByNo(
+            @PathVariable Integer no, @RequestBody Board board){
+
+        return boardService.updateBoard(no, board);
     }
 }
