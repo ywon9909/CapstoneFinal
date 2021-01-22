@@ -8,6 +8,7 @@ import com.example.capstoneweb.model.Board;
 import com.example.capstoneweb.service.BoardService;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -38,7 +39,13 @@ public class BoardController {
 
         return boardService.updateBoard(no, board);
     }
+    // delete board
+    @DeleteMapping("/board/{no}")
+    public ResponseEntity<Map<String, Boolean>> deleteBoardByNo(
+            @PathVariable Integer no) {
 
+        return boardService.deleteBoard(no);
+    }
 
 
 }
