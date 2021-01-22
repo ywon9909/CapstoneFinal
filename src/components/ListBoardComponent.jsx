@@ -18,7 +18,7 @@ class ListBoardComponent extends Component {
     }
 
     createBoard(){
-        this.props.history.push('/create-board/');
+        this.props.history.push('/create-board/_create');
     }
 
     render() {
