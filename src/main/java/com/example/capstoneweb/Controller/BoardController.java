@@ -8,6 +8,7 @@ import com.example.capstoneweb.model.Board;
 import com.example.capstoneweb.service.BoardService;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -19,10 +20,11 @@ public class BoardController {
 
     @GetMapping("/board")
     public List<Board> getAllBoards(){
+        System.out.println(boardService.getAllBoard());
         return boardService.getAllBoard();
     }
     @PostMapping("/board")
-    public Board createBoard(@RequestBody Board board){
+    public Board createBoard(@RequestBody Board board) {
         return boardService.createBoard(board);
     }
     @GetMapping("/board/{num}")
@@ -30,5 +32,20 @@ public class BoardController {
             @PathVariable Integer num){
         return boardService.getBoard(num);
     }
-    
+    // update board
+    @PutMapping("/board/{no}")
+    public ResponseEntity<Board> updateBoardByNo(
+            @PathVariable Integer no, @RequestBody Board board){
+
+        return boardService.updateBoard(no, board);
+    }
+    // delete board
+    @DeleteMapping("/board/{no}")
+    public ResponseEntity<Map<String, Boolean>> deleteBoardByNo(
+            @PathVariable Integer no) {
+
+        return boardService.deleteBoard(no);
+    }
+
+
 }
