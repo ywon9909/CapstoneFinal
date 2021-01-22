@@ -9,6 +9,8 @@ class ReadBoardComponent extends Component {
             num:props.match.params.num,
             kin:{}
         }
+        this.goToUpdate = this.goToUpdate.bind(this);
+
     }
 
     componentDidMount(){
@@ -33,6 +35,23 @@ class ReadBoardComponent extends Component {
         event.preventDefault();
         this.props.history.push(`/create-board/${this.state.num}`);
     }
+
+
+
+    deleteView = async function () {
+        if(window.confirm("정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구 할 수 없습니다.")) {
+            BoardService.deleteBoard(this.state.num).then( res => {
+                console.log("delete result => "+ JSON.stringify(res));
+                if (res.status === 200) {
+                    this.props.history.push('/board');
+                } else {
+                    alert("글 삭제가 실패했습니다.");
+                }
+            });
+
+        }
+    }
+
     render() {
         return (
             <div>
