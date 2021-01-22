@@ -19,12 +19,13 @@ public class BoardController {
     private BoardService boardService;
 
     @GetMapping("/board")
-    public List<Board> getAllBoards(){
-        System.out.println(boardService.getAllBoard());
-        return boardService.getAllBoard();
+    public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required=false) Integer p_num) {
+        if (p_num == null || p_num <= 0) p_num = 1;
+
+        return boardService.getPagingBoard(p_num);
     }
     @PostMapping("/board")
-    public Board createBoard(@RequestBody Board board) {
+    public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
     }
     @GetMapping("/board/{num}")
@@ -32,20 +33,5 @@ public class BoardController {
             @PathVariable Integer num){
         return boardService.getBoard(num);
     }
-    // update board
-    @PutMapping("/board/{no}")
-    public ResponseEntity<Board> updateBoardByNo(
-            @PathVariable Integer no, @RequestBody Board board){
-
-        return boardService.updateBoard(no, board);
-    }
-    // delete board
-    @DeleteMapping("/board/{no}")
-    public ResponseEntity<Map<String, Boolean>> deleteBoardByNo(
-            @PathVariable Integer no) {
-
-        return boardService.deleteBoard(no);
-    }
-
-
+    
 }
