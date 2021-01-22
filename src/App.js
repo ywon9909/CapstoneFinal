@@ -18,7 +18,7 @@ function App() {
             <Switch>      
               <Route path = "/" exact component = {ListBoardComponent}></Route>
               <Route path = "/board" component = {ListBoardComponent}></Route>
-              <Route path = "/create-board" component ={CreateBoardComponent}></Route>
+              <Route path = "/create-board/:num" component ={CreateBoardComponent}></Route>
               <Route path = "/read-board/:num" component = {ReadBoardComponent}></Route>
             </Switch>
           </div>

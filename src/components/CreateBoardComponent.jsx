@@ -3,19 +3,22 @@ import BoardService from '../service/BoardService';
 
 
 class CreateBoardComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
+
         this.state={
+            num: this.props.match.params.num,
             title:'',
             question:''
             
         }
+        
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeQuestionHandler = this.changeQuestionHandler.bind(this);
         this.createBoard= this.createBoard.bind(this);
     }
-
+  
     changeTitleHandler = (event) =>{
         this.setState({title:event.target.value});
     }
@@ -29,13 +32,44 @@ class CreateBoardComponent extends Component {
             question:this.state.question
         };
         console.log("board=> "+JSON.stringify(kin));
-        BoardService.createBoard(kin).then(res=>{
-            this.props.history.push('/board');
-        })
+        if (this.state.num === '_create') {
+            BoardService.createBoard(kin).then(res => {
+                this.props.history.push('/board');
+            });
+        } else {
+            BoardService.updateBoard(this.state.num, kin).then(res => {
+                this.props.history.push('/board');
+            });
+        }
+
     
     }
     cancel(){
         this.props.history.push('/board');
+    }
+    getTitle() {
+        if (this.state.num === '_create') {
+            return <h3 className="text-center">새글을 작성해주세요</h3>
+        } else {
+            return <h3 className="text-center">{this.state.num}글을 수정 합니다.</h3>
+        }
+    }
+
+    
+    componentDidMount() {
+        if (this.state.num === '_create') {
+            return
+        } else {
+            BoardService.getOneBoard(this.state.num).then( (res) => {
+                let kin = res.data;
+                console.log("kin => "+ JSON.stringify(kin));
+                
+                this.setState({
+                        title: kin.title,
+                        question:kin.question
+                    });
+            });
+        }
     }
 
     render() {
@@ -56,7 +90,7 @@ class CreateBoardComponent extends Component {
                                     <div className = "form-group">
                                         <label> Question  </label>
                                         <textarea placeholder="question" name="question" className="form-control" 
-                                        value={this.state.contents} onChange={this.changeQuestionHandler}/>
+                                        value={this.state.question} onChange={this.changeQuestionHandler}/>
                                     </div>
                                    
                                     <button className="btn btn-success" onClick={this.createBoard}>Save</button>

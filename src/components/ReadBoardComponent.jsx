@@ -9,6 +9,8 @@ class ReadBoardComponent extends Component {
             num:props.match.params.num,
             kin:{}
         }
+        this.goToUpdate = this.goToUpdate.bind(this);
+
     }
 
     componentDidMount(){
@@ -28,6 +30,26 @@ class ReadBoardComponent extends Component {
 
     goToList(){
         this.props.history.push('/board');
+    }
+    goToUpdate = (event) => {
+        event.preventDefault();
+        this.props.history.push(`/create-board/${this.state.num}`);
+    }
+
+
+
+    deleteView = async function () {
+        if(window.confirm("정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구 할 수 없습니다.")) {
+            BoardService.deleteBoard(this.state.num).then( res => {
+                console.log("delete result => "+ JSON.stringify(res));
+                if (res.status === 200) {
+                    this.props.history.push('/board');
+                } else {
+                    alert("글 삭제가 실패했습니다.");
+                }
+            });
+
+        }
     }
 
     render() {
@@ -52,6 +74,8 @@ class ReadBoardComponent extends Component {
                                 {this.state.kin.answer2}
                             </div>
                             <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{marginLeft:"10px"}}>글 목록으로 이동</button>
+                            <button className="btn btn-info" onClick={this.goToUpdate} style={{marginLeft:"10px"}}>글 수정</button>
+                            <button className="btn btn-danger" onClick={() => this.deleteView()} style={{marginLeft:"10px"}}>글 삭제</button>
                     </div>
                 </div>
             </div>
