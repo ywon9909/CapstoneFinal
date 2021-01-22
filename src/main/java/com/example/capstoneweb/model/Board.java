@@ -16,6 +16,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name="kin")
 @ToString
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

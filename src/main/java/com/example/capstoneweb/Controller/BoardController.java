@@ -31,5 +31,14 @@ public class BoardController {
             @PathVariable Integer num){
         return boardService.getBoard(num);
     }
-    
+    // update board
+    @PutMapping("/board/{no}")
+    public ResponseEntity<Board> updateBoardByNo(
+            @PathVariable Integer no, @RequestBody Board board){
+
+        return boardService.updateBoard(no, board);
+    }
+
+
+
 }

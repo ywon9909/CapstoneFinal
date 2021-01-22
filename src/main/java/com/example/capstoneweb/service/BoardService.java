@@ -21,10 +21,20 @@ public class BoardService {
     public Board createBoard(Board board) {
         return boardRepository.save(board);
     }
-
     public ResponseEntity<Board> getBoard(Integer num){
         Board board = boardRepository.findById(num).orElseThrow(()-> new ResourceNotFoundException("Not exist Board Data by no : ["+num+"]"));
 
         return ResponseEntity.ok(board);
+    }
+    public ResponseEntity<Board> updateBoard(
+            Integer no, Board updatedBoard) {
+        Board board = boardRepository.findById(no)
+                .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : ["+no+"]"));
+        board.setTitle(updatedBoard.getTitle());
+        board.setQuestion(updatedBoard.getQuestion());
+
+
+        Board endUpdatedBoard = boardRepository.save(board);
+        return ResponseEntity.ok(endUpdatedBoard);
     }
 }
