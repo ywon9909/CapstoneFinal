@@ -28,7 +28,7 @@ public class ExpertFragment extends Fragment {
     Retrofit retrofit;
     JsonApi jsonApi;
     List<BoardData> dataList;
-    List<BoardData> dataInfo;
+    //List<BoardData> dataInfo;
 
     View mView;
     RecyclerView recyclerView;
