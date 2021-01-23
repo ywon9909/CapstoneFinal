@@ -36,11 +36,11 @@ public class Board {
     private String answer1;
     @Column(name = "answer2")
     private String answer2;
-    @Column(name = "answer3")
+    /*@Column(name = "answer3")
     private String answer3;
     @Column(name = "answer4")
     private String answer4;
     @Column(name = "answer5")
-    private String answer5;
+    private String answer5;*/
 
 }

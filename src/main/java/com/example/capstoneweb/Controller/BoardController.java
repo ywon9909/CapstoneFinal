@@ -24,6 +24,11 @@ public class BoardController {
 
         return boardService.getPagingBoard(p_num);
     }
+
+    /*@GetMapping("/board")
+    public List<Board> getAllBoard(){
+        return boardService.getAllBoard();
+    }*/
     @PostMapping("/board")
     public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
