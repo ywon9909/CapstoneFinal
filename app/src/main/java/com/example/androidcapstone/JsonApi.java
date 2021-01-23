@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface JsonApi {
-    @GET("/")
+    @GET("/api/mobile/board")
     Call<List<BoardData>> getBoard();
 
 }
