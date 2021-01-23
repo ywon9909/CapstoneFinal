@@ -1,5 +1,12 @@
 package com.example.capstoneweb.util;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class PagingUtil {
 
     Integer currentPageNum;         // 현재 페이지 번호
