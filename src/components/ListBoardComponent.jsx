@@ -67,7 +67,7 @@ class ListBoardComponent extends Component {
     isPagingNext(){
         if(this.state.paging.next){
             return(
-                <li className="pagef-item">
+                <li className="page-item">
                     <a className="page-link" onClick={()=>this.listBoard((this.state.paging.currentPageNum+1))}tabIndex="-1">Next</a>
                 </li>
             );
@@ -77,7 +77,7 @@ class ListBoardComponent extends Component {
         if (this.state.p_num != 0) {//1
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick = {() => this.listBoard(1)} tabIndex="-1">Move to First Page</a>
+                    <a className="page-link" onClick = {() => this.listBoard(1)} >Move to First Page</a>
                 </li>
             );
         }
