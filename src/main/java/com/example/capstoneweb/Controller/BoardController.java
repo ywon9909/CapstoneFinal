@@ -19,16 +19,16 @@ public class BoardController {
     private BoardService boardService;
 
     @GetMapping("/board")
-    public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required=false) Integer p_num) {
+    public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num) {
         if (p_num == null || p_num <= 0) p_num = 1;
-
+        //System.out.println(p_num);
         return boardService.getPagingBoard(p_num);
     }
 
-    /*@GetMapping("/board")
+    @GetMapping("/mobile/board")
     public List<Board> getAllBoard(){
         return boardService.getAllBoard();
-    }*/
+    }
     @PostMapping("/board")
     public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
