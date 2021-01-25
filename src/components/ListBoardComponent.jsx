@@ -86,7 +86,7 @@ class ListBoardComponent extends Component {
         if (this.state.p_num !== this.state.paging.pageNumCountTotal) {
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick = {() => this.listBoard( (this.state.paging.pageNumCountTotal) )} tabIndex="-1">LastPage({this.state.paging.currentPageNum})</a>
+                    <a className="page-link" onClick = {() => this.listBoard( (this.state.paging.pageNumCountTotal) )} tabIndex="-1">LastPage</a>
                 </li>
             );
         }
@@ -95,7 +95,7 @@ class ListBoardComponent extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">Boards List</h2>
+                <h2 className="text-center">자유게시판</h2>
 
                 <div className="row">
                     <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button> 

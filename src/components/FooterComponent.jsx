@@ -13,7 +13,7 @@ class FooterComponent extends Component {
         return (
             <div>
                 <footer className="footer">
-                    <span className="text-muted">Started 2020 </span>
+                    <span className="text-muted">한성대학교 컴퓨터공학부 김예원,김한빛,조하영</span>
 
                 </footer>
             </div>
