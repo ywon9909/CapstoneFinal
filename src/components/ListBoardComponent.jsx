@@ -5,7 +5,7 @@ import BoardService from '../service/BoardService';
 class ListBoardComponent extends Component {
     constructor(props){
         super(props)
-        this.state={
+        this.state={ 
             p_num:1,
             paging:{},
             kins:[]
@@ -14,7 +14,7 @@ class ListBoardComponent extends Component {
     }
 
     componentDidMount(){
-        BoardService.getBoards().then((res)=>{
+        BoardService.getBoards(this.state.p_num).then((res)=>{
             this.setState({
                 p_num:res.data.pagingData.currentPageNum,
                 paging:res.data.pagingData,
@@ -31,8 +31,7 @@ class ListBoardComponent extends Component {
     }
 
     listBoard(p_num){
-        
-        console.log("pageNum : "+p_num);
+        console.log("pageNum : "+ p_num);
         BoardService.getBoards(p_num).then((res)=>{
             console.log(res.data);
             this.setState({
@@ -40,6 +39,7 @@ class ListBoardComponent extends Component {
                 paging:res.data.pagingData,
                 kins:res.data.list});
         });
+        //this.props.history.push(`?p_num=${p_num}`);
     }
 
     viewPaging(){
@@ -74,7 +74,7 @@ class ListBoardComponent extends Component {
         }
     }
     isMoveToFirstPage() {
-        if (this.state.p_num != 0) {//1
+        if (this.state.p_num !== 0) {//1
             return (
                 <li className="page-item">
                     <a className="page-link" onClick = {() => this.listBoard(1)} >Move to First Page</a>
@@ -83,10 +83,10 @@ class ListBoardComponent extends Component {
         }
     }
     isMoveToLastPage() {
-        if (this.state.p_num != this.state.paging.pageNumCountTotal) {
+        if (this.state.p_num !== this.state.paging.pageNumCountTotal) {
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick = {() => this.listBoard( (this.state.paging.pageNumCountTotal) )} tabIndex="-1">LastPage({this.state.paging.pageNumCountTotal})</a>
+                    <a className="page-link" onClick = {() => this.listBoard( (this.state.paging.pageNumCountTotal) )} tabIndex="-1">LastPage</a>
                 </li>
             );
         }
@@ -95,7 +95,7 @@ class ListBoardComponent extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">Boards List</h2>
+                <h2 className="text-center">자유게시판</h2>
 
                 <div className="row">
                     <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button> 
