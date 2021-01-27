@@ -70,7 +70,7 @@ public class ExpertFragment extends Fragment {
                     //textView = (TextView)mView.findViewById(R.id.text);
                     //textView.setText(response.body().toString());
                 } else {
-                    Log.d("log", "Status Code" + response.code());
+                    Log.d("log", "Status Code " + response.code());
                 }
             }
             @Override
