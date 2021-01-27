@@ -27,17 +27,17 @@ class CreateBoardComponent extends Component {
     }
     createBoard = (event) =>{
         event.preventDefault();
-        let kin = {
+        let board = {
             title:this.state.title,
             question:this.state.question
         };
-        console.log("board=> "+JSON.stringify(kin));
+        console.log("board=> "+JSON.stringify(board));
         if (this.state.num === '_create') {
-            BoardService.createBoard(kin).then(res => {
+            BoardService.createBoard(board).then(res => {
                 this.props.history.push('/board');
             });
         } else {
-            BoardService.updateBoard(this.state.num, kin).then(res => {
+            BoardService.updateBoard(this.state.num, board).then(res => {
                 this.props.history.push('/board');
             });
         }
@@ -61,12 +61,12 @@ class CreateBoardComponent extends Component {
             return
         } else {
             BoardService.getOneBoard(this.state.num).then( (res) => {
-                let kin = res.data;
-                console.log("kin => "+ JSON.stringify(kin));
+                let board = res.data;
+                console.log("board => "+ JSON.stringify(board));
                 
                 this.setState({
-                        title: kin.title,
-                        question:kin.question
+                        title: board.title,
+                        question:board.question
                     });
             });
         }
