@@ -8,7 +8,7 @@ class ListBoardComponent extends Component {
         this.state={ 
             p_num:1,
             paging:{},
-            kins:[]
+            boards:[]
         }
         this.createBoard = this.createBoard.bind(this);
     }
@@ -18,7 +18,7 @@ class ListBoardComponent extends Component {
             this.setState({
                 p_num:res.data.pagingData.currentPageNum,
                 paging:res.data.pagingData,
-                kins:res.data.list
+                boards:res.data.list
             });
         })
     }
@@ -37,7 +37,7 @@ class ListBoardComponent extends Component {
             this.setState({
                 p_num:res.data.pagingData.currentPageNum,
                 paging:res.data.pagingData,
-                kins:res.data.list});
+                boards:res.data.list});
         });
         //this.props.history.push(`?p_num=${p_num}`);
     }
@@ -67,7 +67,7 @@ class ListBoardComponent extends Component {
     isPagingNext(){
         if(this.state.paging.next){
             return(
-                <li className="pagef-item">
+                <li className="page-item">
                     <a className="page-link" onClick={()=>this.listBoard((this.state.paging.currentPageNum+1))}tabIndex="-1">Next</a>
                 </li>
             );
@@ -77,7 +77,7 @@ class ListBoardComponent extends Component {
         if (this.state.p_num !== 0) {//1
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick = {() => this.listBoard(1)} tabIndex="-1">Move to First Page</a>
+                    <a className="page-link" onClick = {() => this.listBoard(1)} >Move to First Page</a>
                 </li>
             );
         }
@@ -113,11 +113,13 @@ class ListBoardComponent extends Component {
                         <tbody>
                             
                             {
-                                this.state.kins.map(
-                                    kin=>
-                                    <tr key ={kin.num}>
-                                        <td>{kin.num}</td>
-                                        <td> <a onClick ={()=> this.readBoard(kin.num)}>{kin.title}</a></td>
+                                this.state.boards.map(
+                                    board=>
+                                    <tr key ={board.BoardNo}>
+                                        <td> <a onClick ={()=> this.readBoard(board.BoardNo)}>{board.Title}</a></td>
+                                        <td>{board.Date}</td>
+                                        <td>{board.Like}</td>
+                                        <td>{board.ID}</td>
                             
                                     </tr>
                                 )
