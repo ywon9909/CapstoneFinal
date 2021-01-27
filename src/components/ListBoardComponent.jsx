@@ -8,7 +8,7 @@ class ListBoardComponent extends Component {
         this.state={ 
             p_num:1,
             paging:{},
-            kins:[]
+            boards:[]
         }
         this.createBoard = this.createBoard.bind(this);
     }
@@ -18,7 +18,7 @@ class ListBoardComponent extends Component {
             this.setState({
                 p_num:res.data.pagingData.currentPageNum,
                 paging:res.data.pagingData,
-                kins:res.data.list
+                boards:res.data.list
             });
         })
     }
@@ -37,7 +37,7 @@ class ListBoardComponent extends Component {
             this.setState({
                 p_num:res.data.pagingData.currentPageNum,
                 paging:res.data.pagingData,
-                kins:res.data.list});
+                boards:res.data.list});
         });
         //this.props.history.push(`?p_num=${p_num}`);
     }
@@ -113,11 +113,13 @@ class ListBoardComponent extends Component {
                         <tbody>
                             
                             {
-                                this.state.kins.map(
-                                    kin=>
-                                    <tr key ={kin.num}>
-                                        <td>{kin.num}</td>
-                                        <td> <a onClick ={()=> this.readBoard(kin.num)}>{kin.title}</a></td>
+                                this.state.boards.map(
+                                    board=>
+                                    <tr key ={board.BoardNo}>
+                                        <td> <a onClick ={()=> this.readBoard(board.BoardNo)}>{board.Title}</a></td>
+                                        <td>{board.Date}</td>
+                                        <td>{board.Like}</td>
+                                        <td>{board.ID}</td>
                             
                                     </tr>
                                 )
