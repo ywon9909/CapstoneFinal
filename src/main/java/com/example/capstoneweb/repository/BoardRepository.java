@@ -8,15 +8,16 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     public final static String SELECT_BOARD_LIST_PAGED = ""
-            + "SELECT "
-            + "num,"
-            + "title,"
-            + "question,"
-            + "answer1,"
-            + "answer2 "
-            + "FROM kin WHERE 0 < num "
-            + "ORDER BY num DESC LIMIT ?1, ?2 ";
-
+            + "SELECT  "
+            + "Board.BoardNo,"
+            + "Board.Title,"
+            + "Board.Question, "
+            + "Board.Date, "
+            + "Board.Like, "
+            + "Board.Category, "
+            + "Board.ID "
+            + "FROM Board  WHERE 0 < Board.BoardNo "
+            + "ORDER BY Board.BoardNo DESC LIMIT ?1, ?2 ";
 
     @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
     List<Board> findFromTo(
