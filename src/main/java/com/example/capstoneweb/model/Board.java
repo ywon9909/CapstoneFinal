@@ -13,7 +13,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
-@Table(name="kin")
+@Table(name="Board")
 @ToString
 @Getter
 @Setter
@@ -23,24 +23,22 @@ import org.hibernate.annotations.DynamicUpdate;
 public class Board {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="num")
-    private Integer num;
+    @Column(name="BoardNo")
+    private Integer BoardNo;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "Title")
+    private String Title;
 
-    @Column(name = "question")
-    private String question;
+    @Column(name = "Question")
+    private String Question;
 
-    @Column(name = "answer1")
-    private String answer1;
-    @Column(name = "answer2")
-    private String answer2;
-    /*@Column(name = "answer3")
-    private String answer3;
-    @Column(name = "answer4")
-    private String answer4;
-    @Column(name = "answer5")
-    private String answer5;*/
+    @Column(name = "Date")
+    private Date Date;
+    @Column(name = "Like")
+    private Integer Like;
+    @Column(name="Category")
+    private String Category;
+    @Column(name = "ID")
+    private String ID;
 
 }
