@@ -21,7 +21,7 @@ public class BoardController {
     @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num) {
         if (p_num == null || p_num <= 0) p_num = 1;
-        //System.out.println(p_num);
+        // System.out.println(p_num);
         return boardService.getPagingBoard(p_num);
     }
 

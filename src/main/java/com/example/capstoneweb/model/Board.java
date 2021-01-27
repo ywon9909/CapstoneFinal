@@ -23,22 +23,22 @@ import org.hibernate.annotations.DynamicUpdate;
 public class Board {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="BoardNo")
-    private Integer BoardNo;
+    @Column(name="board_no")
+    private Integer board_no;
 
-    @Column(name = "Title")
-    private String Title;
+    @Column(name = "title")
+    private String title;
 
-    @Column(name = "Question")
-    private String Question;
+    @Column(name = "question")
+    private String question;
 
-    @Column(name = "Date")
-    private Date Date;
-    @Column(name = "Like")
-    private Integer Like;
-    @Column(name="Category")
-    private String Category;
-    @Column(name = "ID")
-    private String ID;
+    @Column(name = "board_date")
+    private Date board_date;
+    @Column(name = "board_like")
+    private Integer board_like;
+    @Column(name="category")
+    private String category;
+    @Column(name = "id")
+    private String id;
 
 }
