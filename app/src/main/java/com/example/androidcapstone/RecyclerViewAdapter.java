@@ -34,7 +34,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         holder.board_no.setText(dataList.get(position).getBoard_no().toString());
         holder.title.setText(dataList.get(position).getTitle());
-        holder.board_date.setText(dataList.get(position).getBoard_date().toString());
+        //holder.board_date.setText(dataList.get(position).getBoard_date().toString());
+
+        String str = dataList.get(position).getBoard_date().toString();
+        String date = str.substring(0, str.indexOf("T"));
+        String time = str.substring(2, str.indexOf("T"));
+        holder.board_date.setText(date + " " + time);
 
 
         /*
@@ -58,11 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 //c.startActivity(intent); ...?
             }
         });
-
-
          */
-
-
 
     }
 

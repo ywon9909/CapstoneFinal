@@ -28,12 +28,11 @@ public class ExpertFragment extends Fragment {
     Retrofit retrofit;
     JsonApi jsonApi;
     List<BoardData> dataList;
-    //List<BoardData> dataInfo;
 
     View mView;
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
-    //TextView textView;
+    TextView textView;
 
     static final String URL = "http://192.168.35.91:8080";
 
@@ -42,7 +41,6 @@ public class ExpertFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_expert, container, false);
 
-        //dataInfo = new ArrayList<>();
         recyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
 
 
@@ -61,11 +59,12 @@ public class ExpertFragment extends Fragment {
                     dataList = response.body();
                     Log.d("ExpertFragment", dataList.toString());
 
-                    //dataInfo = dataList.body;
 
-                    recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), dataList);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), dataList);
                     recyclerView.setAdapter(recyclerViewAdapter);
+
+
 
                     //textView = (TextView)mView.findViewById(R.id.text);
                     //textView.setText(response.body().toString());
@@ -76,6 +75,7 @@ public class ExpertFragment extends Fragment {
             @Override
             public void onFailure(Call<List<BoardData>> call, Throwable t) {
                 Log.d("log", "Fail");
+                //t.printStackTrace();
             }
         };
         jsonApi.getBoard().enqueue(callback);
