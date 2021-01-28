@@ -8,6 +8,7 @@ class ReadBoardComponent extends Component {
         this.state = {
             num: props.match.params.num,
             board: {}
+            
         }
         this.goToUpdate = this.goToUpdate.bind(this);
 
@@ -15,7 +16,9 @@ class ReadBoardComponent extends Component {
 
     componentDidMount() {
         BoardService.getOneBoard(this.state.num).then(res => {
-            this.setState({ board: res.data });
+            this.setState({ 
+                board: res.data
+             });
         });
     }
 
@@ -24,6 +27,19 @@ class ReadBoardComponent extends Component {
         return (
             <div className="row">
                 <label>Board type : </label> {type}
+            </div>
+        )
+    }
+    returnDate(board_date) {
+        const dateString=board_date+""
+        let y= dateString.split("T"); //날짜 , 시간.00:00:00
+        let yymmdd= y[0];
+        let t=y[1]+"";
+        let tt=t.split(".");
+        let hhmmss=tt[0];
+        return (
+            <div className = "row">
+                <label>  [ {yymmdd}, {hhmmss} ] </label>
             </div>
         )
     }
@@ -55,30 +71,33 @@ class ReadBoardComponent extends Component {
     render() {
         return (
             <div>
-                <div className="card col-md-6 offset-md-3">
-                    <h3 className="text-center"> {this.state.board.Title}</h3>
+                <div className="card col-md-10 offset-md-1">
+                    <h3 className="text-center"> {this.state.board.title}</h3>
                     <div className="card-body">
 
                         <div className="row">
-                            <label> Board Type : </label> {this.state.board.Category} 
+                            <label> Board Type : </label> {this.state.board.category} 
                         </div>
 
                         <div className="row">
-                            <label> Title </label> : {this.state.board.Title}
+                            <label> Title </label> : {this.state.board.title}
                         </div>
                         <div className="row">
                             <label> Question </label> : <br></br>
-                            {this.state.board.Question}
+                            {this.state.board.question}
                         </div >
-                        {/*<div className = "row">
-                                <label> Answer  </label>: 
-                                {this.state.board.answer1}
-                                
-                                {this.state.board.answer2}
-                            </div>*/}
+                        <div className="row">
+                            {this.returnDate(this.state.board.board_date)}
+                        </div>
+                        
                         <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>글 목록으로 이동</button>
                         <button className="btn btn-info" onClick={this.goToUpdate} style={{ marginLeft: "10px" }}>글 수정</button>
                         <button className="btn btn-danger" onClick={() => this.deleteView()} style={{ marginLeft: "10px" }}>글 삭제</button>
+                    </div>
+                </div>
+                <div className="card col-md-10 offset-md-1">
+                    <div className="row">
+                        <label> Answer </label> : comment.answer 추가
                     </div>
                 </div>
             </div>
