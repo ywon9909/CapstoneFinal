@@ -20,7 +20,7 @@ public class BoardController {
 
     @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num,@RequestParam(value="category") String category) {
-        String cate = null;
+        //String cate = null;
         if (p_num == null || p_num <= 0) p_num = 1;
         System.out.println(category);
         if(category==null)
