@@ -23,7 +23,7 @@ public class PagingUtil {
 
     Boolean isPrev;                 // 이전 페이지 표시 여부
     Boolean isNext;                 // 다음 페이지 표시여부
-
+String category;
 
     /**
      * 생성자 1;
@@ -35,7 +35,7 @@ public class PagingUtil {
         this.currentPageNum = 1;
         this.objectCountPerPage = 10;
         this.pageNumCountPerPage = 10;
-
+this.category="성형외과";
         setObjectStartAndEnd();
     }
 
@@ -51,7 +51,7 @@ public class PagingUtil {
         this.currentPageNum = (0 < currentPageNum) ? currentPageNum : 1 ;
         this.objectCountPerPage = 10;
         this.pageNumCountPerPage = 10;
-
+        this.category="성형외과";
         setObjectStartAndEnd();
     }
 
@@ -68,10 +68,16 @@ public class PagingUtil {
         this.currentPageNum = (0 < currentPageNum) ? currentPageNum : 1 ;
         this.objectCountPerPage = (0 < objectCountPerPage) ? objectCountPerPage : 10 ;
         this.pageNumCountPerPage = (0 < pageNumCountPerPage) ? pageNumCountPerPage : 10 ;
-
+        this.category="성형외과";
         setObjectStartAndEnd();
     }
-
+    public PagingUtil(String category,int currentPageNum, int objectCountPerPage, int pageNumCountPerPage) {
+        this.currentPageNum = (0 < currentPageNum) ? currentPageNum : 1 ;
+        this.objectCountPerPage = (0 < objectCountPerPage) ? objectCountPerPage : 10 ;
+        this.pageNumCountPerPage = (0 < pageNumCountPerPage) ? pageNumCountPerPage : 10 ;
+        this.category=(null== category) ? category: "성형외과";
+        setObjectStartAndEnd();
+    }
     /**
      * 한 화면에 표시되는 오브젝트의 시작과 마지막을 설정한다.
      *
@@ -79,7 +85,6 @@ public class PagingUtil {
     public void setObjectStartAndEnd() {
         this.objectEndNum = currentPageNum * objectCountPerPage;
         this.objectStartNum = (objectEndNum - 1) - (objectCountPerPage - 1);
-
     }
 
     public boolean setCalcForPaging(Integer objectCountTotal) {

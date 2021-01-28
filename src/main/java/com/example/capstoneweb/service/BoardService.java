@@ -34,11 +34,11 @@ public class BoardService {
         return ResponseEntity.ok(board);
     }
 
-    public ResponseEntity<Map> getPagingBoard(Integer p_num) {
+    public ResponseEntity<Map> getPagingBoard(String category,Integer p_num) {
         Map result = null;
 
-        PagingUtil pu = new PagingUtil(p_num, 5, 5); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
-        List<Board> list = boardRepository.findFromTo(pu.getObjectStartNum(), pu.getObjectCountPerPage());//
+        PagingUtil pu = new PagingUtil(category,p_num, 5, 5); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        List<Board> list = boardRepository.findFromTo(category,pu.getObjectStartNum(), pu.getObjectCountPerPage());//
         pu.setObjectCountTotal(findAllCount());
         pu.setCalcForPaging();
 
@@ -51,11 +51,33 @@ public class BoardService {
         }
 
         result = new HashMap<>();
+        result.put("category",category);
         result.put("pagingData", pu);
         result.put("list", list);
 
         return ResponseEntity.ok(result);
     }
+
+
+    public ResponseEntity<Map> getPagingBoard2(String category) {
+
+        Map results = null;
+        results = new HashMap<>();
+        results.put("category",category);
+        List<Board> list = boardRepository.findFromToMobile(category);//
+
+
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+
+        results = new HashMap<>();
+        results.put("category",category);
+        results.put("list", list);
+
+        return ResponseEntity.ok(results);
+    }
+
     public ResponseEntity<Board> updateBoard(
             Integer no, Board updatedBoard) {
         Board board = boardRepository.findById(no)
