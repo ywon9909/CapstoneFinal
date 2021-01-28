@@ -18,7 +18,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             + "id "
             + "FROM board  WHERE 0 < board_no "
             + "and category = ?1 "
-            //+ "and category =" +"'"+"정형외과"+"'"
+            //+ "and category =" +"'"+"정형외과"+"' "
             + "ORDER BY board_no DESC LIMIT ?2, ?3 ";
 
     public final static String SELECT_BOARD_LIST_PAGED2 = ""
