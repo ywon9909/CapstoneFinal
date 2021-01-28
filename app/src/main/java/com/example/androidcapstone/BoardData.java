@@ -9,7 +9,7 @@ public class BoardData {
     Integer board_no;
     String title;
     String question;
-    Time board_date;
+    String board_date;
     Integer board_like;
     String category;
     String board_id;
@@ -38,11 +38,11 @@ public class BoardData {
         this.question = question;
     }
 
-    public Time getBoard_date() {
+    public String getBoard_date() {
         return board_date;
     }
 
-    public void setBoard_date(Time board_date) {
+    public void setBoard_date(String board_date) {
         this.board_date = board_date;
     }
 
