@@ -57,6 +57,27 @@ public class BoardService {
 
         return ResponseEntity.ok(result);
     }
+
+
+    public ResponseEntity<Map> getPagingBoard2(String category) {
+
+        Map results = null;
+        results = new HashMap<>();
+        results.put("category",category);
+        List<Board> list = boardRepository.findFromToMobile(category);//
+
+
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+
+        results = new HashMap<>();
+        results.put("category",category);
+        results.put("list", list);
+
+        return ResponseEntity.ok(results);
+    }
+
     public ResponseEntity<Board> updateBoard(
             Integer no, Board updatedBoard) {
         Board board = boardRepository.findById(no)
