@@ -32,8 +32,8 @@ public class BoardController {
     }
 
     @GetMapping("/mobile/board")
-    public List<Board> getAllBoard(){
-        return boardService.getAllBoard();
+    public ResponseEntity<Map> getAllBoard(@RequestParam(value="category") String category){
+        return boardService.getPagingBoard2(category);
     }
 
     @PostMapping("/board")
