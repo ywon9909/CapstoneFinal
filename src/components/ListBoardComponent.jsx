@@ -7,18 +7,22 @@ class ListBoardComponent extends Component {
         super(props)
         this.state={ 
             p_num:1,
+            category:props.match.params.category,
             paging:{},
             boards:[]
+            
         }
         this.createBoard = this.createBoard.bind(this);
     }
 
     componentDidMount(){
-        BoardService.getBoards(this.state.p_num).then((res)=>{
+        BoardService.getBoards(this.state.category,this.state.p_num).then((res)=>{
             this.setState({
                 p_num:res.data.pagingData.currentPageNum,
+                category:this.state.category,
                 paging:res.data.pagingData,
                 boards:res.data.list
+                
             });
         })
     }
@@ -30,16 +34,31 @@ class ListBoardComponent extends Component {
         this.props.history.push(`/read-board/${num}`);
     }
 
-    listBoard(p_num){
+    listBoard(category,p_num){
         console.log("pageNum : "+ p_num);
-        BoardService.getBoards(p_num).then((res)=>{
+        BoardService.getBoards(category,p_num).then((res)=>{
             console.log(res.data);
             this.setState({
                 p_num:res.data.pagingData.currentPageNum,
+                category:this.state.category,
                 paging:res.data.pagingData,
                 boards:res.data.list});
         });
         //this.props.history.push(`?p_num=${p_num}`);
+    }
+
+    returnDate(board_date) {
+        const dateString=board_date+""
+        let y= dateString.split("T"); //날짜 , 시간.00:00:00
+        let yymmdd= y[0];
+        let t=y[1]+"";
+        let tt=t.split(".");
+        let hhmmss=tt[0];
+        return (
+            <div className = "row">
+                <label> [ {yymmdd}, {hhmmss} ] </label>
+            </div>
+        )
     }
 
     viewPaging(){
@@ -49,7 +68,7 @@ class ListBoardComponent extends Component {
         }
         return(pageNums.map((page)=> 
         <li className="page-item" key={page.toString()}>
-            <a className="page-link" onClick={()=> this.listBoard(page)}>{page}</a>
+            <a className="page-link" onClick={()=> this.listBoard(this.state.category,page)}>{page}</a>
         </li>
         ));
     }
@@ -58,7 +77,7 @@ class ListBoardComponent extends Component {
         if(this.state.paging.prev){
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick={()=>this.listBoard((this.state.paging.currentPageNum-1))} tabIndex="-1">Previous</a>
+                    <a className="page-link" onClick={()=>this.listBoard((this.state.category,this.state.paging.currentPageNum-1))} tabIndex="-1">Previous</a>
                 </li>
             );
         }
@@ -68,7 +87,7 @@ class ListBoardComponent extends Component {
         if(this.state.paging.next){
             return(
                 <li className="page-item">
-                    <a className="page-link" onClick={()=>this.listBoard((this.state.paging.currentPageNum+1))}tabIndex="-1">Next</a>
+                    <a className="page-link" onClick={()=>this.listBoard((this.state.category,this.state.paging.currentPageNum+1))}tabIndex="-1">Next</a>
                 </li>
             );
         }
@@ -77,7 +96,7 @@ class ListBoardComponent extends Component {
         if (this.state.p_num !== 0) {//1
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick = {() => this.listBoard(1)} >Move to First Page</a>
+                    <a className="page-link" onClick = {() => this.listBoard(this.state.category,1)} >Move to First Page</a>
                 </li>
             );
         }
@@ -86,7 +105,7 @@ class ListBoardComponent extends Component {
         if (this.state.p_num !== this.state.paging.pageNumCountTotal) {
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick = {() => this.listBoard( (this.state.paging.pageNumCountTotal) )} tabIndex="-1">LastPage</a>
+                    <a className="page-link" onClick = {() => this.listBoard( (this.state.category,this.state.paging.pageNumCountTotal) )} tabIndex="-1">LastPage</a>
                 </li>
             );
         }
@@ -95,7 +114,7 @@ class ListBoardComponent extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">자유게시판</h2>
+                <h2 className="text-center">{this.state.category}</h2>
 
                 <div className="row">
                     <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button> 
@@ -105,9 +124,11 @@ class ListBoardComponent extends Component {
                     <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>글 번호</th>
-                                <th>타이틀</th>
                                
+                                <th>타이틀</th>
+                                <th>작성날짜</th>
+                                <th>좋아요</th>
+                                <th>작성자</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,11 +136,11 @@ class ListBoardComponent extends Component {
                             {
                                 this.state.boards.map(
                                     board=>
-                                    <tr key ={board.BoardNo}>
-                                        <td> <a onClick ={()=> this.readBoard(board.BoardNo)}>{board.Title}</a></td>
-                                        <td>{board.Date}</td>
-                                        <td>{board.Like}</td>
-                                        <td>{board.ID}</td>
+                                    <tr key ={board.board_no}>
+                                        <td> <a onClick ={()=> this.readBoard(board.board_no)}>{board.title}</a></td>
+                                        <td>{this.returnDate(board.board_date)}</td> 
+                                        <td>{board.board_like}</td>
+                                        <td>{board.id}</td>
                             
                                     </tr>
                                 )
