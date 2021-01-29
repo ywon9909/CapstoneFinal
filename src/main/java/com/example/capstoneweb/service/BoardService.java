@@ -66,6 +66,16 @@ public class BoardService {
 
         return ResponseEntity.ok(result);
     }
+
+
+    public List<Board> getPagingBoard2(String category) {
+
+        List<Board> list = boardRepository.findFromToMobile(category);//
+
+
+        return boardRepository.findFromToMobile(category);
+    }
+
     public ResponseEntity<Board> updateBoard(
             Integer no, Board updatedBoard) {
         Board board = boardRepository.findById(no)

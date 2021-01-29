@@ -33,14 +33,15 @@ public class BoardController {
     }
 
     @GetMapping("/mobile/board")
-    public List<Board> getAllBoard(){
-        return boardService.getAllBoard();
+    public List<Board>getAllBoard(@RequestParam(value="category") String category){
+        return boardService.getPagingBoard2(category);
     }
     //create board
     @PostMapping("/board")
     public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
     }
+
     //get board detail
     @GetMapping("/board/{num}")
     public ResponseEntity<Board> getBoardByNum(@PathVariable Integer num){
