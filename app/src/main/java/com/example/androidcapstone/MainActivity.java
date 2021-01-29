@@ -10,6 +10,8 @@ import com.example.androidcapstone.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    // 하단 바 눌렀을 떄 처리해주는 곳
+
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment;
     ArticleMenuFragment articleMenuFragment;

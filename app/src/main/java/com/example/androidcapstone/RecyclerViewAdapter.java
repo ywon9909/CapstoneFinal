@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+    // 글 목록에 글 번호, 제목, 질문, 날짜+시각 보여주게 하는 리사이클러뷰
 
     private Context c;
     private List<BoardData> dataList;
@@ -42,9 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // time 다시 구현해야 됨
         holder.board_date.setText(date + " " + time);
 
-
         /*
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,17 +53,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 //intent.putExtra("num", dataList.get(position).getNum());
                 intent.putExtra("title", dataList.get(position).getTitle());
                 intent.putExtra("question", dataList.get(position).getQuestion());
-                intent.putExtra("answer1", dataList.get(position).getAnswer1());
-                intent.putExtra("answer2", dataList.get(position).getAnswer2());
-                intent.putExtra("answer3", dataList.get(position).getAnswer3());
-                intent.putExtra("answer4", dataList.get(position).getAnswer4());
-                intent.putExtra("answer5", dataList.get(position).getAnswer5());
 
                 //v.getContext().startActivity(intent); ...?
                 //c.startActivity(intent); ...?
             }
         });
-         */
+        */
 
     }
 
@@ -93,11 +87,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             /*
             intent.putExtra("title", dataList.get(position).getTitle());
             intent.putExtra("question", dataList.get(position).getQuestion());
-            intent.putExtra("answer1", dataList.get(position).getAnswer1());
-            intent.putExtra("answer2", dataList.get(position).getAnswer2());
-            intent.putExtra("answer3", dataList.get(position).getAnswer3());
-            intent.putExtra("answer4", dataList.get(position).getAnswer4());
-            intent.putExtra("answer5", dataList.get(position).getAnswer5());
             */
             v.getContext().startActivity(intent);
 

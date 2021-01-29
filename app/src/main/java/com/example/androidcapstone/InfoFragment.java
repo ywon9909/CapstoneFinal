@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 
 public class InfoFragment extends Fragment {
+    // 회원 정보 화면
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
