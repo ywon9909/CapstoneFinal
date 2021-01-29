@@ -44,21 +44,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.board_date.setText(date + " " + time);
 
         /*
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
 
                 Intent intent = new Intent(v.getContext(), ArticleDetail.class);
-                //intent.putExtra("num", dataList.get(position).getNum());
                 intent.putExtra("title", dataList.get(position).getTitle());
-                intent.putExtra("question", dataList.get(position).getQuestion());
+                //intent.putExtra("question", dataList.get(position).getQuestion());
+                //Log.i("values", values[(int) id].toString());
 
                 //v.getContext().startActivity(intent); ...?
                 //c.startActivity(intent); ...?
+
             }
         });
-        */
+
+         */
 
     }
 
