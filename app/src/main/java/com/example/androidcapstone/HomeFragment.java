@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 
 public class HomeFragment extends Fragment {
+    // 홈 화면
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -25,6 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ExpertFragment extends Fragment {
+    // 글 목록
+
     Retrofit retrofit;
     JsonApi jsonApi;
     List<BoardData> dataList;

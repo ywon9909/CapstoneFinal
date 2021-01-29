@@ -11,6 +11,7 @@ import com.example.androidcapstone.databinding.ActivityArticleDetailBinding;
 import org.w3c.dom.Text;
 
 public class ArticleDetail extends AppCompatActivity {
+    // 글 목록의 아이템을 누르면 나오는 글 상세 화면
     ActivityArticleDetailBinding binding;
 
     @Override
@@ -37,20 +38,7 @@ public class ArticleDetail extends AppCompatActivity {
         String mQuestion = intent.getExtras().getString("question");
         question.setText(mQuestion);
 
-        String mAnswer1 = intent.getExtras().getString("answer1");
-        answer1.setText(mAnswer1);
 
-        String mAnswer2 = intent.getExtras().getString("answer2");
-        answer2.setText(mAnswer2);
-
-        String mAnswer3 = intent.getExtras().getString("answer3");
-        answer3.setText(mAnswer3);
-
-        String mAnswer4 = intent.getExtras().getString("answer4");
-        answer4.setText(mAnswer4);
-
-        String mAnswer5 = intent.getExtras().getString("answer5");
-        answer5.setText(mAnswer5);
 
 
 
