@@ -2,7 +2,9 @@ package com.example.capstoneweb.service;
 
 import com.example.capstoneweb.exception.ResourceNotFoundException;
 import com.example.capstoneweb.model.Board;
+import com.example.capstoneweb.model.Comment;
 import com.example.capstoneweb.repository.BoardRepository;
+import com.example.capstoneweb.repository.CommentRepository;
 import com.example.capstoneweb.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     public int findAllCount() {
         return (int) boardRepository.count();
@@ -27,11 +31,16 @@ public class BoardService {
     public Board createBoard(Board board){
         return boardRepository.save(board);
     }
-
+    //get board detail
     public ResponseEntity<Board> getBoard(Integer num){
         Board board = boardRepository.findById(num).orElseThrow(()-> new ResourceNotFoundException("Not exist Board Data by no : ["+num+"]"));
 
         return ResponseEntity.ok(board);
+    }
+    public ResponseEntity<Comment> getComment(Integer num){
+        Comment comment=commentRepository.findCommentBy(num);
+
+        return ResponseEntity.ok(comment);
     }
 
     public ResponseEntity<Map> getPagingBoard(String category,Integer p_num) {
@@ -43,8 +52,8 @@ public class BoardService {
         pu.setCalcForPaging();
 
 
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
+        //System.out.println("p_num : "+p_num);
+        //System.out.println(pu.toString());
 
         if (list == null || list.size() == 0) {
             return null;

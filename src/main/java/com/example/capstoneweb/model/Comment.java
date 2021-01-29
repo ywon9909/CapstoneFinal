@@ -23,14 +23,17 @@ public class Comment{
 
     @Column(name = "answer")
     private String answer;
-    @Column(name = "aomment_date")
+    @Column(name = "comment_date")
     private Date comment_date;
     @Column(name = "comment_like")
     private Integer comment_like;
-    @Column(name = "board_no")
-    private Integer board_no;
+
     @Column(name = "comment_id")
     private String comment_id;
+
+    @Column(name = "board_no")
+    private Integer board_no;
+
     @Column(name = "board_id")
     private String board_id;
 
