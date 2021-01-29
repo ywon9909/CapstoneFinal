@@ -20,7 +20,7 @@ public class BoardController {
 
     @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num,@RequestParam(value="category") String category) {
-        String cate = null;
+        //String cate = null;
         if (p_num == null || p_num <= 0) p_num = 1;
         System.out.println(category);
         if(category==null)
@@ -32,7 +32,7 @@ public class BoardController {
     }
 
     @GetMapping("/mobile/board")
-    public ResponseEntity<Map> getAllBoard(@RequestParam(value="category") String category){
+    public List<Board>getAllBoard(@RequestParam(value="category") String category){
         return boardService.getPagingBoard2(category);
     }
 
@@ -40,6 +40,7 @@ public class BoardController {
     public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
     }
+
     @GetMapping("/board/{num}")
     public ResponseEntity<Board> getBoardByNum(
             @PathVariable Integer num){
