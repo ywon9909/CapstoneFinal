@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name="Board")

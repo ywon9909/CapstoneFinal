@@ -2,13 +2,10 @@ package com.example.capstoneweb.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name="Member")
+@Table(name="member")
 @ToString
 @Getter
 @Setter
@@ -17,15 +14,15 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Member {
     @Id
-    @Column(name="ID")
-    private String ID;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private String id;
 
-    @Column(name="PW")
-    private String PW;
-    @Column(name = "Nickname")
-    private String Nickname;
-    @Column(name ="Phone")
-    private String Phone;
+    @Column(name="pw")
+    private String pw;
+    @Column(name = "nickname")
+    private String nickname;
+    @Column(name ="phone")
+    private String phone;
     @Column(name = "Doc")
     private boolean Doc;
 }

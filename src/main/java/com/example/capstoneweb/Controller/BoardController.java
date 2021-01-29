@@ -1,5 +1,6 @@
 package com.example.capstoneweb.Controller;
 
+import com.example.capstoneweb.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class BoardController {
 
     @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num,@RequestParam(value="category") String category) {
-        String cate = null;
+        //String cate = null;
         if (p_num == null || p_num <= 0) p_num = 1;
         System.out.println(category);
         if(category==null)
@@ -32,18 +33,25 @@ public class BoardController {
     }
 
     @GetMapping("/mobile/board")
-    public ResponseEntity<Map> getAllBoard(@RequestParam(value="category") String category){
+    public List<Board>getAllBoard(@RequestParam(value="category") String category){
         return boardService.getPagingBoard2(category);
     }
-
+    //create board
     @PostMapping("/board")
     public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
     }
+
+    //get board detail
     @GetMapping("/board/{num}")
-    public ResponseEntity<Board> getBoardByNum(
-            @PathVariable Integer num){
+    public ResponseEntity<Board> getBoardByNum(@PathVariable Integer num){
         return boardService.getBoard(num);
+    }
+    //get comment
+    @GetMapping("/board/comment/{num}")
+    public ResponseEntity<Comment> getCommentByNum(
+            @PathVariable Integer num){
+        return  boardService.getComment(num);
     }
     // update board
     @PutMapping("/board/{no}")

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="Comment")
+@Table(name="comment")
 @ToString
 @Getter
 @Setter
@@ -17,23 +17,25 @@ import java.util.Date;
 public class Comment{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "CommentNo")
-    private Integer CommentNo;
+    private Integer comment_no;
 
 
 
-    @Column(name = "Answer")
-    private String Answer;
-    @Column(name = "Date")
-    private Date Date;
-    @Column(name = "Like")
-    private Integer Like;
-    @Column(name = "BoardNo")
-    private Integer BoardNo;
-    @Column(name = "CommentID")
-    private String CommentID;
-    @Column(name = "BoardID")
-    private String BoardID;
+    @Column(name = "answer")
+    private String answer;
+    @Column(name = "comment_date")
+    private Date comment_date;
+    @Column(name = "comment_like")
+    private Integer comment_like;
+
+    @Column(name = "comment_id")
+    private String comment_id;
+
+    @Column(name = "board_no")
+    private Integer board_no;
+
+    @Column(name = "board_id")
+    private String board_id;
 
 
 }
