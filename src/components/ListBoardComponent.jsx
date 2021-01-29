@@ -114,11 +114,13 @@ class ListBoardComponent extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">{this.state.category}</h2>
+                <h2 className="text-center">{this.state.category}  
+                <a onClick={()=> this.props.hisory.push(`/category-map/${this.state.category}`)}>    지도</a>
+               </h2>
 
                 <div className="row">
                     <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button> 
-                </div>
+                </div> 
 
                 <div className="row">
                     <table className="table table-striped table-bordered">
