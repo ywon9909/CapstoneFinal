@@ -7,8 +7,9 @@ class ReadBoardComponent extends Component {
 
         this.state = {
             num: props.match.params.num,
-            board: {}
-            
+            board: {},
+            comment: {}
+
         }
         this.goToUpdate = this.goToUpdate.bind(this);
 
@@ -16,10 +17,17 @@ class ReadBoardComponent extends Component {
 
     componentDidMount() {
         BoardService.getOneBoard(this.state.num).then(res => {
-            this.setState({ 
+            this.setState({
                 board: res.data
-             });
+
+            });
         });
+        BoardService.getOneComment(this.state.num).then(res => {
+            this.setState({
+                comment: res.data
+            });
+        });
+
     }
 
     returnBoardType(category) {
@@ -31,14 +39,14 @@ class ReadBoardComponent extends Component {
         )
     }
     returnDate(board_date) {
-        const dateString=board_date+""
-        let y= dateString.split("T"); //날짜 , 시간.00:00:00
-        let yymmdd= y[0];
-        let t=y[1]+"";
-        let tt=t.split(".");
-        let hhmmss=tt[0];
+        const dateString = board_date + ""
+        let y = dateString.split("T"); //날짜 , 시간.00:00:00
+        let yymmdd = y[0];
+        let t = y[1] + "";
+        let tt = t.split(".");
+        let hhmmss = tt[0];
         return (
-            <div className = "row">
+            <div className="row">
                 <label>  [ {yymmdd}, {hhmmss} ] </label>
             </div>
         )
@@ -76,7 +84,7 @@ class ReadBoardComponent extends Component {
                     <div className="card-body">
 
                         <div className="row">
-                            <label> Board Type : </label> {this.state.board.category} 
+                            <label> Board Type : </label> {this.state.board.category}
                         </div>
 
                         <div className="row">
@@ -89,7 +97,7 @@ class ReadBoardComponent extends Component {
                         <div className="row">
                             {this.returnDate(this.state.board.board_date)}
                         </div>
-                        
+
                         <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>글 목록으로 이동</button>
                         <button className="btn btn-info" onClick={this.goToUpdate} style={{ marginLeft: "10px" }}>글 수정</button>
                         <button className="btn btn-danger" onClick={() => this.deleteView()} style={{ marginLeft: "10px" }}>글 삭제</button>
@@ -98,6 +106,14 @@ class ReadBoardComponent extends Component {
                 <div className="card col-md-10 offset-md-1">
                     <div className="row">
                         <label> Answer </label> : comment.answer 추가
+                        <div>
+                            {this.state.comment.comment_no}
+                            <div>{this.state.comment.answer}</div>
+                            <div>{this.returnDate(this.state.comment.comment_date)}</div>
+                            <div>{this.state.comment.comment_like}</div>
+                            <div>{this.state.comment.id}</div>
+
+                        </div>
                     </div>
                 </div>
             </div>
