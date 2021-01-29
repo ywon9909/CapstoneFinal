@@ -17,6 +17,10 @@ class BoardService {
     getOneBoard(num){
         return axios.get(BOARD_API_BASE_URL+"/"+num);
     }
+    getOneComment(num){
+        return axios.get(BOARD_API_BASE_URL+"/comment/"+num);
+    }
+   
     updateBoard(num, board) {
         return axios.put(BOARD_API_BASE_URL + "/" + num, board);
     }
