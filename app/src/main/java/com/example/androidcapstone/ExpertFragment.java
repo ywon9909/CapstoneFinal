@@ -59,12 +59,9 @@ public class ExpertFragment extends Fragment {
                     dataList = response.body();
                     Log.d("ExpertFragment", dataList.toString());
 
-
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), dataList);
                     recyclerView.setAdapter(recyclerViewAdapter);
-
-
 
                     //textView = (TextView)mView.findViewById(R.id.text);
                     //textView.setText(response.body().toString());
@@ -78,7 +75,7 @@ public class ExpertFragment extends Fragment {
                 //t.printStackTrace();
             }
         };
-        jsonApi.getBoard().enqueue(callback);
+        jsonApi.getBoard("성형외과").enqueue(callback);
         // Inflate the layout for this fragment
         return  mView;
     }
