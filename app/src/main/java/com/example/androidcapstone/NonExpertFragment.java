@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 
 public class NonExpertFragment extends Fragment {
-
+    // 지도 화면 구성해줄 예정.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class ArticleMenuFragment extends Fragment {
+    // 홈 화면에서 다루어주는 메뉴 목록
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
