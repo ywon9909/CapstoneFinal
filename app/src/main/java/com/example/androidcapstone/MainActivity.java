@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment;
     ArticleMenuFragment articleMenuFragment;
+    InfoFragment infoFragment;
 
     private ActivityMainBinding binding;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         // 프래그먼트 생성
         homeFragment = new HomeFragment();
         articleMenuFragment = new ArticleMenuFragment();
+        infoFragment = new InfoFragment();
 
         // 제일 먼저 띄워줄 뷰 세팅
         getSupportFragmentManager().beginTransaction().replace(R.id.main_layout,homeFragment).commitAllowingStateLoss();
@@ -44,7 +46,11 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.main_layout, articleMenuFragment).commitAllowingStateLoss();
                         return true;
                     }
-
+                    case R.id.tab3:{
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout, infoFragment).commitAllowingStateLoss();
+                        return true;
+                    }
 
                     default: return false;
                 }

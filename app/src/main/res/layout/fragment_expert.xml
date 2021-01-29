@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ExpertFragment">
+    android:orientation="vertical">
+
 
     <!-- TODO: Update blank fragment layout -->
+    <!--
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="hello_expert_fragment" />
+        -->
 
-</FrameLayout>
+    <Button
+        android:id="@+id/write"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="right"
+        android:text="✏"
+        android:textSize="18sp" />
+
+    <!--RecyclerView-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="683dp"
+        android:layout_alignParentBottom="true"
+
+        android:scrollbars="vertical" />
+
+
+</LinearLayout>
