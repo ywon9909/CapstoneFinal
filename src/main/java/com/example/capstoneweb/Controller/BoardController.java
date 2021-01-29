@@ -32,7 +32,7 @@ public class BoardController {
     }
 
     @GetMapping("/mobile/board")
-    public ResponseEntity<Map> getAllBoard(@RequestParam(value="category") String category){
+    public List<Board>getAllBoard(@RequestParam(value="category") String category){
         return boardService.getPagingBoard2(category);
     }
 
@@ -40,6 +40,7 @@ public class BoardController {
     public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
     }
+
     @GetMapping("/board/{num}")
     public ResponseEntity<Board> getBoardByNum(
             @PathVariable Integer num){
