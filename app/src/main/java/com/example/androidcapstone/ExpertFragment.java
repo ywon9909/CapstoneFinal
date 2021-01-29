@@ -3,6 +3,7 @@ package com.example.androidcapstone;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,10 +32,13 @@ public class ExpertFragment extends Fragment {
     JsonApi jsonApi;
     List<BoardData> dataList;
 
+    String data;
+
     View mView;
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
     TextView textView;
+
 
     static final String URL = "http://192.168.35.91:8080";
 
@@ -44,6 +48,9 @@ public class ExpertFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_expert, container, false);
 
         recyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
+
+        ArticleBoard activity = (ArticleBoard) getActivity();
+        data = activity.getMyData();
 
 
         retrofit = new Retrofit.Builder()
@@ -77,7 +84,7 @@ public class ExpertFragment extends Fragment {
                 //t.printStackTrace();
             }
         };
-        jsonApi.getBoard("성형외과").enqueue(callback);
+        jsonApi.getBoard(data).enqueue(callback);
         // Inflate the layout for this fragment
         return  mView;
     }
