@@ -74,14 +74,14 @@ public class BoardData {
 
     @Override
     public String toString() {
-        return "Board{" +
-                "board_no=" + board_no +
-                ", title='" + title + '\'' +
-                ", question='" + question + '\'' +
-                ", board_date='" + board_date + '\'' +
-                ", board_like='" + board_like + '\'' +
-                ", category='" + category + '\'' +
-                ", id='" + board_id + '\'' +
+        return "{" +
+                "\"board_no\":" + board_no +
+                ",\"title\":\"" + title + '\"' +
+                ",\"question\":\"" + question + '\"' +
+                ",\"board_date\":\"" + board_date + '\"' +
+                ",\"board_like\":" + board_like +
+                ",\"category\":\"" + category + '\"' +
+                ",\"id\":\"" + board_id + '\"' +
                 '}';
     }
 
