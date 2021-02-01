@@ -9,8 +9,31 @@ class MapComponent extends Component {
     //     this.state={
     //         category:props.match.params.category
     //     }
-    // }
+    constructor(props){
+        super(props)
+        this.state={ 
+            p_num:1,
+            category:props.match.params.category,
+            paging:{},
+            boards:[]
+            
+        }
+    }
+    listBoard(category){
+        this.props.history.push(`/category-board/${category}`);
+    }
+
+
     componentDidMount(){
+        BoardService.getBoards(this.state.category,this.state.p_num).then((res)=>{
+            this.setState({
+                p_num:res.data.pagingData.currentPageNum,
+                category:this.state.category,
+                paging:res.data.pagingData,
+                boards:res.data.list
+                
+            });
+        })
         const script = document.createElement("script");
         
         script.async=true;
@@ -74,11 +97,13 @@ class MapComponent extends Component {
 
     render() {
         return (
-        
+        <div>
+            <h2 className="text-center"><a onClick={()=> this.listBoard(this.state.category,1)}>   {this.state.category}</a>  지도
+               </h2>
            <MapComponents id="MyMap">
                <div></div>
            </MapComponents>
-       
+       </div>
            
         );
     }
