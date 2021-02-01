@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
 import styled from "styled-components";
-import { findAllByTitle } from '@testing-library/react';
+
 
 /*global kakao*/
 class MapComponent extends Component {
