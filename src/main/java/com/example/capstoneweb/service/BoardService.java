@@ -37,10 +37,11 @@ public class BoardService {
 
         return ResponseEntity.ok(board);
     }
-    public ResponseEntity<Comment> getComment(Integer num){
-        Comment comment=commentRepository.findCommentBy(num);
+    public List<Comment> getComment(Integer num){
 
-        return ResponseEntity.ok(comment);
+        List<Comment> comment=  commentRepository.findCommentBy(num);
+
+        return comment;
     }
 
     public ResponseEntity<Map> getPagingBoard(String category,Integer p_num) {
