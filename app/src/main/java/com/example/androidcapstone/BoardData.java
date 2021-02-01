@@ -1,9 +1,5 @@
 package com.example.androidcapstone;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.sql.Time;
-
 public class BoardData {
     Integer board_no;
     String title;

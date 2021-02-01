@@ -32,4 +32,15 @@ public class CommentData {
 
     public void setBoard_no(Integer board_no) { this.board_no = board_no; }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"comment_no\":" + comment_no +
+                ",\"answer\":\"" + answer + '\"' +
+                ",\"comment_date\":\"" + comment_date + '\"' +
+                ",\"comment_like\":\"" + comment_like + '\"' +
+                ",\"comment_id\":" + comment_id +
+                ",\"board_no\":\"" + board_no + '\"' +
+                '}';
+    }
 }
