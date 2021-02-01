@@ -49,7 +49,7 @@ public class BoardController {
     }
     //get comment
     @GetMapping("/board/comment/{num}")
-    public ResponseEntity<Comment> getCommentByNum(
+    public List<Comment> getCommentByNum(
             @PathVariable Integer num){
         return  boardService.getComment(num);
     }
