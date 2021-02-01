@@ -33,6 +33,9 @@ class ListBoardComponent extends Component {
     readBoard(num) {
         this.props.history.push(`/read-board/${num}`);
     }
+    mapBoard(category){
+        this.props.history.push(`/category-map/${category}`);
+    }
 
     listBoard(category,p_num){
         console.log("pageNum : "+ p_num);
@@ -115,7 +118,7 @@ class ListBoardComponent extends Component {
         return (
             <div>
                 <h2 className="text-center">{this.state.category}  
-                <a onClick={()=> this.props.hisory.push(`/category-map/${this.state.category}`)}>    지도</a>
+                <a onClick={()=> this.mapBoard(this.state.category)}>    지도</a>
                </h2>
 
                 <div className="row">
