@@ -26,84 +26,21 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <View
-        android:id="@+id/view1"
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_centerInParent="true"
         android:background="#000000"
         app:layout_constraintTop_toBottomOf="@+id/question" />
 
-    <TextView
-        android:id="@+id/answer1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="answer1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view1" />
-
-    <View
-        android:id="@+id/view2"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view2"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_centerInParent="true"
-        android:background="#000000"
-        app:layout_constraintTop_toBottomOf="@+id/answer1" />
-
-    <TextView
-        android:id="@+id/answer2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="answer2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_centerInParent="true"
-        android:background="#000000"
-        app:layout_constraintTop_toBottomOf="@+id/answer2" />
-
-    <TextView
-        android:id="@+id/answer3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="answer3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_centerInParent="true"
-        android:background="#000000"
-        app:layout_constraintTop_toBottomOf="@+id/answer3" />
-
-    <TextView
-        android:id="@+id/answer4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="answer4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_centerInParent="true"
-        android:background="#000000"
-        app:layout_constraintTop_toBottomOf="@+id/answer4" />
-
-    <TextView
-        android:id="@+id/answer5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="answer5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5" />
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
