@@ -33,6 +33,7 @@ public class ExpertFragment extends Fragment {
     List<BoardData> dataList;
 
     String data;
+    int num;
 
     View mView;
     RecyclerView recyclerView;
@@ -51,6 +52,7 @@ public class ExpertFragment extends Fragment {
 
         ArticleBoard activity = (ArticleBoard) getActivity();
         data = activity.getMyData();
+        //num = activity.get
 
 
         retrofit = new Retrofit.Builder()
@@ -85,6 +87,7 @@ public class ExpertFragment extends Fragment {
             }
         };
         jsonApi.getBoard(data).enqueue(callback);
+        //jsonApi.getComment(num).enqueue(callback);
         // Inflate the layout for this fragment
         return  mView;
     }

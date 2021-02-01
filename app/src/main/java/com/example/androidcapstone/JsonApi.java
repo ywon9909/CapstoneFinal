@@ -13,4 +13,10 @@ public interface JsonApi {
 
     @GET("/api/mobile/board")
     Call<List<BoardData>> getBoard(@Query("category") String category);
+
+    //@GET("/api/board/comment/670")
+    //Call<List<BoardData>> getComment();
+
+    @GET("/api/board/comment")
+    Call<List<BoardData>> getComment(@Query("num") String num);
 }
