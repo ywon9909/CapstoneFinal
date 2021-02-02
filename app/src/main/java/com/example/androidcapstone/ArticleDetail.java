@@ -30,6 +30,8 @@ public class ArticleDetail extends AppCompatActivity {
     JsonApi jsonApi;
     List<CommentData> dataList;
 
+    Integer num;
+
     RecyclerView recyclerView2;
     RecyclerViewAdapter2 recyclerViewAdapter2;
 
@@ -40,10 +42,27 @@ public class ArticleDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
+
+        TextView title = (TextView)findViewById(R.id.title);
+        TextView question = (TextView)findViewById(R.id.question);
+
+        Intent intent = getIntent();
+
+        String mTitle = intent.getExtras().getString("title");
+        title.setText(mTitle);
+
+        String mQuestion = intent.getExtras().getString("question");
+        question.setText(mQuestion);
+
+        num = intent.getExtras().getInt("num");
+
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+        recyclerView2 = findViewById(R.id.recycler_view2);
 
         jsonApi = retrofit.create(JsonApi.class);
 
@@ -56,13 +75,12 @@ public class ArticleDetail extends AppCompatActivity {
                     dataList = response.body();
                     Log.d("ArticleDetail", dataList.toString());
 
-                    /*
-                    recyclerView2.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
                     recyclerViewAdapter2 = new RecyclerViewAdapter2(getApplicationContext(), dataList);
+                    recyclerView2.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     recyclerView2.setAdapter(recyclerViewAdapter2);
 
-
-                     */
+                    Log.d("board_no", String.valueOf(num));
 
                     //textView = (TextView)mView.findViewById(R.id.text);
                     //textView.setText(response.body().toString());
@@ -78,23 +96,7 @@ public class ArticleDetail extends AppCompatActivity {
                 t.printStackTrace();
             }
         };
-        //jsonApi.getComment(1).enqueue(callback);
-        jsonApi.getComment().enqueue(callback);
-
-
-        TextView title = (TextView)findViewById(R.id.title);
-        TextView question = (TextView)findViewById(R.id.question);
-
-        Intent intent = getIntent();
-
-        String mTitle = intent.getExtras().getString("title");
-        title.setText(mTitle);
-
-        String mQuestion = intent.getExtras().getString("question");
-        question.setText(mQuestion);
-
-
-
+        jsonApi.getComment(num).enqueue(callback);
 
 
     }
