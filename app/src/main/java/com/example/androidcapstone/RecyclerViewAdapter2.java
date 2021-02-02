@@ -18,6 +18,8 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     private Context c;
     private List<CommentData> dataList;
 
+    static int num;
+
     public RecyclerViewAdapter2(Context c, List<CommentData> dataList) {
         this.c = c;
         this.dataList = dataList;
@@ -33,8 +35,12 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter2.ViewHolder holder, int position) {
         holder.answer.setText(dataList.get(position).getAnswer());
-        holder.comment_date.setText(dataList.get(position).getComment_date());
+        //holder.comment_date.setText(dataList.get(position).getComment_date());
 
+        String str = dataList.get(position).getComment_date().toString();
+        String date = str.substring(0, str.indexOf("T"));
+        String time = str.substring(11, str.indexOf("."));
+        holder.comment_date.setText(date + " " + time);
     }
 
     @Override
@@ -43,7 +49,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public View mView;
+        //public View mView;
 
         TextView answer;
         TextView comment_date;

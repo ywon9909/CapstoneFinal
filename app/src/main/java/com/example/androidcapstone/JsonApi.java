@@ -17,9 +17,8 @@ public interface JsonApi {
     @GET("/api/board/comment/1")
     Call<List<CommentData>> getComment();
 
-    /*
-    @GET("/api/board/comment")
-    Call<List<CommentData>> getComment(@Query("num") Integer num);
 
-     */
+    @GET("/api/board/comment/{num}")
+    Call<List<CommentData>> getComment(@Path("num") Integer num);
+
 }
