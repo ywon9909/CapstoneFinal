@@ -70,7 +70,7 @@ class MapComponent extends Component {
                         position: new kakao.maps.LatLng(place.y, place.x)
                     });
                     var infowindow= new kakao.maps.InfoWindow({
-                        content :"test"
+                        content :place.place_name
                     });
                     kakao.maps.event.addListener(
                         marker,
