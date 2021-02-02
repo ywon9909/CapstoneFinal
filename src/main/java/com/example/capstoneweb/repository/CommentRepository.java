@@ -5,11 +5,13 @@ import com.example.capstoneweb.model.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 
 public interface CommentRepository extends JpaRepository<Comment, Integer>{
 
     public final static String SELECT_COMMENT= ""
-            + "SELECT  "
+            + "SELECT DISTINCT "
             + "comment_no,"
             + "answer,"
             + "comment_date, "
@@ -21,7 +23,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer>{
 
     //  WHERE board_no=1
     @Query(value = SELECT_COMMENT, nativeQuery = true)
-    Comment findCommentBy(Integer num);
+    List<Comment> findCommentBy(Integer num);
 
 
 

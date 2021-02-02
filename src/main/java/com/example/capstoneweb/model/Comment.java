@@ -34,8 +34,8 @@ public class Comment{
     @Column(name = "board_no")
     private Integer board_no;
 
-    @Column(name = "board_id")
-    private String board_id;
+    /*@Column(name = "board_id")
+    private String board_id;*/
 
 
 }
