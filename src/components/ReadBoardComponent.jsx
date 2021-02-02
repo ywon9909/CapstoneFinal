@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
 
 class ReadBoardComponent extends Component {
@@ -24,7 +24,7 @@ class ReadBoardComponent extends Component {
         });
         BoardService.getOneComment(this.state.num).then(res => {
             this.setState({
-                comments: res.data.list
+                comments: res.data
             });
         });
 
@@ -105,19 +105,25 @@ class ReadBoardComponent extends Component {
                 </div>
                 <div className="card col-md-10 offset-md-1">
                     <div className="row">
-                        <label> *****Answer </label> : comment.answer 추가
-            
-                       {this.state.comments.map(
-                                    comment=>
-                            <tr key={comment.comment_no}>
-                                <td>********{comment.comment_no}</td>
-                            <td>{comment.answer}</td>
-                            <td>{this.returnDate(comment.comment_date)}</td>
-                            <td>{comment.comment_like}</td>
-                            <td>{comment.id}</td>
-                            </tr>
-                       )
-    }
+                        <label> *****Answer </label> :<div></div>
+
+
+                        {
+                            this.state.comments.map(
+                                   
+                                comment=>
+                                    <div>
+                                    {comment.comment_no}
+                                    {comment.answer}
+                                    {this.returnDate(comment.comment_date)}
+                                    {comment.comment_like}
+                                    {comment.comement_id}
+                                    </div>
+                                
+                                )
+                            
+                            
+                        }
                     </div>
                 </div>
             </div>
