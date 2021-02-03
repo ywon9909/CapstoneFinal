@@ -115,8 +115,11 @@ class ListBoardComponent extends Component {
     }
 
     render() {
+        
         return (
+           
             <div>
+            
                 <h2 className="text-center">{this.state.category}  
                 <a onClick={()=> this.mapBoard(this.state.category)}>    지도</a>
                </h2>
