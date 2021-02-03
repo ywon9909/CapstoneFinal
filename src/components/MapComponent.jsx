@@ -22,10 +22,9 @@ class MapComponent extends Component {
     componentDidMount() {
         BoardService.getBoards(this.state.category, this.state.p_num).then((res) => {
             this.setState({
-                p_num: res.data.pagingData.currentPageNum,
-                category: this.state.category,
-                paging: res.data.pagingData,
-                boards: res.data.list
+               
+                category: this.state.category
+               
 
             });
         })

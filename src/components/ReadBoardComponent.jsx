@@ -72,13 +72,13 @@ this.createComment=this.createComment.bind(this);
         let hhmmss = tt[0];
         return (
             <div className="row">
-                <label>  [ {yymmdd}, {hhmmss} ] </label>
+                [ {yymmdd}, {hhmmss} ] 
             </div>
         )
     }
 
     goToList() {
-        this.props.history.push('/board');
+        this.props.history.push('/success');
     }
     goToUpdate = (event) => {
         event.preventDefault();
@@ -123,10 +123,10 @@ this.createComment=this.createComment.bind(this);
                         </div>
 
                         <div className="row">
-                            <label> Title </label> : {this.state.board.title}
+                        <label> Title : </label>  {this.state.board.title}
                         </div>
                         <div className="row">
-                            <label> Question </label> : <br></br>
+                        <label> Question : </label>
                             {this.state.board.question}
                         </div >
                         <div className="row">
@@ -139,7 +139,7 @@ this.createComment=this.createComment.bind(this);
                     </div>
                 </div>
                 <div className="card col-md-10 offset-md-1">
-                    <div className="row">
+                <div className="card-body">
    
                      <textarea
                         type="text"
@@ -156,16 +156,17 @@ this.createComment=this.createComment.bind(this);
                             this.state.comments.map(
                                    
                                 comment=>
-                                    <div>
-                                    comment_no :{comment.comment_no} <br/>
-                                    comment_answer : {comment.answer} <br/>
-                                    {this.returnDate(comment.comment_date)}
-                                    like: {comment.comment_like}  <br/>
-                                    id: {comment.comment_id} <br/>
-                                    <button onClick={() => this.deleteComment(comment.comment_no)}>삭제({comment.comment_no})</button>
-                                    </div>
-                                
-                                )
+                                <div >
+                                 <label>Answer : </label>{comment.answer}
+                                 {this.returnDate(comment.comment_date)}
+                                 <label>좋아요 : </label> {comment.comment_like}
+                              	 {comment.comement_id}<br/>
+                                <button onClick={() => this.deleteComment(comment.comment_no)}>삭제({comment.comment_no})</button> <br/>
+                                 -------------------------------------------------
+                                 </div>
+
+
+                            )	                            
                             
                             
                         }

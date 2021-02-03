@@ -8,7 +8,7 @@ import FooterComponent from './components/FooterComponent';
 import CreateBoardComponent from './components/CreateBoardComponent';
 import ReadBoardComponent from './components/ReadBoardComponent';
 import MapComponent from './components/MapComponent';
-
+import SuccessComponent from './components/SuccessComponent';
 
 function App() {
   return (
@@ -23,6 +23,8 @@ function App() {
               <Route path = "/read-board/:num" component = {ReadBoardComponent}></Route>{/*상세페이지*/}
               <Route path = "/category-board/:category" component={ListBoardComponent}></Route> {/*카테고리별 리스트 보여줌*/}
               <Route path = "/category-map/:category" component={MapComponent}></Route>{/*지도 페이지*/}
+              <Route path = "/success" component={SuccessComponent}></Route> {/*성공페이지 */}
+ 
             </Switch>
           </div>
         <FooterComponent/> 
