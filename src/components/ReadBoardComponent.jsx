@@ -47,7 +47,7 @@ class ReadBoardComponent extends Component {
         let hhmmss = tt[0];
         return (
             <div className="row">
-                <label>  [ {yymmdd}, {hhmmss} ] </label>
+                [ {yymmdd}, {hhmmss} ] 
             </div>
         )
     }
@@ -67,7 +67,7 @@ class ReadBoardComponent extends Component {
             BoardService.deleteBoard(this.state.num).then(res => {
                 console.log("delete result => " + JSON.stringify(res));
                 if (res.status === 200) {
-                    this.props.history.push('/board');
+                    this.props.history.push('/success');
                 } else {
                     alert("글 삭제가 실패했습니다.");
                 }
@@ -88,10 +88,10 @@ class ReadBoardComponent extends Component {
                         </div>
 
                         <div className="row">
-                            <label> Title </label> : {this.state.board.title}
+                            <label> Title : </label>  {this.state.board.title}
                         </div>
                         <div className="row">
-                            <label> Question </label> : <br></br>
+                            <label> Question : </label>
                             {this.state.board.question}
                         </div >
                         <div className="row">
@@ -104,25 +104,21 @@ class ReadBoardComponent extends Component {
                     </div>
                 </div>
                 <div className="card col-md-10 offset-md-1">
-                    <div className="row">
-                        <label> *****Answer </label> :<div></div>
-
-
+                    <div className="card-body">
                         {
                             this.state.comments.map(
-                                   
-                                comment=>
-                                    <div>
-                                    {comment.comment_no}
-                                    {comment.answer}
-                                    {this.returnDate(comment.comment_date)}
-                                    {comment.comment_like}
-                                    {comment.comement_id}
+
+                                comment =>
+                                    <div >
+                                        <label>Answer : </label>{comment.answer}
+                                        {this.returnDate(comment.comment_date)}
+                                        <label>좋아요 : </label> {comment.comment_like}
+                                        {comment.comement_id}<br/>
+                                        -------------------------------------------------
                                     </div>
-                                
-                                )
-                            
-                            
+
+                            )
+
                         }
                     </div>
                 </div>
