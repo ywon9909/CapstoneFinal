@@ -92,7 +92,7 @@ this.createComment=this.createComment.bind(this);
             BoardService.deleteBoard(this.state.num).then(res => {
                 console.log("delete result => " + JSON.stringify(res));
                 if (res.status === 200) {
-                    this.props.history.push('/board');
+                    this.props.history.push('/success');
                 } else {
                     alert("글 삭제가 실패했습니다.");
                 }
@@ -123,10 +123,12 @@ this.createComment=this.createComment.bind(this);
                         </div>
 
                         <div className="row">
+
                         <label> Title : </label>  {this.state.board.title}
                         </div>
                         <div className="row">
                         <label> Question : </label>
+
                             {this.state.board.question}
                         </div >
                         <div className="row">
@@ -139,6 +141,7 @@ this.createComment=this.createComment.bind(this);
                     </div>
                 </div>
                 <div className="card col-md-10 offset-md-1">
+
                 <div className="card-body">
    
                      <textarea
@@ -169,8 +172,7 @@ this.createComment=this.createComment.bind(this);
                             )	                            
                             
                             
-                        }
-                    </div>
+
                 </div>
             </div>
         );

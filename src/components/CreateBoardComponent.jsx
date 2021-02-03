@@ -8,6 +8,7 @@ class CreateBoardComponent extends Component {
 
 
         this.state={
+
             num: this.props.match.params.num,
             title:'',
             question:'',
@@ -15,6 +16,7 @@ class CreateBoardComponent extends Component {
             board_like:'0',
             category:'',
             id:''
+
         }
         
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -44,6 +46,7 @@ class CreateBoardComponent extends Component {
     changeCategoryHandler = (event)=>{
         this.setState({category:event.target.value});
     }
+
     createBoard = (event) =>{
         event.preventDefault();
         let board = {
@@ -89,8 +92,14 @@ class CreateBoardComponent extends Component {
                 console.log("board => "+ JSON.stringify(board));
                 
                 this.setState({
+                    
                         title: board.title,
-                        question:board.question
+                        question:board.question,
+                        board_date:board.board_date,
+                        board_like:board.board_like,
+                        category:board.category,
+                        id:board.id
+
                     });
             });
         }
@@ -101,11 +110,13 @@ class CreateBoardComponent extends Component {
             <div>
                 <div className = "container">
                     <div className = "row">
-                        <div className = "card col-md-6 offset-md-3 offset-md-3">
-                            <h3 className="text-center">새글을 작성해주세요</h3>
+                        <div className = "card col-md-8 offset-md-2 offset-md-2">
+                           {this.getTitle()}
                             <div className = "card-body">
                                 <form>
+
                                 <div className="form-group">
+
                                         <label> Category </label>
                                         <select placeholder="category" name="category" className="form-control"
                                         value={this.state.category} onChange={this.changeCategoryHandler}>
@@ -138,6 +149,7 @@ class CreateBoardComponent extends Component {
                                         <input placeholder="id" name="id" className="form-control"
                                         value={this.state.id} onChange={this.changeidHandler}/>
                                     </div>
+
                                     <button className="btn btn-success" onClick={this.createBoard}>Save</button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft:"10px"}}>Cancel</button>
                                 </form>
