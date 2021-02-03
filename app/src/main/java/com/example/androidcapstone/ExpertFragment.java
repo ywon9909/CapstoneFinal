@@ -1,5 +1,6 @@
 package com.example.androidcapstone;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class ExpertFragment extends Fragment {
     View mView;
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
+    Button button;
     TextView textView;
 
 
@@ -46,6 +49,18 @@ public class ExpertFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_expert, container, false);
+
+        // 연필 모양 버튼 누르면 글 작성 액티비티로 넘어감
+        button = (Button)mView.findViewById(R.id.write);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ExpertFragment", "button");
+                Intent intent = new Intent(getContext(), WritingBoard.class);
+                //intent.putExtra()
+                startActivity(intent);
+            }
+        });
 
         recyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
 
