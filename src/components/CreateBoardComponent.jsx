@@ -16,7 +16,7 @@ class CreateBoardComponent extends Component {
             board_like:'0',
             category:'',
             id:''
-            
+
         }
         
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -56,7 +56,7 @@ class CreateBoardComponent extends Component {
             board_like:this.state.board_like,
             category:this.state.category,
             id:this.state.id
-            
+
         };
         console.log("board=> "+JSON.stringify(board));
         if (this.state.num === '_create') {
@@ -114,7 +114,9 @@ class CreateBoardComponent extends Component {
                            {this.getTitle()}
                             <div className = "card-body">
                                 <form>
-                                    <div className="form-group">
+
+                                <div className="form-group">
+
                                         <label> Category </label>
                                         <select placeholder="category" name="category" className="form-control"
                                         value={this.state.category} onChange={this.changeCategoryHandler}>
@@ -147,7 +149,7 @@ class CreateBoardComponent extends Component {
                                         <input placeholder="id" name="id" className="form-control"
                                         value={this.state.id} onChange={this.changeidHandler}/>
                                     </div>
-                                   
+
                                     <button className="btn btn-success" onClick={this.createBoard}>Save</button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft:"10px"}}>Cancel</button>
                                 </form>

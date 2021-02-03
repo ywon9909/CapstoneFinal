@@ -20,7 +20,9 @@ class MapComponent extends Component {
         BoardService.getBoards(this.state.category, this.state.p_num).then((res) => {
             this.setState({
                
-                category: this.state.category,
+
+                category: this.state.category
+
                
 
             });
