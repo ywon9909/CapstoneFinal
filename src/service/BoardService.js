@@ -13,6 +13,12 @@ class BoardService {
     createBoard(board){
         return axios.post(BOARD_API_BASE_URL,board);
     }
+    createComment(comment){
+        return axios.post(BOARD_API_BASE_URL+"/comment",comment);
+    }
+    deleteComment(num) {
+        return axios.delete(BOARD_API_BASE_URL + "/comment/" + num);
+    }
 
     getOneBoard(num){
         return axios.get(BOARD_API_BASE_URL+"/"+num);
