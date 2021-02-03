@@ -17,7 +17,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer>{
             + "comment_date, "
             + "comment_like, "
             + "comment_id, "
-            + "comment.board_no "
+            + "comment.board_no, comment.board_id "
             + "FROM comment, board where comment.board_no=?1 ";
 
 
