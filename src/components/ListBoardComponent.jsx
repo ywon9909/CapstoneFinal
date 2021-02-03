@@ -9,10 +9,12 @@ class ListBoardComponent extends Component {
             p_num:1,
             category:props.match.params.category,
             paging:{},
-            boards:[]
+            boards:[],
+            search:""
             
         }
         this.createBoard = this.createBoard.bind(this);
+        this.handleSearchChange=this.handleSearchChange.bind(this);
     }
 
     componentDidMount(){
@@ -113,13 +115,33 @@ class ListBoardComponent extends Component {
             );
         }
     }
+   
+    handleSearchChange=(event)=>{
+        this.setState({search : event.target.value});
+     }
+     searchKeyWord(keyWord){
+       
+         
 
+     }
     render() {
         
         return (
            
             <div>
-            
+            <div>
+               <table>
+                   <tr>
+                       <td>
+                           <input type="text" placeholder="검색하기" 
+                           name="search" value={this.state.search}
+                          className="form-control" onChange={this.handleSearchChange}/>
+                       </td>
+                       <td><button className="btn btn-primary" onClick={this.searchKeyWord(this.state.search)}>검색</button></td>
+                       
+                   </tr>
+               </table>
+           </div>
                 <h2 className="text-center">{this.state.category}  
                 <a onClick={()=> this.mapBoard(this.state.category)}>    지도</a>
                </h2>
