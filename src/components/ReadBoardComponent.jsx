@@ -8,13 +8,19 @@ class ReadBoardComponent extends Component {
         this.state = {
             num: props.match.params.num,
             board: {},
-            comments: []
+            comments: [],
+            answer:'',
+            comment_date:Date.now()
+
+
 
         }
         this.goToUpdate = this.goToUpdate.bind(this);
-
+this.createComment=this.createComment.bind(this);
     }
-
+    changeanswer= (event) =>{
+        this.setState({answer:event.target.value});
+    }
     componentDidMount() {
         BoardService.getOneBoard(this.state.num).then(res => {
             this.setState({
@@ -28,6 +34,25 @@ class ReadBoardComponent extends Component {
             });
         });
 
+    }
+    createComment = (event) =>{
+        event.preventDefault();
+        let comment = {
+            answer:this.state.answer,
+            comment_id:'user1',
+            board_no:this.state.board.board_no,
+            board_id:this.state.board.id,
+            comment_date:this.state.comment_date,
+            comment_like:0
+        };
+
+        BoardService.createComment(comment).then(res => {
+            window.location.replace('/read-board/'+this.state.num);
+                //this.props.history.push('/read-board/'+this.state.num);
+            });
+     
+
+    
     }
 
     returnBoardType(category) {
@@ -75,7 +100,17 @@ class ReadBoardComponent extends Component {
 
         }
     }
+    deleteComment = async function (comment_no) {     BoardService.deleteComment(comment_no).then(res => {
+                console.log("delete result => " + JSON.stringify(res));
+                if (res.status === 200) {
+                    window.location.replace('/read-board/'+this.state.num);
+                } else {
+                    alert("댓글 삭제가 실패했습니다.");
+                }
+            });
 
+        
+    }
     render() {
         return (
             <div>
@@ -95,7 +130,7 @@ class ReadBoardComponent extends Component {
                             {this.state.board.question}
                         </div >
                         <div className="row">
-                            {this.returnDate(this.state.board.board_date)}
+                            {this.returnDate(this.state.board.board_date)} {this.state.board.id}
                         </div>
 
                         <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>글 목록으로 이동</button>
@@ -105,7 +140,16 @@ class ReadBoardComponent extends Component {
                 </div>
                 <div className="card col-md-10 offset-md-1">
                     <div className="row">
-                        <label> *****Answer </label> :<div></div>
+   
+                     <textarea
+                        type="text"
+                        placeholder="댓글" name="answer"
+                        value={this.state.answer}
+                        onChange={this.changeanswer}
+                    />
+        <button  onClick={this.createComment} >댓글</button>
+
+                        <label> *****Answer </label> 
 
 
                         {
@@ -113,11 +157,12 @@ class ReadBoardComponent extends Component {
                                    
                                 comment=>
                                     <div>
-                                    {comment.comment_no}
-                                    {comment.answer}
+                                    comment_no :{comment.comment_no} <br/>
+                                    comment_answer : {comment.answer} <br/>
                                     {this.returnDate(comment.comment_date)}
-                                    {comment.comment_like}
-                                    {comment.comement_id}
+                                    like: {comment.comment_like}  <br/>
+                                    id: {comment.comment_id} <br/>
+                                    <button onClick={() => this.deleteComment(comment.comment_no)}>삭제({comment.comment_no})</button>
                                     </div>
                                 
                                 )
