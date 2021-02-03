@@ -78,7 +78,7 @@ this.createComment=this.createComment.bind(this);
     }
 
     goToList() {
-        this.props.history.push('/success');
+        this.props.history.push('/board');
     }
     goToUpdate = (event) => {
         event.preventDefault();
@@ -92,7 +92,7 @@ this.createComment=this.createComment.bind(this);
             BoardService.deleteBoard(this.state.num).then(res => {
                 console.log("delete result => " + JSON.stringify(res));
                 if (res.status === 200) {
-                    this.props.history.push('/board');
+                    this.props.history.push('/category-board/'+this.state.category);
                 } else {
                     alert("글 삭제가 실패했습니다.");
                 }
@@ -148,8 +148,9 @@ this.createComment=this.createComment.bind(this);
                         onChange={this.changeanswer}
                     />
         <button  onClick={this.createComment} >댓글</button>
+        <br/>
 
-                        <label> *****Answer </label> 
+                        <label> <h5>Answer</h5> </label> 
 
 
                         {

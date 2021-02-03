@@ -8,19 +8,21 @@ class ListBoardComponent extends Component {
         this.state={ 
             p_num:1,
             category:props.match.params.category,
-            paging:{},
+            paging : {  },
             boards:[]
             
         }
         this.createBoard = this.createBoard.bind(this);
+       
     }
 
     componentDidMount(){
         BoardService.getBoards(this.state.category,this.state.p_num).then((res)=>{
             this.setState({
+              
+                paging:res.data.pagingData,
                 p_num:res.data.pagingData.currentPageNum,
                 category:this.state.category,
-                paging:res.data.pagingData,
                 boards:res.data.list
                 
             });

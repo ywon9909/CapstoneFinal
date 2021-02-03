@@ -53,16 +53,15 @@ class CreateBoardComponent extends Component {
             board_like:this.state.board_like,
             category:this.state.category,
             id:this.state.id
-
         };
         console.log("board=> "+JSON.stringify(board));
         if (this.state.num === '_create') {
             BoardService.createBoard(board).then(res => {
-                this.props.history.push('/success');
+                this.props.history.push('/category-board/'+this.state.category); // error currentpagenum
             });
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
-                this.props.history.push('/success');
+                this.props.history.push('/category-board/'+this.state.category);
             });
         }
 
