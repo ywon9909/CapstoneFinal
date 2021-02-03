@@ -16,7 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class Comment{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="comment_no")
     private Integer comment_no;
 
 
@@ -31,11 +32,13 @@ public class Comment{
     @Column(name = "comment_id")
     private String comment_id;
 
+    @Column(name = "board_id")
+    private String board_id;
+
     @Column(name = "board_no")
     private Integer board_no;
 
-    /*@Column(name = "board_id")
-    private String board_id;*/
+
 
 
 }
