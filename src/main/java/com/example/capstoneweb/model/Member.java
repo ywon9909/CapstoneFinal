@@ -15,14 +15,15 @@ import javax.persistence.*;
 public class Member {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(length = 20, nullable = false, unique = true ,name="id")
     private String id;
 
-    @Column(name="pw")
+    @Column(length = 20,nullable = false, name="pw")
     private String pw;
-    @Column(name = "nickname")
+    @Column(length = 20,nullable = false, unique = true ,name = "nickname")
     private String nickname;
-    @Column(name ="phone")
+    @Column(length = 20, nullable = false, unique = true ,name ="phone")
     private String phone;
-    @Column(name = "Doc")
+    @Column( nullable = false, name = "Doc")
     private boolean Doc;
 }

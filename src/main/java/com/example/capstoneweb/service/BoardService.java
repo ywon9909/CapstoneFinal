@@ -19,8 +19,6 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
-    @Autowired
-    private CommentRepository commentRepository;
 
     public int findAllCount() {
         return (int) boardRepository.count();
@@ -37,12 +35,7 @@ public class BoardService {
 
         return ResponseEntity.ok(board);
     }
-    public List<Comment> getComment(Integer num){
 
-        List<Comment> comment=  commentRepository.findCommentBy(num);
-
-        return comment;
-    }
 
     public ResponseEntity<Map> getPagingBoard(String category,Integer p_num) {
         Map result = null;
