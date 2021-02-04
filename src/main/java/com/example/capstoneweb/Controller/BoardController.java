@@ -1,6 +1,6 @@
 package com.example.capstoneweb.Controller;
 
-import com.example.capstoneweb.model.Comment;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,7 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
 
     @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num,@RequestParam(value="category") String category) {
@@ -47,19 +48,20 @@ public class BoardController {
     public ResponseEntity<Board> getBoardByNum(@PathVariable Integer num){
         return boardService.getBoard(num);
     }
+
     // update board
     @PutMapping("/board/{no}")
-    public ResponseEntity<Board> updateBoardByNo(
+    public void updateBoardByNo(
             @PathVariable Integer no, @RequestBody Board board){
 
-        return boardService.updateBoard(no, board);
+        boardService.updateBoard(no, board);
     }
     // delete board
     @DeleteMapping("/board/{no}")
-    public ResponseEntity<Board> deleteBoardByNo(
+    public void deleteBoardByNo(
             @PathVariable Integer no) {
 
-        return boardService.deleteBoard(no);
+        boardService.deleteBoard(no);
     }
     @GetMapping("/board/search/{keyword}/{searchType}")
     public List<Board> getSearchBoards(@PathVariable(value="keyword", required=false) String keyword,
@@ -72,6 +74,5 @@ public class BoardController {
             keyword="help";
         return boardService.getsearchBoard(keyword, searchType);
     }
-
 
 }

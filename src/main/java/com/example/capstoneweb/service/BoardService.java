@@ -70,23 +70,24 @@ public class BoardService {
         return boardRepository.findFromToMobile(category);
     }
 
-    public ResponseEntity<Board> updateBoard(
+    public void updateBoard(
             Integer no, Board updatedBoard) {
         Board board = boardRepository.findById(no)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
         board.setTitle(updatedBoard.getTitle());
         board.setQuestion(updatedBoard.getQuestion());
         Board endUpdatedBoard = boardRepository.save(board);
-        return ResponseEntity.ok(endUpdatedBoard);
+        //return ResponseEntity.ok(endUpdatedBoard);
     }
-    public ResponseEntity<Board> deleteBoard( Integer no) {
+    public void deleteBoard( Integer no) {
         Board board = boardRepository.findById(no).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
+        System.out.println(board);
+        System.out.println(no);
         boardRepository.delete(board);
-       // Map<String, Boolean> response = new HashMap<>();
-       // response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
-        return ResponseEntity.ok(board);
-    }
+        // Map<String, Boolean> response = new HashMap<>();
+        // response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
 
+    }
     public List<Board> getsearchBoard(String keyword,String searchType) {
         if(searchType=="all"){
             return boardRepository.findKeywordAll(keyword);
@@ -101,4 +102,5 @@ public class BoardService {
 
 
     }
+
 }
