@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     // 글 목록에 글 번호, 제목, 질문, 날짜+시각 보여주게 하는 리사이클러뷰
@@ -23,6 +24,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(Context c, List<BoardData> dataList) {
         this.c = c;
         this.dataList = dataList;
+    }
+
+    public void search(String charText) {
+        // recyclerview에 있는 내용 검색
+        charText = charText.toLowerCase(Locale.getDefault());
+
     }
 
     @NonNull
