@@ -34,6 +34,10 @@ class BoardService {
     deleteBoard(num) {
         return axios.delete(BOARD_API_BASE_URL + "/" + num);
     }
+    searchBoard(keyword,searchType){
+        return axios.get(BOARD_API_BASE_URL+"/search/"+keyword+"/"+searchType);
+
+    }
 
 }
 
