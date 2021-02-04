@@ -27,12 +27,12 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public ResponseEntity<Map<String, Boolean>> deleteComment(Integer no) {
+    public ResponseEntity<Comment> deleteComment(Integer no) {
         Comment comment = commentRepository.findById(no).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
         commentRepository.delete(comment);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+       // Map<String, Boolean> response = new HashMap<>();
+        //response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
+        return ResponseEntity.ok(comment);
     }
 
 }
