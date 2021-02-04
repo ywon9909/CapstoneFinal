@@ -1,15 +1,12 @@
 package com.example.androidcapstone;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import com.example.androidcapstone.databinding.ActivityArticleBoardBinding;
 
 public class ArticleBoard extends AppCompatActivity {
     // 버튼 선택하면 글 목록과 지도 나오도록.
@@ -41,7 +38,7 @@ public class ArticleBoard extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new NonExpertFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new MapFragment()).commit();
             }
         });
     }

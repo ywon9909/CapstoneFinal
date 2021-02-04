@@ -10,11 +10,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,6 +43,7 @@ public class ExpertFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
     Button button;
+    EditText editSearch;
     TextView textView;
 
 
@@ -56,13 +60,34 @@ public class ExpertFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("ExpertFragment", "button");
+                // WritingBoard에서 글의 제목과 글 내용을 받아올 예정.
                 Intent intent = new Intent(getContext(), WritingBoard.class);
                 //intent.putExtra()
-                startActivity(intent);
+                startActivityForResult(intent, 1);
+                // onActivityResult를 사용해야함. 어디에서?
             }
         });
 
+        editSearch = (EditText)mView.findViewById(R.id.search);
         recyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = editSearch.getText().toString();
+                //search(text);
+            }
+        });
 
         ArticleBoard activity = (ArticleBoard) getActivity();
         data = activity.getMyData();
