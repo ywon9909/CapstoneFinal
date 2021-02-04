@@ -1,11 +1,6 @@
 package com.example.androidcapstone;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.sql.Time;
-
 public class BoardData {
-
     Integer board_no;
     String title;
     String question;
@@ -74,14 +69,14 @@ public class BoardData {
 
     @Override
     public String toString() {
-        return "Board{" +
-                "board_no=" + board_no +
-                ", title='" + title + '\'' +
-                ", question='" + question + '\'' +
-                ", board_date='" + board_date + '\'' +
-                ", board_like='" + board_like + '\'' +
-                ", category='" + category + '\'' +
-                ", id='" + board_id + '\'' +
+        return "{" +
+                "\"board_no\":" + board_no +
+                ",\"title\":\"" + title + '\"' +
+                ",\"question\":\"" + question + '\"' +
+                ",\"board_date\":\"" + board_date + '\"' +
+                ",\"board_like\":" + board_like +
+                ",\"category\":\"" + category + '\"' +
+                ",\"id\":\"" + board_id + '\"' +
                 '}';
     }
 

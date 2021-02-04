@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     // 글 목록에 글 번호, 제목, 질문, 날짜+시각 보여주게 하는 리사이클러뷰
@@ -22,6 +24,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(Context c, List<BoardData> dataList) {
         this.c = c;
         this.dataList = dataList;
+    }
+
+    public void search(String charText) {
+        // recyclerview에 있는 내용 검색
+        charText = charText.toLowerCase(Locale.getDefault());
+
     }
 
     @NonNull
@@ -39,26 +47,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         String str = dataList.get(position).getBoard_date().toString();
         String date = str.substring(0, str.indexOf("T"));
-        String time = str.substring(2, str.indexOf("T"));
-        // time 다시 구현해야 됨
+        String time = str.substring(11, str.indexOf("."));
         holder.board_date.setText(date + " " + time);
 
-        /*
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-
-                Intent intent = new Intent(v.getContext(), ArticleDetail.class);
-                //intent.putExtra("num", dataList.get(position).getNum());
-                intent.putExtra("title", dataList.get(position).getTitle());
-                intent.putExtra("question", dataList.get(position).getQuestion());
-
-                //v.getContext().startActivity(intent); ...?
-                //c.startActivity(intent); ...?
-            }
-        });
-        */
 
     }
 
@@ -67,7 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return dataList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
 
         TextView board_no;
@@ -79,17 +70,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             board_no = (TextView)itemView.findViewById(R.id.board_no);
             title = (TextView)itemView.findViewById(R.id.title);
             board_date = (TextView)itemView.findViewById(R.id.board_date);
+
+            // item click 시 ArticleDetail로 title, question 보내줌
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        Intent intent = new Intent(v.getContext(), ArticleDetail.class);
+                        intent.putExtra("title", dataList.get(pos).getTitle());
+                        intent.putExtra("question", dataList.get(pos).getQuestion());
+                        intent.putExtra("num", dataList.get(pos).getBoard_no());
+                        v.getContext().startActivity(intent);
+                    }
+                }
+            });
+
+
         }
 
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), ArticleDetail.class);
-            /*
-            intent.putExtra("title", dataList.get(position).getTitle());
-            intent.putExtra("question", dataList.get(position).getQuestion());
-            */
-            v.getContext().startActivity(intent);
-
-        }
     }
 }

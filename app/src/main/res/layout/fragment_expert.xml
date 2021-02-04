@@ -14,15 +14,26 @@
         android:layout_height="match_parent"
         android:text="hello_expert_fragment" />
         -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textSize="15sp"
+        android:hint="검색" />
 
     <Button
         android:id="@+id/write"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_gravity="right"
+        android:layout_alignParentRight="true"
         android:text="✏"
         android:textSize="18sp" />
+    </RelativeLayout>
 
     <!--RecyclerView-->
     <androidx.recyclerview.widget.RecyclerView
@@ -32,6 +43,8 @@
         android:layout_alignParentBottom="true"
 
         android:scrollbars="vertical" />
+
+
 
 
 </LinearLayout>

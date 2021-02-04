@@ -1,17 +1,23 @@
 package com.example.androidcapstone;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,10 +37,15 @@ public class ExpertFragment extends Fragment {
     JsonApi jsonApi;
     List<BoardData> dataList;
 
+    String data;
+
     View mView;
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
+    Button button;
+    EditText editSearch;
     TextView textView;
+
 
     static final String URL = "http://192.168.35.91:8080";
 
@@ -43,8 +54,43 @@ public class ExpertFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_expert, container, false);
 
+        // 연필 모양 버튼 누르면 글 작성 액티비티로 넘어감
+        button = (Button)mView.findViewById(R.id.write);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ExpertFragment", "button");
+                // WritingBoard에서 글의 제목과 글 내용을 받아올 예정.
+                Intent intent = new Intent(getContext(), WritingBoard.class);
+                //intent.putExtra()
+                startActivityForResult(intent, 1);
+                // onActivityResult를 사용해야함. 어디에서?
+            }
+        });
+
+        editSearch = (EditText)mView.findViewById(R.id.search);
         recyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
 
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = editSearch.getText().toString();
+                //search(text);
+            }
+        });
+
+        ArticleBoard activity = (ArticleBoard) getActivity();
+        data = activity.getMyData();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
@@ -77,7 +123,7 @@ public class ExpertFragment extends Fragment {
                 //t.printStackTrace();
             }
         };
-        jsonApi.getBoard("성형외과").enqueue(callback);
+        jsonApi.getBoard(data).enqueue(callback);
         // Inflate the layout for this fragment
         return  mView;
     }
