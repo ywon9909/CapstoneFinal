@@ -19,8 +19,6 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
-    @Autowired
-    private CommentRepository commentRepository;
 
     public int findAllCount() {
         return (int) boardRepository.count();
@@ -37,12 +35,7 @@ public class BoardService {
 
         return ResponseEntity.ok(board);
     }
-    public List<Comment> getComment(Integer num){
 
-        List<Comment> comment=  commentRepository.findCommentBy(num);
-
-        return comment;
-    }
 
     public ResponseEntity<Map> getPagingBoard(String category,Integer p_num) {
         Map result = null;
@@ -86,12 +79,12 @@ public class BoardService {
         Board endUpdatedBoard = boardRepository.save(board);
         return ResponseEntity.ok(endUpdatedBoard);
     }
-    public ResponseEntity<Map<String, Boolean>> deleteBoard( Integer no) {
+    public ResponseEntity<Board> deleteBoard( Integer no) {
         Board board = boardRepository.findById(no).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
         boardRepository.delete(board);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+       // Map<String, Boolean> response = new HashMap<>();
+       // response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
+        return ResponseEntity.ok(board);
     }
 
 }
