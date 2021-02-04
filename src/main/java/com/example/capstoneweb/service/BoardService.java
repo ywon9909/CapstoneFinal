@@ -87,4 +87,18 @@ public class BoardService {
         return ResponseEntity.ok(board);
     }
 
+    public List<Board> getsearchBoard(String keyword,String searchType) {
+        if(searchType=="all"){
+            return boardRepository.findKeywordAll(keyword);
+        }
+        else if(searchType=="title"){
+            return boardRepository.findKeywordTitle(keyword);
+        }
+        else{
+            return boardRepository.findKeywordQuestion(keyword);
+        }
+
+
+
+    }
 }

@@ -22,7 +22,6 @@ import lombok.*;
 public class Board {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="board_no")
     private Integer board_no;
 
     @Column(name = "title")
