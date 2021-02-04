@@ -14,7 +14,7 @@ class CreateBoardComponent extends Component {
             question:'',
             board_date:Date.now(),
             board_like:'0',
-            category:'',
+            category:'자유게시판',
             id:''
 
         }
