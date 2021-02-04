@@ -30,7 +30,7 @@ public class CommentController {
     }
     // delete board
     @DeleteMapping("/board/comment/{no}")
-    public ResponseEntity<Map<String, Boolean>> deleteCommentByNo(
+    public ResponseEntity<Comment> deleteCommentByNo(
             @PathVariable Integer no) {
 
         return commentService.deleteComment(no);

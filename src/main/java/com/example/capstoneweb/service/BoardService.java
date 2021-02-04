@@ -79,12 +79,12 @@ public class BoardService {
         Board endUpdatedBoard = boardRepository.save(board);
         return ResponseEntity.ok(endUpdatedBoard);
     }
-    public ResponseEntity<Map<String, Boolean>> deleteBoard( Integer no) {
+    public ResponseEntity<Board> deleteBoard( Integer no) {
         Board board = boardRepository.findById(no).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
         boardRepository.delete(board);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+       // Map<String, Boolean> response = new HashMap<>();
+       // response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
+        return ResponseEntity.ok(board);
     }
 
 }
