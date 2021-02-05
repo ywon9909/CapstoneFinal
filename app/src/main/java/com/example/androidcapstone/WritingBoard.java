@@ -21,6 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.androidcapstone.ExpertFragment.URL;
+import static com.example.androidcapstone.RecyclerViewAdapter2.num;
 
 public class WritingBoard extends AppCompatActivity {
     Button button;
@@ -28,6 +29,7 @@ public class WritingBoard extends AppCompatActivity {
     EditText editTextMultiLineBoard;
 
     String category;
+    Integer board_no;
 
     JsonApi jsonApi;
     Retrofit retrofit;
@@ -40,7 +42,7 @@ public class WritingBoard extends AppCompatActivity {
         setContentView(R.layout.activity_writing_board);
 
         Intent intent = getIntent();
-        category = intent.getExtras().getString("category");
+        String mode = intent.getExtras().getString("mode");
 
         editTextTitle = (EditText)findViewById(R.id.editTextTitle);
         editTextMultiLineBoard = (EditText)findViewById(R.id.editTextMultiLineBoard);
@@ -53,21 +55,43 @@ public class WritingBoard extends AppCompatActivity {
 
         jsonApi = retrofit.create(JsonApi.class);
 
+        String s1="edit";
+        if(mode.equals(s1)){
+            button.setText("글수정");
+            board_no=intent.getExtras().getInt("board_no");
+            editTextTitle.setText(intent.getExtras().getString("title"));
+            editTextMultiLineBoard.setText(intent.getExtras().getString("question"));
+        }
+        else {
+
+            button.setText("글등록");
+        }
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BoardData bd = new BoardData();
-                bd.setTitle(editTextTitle.getText().toString());
-                bd.setQuestion(editTextMultiLineBoard.getText().toString());
-                bd.category=category;
-                bd.id="user3";
-                bd.board_like=0;
-                bd.board_date=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
+                bd.title=editTextTitle.getText().toString();
+                bd.question=editTextMultiLineBoard.getText().toString();
+                if(mode.equals(s1)) {
+                    updateBoard(bd);
+                }
+                else {
+                    bd.id="user3";
+                    bd.board_like=0;
+                    bd.category=ArticleBoard.name;
+                    bd.board_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
 
-                addBoard(bd);
+                    addBoard(bd);
+                }
+                Intent intent2=new Intent(WritingBoard.this, ArticleBoard.class);
+                String name=ArticleBoard.name;
+                intent2.putExtra("values",name);
+                startActivity(intent2);
             }
         });
+
 
     }
 
@@ -85,4 +109,22 @@ public class WritingBoard extends AppCompatActivity {
             }
         });
     }
+
+    private void updateBoard(BoardData b) {
+        Call<Void> call = jsonApi.updatePost(board_no, b);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("Wrinting - Board_no", String.valueOf(board_no));
+                Toast.makeText(WritingBoard.this, "Board updated successfully", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+
+    }
+
 }

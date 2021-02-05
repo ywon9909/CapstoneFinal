@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.androidcapstone.databinding.ActivityArticleDetailBinding;
@@ -42,6 +44,13 @@ public class ArticleDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
+        Button writeComment = (Button)findViewById(R.id.write);
+        writeComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         TextView title = (TextView)findViewById(R.id.title);
         TextView question = (TextView)findViewById(R.id.question);
@@ -98,6 +107,56 @@ public class ArticleDetail extends AppCompatActivity {
         };
         jsonApi.getComment(num).enqueue(callback);
 
+
+        Button update = (Button)findViewById(R.id.update);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WritingBoard.class);
+                intent.putExtra("mode","edit");
+                intent.putExtra("board_no", num);
+                intent.putExtra("title", title.getText().toString());
+                intent.putExtra("question", question.getText().toString());
+                Log.d("ArticleDetail - title", title.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        Button delete = (Button)findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePost(num);
+            }
+        });
+
+    }
+
+    private void deletePost(Integer no) {
+        Call<Void> calls = jsonApi.deleteUser(no);
+        calls.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+
+                    Log.i("board delete", "num="+no);
+
+                    //textViewResult.setText("code: " + response.code());boar
+                    Intent intent2=new Intent(ArticleDetail.this, ArticleBoard.class);
+                    String name=ArticleBoard.name;
+                    intent2.putExtra("values",name);
+                    startActivity(intent2);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.i("board delete fail", String.valueOf(num));
+            }
+
+
+        });
 
     }
 }

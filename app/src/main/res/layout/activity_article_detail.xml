@@ -28,15 +28,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <Button
-            android:id="@+id/write"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="right"
-            android:text="✏"
-            android:textSize="18sp" />
-        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/write"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="✏"
+                android:textSize="18sp" />
+            <Button
+                android:id="@+id/update"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/delete"
+                android:text="수정"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="삭제"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
