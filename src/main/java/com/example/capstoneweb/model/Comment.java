@@ -20,8 +20,6 @@ public class Comment{
     @Column(name="comment_no")
     private Integer comment_no;
 
-
-
     @Column(name = "answer")
     private String answer;
     @Column(name = "comment_date")

@@ -23,7 +23,7 @@ public class PagingUtil {
 
     Boolean isPrev;                 // 이전 페이지 표시 여부
     Boolean isNext;                 // 다음 페이지 표시여부
-String category;
+    String category;
 
     /**
      * 생성자 1;
@@ -35,7 +35,7 @@ String category;
         this.currentPageNum = 1;
         this.objectCountPerPage = 10;
         this.pageNumCountPerPage = 10;
-this.category="성형외과";
+        this.category="성형외과";
         setObjectStartAndEnd();
     }
 
