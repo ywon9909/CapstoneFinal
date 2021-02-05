@@ -30,7 +30,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class ExpertFragment extends Fragment {
+public class ExpertFragment extends Fragment implements TextWatcher {
     // 글 목록
 
     Retrofit retrofit;
@@ -63,13 +63,8 @@ public class ExpertFragment extends Fragment {
                 // 선택된 category 값을 보내주면서 WritingBoard를 시작
                 Intent intent = new Intent(getContext(), WritingBoard.class);
 
-                intent.putExtra("mode","else");
-              
-
-                intent.putExtra("category", ArticleBoard.name);
-                startActivityForResult(intent, 1);
-                // onActivityResult를 사용해야함. 어디에서?
-
+                intent.putExtra("mode", "else");
+                startActivity(intent);
             }
         });
 
@@ -129,8 +124,26 @@ public class ExpertFragment extends Fragment {
             }
         };
         jsonApi.getBoard(data).enqueue(callback);
+
+
+        //editSearch.addTextChangedListener(this);
+
         // Inflate the layout for this fragment
         return  mView;
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 }
