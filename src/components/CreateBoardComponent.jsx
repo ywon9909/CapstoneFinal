@@ -61,11 +61,11 @@ class CreateBoardComponent extends Component {
         console.log("board=> "+JSON.stringify(board));
         if (this.state.num === '_create') {
             BoardService.createBoard(board).then(res => {
-                this.props.history.push('/success');
+                this.props.history.push(`/category-board/${this.state.category}`);
             });
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
-                this.props.history.push('/success');
+                this.props.history.push(`/category-board/${this.state.category}`);
             });
         }
 
