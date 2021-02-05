@@ -29,6 +29,18 @@
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <Button
+            android:id="@+id/button3"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:text="글삭제" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:text="글수정" />
+
+        <Button
             android:id="@+id/write"
             android:layout_width="50dp"
             android:layout_height="wrap_content"

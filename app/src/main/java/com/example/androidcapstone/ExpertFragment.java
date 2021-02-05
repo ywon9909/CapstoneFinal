@@ -47,7 +47,7 @@ public class ExpertFragment extends Fragment {
     TextView textView;
 
 
-    static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://172.30.1.58:8080";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,8 +62,14 @@ public class ExpertFragment extends Fragment {
                 Log.d("ExpertFragment", "button");
                 // 선택된 category 값을 보내주면서 WritingBoard를 시작
                 Intent intent = new Intent(getContext(), WritingBoard.class);
+
+                intent.putExtra("mode","else");
+              
+
                 intent.putExtra("category", ArticleBoard.name);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
+                // onActivityResult를 사용해야함. 어디에서?
+
             }
         });
 
