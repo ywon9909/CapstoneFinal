@@ -1,5 +1,7 @@
 package com.example.androidcapstone;
 
+import java.util.Date;
+
 public class BoardData {
     Integer board_no;
     String title;
@@ -7,7 +9,9 @@ public class BoardData {
     String board_date;
     Integer board_like;
     String category;
-    String board_id;
+
+
+    String id;
 
     public Integer getBoard_no() {
         return board_no;
@@ -57,15 +61,13 @@ public class BoardData {
         this.category = category;
     }
 
-    public String getBoard_id() {
-        return board_id;
+    public String getId() {
+        return id;
     }
 
-    public void setBoard_id(String board_id) {
-        this.board_id = board_id;
+    public void setId(String id) {
+        this.id = id;
     }
-
-
 
     @Override
     public String toString() {
@@ -76,7 +78,7 @@ public class BoardData {
                 ",\"board_date\":\"" + board_date + '\"' +
                 ",\"board_like\":" + board_like +
                 ",\"category\":\"" + category + '\"' +
-                ",\"id\":\"" + board_id + '\"' +
+                ",\"id\":\"" + id + '\"' +
                 '}';
     }
 
