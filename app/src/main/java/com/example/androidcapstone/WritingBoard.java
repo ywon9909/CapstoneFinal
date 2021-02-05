@@ -19,6 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.androidcapstone.ExpertFragment.URL;
+import static com.example.androidcapstone.RecyclerViewAdapter2.num;
 
 
 import java.text.SimpleDateFormat;
@@ -43,6 +44,7 @@ String category;
     static final String URL = "http://172.30.1.58:8080";
 
     String category;
+    Integer board_no;
 
     JsonApi jsonApi;
     Retrofit retrofit;
@@ -126,77 +128,23 @@ intent2.putExtra("values",name);
         });
 
     }
-    private void editpost(BoardData boardData) {
+    
 
-        Call<Void> call = jsonApi.updateBoardData(board_no,boardData);
+    private void updateBoard(BoardData b) {
+        Call<Void> call = jsonApi.updatePost(board_no, b);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if (!response.isSuccessful()) {
-                    //textViewResult.setText("code: " + response.code());boar
-                    return;
-                }
+                Log.d("Wrinting - Board_no", String.valueOf(board_no));
+                Toast.makeText(WritingBoard.this, "Board updated successfully", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-            }
-        });
-
-    }/*
-    /*
-
-
-        Intent intent = new Intent();
-        Intent intent = getIntent();
-        category = intent.getExtras().getString("category");
-
-
-        editTextTitle = (EditText)findViewById(R.id.editTextTitle);
-        editTextMultiLineBoard = (EditText)findViewById(R.id.editTextMultiLineBoard);
-        button = (Button)findViewById(R.id.submit);
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        jsonApi = retrofit.create(JsonApi.class);
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BoardData bd = new BoardData();
-                bd.setTitle(editTextTitle.getText().toString());
-                bd.setQuestion(editTextMultiLineBoard.getText().toString());
-                bd.category=category;
-                bd.id="user3";
-                bd.board_like=0;
-                bd.board_date=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
-
-                addBoard(bd);
-            }
-        });
-
-    }
-
-    private void addBoard(BoardData b) {
-        Call<BoardData> call = jsonApi.addPost(b);
-        call.enqueue(new Callback<BoardData>() {
-            @Override
-            public void onResponse(Call<BoardData> call, Response<BoardData> response) {
-                Toast.makeText(WritingBoard.this, "Board created successfully", Toast.LENGTH_LONG).show();
-            }
-
-
-         */
-
-            @Override
-            public void onFailure(Call<BoardData> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
+
     }
 
 }

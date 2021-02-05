@@ -23,6 +23,12 @@ public interface JsonApi {
     @POST("/api/board")
     Call<BoardData> addPost(@Body BoardData boardData);
 
+    @PUT("/api/board/{no}")
+    Call<Void> updatePost(@Path("no") Integer no, @Body BoardData boardData);
+
+    @DELETE("/api/board/{no}")
+    Call<Void> deleteUser(@Path("no") int no);
+
 
     //@GET("/api/board/comment/1")
     //Call<List<CommentData>> getComment();
