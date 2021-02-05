@@ -9,8 +9,6 @@ public class BoardData {
     String board_date;
     Integer board_like;
     String category;
-
-
     String id;
 
     public Integer getBoard_no() {
@@ -61,11 +59,11 @@ public class BoardData {
         this.category = category;
     }
 
-    public String getId() {
+    public String getBoard_id() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setBoard_id(String board_id) {
         this.id = id;
     }
 

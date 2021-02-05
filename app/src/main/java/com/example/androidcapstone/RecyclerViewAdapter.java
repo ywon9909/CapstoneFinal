@@ -45,6 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.board_no.setText(dataList.get(position).getBoard_no().toString());
         holder.title.setText(dataList.get(position).getTitle());
         //holder.board_date.setText(dataList.get(position).getBoard_date().toString());
+
         String str = dataList.get(position).getBoard_date().toString();
         String date = str.substring(0, str.indexOf("T"));
         String time = str.substring(12, str.indexOf("."));

@@ -60,11 +60,16 @@ public class ExpertFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("ExpertFragment", "button");
-                // WritingBoard에서 글의 제목과 글 내용을 받아올 예정.
+                // 선택된 category 값을 보내주면서 WritingBoard를 시작
                 Intent intent = new Intent(getContext(), WritingBoard.class);
+
                 intent.putExtra("mode","else");
+              
+
+                intent.putExtra("category", ArticleBoard.name);
                 startActivityForResult(intent, 1);
                 // onActivityResult를 사용해야함. 어디에서?
+
             }
         });
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 public class ArticleBoard extends AppCompatActivity {
     // 버튼 선택하면 글 목록과 지도 나오도록.
 
+
    static String name;
 
     @Override
