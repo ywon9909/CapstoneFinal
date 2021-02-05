@@ -33,6 +33,37 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             + "FROM board  WHERE 0 < board_no "
             + "and category = ?1 "
             + "ORDER BY board_no DESC ";
+    public final static String SELECT_BOARD_SEARCH_QUESTION=""
+            +"SELECT "
+            +"board_no, "
+            + "title,"
+            + "question, "
+            + "board_date,"
+            + "board_like, "
+            + "category, "
+            + "id "
+            +"FROM board WHERE question LIKE %?1% ";
+    public final static String SELECT_BOARD_SEARCH_ALL=""
+            +"SELECT "
+            +"board_no, "
+            + "title,"
+            + "question, "
+            + "board_date,"
+            + "board_like, "
+            + "category, "
+            + "id "
+            +"FROM board WHERE title,question LIKE %?1% ";
+    public final static String SELECT_BOARD_SEARCH_TITLE=""
+            +"SELECT "
+            +"board_no, "
+            + "title,"
+            + "question, "
+            + "board_date,"
+            + "board_like, "
+            + "category, "
+            + "id "
+            +"FROM board WHERE title LIKE %?1% ";
+
     @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
     List<Board> findFromTo(
             final String category,
@@ -43,4 +74,13 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     List<Board> findFromToMobile(
             final String category);
 
+
+    @Query(value = SELECT_BOARD_SEARCH_ALL,nativeQuery = true)
+    List<Board> findKeywordAll(final String keyword);
+
+    @Query(value = SELECT_BOARD_SEARCH_TITLE,nativeQuery = true)
+    List<Board> findKeywordTitle(final String keyword);
+
+    @Query(value = SELECT_BOARD_SEARCH_QUESTION,nativeQuery = true)
+    List<Board> findKeywordQuestion(final String keyword);
 }

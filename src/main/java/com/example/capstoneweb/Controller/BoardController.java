@@ -51,18 +51,28 @@ public class BoardController {
 
     // update board
     @PutMapping("/board/{no}")
-    public ResponseEntity<Board> updateBoardByNo(
+    public void updateBoardByNo(
             @PathVariable Integer no, @RequestBody Board board){
 
-        return boardService.updateBoard(no, board);
+        boardService.updateBoard(no, board);
     }
     // delete board
     @DeleteMapping("/board/{no}")
-    public ResponseEntity<Board> deleteBoardByNo(
+    public void deleteBoardByNo(
             @PathVariable Integer no) {
 
-        return boardService.deleteBoard(no);
+        boardService.deleteBoard(no);
     }
-
+    @GetMapping("/board/search/{keyword}/{searchType}")
+    public List<Board> getSearchBoards(@PathVariable(value="keyword", required=false) String keyword,
+                                       @PathVariable(value = "searchType", required=false) String searchType){
+        System.out.println(searchType);
+        System.out.println(keyword);
+        if(searchType==null)
+            searchType="title";
+        if(keyword==null)
+            keyword="help";
+        return boardService.getsearchBoard(keyword, searchType);
+    }
 
 }
