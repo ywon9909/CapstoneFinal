@@ -17,6 +17,7 @@ import com.example.androidcapstone.databinding.ActivityArticleDetailBinding;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,11 +34,13 @@ public class ArticleDetail extends AppCompatActivity {
     List<CommentData> dataList;
 
     Integer num;
-
+Button button3;
+Button button5;
     RecyclerView recyclerView2;
     RecyclerViewAdapter2 recyclerViewAdapter2;
-
-    static final String URL = "http://192.168.35.91:8080";
+    String mTitle;
+    String mQuestion;
+    static final String URL = "http://172.30.1.58:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,13 @@ public class ArticleDetail extends AppCompatActivity {
         TextView title = (TextView)findViewById(R.id.title);
         TextView question = (TextView)findViewById(R.id.question);
 
+
         Intent intent = getIntent();
 
-        String mTitle = intent.getExtras().getString("title");
+        mTitle = intent.getExtras().getString("title");
         title.setText(mTitle);
 
-        String mQuestion = intent.getExtras().getString("question");
+        mQuestion = intent.getExtras().getString("question");
         question.setText(mQuestion);
 
         num = intent.getExtras().getInt("num");
@@ -105,8 +109,40 @@ public class ArticleDetail extends AppCompatActivity {
                 t.printStackTrace();
             }
         };
+
         jsonApi.getComment(num).enqueue(callback);
 
+        button5 = findViewById(R.id.button5);
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // updatePost(num);
+                Intent intent2=new Intent(ArticleDetail.this,WritingBoard.class);
+                intent2.putExtra("mode","edit");
+                intent2.putExtra("board_no",num);
+                intent2.putExtra("title",mTitle);
+                intent2.putExtra("answer",mQuestion);
+
+                startActivity(intent2);
+
+                //글삭제
+            }
+
+
+        });//글수정
+        button3=findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+         deletePost(num);
+
+
+
+                //글삭제
+            }
+
+
+        });
 
         Button update = (Button)findViewById(R.id.update);
         update.setOnClickListener(new View.OnClickListener() {
@@ -159,4 +195,34 @@ public class ArticleDetail extends AppCompatActivity {
         });
 
     }
+
+    private void deletePost(Integer no) {
+        Call<Void> calls = jsonApi.deleteUser(no);
+        calls.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+
+                    Log.i("board delete", "num="+no);
+
+                    //textViewResult.setText("code: " + response.code());boar
+                    Intent intent2=new Intent(ArticleDetail.this, ArticleBoard.class);
+                    String name=ArticleBoard.name;
+                    intent2.putExtra("values",name);
+                    startActivity(intent2);
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.i("board delete fail", String.valueOf(num));
+            }
+
+
+        });
+
+    }
+
 }
