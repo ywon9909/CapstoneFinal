@@ -64,6 +64,11 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             + "id "
             +"FROM board WHERE title LIKE %?1% ";
 
+    public final static String SELECT_BOARD_CATEGORY_COUNT=""
+            +"SELECT "
+            +"COUNT(*) "
+            +"FROM board WHERE category =?1 ";
+
     @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
     List<Board> findFromTo(
             final String category,
@@ -83,4 +88,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query(value = SELECT_BOARD_SEARCH_QUESTION,nativeQuery = true)
     List<Board> findKeywordQuestion(final String keyword);
+
+    @Query(value = SELECT_BOARD_CATEGORY_COUNT,nativeQuery = true)
+    Integer findCategoryBoardCount(String category);
 }
