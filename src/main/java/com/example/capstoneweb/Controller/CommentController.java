@@ -30,9 +30,9 @@ public class CommentController {
     }
     // delete board
     @DeleteMapping("/board/comment/{no}")
-    public ResponseEntity<Comment> deleteCommentByNo(
+    public void deleteCommentByNo(
             @PathVariable Integer no) {
 
-        return commentService.deleteComment(no);
+        commentService.deleteComment(no);
     }
 }
