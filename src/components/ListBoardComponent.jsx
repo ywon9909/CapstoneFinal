@@ -74,9 +74,21 @@ class ListBoardComponent extends Component {
         for (let i = this.state.paging.pageNumStart; i <= this.state.paging.pageNumEnd; i++) {
             pageNums.push(i);
         }
+        let currentpage=this.state.paging.currentPageNum;
         return (pageNums.map((page) =>
             <li className="page-item" key={page.toString()}>
-                <a className="page-link" onClick={() => this.listBoard(this.state.category, page)}>{page}</a>
+                <a className="page-link" onClick={() => this.listBoard(this.state.category, page)}>
+                    {
+                        (function(){
+                            if(page==currentpage) 
+                                return (<div style={{color:'red', fontWeight:'bold'}}>{page}</div>);
+                            else return (<div>{page}</div>);
+            
+
+                        })()
+                    }
+                </a>
+                
             </li>
         ));
     }
@@ -85,7 +97,7 @@ class ListBoardComponent extends Component {
         if (this.state.paging.prev) {
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick={() => this.listBoard((this.state.category, this.state.paging.currentPageNum - 1))} tabIndex="-1">Previous</a>
+                    <a className="page-link" onClick={() => this.listBoard(this.state.category, this.state.paging.currentPageNum - 1)} tabIndex="-1">Previous</a>
                 </li>
             );
         }
@@ -95,7 +107,7 @@ class ListBoardComponent extends Component {
         if (this.state.paging.next) {
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick={() => this.listBoard((this.state.category, this.state.paging.currentPageNum + 1))} tabIndex="-1">Next</a>
+                    <a className="page-link" onClick={() => this.listBoard(this.state.category, this.state.paging.currentPageNum + 1)} tabIndex="-1">Next</a>
                 </li>
             );
         }
@@ -104,20 +116,12 @@ class ListBoardComponent extends Component {
         if (this.state.p_num !== 0) {//1
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick={() => this.listBoard(this.state.category, 1)} >Move to First Page</a>
+                    <a className="page-link" onClick={() => this.listBoard(this.state.category, 1)} tabIndex="-1">Move to First Page</a>
                 </li>
             );
         }
     }
-    isMoveToLastPage() {
-        if (this.state.p_num !== this.state.paging.pageNumCountTotal) {
-            return (
-                <li className="page-item">
-                    <a className="page-link" onClick={() => this.listBoard((this.state.category, this.state.paging.pageNumCountTotal))} tabIndex="-1">LastPage</a>
-                </li>
-            );
-        }
-    }
+    
 
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
@@ -219,9 +223,8 @@ class ListBoardComponent extends Component {
                             {
                                 this.isPagingNext()
                             }
-                            {
-                                this.isMoveToLastPage()
-                            }
+                            
+                            cuurentPageNum={this.state.paging.currentPageNum}
                         </ul>
                     </nav>
 
