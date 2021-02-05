@@ -14,7 +14,7 @@ class CreateBoardComponent extends Component {
             question:'',
             board_date:Date.now(),
             board_like:'0',
-            category:'',
+            category:'자유게시판',
             id:''
 
         }
@@ -120,7 +120,7 @@ class CreateBoardComponent extends Component {
                                         <label> Category </label>
                                         <select placeholder="category" name="category" className="form-control"
                                         value={this.state.category} onChange={this.changeCategoryHandler}>
-                                            <option value="자유게시판">게시판 타입을 선택해주세요</option>
+                                            <option value="게시판">게시판 타입을 선택해주세요</option>
                                             <option value="자유게시판">자유게시판</option>
                                             <option value="정형외과">정형외과</option>
                                             <option value="성형외과">성형외과</option>
