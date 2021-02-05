@@ -35,4 +35,11 @@ public interface JsonApi {
     @GET("/api/board/comment/{num}")
     Call<List<CommentData>> getComment(@Path("num") Integer num);
 
+    @POST("api/board/comment")
+    Call<CommentData> addComment(@Body CommentData commentData);
+
+    @DELETE("api/board/comment/{no}")
+    Call<Void> deleteComment(@Path("no") int no);
+
+
 }

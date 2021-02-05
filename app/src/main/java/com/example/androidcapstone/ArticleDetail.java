@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Build;
@@ -11,12 +12,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.androidcapstone.databinding.ActivityArticleDetailBinding;
 
+import org.w3c.dom.Comment;
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,9 +38,11 @@ public class ArticleDetail extends AppCompatActivity {
     List<CommentData> dataList;
 
     Integer num;
+    String id;
 
     RecyclerView recyclerView2;
     RecyclerViewAdapter2 recyclerViewAdapter2;
+
 
     static final String URL = "http://192.168.35.91:8080";
 
@@ -44,13 +51,7 @@ public class ArticleDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
-        Button writeComment = (Button)findViewById(R.id.write);
-        writeComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        //SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
 
         TextView title = (TextView)findViewById(R.id.title);
         TextView question = (TextView)findViewById(R.id.question);
@@ -64,8 +65,9 @@ public class ArticleDetail extends AppCompatActivity {
         question.setText(mQuestion);
 
         num = intent.getExtras().getInt("num");
+        id = intent.getExtras().getString("board_id");
 
-
+        // retrofit 통신 연결 - Spring 웹 서버와 연결
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -108,6 +110,25 @@ public class ArticleDetail extends AppCompatActivity {
         jsonApi.getComment(num).enqueue(callback);
 
 
+        EditText editTextComment = (EditText)findViewById(R.id.editTextComment);
+
+        Button writeComment = (Button)findViewById(R.id.writeComment);
+        writeComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommentData cd = new CommentData();
+                cd.answer=editTextComment.getText().toString();
+                cd.board_no=num;
+                cd.board_id=id;
+                cd.comment_id="user2";
+                cd.comment_like=0;
+                cd.comment_date=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
+                if(cd.answer.equals("")) return;
+                else addComment(cd);
+            }
+        });
+
+        // 글 수정
         Button update = (Button)findViewById(R.id.update);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,8 +151,21 @@ public class ArticleDetail extends AppCompatActivity {
             }
         });
 
+        /*
+        // swipe 시 새로고침
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recyclerViewAdapter2.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+         */
+
     }
 
+    // 글 삭제
     private void deletePost(Integer no) {
         Call<Void> calls = jsonApi.deleteUser(no);
         calls.enqueue(new Callback<Void>() {
@@ -159,4 +193,22 @@ public class ArticleDetail extends AppCompatActivity {
         });
 
     }
+
+    // 댓글 추가
+    private void addComment(CommentData c) {
+        Call<CommentData> call = jsonApi.addComment(c);
+        call.enqueue(new Callback<CommentData>() {
+            @Override
+            public void onResponse(Call<CommentData> call, Response<CommentData> response) {
+                Log.i("addComment", String.valueOf(c.board_id));
+                Toast.makeText(ArticleDetail.this, "Comment created successfully", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<CommentData> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
 }

@@ -57,14 +57,14 @@ public class WritingBoard extends AppCompatActivity {
 
         String s1="edit";
         if(mode.equals(s1)){
-            button.setText("글수정");
+            button.setText("수정");
             board_no=intent.getExtras().getInt("board_no");
             editTextTitle.setText(intent.getExtras().getString("title"));
             editTextMultiLineBoard.setText(intent.getExtras().getString("question"));
         }
         else {
 
-            button.setText("글등록");
+            button.setText("등록");
         }
 
 
