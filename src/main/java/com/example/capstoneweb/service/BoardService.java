@@ -40,9 +40,12 @@ public class BoardService {
     public ResponseEntity<Map> getPagingBoard(String category,Integer p_num) {
         Map result = null;
 
-        PagingUtil pu = new PagingUtil(category,p_num, 5, 5); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
-        List<Board> list = boardRepository.findFromTo(category,pu.getObjectStartNum(), pu.getObjectCountPerPage());//
-        pu.setObjectCountTotal(findAllCount());
+        PagingUtil pu = new PagingUtil(category,p_num, 5, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        List<Board> list = boardRepository.findFromTo(category,pu.getObjectStartNum(), pu.getObjectCountPerPage());
+
+        pu.setObjectCountTotal(boardRepository.findCategoryBoardCount(category));//findAllCount()=전체 글 수
+
+
         pu.setCalcForPaging();
 
 
@@ -60,6 +63,7 @@ public class BoardService {
 
         return ResponseEntity.ok(result);
     }
+
 
 
     public List<Board> getPagingBoard2(String category) {
