@@ -10,13 +10,13 @@ class ReadBoardComponent extends Component {
             board: {},
             comments: [],
             answer:'',
-            comment_date:Date.now()
-
-
-
+            comment_date:Date.now(),
+         
         }
         this.goToUpdate = this.goToUpdate.bind(this);
-this.createComment=this.createComment.bind(this);
+        this.createComment=this.createComment.bind(this);
+        this.likeboard = this.likeboard.bind(this);
+        
     }
     changeanswer= (event) =>{
         this.setState({answer:event.target.value});
@@ -24,9 +24,9 @@ this.createComment=this.createComment.bind(this);
     componentDidMount() {
         BoardService.getOneBoard(this.state.num).then(res => {
             this.setState({
-                board: res.data
-
+                board: res.data,
             });
+            
         });
         BoardService.getOneComment(this.state.num).then(res => {
             this.setState({
@@ -78,12 +78,38 @@ this.createComment=this.createComment.bind(this);
     }
 
     goToList() {
-        this.props.history.push('/board');
+        this.props.history.push(`/category-board/${this.state.board.category}`);
     }
     goToUpdate = (event) => {
         event.preventDefault();
         this.props.history.push(`/create-board/${this.state.num}`);
     }
+    
+
+    likeboard=(event)=>{
+        event.preventDefault();
+        this.setState({boardlike:event.target.value});
+        let board = {
+            title:this.state.board.title,
+            question:this.state.board.question,
+            board_date:this.state.board.board_date,
+            board_like:this.state.board.board_like+1,
+            category:this.state.board.category,
+            id:this.state.board.id
+
+        }; 
+        BoardService.updateBoard(this.state.num, board).then(res => {
+            //this.props.history.push(`/category-board/${this.state.board.category}`);
+            if (res.status === 200) {
+                window.location.replace('/read-board/'+this.state.num);
+            } else {
+                alert("실패했습니다.");
+            }
+        });
+        
+    }
+
+    
 
 
 
@@ -92,7 +118,7 @@ this.createComment=this.createComment.bind(this);
             BoardService.deleteBoard(this.state.num).then(res => {
                 console.log("delete result => " + JSON.stringify(res));
                 if (res.status === 200) {
-                    this.props.history.push('/success');
+                    this.props.history.push(`/category-board/${this.state.board.category}`);
                 } else {
                     alert("글 삭제가 실패했습니다.");
                 }
@@ -100,7 +126,8 @@ this.createComment=this.createComment.bind(this);
 
         }
     }
-    deleteComment = async function (comment_no) {     BoardService.deleteComment(comment_no).then(res => {
+    deleteComment = async function (comment_no) {     
+        BoardService.deleteComment(comment_no).then(res => {
                 console.log("delete result => " + JSON.stringify(res));
                 if (res.status === 200) {
                     window.location.replace('/read-board/'+this.state.num);
@@ -137,6 +164,7 @@ this.createComment=this.createComment.bind(this);
                         <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>글 목록으로 이동</button>
                         <button className="btn btn-info" onClick={this.goToUpdate} style={{ marginLeft: "10px" }}>글 수정</button>
                         <button className="btn btn-danger" onClick={() => this.deleteView()} style={{ marginLeft: "10px" }}>글 삭제</button>
+                        <button className="btn btn-warning" onClick={this.likeboard} style={{marginLeft: "10px"}}>좋아요({this.state.board.board_like})</button>
                     </div>
                 </div>
                 <div className="card col-md-10 offset-md-1">
