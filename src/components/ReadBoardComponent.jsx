@@ -11,9 +11,7 @@ class ReadBoardComponent extends Component {
             comments: [],
             answer:'',
             comment_date:Date.now(),
-            boardlike:''
-
-
+         
         }
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment=this.createComment.bind(this);
@@ -27,7 +25,6 @@ class ReadBoardComponent extends Component {
         BoardService.getOneBoard(this.state.num).then(res => {
             this.setState({
                 board: res.data,
-                boardlike:res.data.board_like
             });
             
         });
