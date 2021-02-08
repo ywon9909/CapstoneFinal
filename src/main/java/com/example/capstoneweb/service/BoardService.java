@@ -80,6 +80,8 @@ public class BoardService {
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
         board.setTitle(updatedBoard.getTitle());
         board.setQuestion(updatedBoard.getQuestion());
+        board.setBoard_like(updatedBoard.getBoard_like());
+
         Board endUpdatedBoard = boardRepository.save(board);
         //return ResponseEntity.ok(endUpdatedBoard);
     }
