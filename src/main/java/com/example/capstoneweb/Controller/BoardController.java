@@ -66,8 +66,8 @@ public class BoardController {
     @GetMapping("/board/search/{keyword}/{searchType}")
     public List<Board> getSearchBoards(@PathVariable(value="keyword", required=false) String keyword,
                                        @PathVariable(value = "searchType", required=false) String searchType){
-        System.out.println(searchType);
-        System.out.println(keyword);
+        //System.out.println(searchType);
+        //System.out.println(keyword);
         if(searchType==null)
             searchType="title";
         if(keyword==null)
