@@ -2,6 +2,7 @@ package com.example.androidcapstone;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +46,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.title.setText(dataList.get(position).getTitle());
         //holder.board_date.setText(dataList.get(position).getBoard_date().toString());
 
-
         String str = dataList.get(position).getBoard_date().toString();
         String date = str.substring(0, str.indexOf("T"));
-        String time = str.substring(11, str.indexOf("."));
+        String time = str.substring(12, str.indexOf("."));
+
         holder.board_date.setText(date + " " + time);
 
 
