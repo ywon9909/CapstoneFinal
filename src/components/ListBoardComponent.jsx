@@ -224,7 +224,6 @@ class ListBoardComponent extends Component {
                                 this.isPagingNext()
                             }
                             
-                            cuurentPageNum={this.state.paging.currentPageNum}
                         </ul>
                     </nav>
 
