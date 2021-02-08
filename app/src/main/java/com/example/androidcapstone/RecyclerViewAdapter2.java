@@ -102,6 +102,12 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
 
                                 Log.i("board delete", "num="+comment_no);
 
+                                //1번누르면 DB에서 삭제,2번 누르면 datalist에서 삭제
+                                dataList.remove(getAdapterPosition());
+                                notifyItemRemoved(getAdapterPosition());
+                                notifyItemRangeChanged(getAdapterPosition(), getItemCount());
+
+
                                 //textViewResult.setText("code: " + response.code());boar
                                /* Intent intent2=new Intent(ArticleDetail.this, ArticleBoard.class);
                                 String name=ArticleBoard.name;
