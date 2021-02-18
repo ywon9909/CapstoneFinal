@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment layout
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="hello_home_fragment" />
+    -->
 
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textSize="15sp"
+        android:hint="검색" />
 </FrameLayout>
