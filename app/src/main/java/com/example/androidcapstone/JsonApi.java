@@ -27,6 +27,10 @@ public interface JsonApi {
     @DELETE("/api/board/{no}")
     Call<Void> deleteUser(@Path("no") int no);
 
+    @GET("/api/board/search/{keyword}/{searchType}")
+    Call<List<BoardData>> getSearchBoards(@Path(value = "keyword") String keyword,
+                                          @Path(value = "searchType") String searchType);
+
 
     //@GET("/api/board/comment/1")
     //Call<List<CommentData>> getComment();
