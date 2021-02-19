@@ -9,9 +9,10 @@ class MapComponent extends Component {
         super(props)
         this.state = {
             category: props.match.params.category,
-            //keyword:""
+            //keyword:props.match.params.category
         }
-        //this.handleSearchKeyword=this.handleSearchKeyword.bind(this);
+        this.SearchKeywordhandler=this.SearchKeywordhandler.bind(this);
+        
     }
     listBoard(category) {
         this.props.history.push(`/category-board/${category}`);
@@ -21,7 +22,7 @@ class MapComponent extends Component {
         BoardService.getBoards(this.state.category, this.state.p_num).then((res) => {
             this.setState({
                 category: this.state.category,
-                
+                //keyword:this.state.category
             });
         })
         const script = document.createElement("script");
@@ -42,9 +43,13 @@ class MapComponent extends Component {
                
                 const ps = new window.kakao.maps.services.Places();
                 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-                searchPlaces();
-                function searchPlaces() {
-                   var keyword=document.getElementById('keyword').value;
+               
+                searchPlaces(this.state.category);
+                function searchPlaces(keyword){
+                    //var keyword=document.getElementById('keyword').value;
+                   
+                    // this.setState({keyword:document.getElementById('keyword').value})
+                    
                     ps.keywordSearch(keyword, placesSearchCB);
 
                 }
@@ -124,7 +129,7 @@ class MapComponent extends Component {
                     var el = document.createElement('li'),
                         itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
                             '<div class="info">' +
-                            '   <h5>' + places.place_name + '</h5>';
+                            '   <h5>' + (index + 1) +'. '+places.place_name +'</h5>';
 
                     if (places.road_address_name) {
                         itemStr += '    <span>' + places.road_address_name + '</span>' +
@@ -298,12 +303,12 @@ class MapComponent extends Component {
             });
         };
     }
-    handleSearchKeyword=(event)=>{
-        this.state.keyword=event.target.value;
+    SearchKeywordhandler=(event)=>{
+       this.setState({keyword:event.target.value});
     }
     render() {
         return (
-            <div>
+            <div >
                 <h2 className="text-center"><a onClick={() => this.listBoard(this.state.category, 1)}>   {this.state.category}</a>  지도
                </h2>
                 <div id="MyMap" style={{  width: "700px", height: "600px", float: "right" }}>
@@ -311,14 +316,15 @@ class MapComponent extends Component {
                 </div>
                 <div id="menu_wrap" style={{ backgroundColor: 'white', margin:'0px',float: "left", width:'400px',height:'600px',overflow:'scroll'}}>
                         <div >
-                            <div>
+                            <div className="form-group">
                                 <form onsubmit="searchPlaces(); return false;">
-                                    키워드 : <input type="text" value={this.state.category} id="keyword" size="15" onChange={this.handleSearchKeyword}/>
-                                    <button type="submit">검색하기</button>
+                                    {/* 키워드 : <input type="text" value={this.state.category} id="keyword" size="15" onChange={this.SearchKeywordhandler}/>
+                                    <button type="submit" >검색하기</button> */}
+                                    
                                 </form>
-                            </div>
+        </div>
                         </div>
-                        <ul id="placesList"></ul>
+                        <ul id="placesList" style={{listStyleType:"none"}}></ul>
                         <div id="pagination"></div>
                     </div>
             </div>

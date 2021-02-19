@@ -74,21 +74,21 @@ class ListBoardComponent extends Component {
         for (let i = this.state.paging.pageNumStart; i <= this.state.paging.pageNumEnd; i++) {
             pageNums.push(i);
         }
-        let currentpage=this.state.paging.currentPageNum;
+        let currentpage = this.state.paging.currentPageNum;
         return (pageNums.map((page) =>
             <li className="page-item" key={page.toString()}>
                 <a className="page-link" onClick={() => this.listBoard(this.state.category, page)}>
                     {
-                        (function(){
-                            if(page==currentpage) 
-                                return (<div style={{color:'red', fontWeight:'bold'}}>{page}</div>);
+                        (function () {
+                            if (page == currentpage)
+                                return (<div style={{ color: 'red', fontWeight: 'bold' }}>{page}</div>);
                             else return (<div>{page}</div>);
-            
+
 
                         })()
                     }
                 </a>
-                
+
             </li>
         ));
     }
@@ -121,14 +121,14 @@ class ListBoardComponent extends Component {
             );
         }
     }
-    
+
 
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
     }
     searchKeyWord = (event) => {
 
-        BoardService.searchBoard(this.state.search,this.state.searchType).then(res => {
+        BoardService.searchBoard(this.state.search, this.state.searchType).then(res => {
             this.setState({
                 boards: res.data
             });
@@ -143,6 +143,16 @@ class ListBoardComponent extends Component {
     handleSearchTypeChange = (event) => {
         this.setState({ searchType: event.target.value });
     }
+    mapPage() {
+        if(this.state.category!="자유게시판"){
+            return (
+                <a onClick={() => this.mapBoard(this.state.category)}>    지도</a>
+            )
+    
+        }
+        
+
+    }
     render() {
 
         return (
@@ -153,13 +163,13 @@ class ListBoardComponent extends Component {
                         <tr>
                             <td>
                                 <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
-                                <option value="all">제목+질문</option>
-                                <option value="title">제목</option>
-                                <option value="question">질문</option>
-                                
+                                    <option value="all">제목+질문</option>
+                                    <option value="title">제목</option>
+                                    <option value="question">질문</option>
+
                                 </select>
                             </td>
-                            
+
                             <td>
                                 <input type="text" placeholder="검색하기"
                                     name="search" value={this.state.search}
@@ -171,9 +181,7 @@ class ListBoardComponent extends Component {
                         </tr>
                     </table>
                 </div>
-                <h2 className="text-center">{this.state.category}
-                    <a onClick={() => this.mapBoard(this.state.category)}>    지도</a>
-                </h2>
+                <h2 className="text-center">{this.state.category} {this.mapPage()}</h2>
 
                 <div className="row">
                     <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
@@ -223,7 +231,7 @@ class ListBoardComponent extends Component {
                             {
                                 this.isPagingNext()
                             }
-                            
+
                         </ul>
                     </nav>
 
