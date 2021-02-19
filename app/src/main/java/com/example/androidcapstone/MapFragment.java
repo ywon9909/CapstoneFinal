@@ -82,8 +82,9 @@ public class MapFragment extends Fragment {
 
         mEditTextQuery = (EditText) v.findViewById(R.id.editTextQuery); // 검색창
 
-        /*
+
         mButtonSearch = (Button) v.findViewById(R.id.buttonSearch); // 검색버튼
+        /*
         mButtonSearch.setOnClickListener(new View.OnClickListener() { // 검색버튼 클릭 이벤트 리스너
             @Override
             public void onClick(View v) {
@@ -112,6 +113,7 @@ public class MapFragment extends Fragment {
 
          */
 
+
         return v;
     }
 
@@ -139,6 +141,6 @@ public class MapFragment extends Fragment {
         }
         return currentLocation;
     }
-    
+
 
 }
