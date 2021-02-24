@@ -5,6 +5,7 @@ class PromotionComponent extends Component {
         return (
             <div>
                 <h2>홍보게시판</h2>
+                
             </div>
         );
     }
