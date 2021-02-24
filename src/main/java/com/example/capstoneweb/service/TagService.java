@@ -28,4 +28,19 @@ public class TagService {
         Tag tag=tagRepository.findById(num).orElseThrow(() -> new ResourceNotFoundException("Not exist Tag Data by no : [" + num + "]"));
         tagRepository.delete(tag);
     }
+
+    public Tag createTag(Tag tag) {
+        return tagRepository.save(tag);
+    }
+
+    public void updateTag(Integer num, Tag updatetag) {
+        Tag tag =tagRepository.findById(num).orElseThrow(() -> new ResourceNotFoundException("Not exist Tag Data by no : [" + num + "]"));
+        tag.setTag1(updatetag.getTag1());
+        tag.setTag2(updatetag.getTag2());
+        tag.setTag3(updatetag.getTag3());
+        tag.setTag4(updatetag.getTag4());
+        tag.setTag5(updatetag.getTag5());
+
+        tagRepository.save(tag);
+    }
 }
