@@ -1,7 +1,5 @@
 package com.example.androidcapstone;
 
-import java.util.Date;
-
 public class BoardData {
     Integer board_no;
     String title;

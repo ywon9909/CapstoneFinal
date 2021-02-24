@@ -28,46 +28,112 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/writeComment"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="✏"
-                android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/editTextComment"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_toStartOf="@+id/update"
-                android:layout_toEndOf="@+id/writeComment"
-                android:ems="10"
-                android:hint="댓글을 적고 연필을 눌러주세요."
-                android:inputType="textPersonName"
-                android:textSize="14sp" />
-            <Button
-                android:id="@+id/update"
-                android:layout_width="70dp"
+                android:text="  #" />
+            <TextView
+                android:id="@+id/tag1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/delete"
-                android:text="수정"
-                android:textSize="16sp" />
-            <Button
-                android:id="@+id/delete"
-                android:layout_width="70dp"
+                android:text="tag1" />
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="삭제"
-                android:textSize="16sp" />
+                android:text="  #" />
+            <TextView
+                android:id="@+id/tag2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tag2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  #" />
+            <TextView
+                android:id="@+id/tag3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tag3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  #" />
+            <TextView
+                android:id="@+id/tag4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tag4" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  #" />
+            <TextView
+                android:id="@+id/tag5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tag5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/update"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/delete"
+                    android:text="수정"
+                    android:textSize="16sp" />
+                <Button
+                    android:id="@+id/delete"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="삭제"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
 
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editTextComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:ems="15"
+                    android:hint="댓글을 적고 연필을 눌러주세요."
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/writeComment"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/editTextComment"
+                    android:text="✏"
+                    android:layout_alignParentRight="true"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <View
             android:id="@+id/view"

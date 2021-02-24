@@ -28,7 +28,12 @@ public class WritingBoard extends AppCompatActivity {
     EditText editTextTitle;
     EditText editTextMultiLineBoard;
 
-    String category;
+    EditText tag1;
+    EditText tag2;
+    EditText tag3;
+    EditText tag4;
+    EditText tag5;
+
     Integer board_no;
 
     JsonApi jsonApi;
@@ -48,6 +53,12 @@ public class WritingBoard extends AppCompatActivity {
         editTextMultiLineBoard = (EditText)findViewById(R.id.editTextMultiLineBoard);
         button = (Button)findViewById(R.id.submit);
 
+        tag1 = (EditText)findViewById(R.id.tag1);
+        tag2 = (EditText)findViewById(R.id.tag2);
+        tag3 = (EditText)findViewById(R.id.tag3);
+        tag4 = (EditText)findViewById(R.id.tag4);
+        tag5 = (EditText)findViewById(R.id.tag5);
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -55,35 +66,42 @@ public class WritingBoard extends AppCompatActivity {
 
         jsonApi = retrofit.create(JsonApi.class);
 
-        String s1="edit";
-        if(mode.equals(s1)){
+        String edit="edit";
+        if(mode.equals(edit)){
             button.setText("수정");
             board_no=intent.getExtras().getInt("board_no");
             editTextTitle.setText(intent.getExtras().getString("title"));
             editTextMultiLineBoard.setText(intent.getExtras().getString("question"));
         }
         else {
-
             button.setText("등록");
         }
-
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BoardData bd = new BoardData();
-                bd.title=editTextTitle.getText().toString();
-                bd.question=editTextMultiLineBoard.getText().toString();
-                if(mode.equals(s1)) {
+                bd.title = editTextTitle.getText().toString();
+                bd.question = editTextMultiLineBoard.getText().toString();
+                TagData td = new TagData();
+                td.tag1 = tag1.getText().toString();
+                td.tag2 = tag2.getText().toString();
+                td.tag3 = tag3.getText().toString();
+                td.tag4 = tag4.getText().toString();
+                td.tag5 = tag5.getText().toString();
+
+                if(mode.equals(edit)) {
                     updateBoard(bd);
+                    //updateTag(td);
                 }
                 else {
                     bd.id="user3";
-                    bd.board_like=0;
+                    bd.board_like=2;
                     bd.category=ArticleBoard.name;
                     bd.board_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
 
                     addBoard(bd);
+                    //addTag(td);
                 }
                 Intent intent2=new Intent(WritingBoard.this, ArticleBoard.class);
                 String name=ArticleBoard.name;
@@ -91,8 +109,6 @@ public class WritingBoard extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-
-
     }
 
     private void addBoard(BoardData b) {
@@ -124,6 +140,9 @@ public class WritingBoard extends AppCompatActivity {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
+    }
+
+    private void addTag(TagData t) {
 
     }
 
