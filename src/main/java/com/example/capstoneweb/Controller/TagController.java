@@ -30,5 +30,15 @@ public class TagController {
     public void deleteTagByNum(@PathVariable Integer num){
         tagService.deleteTag(num);
     }
+    //create tag
+    @PostMapping("/tag")
+    public Tag createTag(@RequestBody Tag tag){
+        return tagService.createTag(tag);
+    }
+    //update tag
+    @PutMapping("/tag/{num}")
+    public void updateTagByNum(@PathVariable Integer num, @RequestBody Tag tag){
+        tagService.updateTag(num,tag);
+    }
 
 }
