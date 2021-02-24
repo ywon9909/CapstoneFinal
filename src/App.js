@@ -9,7 +9,7 @@ import CreateBoardComponent from './components/CreateBoardComponent';
 import ReadBoardComponent from './components/ReadBoardComponent';
 import MapComponent from './components/MapComponent';
 import SuccessComponent from './components/SuccessComponent';
-import CalendarComponent from './components/CalendarComponent';
+import PromotionComponent from './components/PromotionComponent';
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
               <Route path = "/category-board/:category" component={ListBoardComponent}></Route> {/*카테고리별 리스트 보여줌*/}
               <Route path = "/category-map/:category" component={MapComponent}></Route>{/*지도 페이지*/}
               <Route path = "/success" component={SuccessComponent}></Route> {/*성공페이지 */}
-              <Route path = "/calendar" component={CalendarComponent}></Route> 
+              <Route path = "/promotion" component={PromotionComponent}></Route> 
 
             </Switch>
           </div>
