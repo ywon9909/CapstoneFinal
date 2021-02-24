@@ -30,12 +30,13 @@ public interface JsonApi {
 
     // 글 삭제
     @DELETE("/api/board/{no}")
-    Call<Void> deleteUser(@Path("no") int no);
+    Call<Void> deletePost(@Path("no") int no);
 
     // 글 검색
     @GET("/api/board/search/{keyword}/{searchType}")
     Call<List<BoardData>> getSearchBoards(@Path(value = "keyword") String keyword,
                                           @Path(value = "searchType") String searchType);
+
 
     /**
      * 태그 관련
@@ -45,6 +46,17 @@ public interface JsonApi {
     @GET("/api/board/tag/{boardno}")
     Call<TagData> getTag(@Path("boardno") Integer boardno);
 
+    // 태그 등록
+    @POST("/api/board/tag")
+    Call<TagData> addTag(@Body TagData tagData);
+
+    // 태그 수정
+    @PUT("/api/board/{boardno}")
+    Call<Void> updateTag(@Path("boardno") Integer boardno, @Body TagData tagData);
+
+    // 태그 삭제
+    @DELETE("/api/board/{boardno}")
+    Call<Void> deleteTag(@Path("boardno") int boardno);
 
 
     /**

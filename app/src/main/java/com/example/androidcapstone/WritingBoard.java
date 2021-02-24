@@ -67,23 +67,30 @@ public class WritingBoard extends AppCompatActivity {
         jsonApi = retrofit.create(JsonApi.class);
 
         String edit="edit";
-        if(mode.equals(edit)){
+        if(mode.equals(edit)){ // 글 수정 시
             button.setText("수정");
             board_no=intent.getExtras().getInt("board_no");
             editTextTitle.setText(intent.getExtras().getString("title"));
             editTextMultiLineBoard.setText(intent.getExtras().getString("question"));
+            tag1.setText(intent.getExtras().getString("tag1"));
+            tag2.setText(intent.getExtras().getString("tag2"));
+            tag3.setText(intent.getExtras().getString("tag3"));
+            tag4.setText(intent.getExtras().getString("tag4"));
+            tag5.setText(intent.getExtras().getString("tag5"));
+
         }
-        else {
+        else { // 글 등록 시
             button.setText("등록");
         }
 
+        // 글 등록 또는 수정 버튼
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BoardData bd = new BoardData();
+                TagData td = new TagData();
                 bd.title = editTextTitle.getText().toString();
                 bd.question = editTextMultiLineBoard.getText().toString();
-                TagData td = new TagData();
                 td.tag1 = tag1.getText().toString();
                 td.tag2 = tag2.getText().toString();
                 td.tag3 = tag3.getText().toString();
@@ -92,7 +99,7 @@ public class WritingBoard extends AppCompatActivity {
 
                 if(mode.equals(edit)) {
                     updateBoard(bd);
-                    //updateTag(td);
+                    updateTag(td);
                 }
                 else {
                     bd.id="user3";
@@ -101,8 +108,10 @@ public class WritingBoard extends AppCompatActivity {
                     bd.board_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
 
                     addBoard(bd);
-                    //addTag(td);
+                    addTag(td);
                 }
+
+                // 글 수정 또는 등록 시 앞으로 넘어감
                 Intent intent2=new Intent(WritingBoard.this, ArticleBoard.class);
                 String name=ArticleBoard.name;
                 intent2.putExtra("values",name);
@@ -111,6 +120,7 @@ public class WritingBoard extends AppCompatActivity {
         });
     }
 
+    // 글 등록 연결
     private void addBoard(BoardData b) {
         Call<BoardData> call = jsonApi.addPost(b);
         call.enqueue(new Callback<BoardData>() {
@@ -126,6 +136,7 @@ public class WritingBoard extends AppCompatActivity {
         });
     }
 
+    // 글 수정 연결
     private void updateBoard(BoardData b) {
         Call<Void> call = jsonApi.updatePost(board_no, b);
         call.enqueue(new Callback<Void>() {
@@ -142,8 +153,36 @@ public class WritingBoard extends AppCompatActivity {
         });
     }
 
+    // 태그 등록 연결
     private void addTag(TagData t) {
+        Call<TagData> call = jsonApi.addTag(t);
+        call.enqueue(new Callback<TagData>() {
+            @Override
+            public void onResponse(Call<TagData> call, Response<TagData> response) {
+                Log.i("addTag", t.toString());
+            }
 
+            @Override
+            public void onFailure(Call<TagData> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+    // 태그 수정 연결
+    private void updateTag(TagData t) {
+        Call<Void> call = jsonApi.updateTag(board_no, t);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("updateTag", t.toString());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
     }
 
 }

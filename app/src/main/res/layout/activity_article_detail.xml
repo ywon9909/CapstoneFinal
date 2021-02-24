@@ -9,6 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="userNickname" />
+            <TextView
+                android:id="@+id/datetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="datetime" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -40,7 +56,7 @@
                 android:id="@+id/tag1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tag1" />
+                android:text="    " />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +65,7 @@
                 android:id="@+id/tag2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tag2" />
+                android:text="    " />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +74,7 @@
                 android:id="@+id/tag3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tag3" />
+                android:text="    " />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,7 +83,7 @@
                 android:id="@+id/tag4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tag4" />
+                android:text="    " />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +92,7 @@
                 android:id="@+id/tag5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tag5" />
+                android:text="    " />
 
         </LinearLayout>
 
@@ -89,6 +105,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=" 👍 "
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/goodcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/good"
+                    android:layout_centerVertical="true"
+                    android:text="num"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/goodcount"
+                    android:layout_centerVertical="true"
+                    android:text="   📄 "
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/commentcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/comment"
+                    android:layout_centerVertical="true"
+                    android:text="num"
+                    android:textSize="16sp" />
+                <Button
+                    android:id="@+id/like"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/update"
+                    android:text="👍"/>
                 <Button
                     android:id="@+id/update"
                     android:layout_width="70dp"

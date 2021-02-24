@@ -22,6 +22,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context c;
     private List<BoardData> dataList;
 
+    String datetime;
+
     public RecyclerViewAdapter(Context c, List<BoardData> dataList) {
         this.c = c;
         this.dataList = dataList;
@@ -45,14 +47,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.board_no.setText(dataList.get(position).getBoard_no().toString());
         holder.title.setText(dataList.get(position).getTitle());
         //holder.board_date.setText(dataList.get(position).getBoard_date().toString());
+        holder.goodnum.setText(dataList.get(position).getBoard_like().toString());
 
-        String str = dataList.get(position).getBoard_date().toString();
+        String str = dataList.get(position).getBoard_date();
         String date = str.substring(0, str.indexOf("T"));
-        String time = str.substring(12, str.indexOf("."));
+        String time = str.substring(11, str.indexOf("."));
 
         holder.board_date.setText(date + " " + time);
-
-
     }
 
     @Override
@@ -66,12 +67,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView board_no;
         TextView title;
         TextView board_date;
+        TextView goodnum;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             board_no = (TextView)itemView.findViewById(R.id.board_no);
             title = (TextView)itemView.findViewById(R.id.title);
             board_date = (TextView)itemView.findViewById(R.id.board_date);
+            goodnum = (TextView)itemView.findViewById(R.id.goodnum);
 
             // item click 시 ArticleDetail로 title, question 보내줌
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +83,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         Intent intent = new Intent(v.getContext(), ArticleDetail.class);
+
                         intent.putExtra("title", dataList.get(pos).getTitle());
                         intent.putExtra("question", dataList.get(pos).getQuestion());
                         intent.putExtra("num", dataList.get(pos).getBoard_no());
                         intent.putExtra("board_id", dataList.get(pos).getBoard_id());
+                        intent.putExtra("goodcount", dataList.get(pos).getBoard_like().toString());
+
+                        String str = dataList.get(pos).getBoard_date();
+                        String date = str.substring(0, str.indexOf("T"));
+                        String time = str.substring(11, str.indexOf("."));
+                        String datetime = date + " " + time;
+                        intent.putExtra("datetime", datetime);
+                        Log.i("datetime", datetime);
+
                         v.getContext().startActivity(intent);
                     }
                 }
