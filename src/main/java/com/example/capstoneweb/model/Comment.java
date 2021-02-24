@@ -1,8 +1,5 @@
 package com.example.capstoneweb.model;
-
-
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -35,8 +32,5 @@ public class Comment{
 
     @Column(name = "board_no")
     private Integer board_no;
-
-
-
 
 }
