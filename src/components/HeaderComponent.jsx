@@ -31,7 +31,7 @@ constructor(props){
                         <li className="nav-item"><a className="nav-link" href ="http://localhost:3000/category-board/산부인과">비뇨기과</a></li>
                         <li className="nav-item"><a className="nav-link" href ="http://localhost:3000/category-board/피부과">피부과</a></li>
                         <li className="nav-item"><a className="nav-link" href ="http://localhost:3000/category-board/이비인후과">이비인후과</a></li>
-                        <li className="nav-item"><a className="nav-link" href="http://localhost:3000/calendar">calendar</a></li>
+                        <li className="nav-item"><a className="nav-link" href="http://localhost:3000/promotion">홍보</a></li>
                     </ul>
                 </div>
             </div>
