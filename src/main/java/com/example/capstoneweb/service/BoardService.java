@@ -82,7 +82,7 @@ public class BoardService {
         board.setQuestion(updatedBoard.getQuestion());
         board.setBoard_like(updatedBoard.getBoard_like());
 
-        Board endUpdatedBoard = boardRepository.save(board);
+        boardRepository.save(board);
         //return ResponseEntity.ok(endUpdatedBoard);
     }
     public void deleteBoard( Integer no) {
