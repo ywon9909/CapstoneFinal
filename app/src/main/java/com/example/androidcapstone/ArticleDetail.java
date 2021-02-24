@@ -54,6 +54,12 @@ public class ArticleDetail extends AppCompatActivity {
         TextView title = (TextView)findViewById(R.id.title);
         TextView question = (TextView)findViewById(R.id.question);
 
+        TextView tag1 = (TextView)findViewById(R.id.tag1);
+        TextView tag2 = (TextView)findViewById(R.id.tag2);
+        TextView tag3 = (TextView)findViewById(R.id.tag3);
+        TextView tag4 = (TextView)findViewById(R.id.tag4);
+        TextView tag5 = (TextView)findViewById(R.id.tag5);
+
         Intent intent = getIntent();
 
         String mTitle = intent.getExtras().getString("title");
@@ -75,6 +81,30 @@ public class ArticleDetail extends AppCompatActivity {
 
         jsonApi = retrofit.create(JsonApi.class);
 
+        // 태그 조회
+        Callback<TagData> callbacks = new Callback<TagData>() {
+            @Override
+            public void onResponse(Call<TagData> call, Response<TagData> response) {
+                if(response.isSuccessful()) {
+                    tag1.setText(response.body().tag1);
+                    tag2.setText(response.body().tag2);
+                    tag3.setText(response.body().tag3);
+                    tag4.setText(response.body().tag4);
+                    tag5.setText(response.body().tag5);
+                    Log.i("tag", response.body().toString());
+
+                } else {
+                    Log.d("log", "Status Code " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<TagData> call, Throwable t) {
+                Log.e("tag", "fail");
+            }
+        };
+        jsonApi.getTag(num).enqueue(callbacks);
+
+        // 댓글 조회
         Callback<List<CommentData>> callback = new Callback<List<CommentData>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override

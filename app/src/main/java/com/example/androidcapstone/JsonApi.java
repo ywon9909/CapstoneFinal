@@ -12,6 +12,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface JsonApi {
+    /**
+     * 글 관련
+     */
+
     // 글 조회
     @GET("/api/mobile/board")
     Call<List<BoardData>> getBoard(@Query("category") String category);
@@ -32,6 +36,20 @@ public interface JsonApi {
     @GET("/api/board/search/{keyword}/{searchType}")
     Call<List<BoardData>> getSearchBoards(@Path(value = "keyword") String keyword,
                                           @Path(value = "searchType") String searchType);
+
+    /**
+     * 태그 관련
+     */
+
+    // 태그 조회
+    @GET("/api/board/tag/{boardno}")
+    Call<TagData> getTag(@Path("boardno") Integer boardno);
+
+
+
+    /**
+     * 댓글 관련
+     */
 
     // 댓글 조회
     @GET("/api/board/comment/{num}")
