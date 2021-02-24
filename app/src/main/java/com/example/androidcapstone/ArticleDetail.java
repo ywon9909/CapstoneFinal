@@ -38,11 +38,9 @@ public class ArticleDetail extends AppCompatActivity {
     List<CommentData> dataList;
 
     Integer num;
-    String id;
 
     RecyclerView recyclerView2;
     RecyclerViewAdapter2 recyclerViewAdapter2;
-
 
     static final String URL = "http://192.168.35.91:8080";
 
@@ -51,6 +49,8 @@ public class ArticleDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
+        TextView user = (TextView)findViewById(R.id.user);
+        TextView datetime = (TextView)findViewById(R.id.datetime);
         TextView title = (TextView)findViewById(R.id.title);
         TextView question = (TextView)findViewById(R.id.question);
 
@@ -60,7 +60,13 @@ public class ArticleDetail extends AppCompatActivity {
         TextView tag4 = (TextView)findViewById(R.id.tag4);
         TextView tag5 = (TextView)findViewById(R.id.tag5);
 
+        TextView goodcount = (TextView)findViewById(R.id.goodcount);
+        TextView commentcount = (TextView)findViewById(R.id.commentcount);
+
         Intent intent = getIntent();
+
+        String id = intent.getExtras().getString("board_id");
+        user.setText("작성자 : " +id);
 
         String mTitle = intent.getExtras().getString("title");
         title.setText(mTitle);
@@ -68,8 +74,16 @@ public class ArticleDetail extends AppCompatActivity {
         String mQuestion = intent.getExtras().getString("question");
         question.setText(mQuestion);
 
+        String mDatetime = intent.getExtras().getString("datetime");
+        datetime.setText(mDatetime);
+
+        String mGoodcount = intent.getExtras().getString("goodcount");
+        goodcount.setText(mGoodcount);
+
+        //String mCommentcount = intent.getExtras().getString("commentcount");
+        //commentcount.setText(mCommentcount);
+
         num = intent.getExtras().getInt("num");
-        id = intent.getExtras().getString("board_id");
 
         // retrofit 통신 연결 - Spring 웹 서버와 연결
         retrofit = new Retrofit.Builder()
@@ -81,7 +95,7 @@ public class ArticleDetail extends AppCompatActivity {
 
         jsonApi = retrofit.create(JsonApi.class);
 
-        // 태그 조회
+        // 태그 조회 연결
         Callback<TagData> callbacks = new Callback<TagData>() {
             @Override
             public void onResponse(Call<TagData> call, Response<TagData> response) {
@@ -104,42 +118,54 @@ public class ArticleDetail extends AppCompatActivity {
         };
         jsonApi.getTag(num).enqueue(callbacks);
 
-        // 댓글 조회
-        Callback<List<CommentData>> callback = new Callback<List<CommentData>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+        // 좋아요 버튼
+        Button like = (Button)findViewById(R.id.like);
+        like.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<List<CommentData>> call, Response<List<CommentData>> response) {
-                if(response.isSuccessful()) {
-
-                    dataList = response.body();
-                    Log.d("ArticleDetail", dataList.toString());
-
-
-                    recyclerViewAdapter2 = new RecyclerViewAdapter2(getApplicationContext(), dataList);
-                    recyclerView2.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    recyclerView2.setAdapter(recyclerViewAdapter2);
-
-                    Log.d("board_no", String.valueOf(num));
-
-                    //textView = (TextView)mView.findViewById(R.id.text);
-                    //textView.setText(response.body().toString());
-
-
-                } else {
-                    Log.d("log", "Status Code " + response.code());
-                }
+            public void onClick(View v) {
+                //updatelike() ? updatePost() ?
             }
+        });
+
+        // 글 수정
+        Button update = (Button)findViewById(R.id.update);
+        update.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(Call<List<CommentData>> call, Throwable t) {
-                //Log.d("log", "Fail");
-                t.printStackTrace();
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WritingBoard.class);
+                intent.putExtra("mode","edit");
+                intent.putExtra("board_no", num);
+                intent.putExtra("title", title.getText().toString());
+                intent.putExtra("question", question.getText().toString());
+                intent.putExtra("tag1", tag1.getText().toString());
+                intent.putExtra("tag2", tag2.getText().toString());
+                intent.putExtra("tag3", tag3.getText().toString());
+                intent.putExtra("tag4", tag4.getText().toString());
+                intent.putExtra("tag5", tag5.getText().toString());
+                Log.d("ArticleDetail - title", title.getText().toString());
+                startActivity(intent);
             }
-        };
-        jsonApi.getComment(num).enqueue(callback);
+        });
 
+        // 글 삭제 버튼
+        Button delete = (Button)findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteTag(num);
+                deletePost(num);
+
+                // 글 삭제 시 앞으로 넘어감
+                Intent intent2=new Intent(ArticleDetail.this, ArticleBoard.class);
+                String name=ArticleBoard.name;
+                intent2.putExtra("values",name);
+                startActivity(intent2);
+            }
+        });
 
         EditText editTextComment = (EditText)findViewById(R.id.editTextComment);
 
+        // 댓글 등록 버튼
         Button writeComment = (Button)findViewById(R.id.writeComment);
         writeComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,34 +182,39 @@ public class ArticleDetail extends AppCompatActivity {
             }
         });
 
-        // 글 수정
-        Button update = (Button)findViewById(R.id.update);
-        update.setOnClickListener(new View.OnClickListener() {
+        // 댓글 조회 연결
+        Callback<List<CommentData>> callback = new Callback<List<CommentData>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WritingBoard.class);
-                intent.putExtra("mode","edit");
-                intent.putExtra("board_no", num);
-                intent.putExtra("title", title.getText().toString());
-                intent.putExtra("question", question.getText().toString());
-                Log.d("ArticleDetail - title", title.getText().toString());
-                startActivity(intent);
-            }
-        });
+            public void onResponse(Call<List<CommentData>> call, Response<List<CommentData>> response) {
+                if(response.isSuccessful()) {
+                    dataList = response.body();
+                    Log.d("comment", dataList.toString());
 
-        Button delete = (Button)findViewById(R.id.delete);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deletePost(num);
+                    recyclerViewAdapter2 = new RecyclerViewAdapter2(getApplicationContext(), dataList);
+                    recyclerView2.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    recyclerView2.setAdapter(recyclerViewAdapter2);
+
+                    Log.d("board_no", String.valueOf(num));
+
+                } else {
+                    Log.d("log", "Status Code " + response.code());
+                }
             }
-        });
+            @Override
+            public void onFailure(Call<List<CommentData>> call, Throwable t) {
+                //Log.d("log", "Fail");
+                t.printStackTrace();
+            }
+        };
+        jsonApi.getComment(num).enqueue(callback);
+
 
     }
 
-    // 글 삭제
+    // 글 삭제 연결
     private void deletePost(Integer no) {
-        Call<Void> calls = jsonApi.deleteUser(no);
+        Call<Void> calls = jsonApi.deletePost(no);
         calls.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -197,20 +228,34 @@ public class ArticleDetail extends AppCompatActivity {
                     intent2.putExtra("values",name);
                     startActivity(intent2);
                 }
-
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.i("board delete fail", String.valueOf(num));
             }
-
-
         });
-
     }
 
-    // 댓글 추가
+    // 태그 삭제 연결
+    private void deleteTag(Integer boardno) {
+        Call<Void> calls = jsonApi.deleteTag(boardno);
+        calls.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    Log.i("tag delete", "num="+boardno);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.i("tag delete fail", String.valueOf(boardno));
+            }
+        });
+    }
+
+    // 댓글 등록 연결
     private void addComment(CommentData c) {
         Call<CommentData> call = jsonApi.addComment(c);
         call.enqueue(new Callback<CommentData>() {
