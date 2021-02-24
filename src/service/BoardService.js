@@ -38,7 +38,10 @@ class BoardService {
         return axios.get(BOARD_API_BASE_URL+"/search/"+keyword+"/"+searchType);
 
     }
+    getTagByNum(num){
+        return axios.get(BOARD_API_BASE_URL+"/tag/"+num);
 
+    }
 }
 
 export default new BoardService();
