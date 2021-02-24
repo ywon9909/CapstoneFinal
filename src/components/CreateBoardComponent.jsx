@@ -82,7 +82,7 @@ class CreateBoardComponent extends Component {
 
         };
         let tag={
-            board_no:this.state.board_no,
+            board_no:this.state.num,
             id:this.state.id,
             tag1:this.state.tag1,
             tag2:this.state.tag2,
@@ -90,15 +90,20 @@ class CreateBoardComponent extends Component {
             tag4:this.state.tag4,
             tag5:this.state.tag5
 
-        }
+        };
         console.log("board=> "+JSON.stringify(board));
         if (this.state.num === '_create') {
             BoardService.createBoard(board).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
-            //create tag
+            BoardService.createTag(tag).then(res=>{
+                this.props.history.push(`/category-board/${this.state.category}`);
+            });
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
+                this.props.history.push(`/category-board/${this.state.category}`);
+            });
+            BoardService.updateTag(this.state.num,tag).then(res=>{
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
             //updatetag
@@ -122,9 +127,22 @@ class CreateBoardComponent extends Component {
         if (this.state.num === '_create') {
             return
         } else {
+            BoardService.getTagByNum(this.state.num).then(res=>{
+                let tag=res.data;
+
+
+                this.setState({
+                
+                    tag1:tag.tag1,
+                    tag2:tag.tag2,
+                    tag3:tag.tag3,
+                    tag4:tag.tag4,
+                    tag5:tag.tag5
+                });
+            });
             BoardService.getOneBoard(this.state.num).then( (res) => {
                 let board = res.data;
-                let tag=res.data;
+               
                 console.log("board => "+ JSON.stringify(board));
                 
                 this.setState({
@@ -135,11 +153,7 @@ class CreateBoardComponent extends Component {
                         board_like:board.board_like,
                         category:board.category,
                         id:board.id,
-                        tag1:tag.tag1,
-                        tag2:tag.tag2,
-                        tag3:tag.tag3,
-                        tag4:tag.tag4,
-                        tag5:tag.tag5
+              
                     });
             });
         }
@@ -203,7 +217,7 @@ class CreateBoardComponent extends Component {
                                         #<input aria-multiline placeholder="tag5추가" name="tag5" className="form-control"
                                         value={this.state.tag5} onChange={this.changetag5Handler}/>
                                     </div>
-                                    <button className="btn btn-success" onClick={this.createBoard}>Save</button>
+                                    <button className="btn btn-success" onClick={this.createBoard} >Save</button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft:"10px"}}>Cancel</button>
                                 </form>
                             </div>
