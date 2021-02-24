@@ -11,7 +11,7 @@ class ReadBoardComponent extends Component {
             comments: [],
             answer:'',
             comment_date:Date.now(),
-         
+         tag:{}
         }
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment=this.createComment.bind(this);
@@ -24,13 +24,18 @@ class ReadBoardComponent extends Component {
     componentDidMount() {
         BoardService.getOneBoard(this.state.num).then(res => {
             this.setState({
-                board: res.data,
+                board: res.data
             });
             
         });
         BoardService.getOneComment(this.state.num).then(res => {
             this.setState({
                 comments: res.data
+            });
+        });
+        BoardService.getTagByNum(this.state.num).then(res=>{
+            this.setState({
+                tag:res.data
             });
         });
 
@@ -160,7 +165,7 @@ class ReadBoardComponent extends Component {
                             {this.returnDate(this.state.board.board_date)}
                         </div>
                         <div className="row"> {this.state.board.id}</div>
-
+                        <div><label>태그 : #{this.state.tag.tag1} , #{this.state.tag.tag2}   , #{this.state.tag.tag3}, #{this.state.tag.tag4}, #{this.state.tag.tag5}  </label></div>
                         <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>글 목록으로 이동</button>
                         <button className="btn btn-info" onClick={this.goToUpdate} style={{ marginLeft: "10px" }}>글 수정</button>
                         <button className="btn btn-danger" onClick={() => this.deleteView()} style={{ marginLeft: "10px" }}>글 삭제</button>
@@ -189,8 +194,10 @@ class ReadBoardComponent extends Component {
                                 <div >
                                  <label>Answer : </label>{comment.answer}
                                  {this.returnDate(comment.comment_date)}
+
                                  <label>좋아요 : </label> {comment.comment_like}
                                   {comment.comement_id}<br/>
+                                  
                                 <button onClick={() => this.deleteComment(comment.comment_no)}>삭제({comment.comment_no})</button> <br/>
                                  -------------------------------------------------
                                  </div>
