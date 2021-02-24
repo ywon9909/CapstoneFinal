@@ -22,8 +22,13 @@ public class TagController {
     }
     //게시판 글에 관련된 태그
     @GetMapping("/tag/{num}")
-    public ResponseEntity<Tag> getTagByNum(@PathVariable Integer num){
+    public Tag getTagByNum(@PathVariable Integer num){
         return tagService.getTag(num);
+    }
+    //deleteTag
+    @DeleteMapping("/tag/{num}")
+    public void deleteTagByNum(@PathVariable Integer num){
+        tagService.deleteTag(num);
     }
 
 }
