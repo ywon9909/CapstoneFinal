@@ -91,18 +91,32 @@ class CreateBoardComponent extends Component {
             tag5:this.state.tag5
 
         };
+        let tag1={
+          
+            id:this.state.id,
+            tag1:this.state.tag1,
+            tag2:this.state.tag2,
+            tag3:this.state.tag3,
+            tag4:this.state.tag4,
+            tag5:this.state.tag5
+
+        };
         console.log("board=> "+JSON.stringify(board));
         if (this.state.num === '_create') {
-            BoardService.createBoard(board).then(res => {
+           BoardService.createBoard(board,tag).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
-            BoardService.createTag(tag).then(res=>{
+            //create tag
+
+           BoardService.createTag(tag1).then(res=>{
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
-            });
+            });  
+            console.log("이게뭘까?"+ this.state.num);
+         
             BoardService.updateTag(this.state.num,tag).then(res=>{
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
@@ -111,6 +125,9 @@ class CreateBoardComponent extends Component {
 
     
     }
+
+
+
     cancel(){
         this.props.history.push('/board');
     }
@@ -153,7 +170,7 @@ class CreateBoardComponent extends Component {
                         board_like:board.board_like,
                         category:board.category,
                         id:board.id,
-              
+           
                     });
             });
         }
