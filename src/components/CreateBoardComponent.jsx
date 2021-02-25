@@ -7,128 +7,128 @@ class CreateBoardComponent extends Component {
         super(props);
 
 
-        this.state={
+        this.state = {
 
             num: this.props.match.params.num,
-            title:'',
-            question:'',
-            board_date:Date.now(),
-            board_like:'0',
-            category:'자유게시판',
-            id:'',
-            tag1:'',
-            tag2:'',
-            tag3:'',
-            tag4:'',
-            tag5:''
+            title: '',
+            question: '',
+            board_date: Date.now(),
+            board_like: '0',
+            category: '자유게시판',
+            id: '',
+            tag1: '',
+            tag2: '',
+            tag3: '',
+            tag4: '',
+            tag5: ''
         }
-        
+
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeQuestionHandler = this.changeQuestionHandler.bind(this);
         this.changeBoard_dateHandler = this.changeBoard_dateHandler.bind(this);
         this.changeBoard_likeHandler = this.changeBoard_likeHandler.bind(this);
         this.changeCategoryHandler = this.changeCategoryHandler.bind(this);
         this.changeidHandler = this.changeidHandler.bind(this);
-        this.createBoard= this.createBoard.bind(this);
-        this.changetag1Handler=this.changetag1Handler.bind(this);
-        this.changetag2Handler=this.changetag2Handler.bind(this);
-        this.changetag3Handler=this.changetag3Handler.bind(this);
-        this.changetag4Handler=this.changetag4Handler.bind(this);
-        this.changetag5Handler=this.changetag5Handler.bind(this);
+        this.createBoard = this.createBoard.bind(this);
+        this.changetag1Handler = this.changetag1Handler.bind(this);
+        this.changetag2Handler = this.changetag2Handler.bind(this);
+        this.changetag3Handler = this.changetag3Handler.bind(this);
+        this.changetag4Handler = this.changetag4Handler.bind(this);
+        this.changetag5Handler = this.changetag5Handler.bind(this);
     }
-  
-    changeTitleHandler = (event) =>{
-        this.setState({title:event.target.value});
+
+    changeTitleHandler = (event) => {
+        this.setState({ title: event.target.value });
     }
     changeQuestionHandler = (event) => {
-        this.setState({question:event.target.value});
+        this.setState({ question: event.target.value });
     }
-    changeBoard_dateHandler = ()=>{
-        this.setState({board_date:Date.now()});
+    changeBoard_dateHandler = () => {
+        this.setState({ board_date: Date.now() });
     }
-    changeBoard_likeHandler =(event)=>{
-        this.setState({board_like:event.target.value});
+    changeBoard_likeHandler = (event) => {
+        this.setState({ board_like: event.target.value });
     }
-    changeidHandler = (event)=>{
-        this.setState({id:event.target.value});
+    changeidHandler = (event) => {
+        this.setState({ id: event.target.value });
     }
-    changeCategoryHandler = (event)=>{
-        this.setState({category:event.target.value});
+    changeCategoryHandler = (event) => {
+        this.setState({ category: event.target.value });
     }
-    changetag1Handler = (event)=>{
-        this.setState({tag1:event.target.value});
+    changetag1Handler = (event) => {
+        this.setState({ tag1: event.target.value });
     }
-    changetag2Handler = (event)=>{
-        this.setState({tag2:event.target.value});
+    changetag2Handler = (event) => {
+        this.setState({ tag2: event.target.value });
     }
-    changetag3Handler = (event)=>{
-        this.setState({tag3:event.target.value});
+    changetag3Handler = (event) => {
+        this.setState({ tag3: event.target.value });
     }
-    changetag4Handler = (event)=>{
-        this.setState({tag4:event.target.value});
+    changetag4Handler = (event) => {
+        this.setState({ tag4: event.target.value });
     }
-    changetag5Handler = (event)=>{
-        this.setState({tag5:event.target.value});
+    changetag5Handler = (event) => {
+        this.setState({ tag5: event.target.value });
     }
-    createBoard = (event) =>{
+    createBoard = (event) => {
         event.preventDefault();
         let board = {
-            title:this.state.title,
-            question:this.state.question,
-            board_date:this.state.board_date,
-            board_like:this.state.board_like,
-            category:this.state.category,
-            id:this.state.id
+            title: this.state.title,
+            question: this.state.question,
+            board_date: this.state.board_date,
+            board_like: this.state.board_like,
+            category: this.state.category,
+            id: this.state.id
 
         };
-        let tag={
-            board_no:this.state.num,
-            id:this.state.id,
-            tag1:this.state.tag1,
-            tag2:this.state.tag2,
-            tag3:this.state.tag3,
-            tag4:this.state.tag4,
-            tag5:this.state.tag5
+        let tag = {
+            board_no: this.state.num,
+            id: this.state.id,
+            tag1: this.state.tag1,
+            tag2: this.state.tag2,
+            tag3: this.state.tag3,
+            tag4: this.state.tag4,
+            tag5: this.state.tag5
 
         };
-        let tag1={
-          
-            id:this.state.id,
-            tag1:this.state.tag1,
-            tag2:this.state.tag2,
-            tag3:this.state.tag3,
-            tag4:this.state.tag4,
-            tag5:this.state.tag5
+        let tag1 = {
+
+            id: this.state.id,
+            tag1: this.state.tag1,
+            tag2: this.state.tag2,
+            tag3: this.state.tag3,
+            tag4: this.state.tag4,
+            tag5: this.state.tag5
 
         };
-        console.log("board=> "+JSON.stringify(board));
+        console.log("board=> " + JSON.stringify(board));
         if (this.state.num === '_create') {
-           BoardService.createBoard(board,tag).then(res => {
+            BoardService.createBoard(board, tag1).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
             //create tag
 
-           BoardService.createTag(tag1).then(res=>{
+            BoardService.createTag(tag1).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
-            });  
-            console.log("이게뭘까?"+ this.state.num);
-         
-            BoardService.updateTag(this.state.num,tag).then(res=>{
+            });
+            console.log("이게뭘까?" + this.state.num);
+
+            BoardService.updateTag(this.state.num, tag).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
             //updatetag
         }
 
-    
+
     }
 
 
 
-    cancel(){
+    cancel() {
         this.props.history.push('/board');
     }
     getTitle() {
@@ -139,39 +139,39 @@ class CreateBoardComponent extends Component {
         }
     }
 
-    
+
     componentDidMount() {
         if (this.state.num === '_create') {
             return
         } else {
-            BoardService.getTagByNum(this.state.num).then(res=>{
-                let tag=res.data;
+            BoardService.getTagByNum(this.state.num).then(res => {
+                let tag = res.data;
 
 
                 this.setState({
-                
-                    tag1:tag.tag1,
-                    tag2:tag.tag2,
-                    tag3:tag.tag3,
-                    tag4:tag.tag4,
-                    tag5:tag.tag5
+
+                    tag1: tag.tag1,
+                    tag2: tag.tag2,
+                    tag3: tag.tag3,
+                    tag4: tag.tag4,
+                    tag5: tag.tag5
                 });
             });
-            BoardService.getOneBoard(this.state.num).then( (res) => {
+            BoardService.getOneBoard(this.state.num).then((res) => {
                 let board = res.data;
-               
-                console.log("board => "+ JSON.stringify(board));
-                
+
+                console.log("board => " + JSON.stringify(board));
+
                 this.setState({
-                    
-                        title: board.title,
-                        question:board.question,
-                        board_date:board.board_date,
-                        board_like:board.board_like,
-                        category:board.category,
-                        id:board.id,
-           
-                    });
+
+                    title: board.title,
+                    question: board.question,
+                    board_date: board.board_date,
+                    board_like: board.board_like,
+                    category: board.category,
+                    id: board.id,
+
+                });
             });
         }
     }
@@ -179,18 +179,18 @@ class CreateBoardComponent extends Component {
     render() {
         return (
             <div>
-                <div className = "container">
-                    <div className = "row">
-                        <div className = "card col-md-8 offset-md-2 offset-md-2">
-                           {this.getTitle()}
-                            <div className = "card-body">
+                <div className="container">
+                    <div className="row">
+                        <div className="card col-md-8 offset-md-2 offset-md-2">
+                            {this.getTitle()}
+                            <div className="card-body">
                                 <form>
 
-                                <div className="form-group">
+                                    <div className="form-group" style={{float:"left", marginRight:"10px", width: "30%"}}>
 
                                         <label> Category </label>
                                         <select placeholder="category" name="category" className="form-control"
-                                        value={this.state.category} onChange={this.changeCategoryHandler}>
+                                            value={this.state.category} onChange={this.changeCategoryHandler}>
                                             <option value="게시판">게시판 타입을 선택해주세요</option>
                                             <option value="자유게시판">자유게시판</option>
                                             <option value="정형외과">정형외과</option>
@@ -205,37 +205,53 @@ class CreateBoardComponent extends Component {
                                             <option value="이비인후과">이비인후과</option>
                                         </select>
                                     </div>
-                                    <div className = "form-group">
+                                    <div className="form-group" style={{float:"right", marginLeft:"10px",width: "65%"}}>
                                         <label> Title </label>
                                         <input type="text" placeholder="title" name="title" className="form-control" cols="60" rows="8"
-                                        value={this.state.title} onChange={this.changeTitleHandler}/>
+                                            value={this.state.title} onChange={this.changeTitleHandler} />
                                     </div>
-                                    <div className = "form-group">
+                                   
+                                    <div className="form-group" style={{clear:"both"}}>
                                         <label> Question  </label>
-                                        <textarea placeholder="question" name="question" className="form-control" 
-                                        value={this.state.question} onChange={this.changeQuestionHandler}/>
+                                        <textarea style={{height:"200px"}} placeholder="question" name="question" className="form-control"
+                                            value={this.state.question} onChange={this.changeQuestionHandler} />
                                     </div>
                                     <div className="form-group">
                                         <label> id</label>
-                                        <input placeholder="id" name="id" className="form-control"
-                                        value={this.state.id} onChange={this.changeidHandler}/>
+                                        <input placeholder="id" name="id" className="form-control" style={{width: "40%"}}
+                                            value={this.state.id} onChange={this.changeidHandler} />
                                     </div>
                                     <div className="form-group">
                                         <label> tag</label>
                                         <br></br>
-                                        #<input aria-multiline placeholder="tag1추가" name="tag1" className="form-control"
-                                        value={this.state.tag1} onChange={this.changetag1Handler}/>
-                                        #<input aria-multiline placeholder="tag2추가" name="tag2" className="form-control"
-                                        value={this.state.tag2} onChange={this.changetag2Handler}/>
-                                        #<input aria-multiline placeholder="tag3추가" name="tag3" className="form-control"
-                                        value={this.state.tag3} onChange={this.changetag3Handler}/>
-                                        #<input aria-multiline placeholder="tag4추가" name="tag4" className="form-control"
-                                        value={this.state.tag4} onChange={this.changetag4Handler}/>
-                                        #<input aria-multiline placeholder="tag5추가" name="tag5" className="form-control"
-                                        value={this.state.tag5} onChange={this.changetag5Handler}/>
+                                        <table>
+                                            <tbody>
+                                                <td>
+                                                #<input aria-multiline placeholder="tag1추가" name="tag1" className="form-control"
+                                            value={this.state.tag1} onChange={this.changetag1Handler} />
+                                                </td>
+                                                <td>
+                                                #<input aria-multiline placeholder="tag2추가" name="tag2" className="form-control"
+                                            value={this.state.tag2} onChange={this.changetag2Handler} />
+                                                </td>
+                                                <td>
+                                                #<input aria-multiline placeholder="tag3추가" name="tag3" className="form-control"
+                                            value={this.state.tag3} onChange={this.changetag3Handler}/>
+                                                </td>
+                                                <td>
+                                                #<input aria-multiline placeholder="tag4추가" name="tag4" className="form-control"
+                                            value={this.state.tag4} onChange={this.changetag4Handler}/>
+                                                </td>
+                                                <td>
+                                                #<input aria-multiline placeholder="tag5추가" name="tag5" className="form-control"
+                                            value={this.state.tag5} onChange={this.changetag5Handler}/>
+                                                </td>
+                                            </tbody>
+                                        </table>
+                                      
                                     </div>
                                     <button className="btn btn-success" onClick={this.createBoard} >Save</button>
-                                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft:"10px"}}>Cancel</button>
+                                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
                                 </form>
                             </div>
                         </div>
