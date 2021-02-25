@@ -35,6 +35,7 @@ public class WritingBoard extends AppCompatActivity {
     EditText tag5;
 
     Integer board_no;
+    Integer likecount;
 
     JsonApi jsonApi;
     Retrofit retrofit;
@@ -72,6 +73,7 @@ public class WritingBoard extends AppCompatActivity {
             board_no=intent.getExtras().getInt("board_no");
             editTextTitle.setText(intent.getExtras().getString("title"));
             editTextMultiLineBoard.setText(intent.getExtras().getString("question"));
+            likecount = Integer.parseInt(intent.getExtras().getString("likecount"));
             tag1.setText(intent.getExtras().getString("tag1"));
             tag2.setText(intent.getExtras().getString("tag2"));
             tag3.setText(intent.getExtras().getString("tag3"));
@@ -91,24 +93,25 @@ public class WritingBoard extends AppCompatActivity {
                 TagData td = new TagData();
                 bd.title = editTextTitle.getText().toString();
                 bd.question = editTextMultiLineBoard.getText().toString();
+                bd.board_like = likecount;
                 td.tag1 = tag1.getText().toString();
                 td.tag2 = tag2.getText().toString();
                 td.tag3 = tag3.getText().toString();
                 td.tag4 = tag4.getText().toString();
                 td.tag5 = tag5.getText().toString();
 
-                if(mode.equals(edit)) {
+                if(mode.equals(edit)) { // 글 수정 시
                     updateBoard(bd);
                     updateTag(td);
                 }
-                else {
+                else { // 글 등록 시
                     bd.id="user3";
                     bd.board_like=2;
                     bd.category=ArticleBoard.name;
                     bd.board_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
 
                     addBoard(bd);
-                    addTag(td);
+                    //addTag(td);
                 }
 
                 // 글 수정 또는 등록 시 앞으로 넘어감
