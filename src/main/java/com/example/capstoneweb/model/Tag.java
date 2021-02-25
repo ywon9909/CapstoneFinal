@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 public class Tag {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="board_no")
     private Integer board_no;
 
