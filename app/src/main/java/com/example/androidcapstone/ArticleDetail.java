@@ -123,7 +123,12 @@ public class ArticleDetail extends AppCompatActivity {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //updatelike() ? updatePost() ?
+                BoardData bd = new BoardData();
+                bd.title = title.getText().toString();
+                bd.question = question.getText().toString();
+                bd.board_like = Integer.parseInt(goodcount.getText().toString());
+                bd.board_like++;
+                updateLike(bd);
             }
         });
 
@@ -137,6 +142,7 @@ public class ArticleDetail extends AppCompatActivity {
                 intent.putExtra("board_no", num);
                 intent.putExtra("title", title.getText().toString());
                 intent.putExtra("question", question.getText().toString());
+                intent.putExtra("likecount", goodcount.getText().toString());
                 intent.putExtra("tag1", tag1.getText().toString());
                 intent.putExtra("tag2", tag2.getText().toString());
                 intent.putExtra("tag3", tag3.getText().toString());
@@ -267,6 +273,23 @@ public class ArticleDetail extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CommentData> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+    // 글 좋아요 추가
+    private void updateLike(BoardData b) {
+        Call<Void> call = jsonApi.updatePost(num, b);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("Like - Board_no", String.valueOf(num));
+                Toast.makeText(ArticleDetail.this, "Like updated successfully", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
