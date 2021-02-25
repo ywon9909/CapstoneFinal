@@ -2,6 +2,7 @@ package com.example.capstoneweb.service;
 
 import com.example.capstoneweb.exception.ResourceNotFoundException;
 import com.example.capstoneweb.model.Tag;
+import com.example.capstoneweb.repository.BoardRepository;
 import com.example.capstoneweb.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.List;
 public class TagService {
     @Autowired
     private TagRepository tagRepository;
-
+    private BoardRepository boardRepository;
     public List<Tag> getAllTag(){
         return tagRepository.findAll();
     }
@@ -29,7 +30,9 @@ public class TagService {
         tagRepository.delete(tag);
     }
 
-    public Tag createTag(Tag tag) {
+    public Tag createTag( Tag tag) {
+int fine=boardRepository.findlastautoincrement();
+tag.setBoard_no(fine);
         return tagRepository.save(tag);
     }
 
