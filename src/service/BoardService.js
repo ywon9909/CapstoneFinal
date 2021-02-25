@@ -10,11 +10,14 @@ class BoardService {
         return axios.get(BOARD_API_BASE_URL+"?p_num="+p_num+"&category="+category);
     }
 
-    createBoard(board){
-        return axios.post(BOARD_API_BASE_URL,board);
+    createBoard(board,tag){
+        return axios.post(BOARD_API_BASE_URL,board,tag);
     }
     createComment(comment){
         return axios.post(BOARD_API_BASE_URL+"/comment",comment);
+    }
+    createTag(tag){
+        return axios.post(BOARD_API_BASE_URL+"/tag",tag);
     }
     deleteComment(num) {
         return axios.delete(BOARD_API_BASE_URL + "/comment/" + num);
@@ -27,10 +30,12 @@ class BoardService {
         return axios.get(BOARD_API_BASE_URL+"/comment/"+num);
     }
    
+    updateTag(num, tag) {
+        return axios.put(BOARD_API_BASE_URL + "/tag/" + num, tag);
+    }
     updateBoard(num, board) {
         return axios.put(BOARD_API_BASE_URL + "/" + num, board);
     }
-
     deleteBoard(num) {
         return axios.delete(BOARD_API_BASE_URL + "/" + num);
     }
