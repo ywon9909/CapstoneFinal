@@ -3,7 +3,6 @@ package com.example.capstoneweb.Controller;
 import com.example.capstoneweb.model.Tag;
 import com.example.capstoneweb.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +32,8 @@ public class TagController {
     //create tag
     @PostMapping("/tag")
     public Tag createTag(@RequestBody Tag tag){
-        return tagService.createTag(tag);
+        System.out.println("이게무러까?"+tag);
+        return tagService.createTag( tag);
     }
     //update tag
     @PutMapping("/tag/{num}")
