@@ -58,7 +58,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
 
         holder.answer.setText(dataList.get(position).getAnswer());
         holder.comment_id.setText("작성자 : " + dataList.get(position).getComment_id());
-        //holder.comment_like.setText(dataList.get(position).getComment_like());
+        holder.comment_like_count.setText(String.valueOf(dataList.get(position).getComment_like()));
         //holder.comment_date.setText(dataList.get(position).getComment_date());
 
         String str = dataList.get(position).getComment_date().toString();
@@ -79,7 +79,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
         TextView answer;
         TextView comment_date;
         TextView comment_id;
-        TextView comment_like;
+        TextView comment_like_count;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,7 +93,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
             answer = (TextView)itemView.findViewById(R.id.answer);
             comment_date = (TextView)itemView.findViewById(R.id.comment_date);
             comment_id = (TextView)itemView.findViewById(R.id.comment_id);
-            comment_like = (TextView)itemView.findViewById(R.id.comment_like_count);
+            comment_like_count = (TextView)itemView.findViewById(R.id.comment_like_count);
 
             // 댓글 삭제 버튼 기능
             buttonCommentDelete = (Button)itemView.findViewById(R.id.comment_delete);
@@ -109,7 +109,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (!response.isSuccessful()) {
 
-                                Log.i("board delete", "num="+comment_no);
+                                Log.i("board delete", "comment_no="+comment_no);
 
                                 //1번누르면 DB에서 삭제,2번 누르면 datalist에서 삭제
                                 dataList.remove(getAdapterPosition());
@@ -141,8 +141,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                 public void onClick(View v) {
                     // 댓글 수정 이용
                     CommentData cd = new CommentData();
-                    //cd.answer = dataList.get(getAdapterPostion().getAnswer); ?
-                    //cd.comment_like = dataList.get(getAdapterPosition().getComment_like); ?
+                    cd.comment_like = dataList.get(getAdapterPosition()).getComment_like();
                     cd.comment_like++;
                     updateComment(cd);
 
