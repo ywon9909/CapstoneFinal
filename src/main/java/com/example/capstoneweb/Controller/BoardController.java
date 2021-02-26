@@ -19,7 +19,6 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-
     @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num,@RequestParam(value="category") String category) {
         //String cate = null;
@@ -40,7 +39,9 @@ public class BoardController {
     //create board
     @PostMapping("/board")
     public Board createBoard(@RequestBody Board board){
-        return boardService.createBoard(board);
+        boardService.createBoard(board);
+        //tagService.createTag(board.getBoard_no(),tag);
+        return  boardService.createBoard(board);
     }
 
     //get board detail
@@ -60,7 +61,6 @@ public class BoardController {
     @DeleteMapping("/board/{no}")
     public void deleteBoardByNo(
             @PathVariable Integer no) {
-
         boardService.deleteBoard(no);
     }
     @GetMapping("/board/search/{keyword}/{searchType}")
