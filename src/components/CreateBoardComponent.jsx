@@ -78,11 +78,6 @@ class CreateBoardComponent extends Component {
             board_date: this.state.board_date,
             board_like: this.state.board_like,
             category: this.state.category,
-            id: this.state.id
-
-        };
-        let tag = {
-            board_no: this.state.num,
             id: this.state.id,
             tag1: this.state.tag1,
             tag2: this.state.tag2,
@@ -91,36 +86,19 @@ class CreateBoardComponent extends Component {
             tag5: this.state.tag5
 
         };
-        let tag1 = {
-
-            id: this.state.id,
-            tag1: this.state.tag1,
-            tag2: this.state.tag2,
-            tag3: this.state.tag3,
-            tag4: this.state.tag4,
-            tag5: this.state.tag5
-
-        };
+      
         console.log("board=> " + JSON.stringify(board));
         if (this.state.num === '_create') {
-            BoardService.createBoard(board, tag1).then(res => {
+            BoardService.createBoard(board ).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
-            //create tag
 
-            BoardService.createTag(tag1).then(res => {
-                this.props.history.push(`/category-board/${this.state.category}`);
-            });
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
-            console.log("이게뭘까?" + this.state.num);
 
-            BoardService.updateTag(this.state.num, tag).then(res => {
-                this.props.history.push(`/category-board/${this.state.category}`);
-            });
-            //updatetag
+
         }
 
 
@@ -144,19 +122,7 @@ class CreateBoardComponent extends Component {
         if (this.state.num === '_create') {
             return
         } else {
-            BoardService.getTagByNum(this.state.num).then(res => {
-                let tag = res.data;
-
-
-                this.setState({
-
-                    tag1: tag.tag1,
-                    tag2: tag.tag2,
-                    tag3: tag.tag3,
-                    tag4: tag.tag4,
-                    tag5: tag.tag5
-                });
-            });
+      
             BoardService.getOneBoard(this.state.num).then((res) => {
                 let board = res.data;
 
@@ -170,7 +136,11 @@ class CreateBoardComponent extends Component {
                     board_like: board.board_like,
                     category: board.category,
                     id: board.id,
-
+                    tag1: board.tag1,
+                    tag2:  board.tag2,
+                    tag3:  board.tag3,
+                    tag4: board.tag4,
+                    tag5:  board.tag5
                 });
             });
         }
