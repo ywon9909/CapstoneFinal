@@ -38,26 +38,6 @@ public interface JsonApi {
                                           @Path(value = "searchType") String searchType);
 
 
-    /**
-     * 태그 관련
-     */
-
-    // 태그 조회
-    @GET("/api/board/tag/{boardno}")
-    Call<TagData> getTag(@Path("boardno") Integer boardno);
-
-    // 태그 등록
-    @POST("/api/board/tag")
-    Call<TagData> addTag(@Body TagData tagData);
-
-    // 태그 수정
-    @PUT("/api/board/{boardno}")
-    Call<Void> updateTag(@Path("boardno") Integer boardno, @Body TagData tagData);
-
-    // 태그 삭제
-    @DELETE("/api/board/{boardno}")
-    Call<Void> deleteTag(@Path("boardno") int boardno);
-
 
     /**
      * 댓글 관련
