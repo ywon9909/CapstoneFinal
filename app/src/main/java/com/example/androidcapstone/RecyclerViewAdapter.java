@@ -54,6 +54,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String time = str.substring(11, str.indexOf("."));
 
         holder.board_date.setText(date + " " + time);
+
+        holder.tag1.setText(dataList.get(position).getTag1());
+        holder.tag2.setText(dataList.get(position).getTag2());
+        holder.tag3.setText(dataList.get(position).getTag3());
+        holder.tag4.setText(dataList.get(position).getTag4());
+        holder.tag5.setText(dataList.get(position).getTag5());
     }
 
     @Override
@@ -69,12 +75,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView board_date;
         TextView goodnum;
 
+        TextView tag1;
+        TextView tag2;
+        TextView tag3;
+        TextView tag4;
+        TextView tag5;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             board_no = (TextView)itemView.findViewById(R.id.board_no);
             title = (TextView)itemView.findViewById(R.id.title);
             board_date = (TextView)itemView.findViewById(R.id.board_date);
             goodnum = (TextView)itemView.findViewById(R.id.goodnum);
+
+            tag1 = (TextView)itemView.findViewById(R.id.tag1);
+            tag2 = (TextView)itemView.findViewById(R.id.tag2);
+            tag3 = (TextView)itemView.findViewById(R.id.tag3);
+            tag4 = (TextView)itemView.findViewById(R.id.tag4);
+            tag5 = (TextView)itemView.findViewById(R.id.tag5);
 
             // item click 시 ArticleDetail로 title, question 보내줌
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +107,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         intent.putExtra("num", dataList.get(pos).getBoard_no());
                         intent.putExtra("board_id", dataList.get(pos).getBoard_id());
                         intent.putExtra("goodcount", dataList.get(pos).getBoard_like().toString());
+
+                        intent.putExtra("tag1", dataList.get(pos).getTag1());
+                        intent.putExtra("tag2", dataList.get(pos).getTag2());
+                        intent.putExtra("tag3", dataList.get(pos).getTag3());
+                        intent.putExtra("tag4", dataList.get(pos).getTag4());
+                        intent.putExtra("tag5", dataList.get(pos).getTag5());
 
                         String str = dataList.get(pos).getBoard_date();
                         String date = str.substring(0, str.indexOf("T"));

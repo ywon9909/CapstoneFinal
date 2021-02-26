@@ -90,19 +90,17 @@ public class WritingBoard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 BoardData bd = new BoardData();
-                TagData td = new TagData();
                 bd.title = editTextTitle.getText().toString();
                 bd.question = editTextMultiLineBoard.getText().toString();
                 bd.board_like = likecount;
-                td.tag1 = tag1.getText().toString();
-                td.tag2 = tag2.getText().toString();
-                td.tag3 = tag3.getText().toString();
-                td.tag4 = tag4.getText().toString();
-                td.tag5 = tag5.getText().toString();
+                bd.tag1 = tag1.getText().toString();
+                bd.tag2 = tag2.getText().toString();
+                bd.tag3 = tag3.getText().toString();
+                bd.tag4 = tag4.getText().toString();
+                bd.tag5 = tag5.getText().toString();
 
                 if(mode.equals(edit)) { // 글 수정 시
                     updateBoard(bd);
-                    updateTag(td);
                 }
                 else { // 글 등록 시
                     bd.id="user3";
@@ -111,7 +109,6 @@ public class WritingBoard extends AppCompatActivity {
                     bd.board_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
 
                     addBoard(bd);
-                    //addTag(td);
                 }
 
                 // 글 수정 또는 등록 시 앞으로 넘어감
@@ -147,38 +144,6 @@ public class WritingBoard extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.d("Wrinting - Board_no", String.valueOf(board_no));
                 Toast.makeText(WritingBoard.this, "Board updated successfully", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e("ERROR: ", t.getMessage());
-            }
-        });
-    }
-
-    // 태그 등록 연결
-    private void addTag(TagData t) {
-        Call<TagData> call = jsonApi.addTag(t);
-        call.enqueue(new Callback<TagData>() {
-            @Override
-            public void onResponse(Call<TagData> call, Response<TagData> response) {
-                Log.i("addTag", t.toString());
-            }
-
-            @Override
-            public void onFailure(Call<TagData> call, Throwable t) {
-                Log.e("ERROR: ", t.getMessage());
-            }
-        });
-    }
-
-    // 태그 수정 연결
-    private void updateTag(TagData t) {
-        Call<Void> call = jsonApi.updateTag(board_no, t);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.i("updateTag", t.toString());
             }
 
             @Override

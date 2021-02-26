@@ -83,6 +83,19 @@ public class ArticleDetail extends AppCompatActivity {
         //String mCommentcount = intent.getExtras().getString("commentcount");
         //commentcount.setText(mCommentcount);
 
+        // 태그 조회
+        String mTag1 = intent.getExtras().getString("tag1");
+        tag1.setText(mTag1);
+        String mTag2 = intent.getExtras().getString("tag2");
+        tag1.setText(mTag2);
+        String mTag3 = intent.getExtras().getString("tag3");
+        tag1.setText(mTag3);
+        String mTag4 = intent.getExtras().getString("tag4");
+        tag1.setText(mTag4);
+        String mTag5 = intent.getExtras().getString("tag5");
+        tag1.setText(mTag5);
+
+
         num = intent.getExtras().getInt("num");
 
         // retrofit 통신 연결 - Spring 웹 서버와 연결
@@ -94,29 +107,6 @@ public class ArticleDetail extends AppCompatActivity {
         recyclerView2 = findViewById(R.id.recycler_view2);
 
         jsonApi = retrofit.create(JsonApi.class);
-
-        // 태그 조회 연결
-        Callback<TagData> callbacks = new Callback<TagData>() {
-            @Override
-            public void onResponse(Call<TagData> call, Response<TagData> response) {
-                if(response.isSuccessful()) {
-                    tag1.setText(response.body().tag1);
-                    tag2.setText(response.body().tag2);
-                    tag3.setText(response.body().tag3);
-                    tag4.setText(response.body().tag4);
-                    tag5.setText(response.body().tag5);
-                    Log.i("tag", response.body().toString());
-
-                } else {
-                    Log.d("log", "Status Code " + response.code());
-                }
-            }
-            @Override
-            public void onFailure(Call<TagData> call, Throwable t) {
-                Log.e("tag", "fail");
-            }
-        };
-        jsonApi.getTag(num).enqueue(callbacks);
 
         // 좋아요 버튼
         Button like = (Button)findViewById(R.id.like);
@@ -158,7 +148,6 @@ public class ArticleDetail extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteTag(num);
                 deletePost(num);
 
                 // 글 삭제 시 앞으로 넘어감
@@ -177,12 +166,12 @@ public class ArticleDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CommentData cd = new CommentData();
-                cd.answer=editTextComment.getText().toString();
-                cd.board_no=num;
-                cd.board_id=id;
-                cd.comment_id="user2";
-                cd.comment_like=0;
-                cd.comment_date=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
+                cd.answer = editTextComment.getText().toString();
+                cd.board_no = num;
+                cd.board_id = id;
+                cd.comment_id = "user2";
+                cd.comment_like = 0;
+                cd.comment_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
                 if(cd.answer.equals("")) return;
                 else addComment(cd);
             }
@@ -239,24 +228,6 @@ public class ArticleDetail extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.i("board delete fail", String.valueOf(num));
-            }
-        });
-    }
-
-    // 태그 삭제 연결
-    private void deleteTag(Integer boardno) {
-        Call<Void> calls = jsonApi.deleteTag(boardno);
-        calls.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (!response.isSuccessful()) {
-                    Log.i("tag delete", "num="+boardno);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.i("tag delete fail", String.valueOf(boardno));
             }
         });
     }
