@@ -54,12 +54,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String time = str.substring(11, str.indexOf("."));
 
         holder.board_date.setText(date + " " + time);
-
-        holder.tag1.setText(dataList.get(position).getTag1());
-        holder.tag2.setText(dataList.get(position).getTag2());
-        holder.tag3.setText(dataList.get(position).getTag3());
-        holder.tag4.setText(dataList.get(position).getTag4());
-        holder.tag5.setText(dataList.get(position).getTag5());
     }
 
     @Override
