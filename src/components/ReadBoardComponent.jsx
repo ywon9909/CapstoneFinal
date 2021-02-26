@@ -16,7 +16,7 @@ class ReadBoardComponent extends Component {
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment=this.createComment.bind(this);
         this.likeboard = this.likeboard.bind(this);
-        
+        this.updateComment=this.updateComment(this);
     }
     changeanswer= (event) =>{
         this.setState({answer:event.target.value});
@@ -93,7 +93,7 @@ class ReadBoardComponent extends Component {
 
     likeboard=(event)=>{
         event.preventDefault();
-        this.setState({boardlike:event.target.value});
+        this.setState({board_like:event.target.value});
         let board = {
             title:this.state.board.title,
             question:this.state.board.question,
@@ -114,10 +114,31 @@ class ReadBoardComponent extends Component {
         
     }
 
-    
 
+  
+    updateComment = async function (comment_no,comment_like,comment_date,comment_id,answer) {     
+      
+        let comment = {
 
+            answer:answer,
+            comment_id:comment_id,
+            board_no:this.state.board.board_no,
+            board_id:this.state.board.id,
+            comment_date:comment_date,
+            comment_like:comment_like+1
 
+        }; 
+        BoardService.updateComment(comment_no,comment).then(res => {
+                console.log("delete result => " + JSON.stringify(res));
+                if (res.status === 200) {
+                    window.location.replace('/read-board/'+this.state.num);
+                } else {
+                    alert("수정이 실패했습니다.");
+                }
+            });
+
+        
+    }
     deleteView = async function () {
         if (window.confirm("정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구 할 수 없습니다.")) {
             BoardService.deleteBoard(this.state.num).then(res => {
@@ -197,7 +218,7 @@ class ReadBoardComponent extends Component {
 
                                  <label>좋아요 : </label> {comment.comment_like}
                                   {comment.comement_id}<br/>
-                                  
+                                  <button onClick={() => this.updateComment(comment.comment_no,comment.comment_like,comment.comment_date,comment.comment_id,comment.answer)}>좋아요({comment.comment_like})</button>
                                 <button onClick={() => this.deleteComment(comment.comment_no)}>삭제({comment.comment_no})</button> <br/>
                                  -------------------------------------------------
                                  </div>
