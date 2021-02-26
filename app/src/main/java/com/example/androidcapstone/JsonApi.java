@@ -51,9 +51,18 @@ public interface JsonApi {
     @POST("api/board/comment")
     Call<CommentData> addComment(@Body CommentData commentData);
 
+    // 댓글 수정
+    @PUT("/api/board/comment/{no}")
+    Call<Void> updateComment(@Path("no") Integer no, @Body CommentData commentData);
+
     // 댓글 삭제
     @DELETE("/api/board/comment/{no}")
     Call<Void> deleteComment(@Path("no") int no);
+
+
+    /**
+     * 지도 관련
+     */
 
     // 지도
     @GET("/v2/local/search/keyword.json?{format}")

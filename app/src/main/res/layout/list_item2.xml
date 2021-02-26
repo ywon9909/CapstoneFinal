@@ -26,14 +26,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right" >
-            <TextView
-                android:id="@+id/comment_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="comment_date"
-                android:layout_toEndOf="@+id/comment_id"
-                android:textSize="9dp" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👍 "
+                    android:textSize="9dp" />
+                <TextView
+                    android:id="@+id/comment_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="num"
+                    android:textSize="9dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="    " />
+                <TextView
+                    android:id="@+id/comment_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="comment_date"
+                    android:textSize="9dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -54,11 +68,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right" >
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="댓글\n삭제" />
+
+                <Button
+                    android:id="@+id/comment_like"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="👍" />
+                <Button
+                    android:id="@+id/comment_delete"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:text="댓글\n삭제" />
 
             </LinearLayout>
         </LinearLayout>
