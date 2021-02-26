@@ -28,11 +28,18 @@ public class CommentController {
             @PathVariable Integer num){
         return  commentService.getComment(num);
     }
-    // delete board
+    // delete comment
     @DeleteMapping("/board/comment/{no}")
     public void deleteCommentByNo(
             @PathVariable Integer no) {
 
         commentService.deleteComment(no);
+    }
+    // update comment
+    @PutMapping("/board/comment/{no}")
+    public void updateCommentByNo(
+            @PathVariable Integer no, @RequestBody Comment comment){
+commentService.updateComment(no,comment);
+
     }
 }
