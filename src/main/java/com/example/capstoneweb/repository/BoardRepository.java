@@ -8,60 +8,25 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     public final static String SELECT_BOARD_LIST_PAGED = ""
-            + "SELECT  "
-            + "board_no,"
-            + "title,"
-            + "question, "
-            + "board_date,"
-            + "board_like, "
-            + "category, "
-            + "id "
+            + "SELECT *"
             + "FROM board  WHERE 0 < board_no "
             + "and category = ?1 "
             //+ "and category =" +"'"+"정형외과"+"' "
             + "ORDER BY board_no DESC LIMIT ?2, ?3 ";
 
     public final static String SELECT_BOARD_LIST_PAGED2 = ""
-            + "SELECT  "
-            + "board_no,"
-            + "title,"
-            + "question, "
-            + "board_date,"
-            + "board_like, "
-            + "category, "
-            + "id "
+            + "SELECT *"
             + "FROM board  WHERE 0 < board_no "
             + "and category = ?1 "
             + "ORDER BY board_no DESC ";
     public final static String SELECT_BOARD_SEARCH_QUESTION=""
-            +"SELECT "
-            +"board_no, "
-            + "title,"
-            + "question, "
-            + "board_date,"
-            + "board_like, "
-            + "category, "
-            + "id "
+            +"SELECT *"
             +"FROM board WHERE question LIKE %?1% ";
     public final static String SELECT_BOARD_SEARCH_ALL=""
-            +"SELECT "
-            +"board_no, "
-            + "title,"
-            + "question, "
-            + "board_date,"
-            + "board_like, "
-            + "category, "
-            + "id "
+            +"SELECT * "
             +"FROM board WHERE title,question LIKE %?1% ";
     public final static String SELECT_BOARD_SEARCH_TITLE=""
-            +"SELECT "
-            +"board_no, "
-            + "title,"
-            + "question, "
-            + "board_date,"
-            + "board_like, "
-            + "category, "
-            + "id "
+            +"SELECT *"
             +"FROM board WHERE title LIKE %?1% ";
 
     public final static String SELECT_BOARD_CATEGORY_COUNT=""
@@ -69,11 +34,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             +"COUNT(*) "
             +"FROM board WHERE category =?1 ";
 
-    public final static String SELECT_LAST_AUTO_INCREMENT=""
-            +"SELECT AUTO_INCREMENT" +
-            "FROM information_schema.tables" +
-            "WHERE table_name = 'board'" +
-            "AND table_schema = DATABASE( ) ";
+
 
     @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
     List<Board> findFromTo(
@@ -99,6 +60,5 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     Integer findCategoryBoardCount(String category);
 
 
-    @Query(value = SELECT_LAST_AUTO_INCREMENT,nativeQuery = true)
-    Integer findlastautoincrement();
+
 }

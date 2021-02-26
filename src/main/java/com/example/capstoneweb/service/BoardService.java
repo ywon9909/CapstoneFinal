@@ -81,14 +81,18 @@ public class BoardService {
         board.setTitle(updatedBoard.getTitle());
         board.setQuestion(updatedBoard.getQuestion());
         board.setBoard_like(updatedBoard.getBoard_like());
+board.setTag1(updatedBoard.getTag1());
+        board.setTag2(updatedBoard.getTag2());
+        board.setTag3(updatedBoard.getTag3());
+        board.setTag4(updatedBoard.getTag4());
+        board.setTag5(updatedBoard.getTag5());
 
         boardRepository.save(board);
         //return ResponseEntity.ok(endUpdatedBoard);
     }
     public void deleteBoard( Integer no) {
         Board board = boardRepository.findById(no).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
-        System.out.println(board);
-        System.out.println(no);
+
         boardRepository.delete(board);
         // Map<String, Boolean> response = new HashMap<>();
         // response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);

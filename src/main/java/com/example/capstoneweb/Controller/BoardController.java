@@ -1,8 +1,6 @@
 package com.example.capstoneweb.Controller;
 
 
-import com.example.capstoneweb.model.Tag;
-import com.example.capstoneweb.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,6 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
-    private TagService tagService;
 
     @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num,@RequestParam(value="category") String category) {
