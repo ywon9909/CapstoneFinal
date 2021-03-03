@@ -10,13 +10,12 @@ class ReadBoardComponent extends Component {
             board: {},
             comments: [],
             answer:'',
-            comment_date:Date.now(),
-         tag:{}
+            comment_date:Date.now()
         }
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment=this.createComment.bind(this);
         this.likeboard = this.likeboard.bind(this);
-        this.updateComment=this.updateComment(this);
+        
     }
     changeanswer= (event) =>{
         this.setState({answer:event.target.value});
@@ -33,11 +32,7 @@ class ReadBoardComponent extends Component {
                 comments: res.data
             });
         });
-        BoardService.getTagByNum(this.state.num).then(res=>{
-            this.setState({
-                tag:res.data
-            });
-        });
+       
 
     }
     createComment = (event) =>{
@@ -186,7 +181,7 @@ class ReadBoardComponent extends Component {
                             {this.returnDate(this.state.board.board_date)}
                         </div>
                         <div className="row"> {this.state.board.id}</div>
-                        <div><label>태그 : #{this.state.tag.tag1} , #{this.state.tag.tag2}   , #{this.state.tag.tag3}, #{this.state.tag.tag4}, #{this.state.tag.tag5}  </label></div>
+                        <div><label>태그 : #{this.state.board.tag1} , #{this.state.board.tag2}   , #{this.state.board.tag3}, #{this.state.board.tag4}, #{this.state.board.tag5}  </label></div>
                         <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>글 목록으로 이동</button>
                         <button className="btn btn-info" onClick={this.goToUpdate} style={{ marginLeft: "10px" }}>글 수정</button>
                         <button className="btn btn-danger" onClick={() => this.deleteView()} style={{ marginLeft: "10px" }}>글 삭제</button>
