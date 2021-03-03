@@ -14,15 +14,15 @@ class HomeComponent extends Component {
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
-        this.searchKeyWord=this.searchKeyWord.bind(this);
+        this.searchKeyWord = this.searchKeyWord.bind(this);
     }
 
-   
+
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
     }
-    searchKeyWord(search,searchType){
-      
+    searchKeyWord(search, searchType) {
+
         this.props.history.push(`/search-board/${search}/${searchType}`);
 
     }
@@ -33,8 +33,8 @@ class HomeComponent extends Component {
     handleSearchTypeChange = (event) => {
         this.setState({ searchType: event.target.value });
     }
-    GotoCategory(){
-        this.props.history.push('/category-board/자유게시판');
+    GotoCategory(category) {
+        this.props.history.push(`/category-board/${category}`);
     }
     returnDate(board_date) {
         const dateString = board_date + ""
@@ -55,10 +55,61 @@ class HomeComponent extends Component {
 
     render() {
         return (
-            <div style={{width:"1300px",height:"800px"}}>
-                 
+            <div style={{ width: "1300px", height: "800px" }}>
+
                 <h2>Home</h2>
-                <div style={{float:"right",width:"500px"}}>
+                <table style={{ float: "left", border: "1px solid", width: "200px", margin: "20px" }}>
+                    <tr style={{ border: "1px solid", width: "200px", height: "200px" }}><h3>계정 정보</h3></tr>
+                    <tr style={{ border: "1px solid", width: "200px", height: "200px" }}><h3>광고</h3></tr>
+                </table>
+                <table style={{ float: "left", border: "1px solid", width: "500px", margin: "20px" }}>
+                    <tr >
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("자유게시판")}><h3>자유게시판</h3></a>
+                        </td>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("정형외과")}><h3>정형외과</h3></a>
+                        </td>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("신경외과")}><h3>신경외과</h3></a>
+                        </td>
+
+                    </tr>
+                    <tr >
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("비뇨기과")}><h3>비뇨기과</h3></a>
+                        </td>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("성형외과")}><h3>성형외과</h3></a>
+                        </td>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("한방과")}><h3>한방과</h3></a>
+                        </td>
+                    </tr>
+                    <tr style={{ border: "1px solid", width: "100px", height: "200px" }}>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("피부과")}><h3>피부과</h3></a>
+                        </td>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("내과")}><h3>내과</h3></a>
+                        </td>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("치과")}><h3>치과</h3></a>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("이비인후과")}><h3>이비인후과</h3></a>
+                        </td>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("소아과")}><h3>소아과</h3></a>
+                        </td>
+                        <td style={tdStyle}>
+                            <a onClick={() => this.GotoCategory("안과")}><h3>안과</h3></a>
+                        </td>
+                    </tr>
+                </table>
+                <div style={{ float: "right", width: "500px" }}>
                     <table>
                         <tr>
                             <td>
@@ -75,32 +126,34 @@ class HomeComponent extends Component {
                                     name="search" value={this.state.search}
                                     className="form-control" onChange={this.handleSearchChange} />
                             </td>
-                            <td><button className="btn btn-outline-secondary btn-search" onClick={()=>this.searchKeyWord(this.state.search,this.state.searchType)}>Search</button></td>
+                            <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
                             <td><button className="btn btn-outline-secondary btn-clear" onClick={this.clearbtn}>Clear</button></td>
 
                         </tr>
                     </table>
-               
-                <div >
-                    <table style={{ border: "1px solid", width:"400px"}}>
 
-                        <tbody >
+                    <div >
+                        <table style={{ border: "1px solid", width: "400px" }}>
 
-                           <tr style={{ border: "1px solid", width:"300px", height:"200px"}}>
-                               <h3>#인기 태그</h3>
-                           </tr>
-                           <tr style={{ border: "1px solid", width:"300px", height:"200px"}}>
-                               <h3>HOT 게시물</h3>
-                           </tr>
-                        </tbody>
-                    </table>
+                            <tbody >
+
+                                <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
+                                    <h3>#인기 태그</h3>
+                                </tr>
+                                <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
+                                    <h3>HOT 게시물</h3>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                </div>
-                
-               
+
+
             </div>
         );
     }
 }
-
+const tdStyle = {
+    border: "1px solid", width: "100px", height: "200px", backgroundColor: "#d4e4f2",
+}
 export default HomeComponent;
