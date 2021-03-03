@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
-
+import SearchSideComponent from '../components/SearchSideComponent'
 
 class ListBoardComponent extends Component {
     constructor(props) {
@@ -63,9 +63,9 @@ class ListBoardComponent extends Component {
         let tt = t.split(".");
         let hhmmss = tt[0];
         return (
-            <div className="row">
-                <label> [ {yymmdd}, {hhmmss} ] </label>
-            </div>
+            <p>
+                [ {yymmdd}, {hhmmss} ]
+            </p>
         )
     }
 
@@ -74,21 +74,21 @@ class ListBoardComponent extends Component {
         for (let i = this.state.paging.pageNumStart; i <= this.state.paging.pageNumEnd; i++) {
             pageNums.push(i);
         }
-        let currentpage=this.state.paging.currentPageNum;
+        let currentpage = this.state.paging.currentPageNum;
         return (pageNums.map((page) =>
             <li className="page-item" key={page.toString()}>
                 <a className="page-link" onClick={() => this.listBoard(this.state.category, page)}>
                     {
-                        (function(){
-                            if(page==currentpage) 
-                                return (<div style={{color:'red', fontWeight:'bold'}}>{page}</div>);
+                        (function () {
+                            if (page == currentpage)
+                                return (<div style={{ color: 'red', fontWeight: 'bold' }}>{page}</div>);
                             else return (<div>{page}</div>);
-            
+
 
                         })()
                     }
                 </a>
-                
+
             </li>
         ));
     }
@@ -121,20 +121,14 @@ class ListBoardComponent extends Component {
             );
         }
     }
-    
+
 
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
     }
-    searchKeyWord = (event) => {
-
-        BoardService.searchBoard(this.state.search,this.state.searchType).then(res => {
-            this.setState({
-                boards: res.data
-            });
-        });
-
-
+    searchKeyWord(search, searchType) {
+        this.props.history.push(`/search-board/${search}/${searchType}`);
+        
     }
     clearbtn = (event) => {
         this.setState({ search: '' });
@@ -144,81 +138,103 @@ class ListBoardComponent extends Component {
         this.setState({ searchType: event.target.value });
     }
     mapPage() {
-        if(this.state.category!="자유게시판"){
+        if (this.state.category != "자유게시판") {
             return (
                 <a onClick={() => this.mapBoard(this.state.category)}>    지도</a>
             )
-    
+
         }
-        
-        
+
+
     }
     render() {
 
         return (
 
-            <div>
-                <div>
+            <div style={{width:"1300px",height:"800px"}}>
+
+
+                <h2 className="text-center">{this.state.category}
+                    <a onClick={() => this.mapBoard(this.state.category)}>    지도</a>
+                </h2>
+
+
+                <div style={{ float: "right", width: "500px" }}>{/* 검색, 태그 div*/ }
                     <table>
                         <tr>
                             <td>
                                 <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
-                                <option value="all">제목+질문</option>
-                                <option value="title">제목</option>
-                                <option value="question">질문</option>
-                                
+                                    <option value="all">제목+질문</option>
+                                    <option value="title">제목</option>
+                                    <option value="question">질문</option>
+
                                 </select>
                             </td>
-                            
+
                             <td>
                                 <input type="text" placeholder="검색하기"
                                     name="search" value={this.state.search}
                                     className="form-control" onChange={this.handleSearchChange} />
                             </td>
-                            <td><button className="btn btn-outline-secondary btn-search" onClick={this.searchKeyWord}>Search</button></td>
+                            <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
                             <td><button className="btn btn-outline-secondary btn-clear" onClick={this.clearbtn}>Clear</button></td>
 
                         </tr>
                     </table>
-                </div>
-                
-                <h2 className="text-center">{this.state.category}
-                    <a onClick={() => this.mapBoard(this.state.category)}>    지도</a>
-                </h2>
 
-                <div className="row">
-                    <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
-                </div>
+                    <div >
+                        <table style={{ border: "1px solid", width: "400px" }}>
 
-                <div className="row">
-                    <table className="table table-striped table-bordered">
-                        <thead>
-                            <tr>
+                            <tbody >
 
-                                <th>타이틀</th>
-                                <th>작성날짜</th>
-                                <th>좋아요</th>
-                                <th>작성자</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
+                                    <h3>#인기 태그</h3>
+                                </tr>
+                                <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
+                                    <h3>HOT 게시물</h3>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>{/* 검색, 태그 div*/ }
+                <div style={{float:"left",width:"700px",marginRight:"100px"}}> {/* 글작성, 게시물 div*/ }
+                    <div className="row">
+                        <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
+                    </div>
+                    <div className="row">
+                        <table style={{ border: "1px solid", width: "700px", height: "200px" }}>
 
-                            {
-                                this.state.boards.map(
-                                    board =>
-                                        <tr key={board.board_no}>
-                                            <td> <a onClick={() => this.readBoard(board.board_no)}>{board.title}</a></td>
-                                            <td>{this.returnDate(board.board_date)}</td>
-                                            <td>{board.board_like}</td>
-                                            <td>{board.id}</td>
+                            <tbody>
 
-                                        </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div className="row">
+                                {
+                                    this.state.boards.map(
+                                        board =>
+                                            <tr key={board.board_no} style={{ border: "1px solid" }}>
+                                                <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a>
+                                                <tr style={{ display: "inline-block", width: "600px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
+                                                    {board.question}
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {this.returnDate(board.board_date)}
+                                                    </td>
+                                                    <td>
+                                                        <p>{board.id}</p>
+                                                    </td>
+                                                    <td style={{ float: "right" }}>
+                                                        👍{board.board_like}📄
+                                                </td>
+
+                                                </tr>
+
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>{/* 글작성, 게시물 div*/ }
+                <div className="row" >
                     <nav aria-label="Page navigation example">
                         <ul className="pagination justify-content-center">
 
@@ -234,11 +250,12 @@ class ListBoardComponent extends Component {
                             {
                                 this.isPagingNext()
                             }
-                            
+
                         </ul>
                     </nav>
 
                 </div>
+
             </div>
         );
     }
