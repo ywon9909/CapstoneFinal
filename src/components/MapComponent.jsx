@@ -308,8 +308,12 @@ class MapComponent extends Component {
     }
     render() {
         return (
-            <div >
-                <h2 className="text-center"><a onClick={() => this.listBoard(this.state.category, 1)}>   {this.state.category}</a>  지도
+            <div style={{width:"1300px",height:"800px"}}>
+                <h2 className="text-center"  >{this.state.category}
+                <br></br><h2 style={{ fontWeight: 'bold' ,display:"inline"}}><a onClick={() => this.listBoard(this.state.category, 1)}>
+                📃 게시판</a></h2> &nbsp;&nbsp;
+                
+                 <h2 style={{ color: '#FBB9AB',display:"inline", fontWeight: 'bold' ,textDecorationColor:'#FBB9AB',textDecoration:"underline"}}>🗺 지도 </h2>
                </h2>
                 <div id="MyMap" style={{  width: "700px", height: "600px", float: "right" }}>
                    
