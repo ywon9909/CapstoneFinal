@@ -140,7 +140,8 @@ class ListBoardComponent extends Component {
     mapPage() {
         if (this.state.category != "자유게시판") {
             return (
-                <a onClick={() => this.mapBoard(this.state.category)}>    지도</a>
+                <h2 style={{ fontWeight: 'bold' ,display:"inline"}}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
+         
             )
 
         }
@@ -152,11 +153,10 @@ class ListBoardComponent extends Component {
         return (
 
             <div style={{width:"1300px",height:"800px"}}>
-
-
-                <h2 className="text-center">{this.state.category}
-                    <a onClick={() => this.mapBoard(this.state.category)}>    지도</a>
-                </h2>
+<h2 className="text-center"  >{this.state.category}
+                <br></br><h2 style={{  color: '#FBB9AB',display:"inline", fontWeight: 'bold' ,textDecorationColor:'#FBB9AB',textDecoration:"underline"}}><a onClick={() => this.listBoard(this.state.category, 1)}>📃 게시판</a></h2> &nbsp;&nbsp;
+                {this.mapPage()}
+               </h2>
 
 
                 <div style={{ float: "right", width: "500px" }}>{/* 검색, 태그 div*/ }
