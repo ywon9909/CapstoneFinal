@@ -162,7 +162,29 @@ class ReadBoardComponent extends Component {
     render() {
         return (
             <div>
-                <div className="card col-md-10 offset-md-1">
+                <div style={{ float: "right", width: "200px" }}>{/* 검색, 태그 div*/ }
+                    
+
+                    <div >
+                        <table style={{ border: "1px solid", width: "200px" }}>
+
+                            <tbody >
+
+                                <tr style={{ border: "1px solid", width: "200px", height: "200px" }}>
+                                    <h3>#인기 태그</h3>
+                                </tr>
+                                <tr style={{ border: "1px solid", width: "200px", height: "200px" }}>
+                                    <h3>HOT 게시물</h3>
+                                </tr>
+                                <tr style={{ border: "1px solid", width: "200px", height: "200px" }}>
+                                    <h3>연관질문</h3>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>{/* 검색, 태그 div*/ }
+                <div style={{float:"left",width:"900px"}}> 
+                <div className="card col-md-10 offset-md-1" >
                     <h3 className="text-center"> {this.state.board.title}</h3>
                     <div className="card-body">
 
@@ -224,6 +246,7 @@ class ReadBoardComponent extends Component {
                             
                         }
                     </div>
+                </div>
                 </div>
             </div>
         );
