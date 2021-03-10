@@ -1,6 +1,7 @@
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './assets/css/style.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ListBoardComponent from './components/ListBoardComponent';
 import HeaderComponent from './components/HeaderComponent';
