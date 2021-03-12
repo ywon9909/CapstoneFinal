@@ -8,24 +8,29 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="덕분에"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AndroidCapstone">
+        android:theme="@style/Theme.AndroidCapstone"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".PromotionBoard"></activity>
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="93fc57bf0372fd2e8578021fe5047cd5" />
-        <activity android:name=".WritingBoard"/>
+
+        <activity android:name=".WritingBoard" />
         <activity android:name=".ArticleDetail" />
-        <activity android:name=".ArticleBoard"
-            android:parentActivityName=".MainActivity"> </activity>
+        <activity
+            android:name=".ArticleBoard"
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -32,10 +32,16 @@ public class ArticleMenuFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), ArticleBoard.class);
-                intent.putExtra("values", values[(int) id].toString());
-                //Log.i("values", values[(int) id].toString());
-                startActivity(intent);
+                if(values[(int)id] == "병원홍보 게시판") {
+                    Intent intent = new Intent(getContext(), PromotionBoard.class);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent2 = new Intent(getContext(), ArticleBoard.class);
+                    intent2.putExtra("values", values[(int) id].toString());
+                    //Log.i("values", values[(int) id].toString());
+                    startActivity(intent2);
+                }
             }
         });
 
