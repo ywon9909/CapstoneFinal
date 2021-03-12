@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
-import SearchSideComponent from '../components/SearchSideComponent'
+
 
 class ListBoardComponent extends Component {
     constructor(props) {
@@ -81,7 +81,7 @@ class ListBoardComponent extends Component {
                     {
                         (function () {
                             if (page == currentpage)
-                                return (<div style={{ color: 'red', fontWeight: 'bold' }}>{page}</div>);
+                                return (<div style={{ color: '#fbb9ab', fontWeight: 'bold' }}>{page}</div>);
                             else return (<div>{page}</div>);
 
 
@@ -164,12 +164,12 @@ class ListBoardComponent extends Component {
 
 
                 </div>
-               
-                        {/* 글작성, 게시물 div*/}
-                        <div >
-                            <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
-                        </div>
-                        <div class="container-fluid" >
+
+                {/* 글작성, 게시물 div*/}
+                <div >
+                    <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
+                </div>
+                <div class="container-fluid" >
                     <div class="row">
                         <div class="col-lg-9">
                             <div >
@@ -181,8 +181,8 @@ class ListBoardComponent extends Component {
                                             this.state.boards.map(
                                                 board =>
                                                     <tr key={board.board_no} style={{ border: "1px solid" }}>
-                                                        <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a>
-                                                        <tr style={{ display: "inline-block", width: "600px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
+                                                        <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
+                                                        <tr style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
                                                             {board.question}
                                                         </tr>
                                                         <tr>
@@ -235,18 +235,27 @@ class ListBoardComponent extends Component {
                                 </table>
 
                                 <div >
-                                    <table style={{ border: "1px solid", width: "400px" }}>
+                                    <div className="single-department-two mt-30">
+                                        <div className="department-content text-center">
+                                            <h4 className="department-title">
+                                                #인기태그
+                                            </h4>
+                                            <p className="text">
+                                                #tag1<br />
+                                                #tag2<br />
+                                                #tag3<br />
+                                                #tag4<br />
+                                                #tag5
+                                            </p>
 
-                                        <tbody >
+                                        </div>
+                                        <div className="department-content text-center">
+                                            <h4 className="department-title">
+                                                HOT 게시물
+                                            </h4>
+                                        </div>
+                                    </div>
 
-                                            <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
-                                                <h3>#인기 태그</h3>
-                                            </tr>
-                                            <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
-                                                <h3>HOT 게시물</h3>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>{/* 검색, 태그 div*/}
                         </div>

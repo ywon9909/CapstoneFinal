@@ -14,6 +14,7 @@ import PromotionComponent from './components/PromotionComponent';
 import HomeComponent from './components/HomeComponent';
 import SearchPageComponent from './components/SearchPageComponent'
 import SearchSideComponent from './components/SearchSideComponent'
+import LoginComponent from './components/LoginComponent';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/promotion" component={PromotionComponent}></Route>
             <Route path="/search-board/:search/:serachType" component={SearchPageComponent}></Route>
             <Route path="/searchside" component={SearchSideComponent}></Route>
+            <Route path="/login" component={LoginComponent}></Route>
           </Switch>
          
           
