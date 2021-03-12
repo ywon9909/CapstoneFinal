@@ -113,7 +113,7 @@ class CreateBoardComponent extends Component {
         if (this.state.num === '_create') {
             return <h3 className="text-center">새글을 작성해주세요</h3>
         } else {
-            return <h3 className="text-center">{this.state.num}글을 수정 합니다.</h3>
+            return <h3 className="text-center">글을 수정 합니다.</h3>
         }
     }
 
@@ -151,7 +151,7 @@ class CreateBoardComponent extends Component {
             <div>
                 <div className="container">
                     <div className="row">
-                        <div className="card col-md-8 offset-md-2 offset-md-2">
+                        <div className="card col-xl-8 offset-md-2 offset-md-2">
                             {this.getTitle()}
                             <div className="card-body">
                                 <form>
@@ -220,8 +220,8 @@ class CreateBoardComponent extends Component {
                                         </table>
                                       
                                     </div>
-                                    <button className="btn btn-success" onClick={this.createBoard} >Save</button>
-                                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                                    <button className="btn btn-success" onClick={this.createBoard} >저장</button>
+                                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>취소</button>
                                 </form>
                             </div>
                         </div>

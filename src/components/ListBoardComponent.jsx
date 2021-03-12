@@ -116,7 +116,7 @@ class ListBoardComponent extends Component {
         if (this.state.p_num !== 0) {//1
             return (
                 <li className="page-item">
-                    <a className="page-link" onClick={() => this.listBoard(this.state.category, 1)} tabIndex="-1">Move to First Page</a>
+                    <a className="page-link" onClick={() => this.listBoard(this.state.category, 1)} tabIndex="-1">Page1</a>
                 </li>
             );
         }
@@ -128,7 +128,7 @@ class ListBoardComponent extends Component {
     }
     searchKeyWord(search, searchType) {
         this.props.history.push(`/search-board/${search}/${searchType}`);
-        
+
     }
     clearbtn = (event) => {
         this.setState({ search: '' });
@@ -140,8 +140,8 @@ class ListBoardComponent extends Component {
     mapPage() {
         if (this.state.category != "자유게시판") {
             return (
-                <h2 style={{ fontWeight: 'bold' ,display:"inline"}}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
-         
+                <h2 style={{ fontWeight: 'bold', display: "inline" }}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
+
             )
 
         }
@@ -151,112 +151,133 @@ class ListBoardComponent extends Component {
     render() {
 
         return (
-
-            <div style={{width:"1300px",height:"800px"}}>
-<h2 className="text-center"  >{this.state.category}
-                <br></br><h2 style={{  color: '#FBB9AB',display:"inline", fontWeight: 'bold' ,textDecorationColor:'#FBB9AB',textDecoration:"underline"}}><a onClick={() => this.listBoard(this.state.category, 1)}>📃 게시판</a></h2> &nbsp;&nbsp;
-                {this.mapPage()}
-               </h2>
+            <div>
 
 
-                <div style={{ float: "right", width: "500px" }}>{/* 검색, 태그 div*/ }
-                    <table>
-                        <tr>
-                            <td>
-                                <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
-                                    <option value="all">제목+질문</option>
-                                    <option value="title">제목</option>
-                                    <option value="question">질문</option>
 
-                                </select>
-                            </td>
+                <div>
+                    <h2 className="text-center"  >{this.state.category}
+                        <br></br><h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}><a onClick={() => this.listBoard(this.state.category, 1)}>📃 게시판</a></h2> &nbsp;&nbsp;
+                        {this.mapPage()}
+                    </h2>
 
-                            <td>
-                                <input type="text" placeholder="검색하기"
-                                    name="search" value={this.state.search}
-                                    className="form-control" onChange={this.handleSearchChange} />
-                            </td>
-                            <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
-                            <td><button className="btn btn-outline-secondary btn-clear" onClick={this.clearbtn}>Clear</button></td>
 
-                        </tr>
-                    </table>
 
-                    <div >
-                        <table style={{ border: "1px solid", width: "400px" }}>
+                </div>
+               
+                        {/* 글작성, 게시물 div*/}
+                        <div >
+                            <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
+                        </div>
+                        <div class="container-fluid" >
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div >
+                                <table >
 
-                            <tbody >
+                                    <tbody>
 
-                                <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
-                                    <h3>#인기 태그</h3>
-                                </tr>
-                                <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
-                                    <h3>HOT 게시물</h3>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>{/* 검색, 태그 div*/ }
-                <div style={{float:"left",width:"700px",marginRight:"100px"}}> {/* 글작성, 게시물 div*/ }
-                    <div className="row">
-                        <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
-                    </div>
-                    <div className="row">
-                        <table style={{ border: "1px solid", width: "700px", height: "200px" }}>
-
-                            <tbody>
-
-                                {
-                                    this.state.boards.map(
-                                        board =>
-                                            <tr key={board.board_no} style={{ border: "1px solid" }}>
-                                                <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a>
-                                                <tr style={{ display: "inline-block", width: "600px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
-                                                    {board.question}
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        {this.returnDate(board.board_date)}
-                                                    </td>
-                                                    <td>
-                                                        <p>{board.id}</p>
-                                                    </td>
-                                                    <td style={{ float: "right" }}>
-                                                        👍{board.board_like}📄
+                                        {
+                                            this.state.boards.map(
+                                                board =>
+                                                    <tr key={board.board_no} style={{ border: "1px solid" }}>
+                                                        <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a>
+                                                        <tr style={{ display: "inline-block", width: "600px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
+                                                            {board.question}
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                {this.returnDate(board.board_date)}
+                                                            </td>
+                                                            <td>
+                                                                <p>{board.id}</p>
+                                                            </td>
+                                                            <td style={{ float: "right" }}>
+                                                                👍{board.board_like}📄
                                                 </td>
 
-                                                </tr>
+                                                        </tr>
 
+                                                    </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>{/* 글작성, 게시물 div*/}
+
+
+
+
+
+                        <div class="col-lg-3">
+                            <div >{/* 검색, 태그 div*/}
+                                <table>
+                                    <tr>
+                                        {/* <td>
+                                            <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
+                                                <option value="all">제목+질문</option>
+                                                <option value="title">제목</option>
+                                                <option value="question">질문</option>
+
+                                            </select>
+                                        </td> */}
+
+                                        <td>
+                                            <input type="text" placeholder="검색하기"
+                                                name="search" value={this.state.search}
+                                                className="form-control" onChange={this.handleSearchChange} />
+                                        </td>
+                                        <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
+
+
+                                    </tr>
+                                </table>
+
+                                <div >
+                                    <table style={{ border: "1px solid", width: "400px" }}>
+
+                                        <tbody >
+
+                                            <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
+                                                <h3>#인기 태그</h3>
                                             </tr>
-                                    )
-                                }
-                            </tbody>
-                        </table>
+                                            <tr style={{ border: "1px solid", width: "300px", height: "200px" }}>
+                                                <h3>HOT 게시물</h3>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>{/* 검색, 태그 div*/}
+                        </div>
+
+
+                        <div >
+                            <nav aria-label="Page navigation example">
+                                <ul className="pagination justify-content-center">
+
+                                    {
+                                        this.isMoveToFirstPage()
+                                    }
+                                    {
+                                        this.isPagingPrev()
+                                    }
+                                    {
+                                        this.viewPaging()
+                                    }
+                                    {
+                                        this.isPagingNext()
+                                    }
+
+                                </ul>
+                            </nav>
+
+                        </div>
                     </div>
-                </div>{/* 글작성, 게시물 div*/ }
-                <div className="row" >
-                    <nav aria-label="Page navigation example">
-                        <ul className="pagination justify-content-center">
-
-                            {
-                                this.isMoveToFirstPage()
-                            }
-                            {
-                                this.isPagingPrev()
-                            }
-                            {
-                                this.viewPaging()
-                            }
-                            {
-                                this.isPagingNext()
-                            }
-
-                        </ul>
-                    </nav>
-
                 </div>
 
             </div>
+
         );
     }
 }
