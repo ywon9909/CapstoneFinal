@@ -22,8 +22,8 @@ public class ArticleMenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_article_menu, container, false);
 
-        String[] values = {"소아과", "내과", "정형외과", "신경외과", "이비인후과", "한방과",
-                "안과", "치과", "피부과", "산부인과", "비뇨기과", "성형외과", "자유게시판", "병원홍보 게시판", "구인구직", "뇸뇸뇸"};
+        String[] values = {"자유게시판", "소아과", "내과", "정형외과", "신경외과", "이비인후과", "한방과",
+                "안과", "치과", "피부과", "산부인과", "비뇨기과", "성형외과", "병원홍보 게시판", "구인구직", "뇸뇸뇸"};
 
         ListView listView = (ListView)rootView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, values);
