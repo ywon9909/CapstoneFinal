@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:padding="10dp"
     android:background="#E7EDF7">
     <LinearLayout
         android:id="@+id/item_wrapper"
@@ -20,7 +20,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="comment_id"
-                android:textSize="9dp" />
+                android:textSize="9dp"
+                android:padding="5dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,24 +30,28 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="👍 "
-                    android:textSize="9dp" />
+                    android:text="👍"
+                    android:textSize="9dp"
+                    android:padding="3dp"/>
                 <TextView
                     android:id="@+id/comment_like_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="num"
-                    android:textSize="9dp" />
+                    android:textSize="9dp"
+                    android:padding="3dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="    " />
+                    android:text="    "
+                    android:padding="3dp"/>
                 <TextView
                     android:id="@+id/comment_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="comment_date"
-                    android:textSize="9dp" />
+                    android:textSize="9dp"
+                    android:padding="3dp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -58,11 +63,12 @@
 
         <TextView
             android:id="@+id/answer"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:text="answer"
             android:layout_below="@+id/listlayout"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            android:padding="5dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
