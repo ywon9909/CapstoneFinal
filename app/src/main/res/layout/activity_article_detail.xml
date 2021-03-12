@@ -161,21 +161,24 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/update"
-                    android:text="👍"/>
+                    android:text="👍"
+                    android:layout_margin="3dp"/>
                 <Button
                     android:id="@+id/update"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/delete"
                     android:text="수정"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_margin="3dp"/>
                 <Button
                     android:id="@+id/delete"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="삭제"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_margin="3dp"/>
 
             </RelativeLayout>
 
@@ -202,7 +205,8 @@
                     android:layout_toEndOf="@+id/editTextComment"
                     android:text="✏"
                     android:layout_alignParentRight="true"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_margin="5dp"/>
 
             </RelativeLayout>
 
