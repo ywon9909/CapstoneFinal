@@ -81,7 +81,7 @@ class ListBoardComponent extends Component {
                     {
                         (function () {
                             if (page == currentpage)
-                            return (<div style={{ color: '#fbb9ab', fontWeight: 'bold' }}>{page}</div>);
+                                return (<div style={{ color: '#fbb9ab', fontWeight: 'bold' }}>{page}</div>);
                             else return (<div>{page}</div>);
 
 
@@ -164,13 +164,12 @@ class ListBoardComponent extends Component {
 
 
                 </div>
-               
-                        {/* 글작성, 게시물 div*/}
-            
-                <div class="container-fluid" >
+
+                {/* 글작성, 게시물 div*/}
                 <div >
                     <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
                 </div>
+                <div class="container-fluid" >
                     <div class="row">
                         <div class="col-lg-9">
                             <div >
@@ -182,7 +181,7 @@ class ListBoardComponent extends Component {
                                             this.state.boards.map(
                                                 board =>
                                                     <tr key={board.board_no} style={{ border: "1px solid" }}>
-                                                             <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
+                                                        <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
                                                         <tr style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
                                                             {board.question}
                                                         </tr>
@@ -220,7 +219,6 @@ class ListBoardComponent extends Component {
                                                 <option value="all">제목+질문</option>
                                                 <option value="title">제목</option>
                                                 <option value="question">질문</option>
-
                                             </select>
                                         </td> */}
 
@@ -236,7 +234,7 @@ class ListBoardComponent extends Component {
                                 </table>
 
                                 <div >
-                                <div className="single-department-two mt-30">
+                                    <div className="single-department-two mt-30">
                                         <div className="department-content text-center">
                                             <h4 className="department-title">
                                                 #인기태그
@@ -256,6 +254,7 @@ class ListBoardComponent extends Component {
                                             </h4>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>{/* 검색, 태그 div*/}
                         </div>
