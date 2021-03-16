@@ -56,116 +56,170 @@ class HomeComponent extends Component {
     render() {
         return (
             <body >
-                <div class="container-fluid" >
+                          <div class="container-fluid" >
                     <div class="row">
 
-                        <div class="col-lg-2">
+                        <div class="col-lg-1">
                             <h3>계정 정보 와 광고</h3>
                         </div>
+                        <div className="row col-lg-8">
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("자유게시판")}><h4 className="department-title">자유게시판</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("정형외과")}><h4 className="department-title">정형외과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("신경외과")}><h4 className="department-title">신경외과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("비뇨기과")}><h4 className="department-title">비뇨기과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("성형외과")}><h4 className="department-title">성형외과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("한방과")}><h4 className="department-title">한방과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("피부과")}><h4 className="department-title">피부과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("내과")}><h4 className="department-title">내과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("치과")}><h4 className="department-title">치과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("이비인후과")}><h4 className="department-title">이비인후과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("소아과")}><h4 className="department-title">소아과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-8">
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <a onClick={() => this.GotoCategory("안과")}><h4 className="department-title">안과</h4></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <table>
+                                <tr>
+                                    {/* <td>
+                                    <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
+                                        <option value="all">제목+질문</option>
+                                        <option value="title">제목</option>
+	@@ -136,34 +173,53 @@ class HomeComponent extends Component {
+                                    </select>
+                                </td> */}
+
+                                    <td>
+                                        <input type="text" placeholder="검색하기"
+                                            name="search" value={this.state.search}
+                                            className="form-control" onChange={this.handleSearchChange} />
+                                    </td>
+                                    <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
+
+
+                                </tr>
+                            </table>
+                            <div >
+                                <div className="single-department-two mt-30">
+                                    <div className="department-content text-center">
+                                        <h4 className="department-title">
+                                            #인기태그
+                                            </h4>
+                                        <p className="text">
+                                            #tag1<br />
+                                                #tag2<br />
+                                                #tag3<br />
+                                                #tag4<br />
+                                                #tag5
+                                            </p>
+
+                                    </div>
+                                    <div className="department-content text-center">
+                                        <h4 className="department-title">
+                                            HOT 게시물
+                                            </h4>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
 
                         <div class="col-lg-7" >
 
 
-                            <tr>
-                                
-                                            <td style={tdStyle}>
-                                                <a onClick={() => this.GotoCategory("자유게시판")}><h3>자유게시판</h3></a>
-                                            </td>
-                                   
-                                            <td style={tdStyle}>
-                                                <a onClick={() => this.GotoCategory("정형외과")}><h3>정형외과</h3></a>
-                                            </td>
-                                    
-                                            <td style={tdStyle}>
-                                                <a onClick={() => this.GotoCategory("신경외과")}><h3>신경외과</h3></a>
-                                            </td>
-                               
-                            </tr>
-
-
-                            <tr >
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("비뇨기과")}><h3>비뇨기과</h3></a>
-                                </td>
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("성형외과")}><h3>성형외과</h3></a>
-                                </td>
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("한방과")}><h3>한방과</h3></a>
-                                </td>
-                            </tr>
-
-
-                            <tr >
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("피부과")}><h3>피부과</h3></a>
-                                </td>
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("내과")}><h3>내과</h3></a>
-                                </td>
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("치과")}><h3>치과</h3></a>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("이비인후과")}><h3>이비인후과</h3></a>
-                                </td>
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("소아과")}><h3>소아과</h3></a>
-                                </td>
-                                <td style={tdStyle}>
-                                    <a onClick={() => this.GotoCategory("안과")}><h3>안과</h3></a>
-                                </td>
-
-                            </tr>
 
                         </div>
-           
-                    <div class="col-lg-3">
-                        <table>
-                            <tr>
-                                {/* <td>
-                                    <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
-                                        <option value="all">제목+질문</option>
-                                        <option value="title">제목</option>
-                                        <option value="question">질문</option>
-
-                                    </select>
-                                </td> */}
-
-                                <td>
-                                    <input type="text" placeholder="검색하기"
-                                        name="search" value={this.state.search}
-                                        className="form-control" onChange={this.handleSearchChange} />
-                                </td>
-                                <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
 
 
-                            </tr>
-                        </table>
-
-
-                        <table>
-
-                            <tbody >
-
-                                <tr >
-                                    <h3>#인기 태그</h3>
-                                </tr>
-                                <tr >
-                                    <h3>HOT 게시물</h3>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
-                </div>
-                 
-               </div>
-            </body >
 
+                </div>
+            </body >
 
 
         );
