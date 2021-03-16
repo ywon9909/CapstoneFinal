@@ -56,7 +56,7 @@ class HomeComponent extends Component {
     render() {
         return (
             <body >
-                <div class="container-fluid" >
+                          <div class="container-fluid" >
                     <div class="row">
 
                         <div class="col-lg-1">
@@ -168,8 +168,7 @@ class HomeComponent extends Component {
                                     <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
                                         <option value="all">제목+질문</option>
                                         <option value="title">제목</option>
-                                        <option value="question">질문</option>
-
+	@@ -136,34 +173,53 @@ class HomeComponent extends Component {
                                     </select>
                                 </td> */}
 
@@ -209,10 +208,10 @@ class HomeComponent extends Component {
                         </div>
 
 
-
                         <div class="col-lg-7" >
 
                            
+
 
                         </div>
 
@@ -221,7 +220,6 @@ class HomeComponent extends Component {
 
                 </div>
             </body >
-
 
 
         );
