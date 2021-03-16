@@ -180,7 +180,6 @@ class HomeComponent extends Component {
                                     <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
 
 
-
                                 </tr>
                             </table>
                             <div >

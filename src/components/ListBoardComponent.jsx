@@ -166,10 +166,11 @@ class ListBoardComponent extends Component {
                 </div>
 
                 {/* 글작성, 게시물 div*/}
+               
+                <div class="container-fluid" >
                 <div >
                     <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
                 </div>
-                <div class="container-fluid" >
                     <div class="row">
                         <div class="col-lg-9">
                             <div >
