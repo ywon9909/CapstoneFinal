@@ -10,13 +10,19 @@ class ReadBoardComponent extends Component {
             board: {},
             comments: [],
             answer: '',
-            comment_date: Date.now()
+            comment_date: Date.now(),
+            search: props.match.params.search,
+            Member:{}, //1
+            hots:[]
         }
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment = this.createComment.bind(this);
         this.likeboard = this.likeboard.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.getHotBoard();
 
     }
+    
     changeanswer = (event) => {
         this.setState({ answer: event.target.value });
     }
@@ -72,7 +78,7 @@ class ReadBoardComponent extends Component {
         let hhmmss = tt[0];
         return (
             <div className="row">
-                 {yymmdd}, {hhmmss} 
+                {yymmdd}, {hhmmss}
             </div>
         )
     }
@@ -159,6 +165,44 @@ class ReadBoardComponent extends Component {
 
 
     }
+    readBoard(num) {
+        window.location.replace(`/read-board/${num}`)
+        //this.props.history.push(`/read-board/${num}`);
+    }
+    handleSearchChange = (event) => {
+        this.setState({ search: event.target.value });
+    }
+    searchKeyWord(search){
+        this.props.history.push(`/search-board/${search}`);
+
+    }
+    Doccheck(id){
+        console.log("나와라"+id)
+        BoardService.getMemberById(id).then(res=>{
+            console.log("넌 왜 안나와"+res.data)
+            this.setState({
+                Member: res.data
+                
+            });
+        });
+        if (this.state.Member.doc != 0 ) {
+            return (
+                <div style={{  position: "absolute",top:"0px",right:"5%"}}> 🩺 </div>
+
+            )
+
+        }
+
+
+    }
+    getHotBoard(){
+        BoardService.getHotBoard().then((res)=>{
+            this.setState({
+                hots : res.data
+            });
+            
+        });
+    }
     render() {
         return (
 
@@ -167,50 +211,50 @@ class ReadBoardComponent extends Component {
                     <div class="col-lg-9">
                         <div >
                             <div className="card col-md-10 offset-md-1" >
-                            <div className="row">
-                            &nbsp;&nbsp;&nbsp;<h5 style={{color:"gray", padding:"5px"}}> [{this.state.board.category}]</h5>
-                                    </div>
-                                <h3 className="text-center"> {this.state.board.title}</h3>
-                                <br/>
                                 <div className="row">
-                                <h5 style={{display:'inline'}}>&nbsp;&nbsp;&nbsp;&nbsp;{this.state.board.id}</h5>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.returnDate(this.state.board.board_date)} 
+                                    &nbsp;&nbsp;&nbsp;<h5 style={{ color: "gray", padding: "5px" }}> [{this.state.board.category}] {this.Doccheck(this.state.board.id)}</h5>
+                                </div>
+                                <h3 className="text-center"> {this.state.board.title}</h3>
+                                <br />
+                                <div className="row">
+                                    <h5 style={{ display: 'inline' }}>&nbsp;&nbsp;&nbsp;&nbsp;{this.state.board.id}</h5>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.returnDate(this.state.board.board_date)}
                                 </div>
 
-                                <div className="card-body" style={{display:'inline'}}>
+                                <div className="card-body" style={{ display: 'inline' }}>
 
                                     <div className="row">
-                                        <br/>
-                                   <hr style={{width:"100%", color:"black" }}/>
+                                        <br />
+                                        <hr style={{ width: "100%", color: "black" }} />
                                         {this.state.board.question}
                                     </div >
-                                    <br/>
-                                    <div><label> <div style={{border:"5px", borderColor:"black"}}>
-                                        TAG: #{this.state.board.tag1} , #{this.state.board.tag2}   , #{this.state.board.tag3}, 
+                                    <br />
+                                    <div><label> <div style={{ border: "5px", borderColor: "black" }}>
+                                        TAG: #{this.state.board.tag1} , #{this.state.board.tag2}   , #{this.state.board.tag3},
                                          #{this.state.board.tag4}, #{this.state.board.tag5}  </div></label></div>
-                              <br/><br/>
-                                         <div style={{  position: "absolute",bottom:"10px",left:"5%"}}>
-                                          <button className="btn btn-primary" onClick={this.goToList.bind(this)} >목록</button> 
-                                          </div>
-                                          <div style={{  position: "absolute",bottom:"10px",right:"5%"}}>
-                                    <button className="btn btn-info" onClick={this.goToUpdate} >글 수정</button>
-                                    <button className="btn btn-danger" onClick={() => this.deleteView()} >글 삭제</button>
-                                    <button className="btn btn-warning" onClick={this.likeboard} >👍{this.state.board.board_like}</button>
+                                    <br /><br />
+                                    <div style={{ position: "absolute", bottom: "10px", left: "5%" }}>
+                                        <button className="btn btn-primary" onClick={this.goToList.bind(this)} >목록</button>
+                                    </div>
+                                    <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
+                                        <button className="btn btn-info" onClick={this.goToUpdate} >글 수정</button>
+                                        <button className="btn btn-danger" onClick={() => this.deleteView()} >글 삭제</button>
+                                        <button className="btn btn-warning" onClick={this.likeboard} >👍{this.state.board.board_like}</button>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="card col-md-10 offset-md-1" >
 
                                 <div className="row" >
 
-                                    <textarea style={{width:"80%", height:"40px" ,resize: "none", outline:"none"}}
+                                    <textarea style={{ width: "80%", height: "40px", resize: "none", outline: "none" }}
                                         type="text"
                                         placeholder="댓글" name="answer"
                                         value={this.state.answer}
                                         onChange={this.changeanswer}
                                     />
-                                    <button style={{width:"20%", height:"40px"}} className="btn btn-primary" onClick={this.createComment} >댓글</button>
+                                    <button style={{ width: "20%", height: "40px" }} className="btn btn-primary" onClick={this.createComment} >댓글</button>
 
 
                                 </div>
@@ -223,17 +267,17 @@ class ReadBoardComponent extends Component {
                                     comment =>
                                         <div className="card col-md-10 offset-md-1">
                                             <div className="row"  >
-                                            &nbsp;&nbsp;&nbsp;&nbsp; <h5>{comment.comment_id}</h5> &nbsp;  &nbsp; &nbsp; {this.returnDate(comment.comment_date)}
-                                            <br/>
-                                         <div style={{  position: "absolute",top:"0px",right:"5%"}}>
-                                             <a onClick={() => this.updateComment(comment.comment_no, comment.comment_like, comment.comment_date, comment.comment_id, comment.answer)}>👍{comment.comment_like}</a> &nbsp;&nbsp;&nbsp;
-                                            <a  onClick={() => this.deleteComment(comment.comment_no)}>삭제</a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp; <h5>{comment.comment_id}</h5> &nbsp;  &nbsp; &nbsp; {this.returnDate(comment.comment_date)}
+                                                <br />
+                                                <div style={{ position: "absolute", top: "0px", right: "5%" }}>
+                                                    <a onClick={() => this.updateComment(comment.comment_no, comment.comment_like, comment.comment_date, comment.comment_id, comment.answer)}>👍{comment.comment_like}</a> &nbsp;&nbsp;&nbsp;
+                                            <a onClick={() => this.deleteComment(comment.comment_no)}>삭제</a>
+                                                </div>
                                             </div>
-                                          </div>
                                             {comment.answer}
-                                            
+
                                             {comment.comement_id}<br />
-                                            
+
 
                                         </div>
 
@@ -247,53 +291,52 @@ class ReadBoardComponent extends Component {
 
                     </div>
                     <div class="col-lg-3">
-                            <div >{/* 검색, 태그 div*/}
-                                <table>
-                                    <tr>
-                                        {/* <td>
-                                            <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
-                                                <option value="all">제목+질문</option>
-                                                <option value="title">제목</option>
-                                                <option value="question">질문</option>
-
-                                            </select>
-                                        </td> */}
-
-                                        <td>
-                                            <input type="text" placeholder="검색하기"
-                                                name="search" value={this.state.search}
-                                                className="form-control" onChange={this.handleSearchChange} />
-                                        </td>
-                                        <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
+                        <div >{/* 검색, 태그 div*/}
+                            <table>
+                                <tr>
+                                    
+                                    <td>
+                                        <input type="text" placeholder="검색하기"
+                                            name="search" value={this.state.search}
+                                            className="form-control" onChange={this.handleSearchChange} />
+                                    </td>
+                                    <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
 
 
-                                    </tr>
-                                </table>
+                                </tr>
+                            </table>
 
-                                <div >
+                            <div >
                                 <div className="single-department-two mt-30">
-                                        <div className="department-content text-center">
-                                            <h4 className="department-title">
-                                                #인기태그
+                                    <div className="department-content text-center">
+                                        <h4 className="department-title">
+                                            #인기태그
                                             </h4>
-                                            <p className="text">
-                                                #tag1<br />
+                                        <p className="text">
+                                            #tag1<br />
                                                 #tag2<br />
                                                 #tag3<br />
                                                 #tag4<br />
                                                 #tag5
                                             </p>
 
-                                        </div>
-                                        <div className="department-content text-center">
-                                            <h4 className="department-title">
-                                                HOT 게시물
+                                    </div>
+                                    <div className="department-content text-center">
+                                        <h4 className="department-title">
+                                            HOT 게시물
                                             </h4>
-                                        </div>
+                                            
+                                        {
+                                            this.state.hots.map(
+                                                hot =>
+                                                <p><a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a></p>
+                                            )
+                                        }
                                     </div>
                                 </div>
-                            </div>{/* 검색, 태그 div*/}
-                        </div>
+                            </div>
+                        </div>{/* 검색, 태그 div*/}
+                    </div>
 
 
                 </div>

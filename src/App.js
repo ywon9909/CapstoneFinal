@@ -15,6 +15,7 @@ import HomeComponent from './components/HomeComponent';
 import SearchPageComponent from './components/SearchPageComponent'
 import SearchSideComponent from './components/SearchSideComponent'
 import LoginComponent from './components/LoginComponent';
+import MyPageComponent from './components/MyPageComponent';
 
 function App() {
   return (
@@ -35,9 +36,10 @@ function App() {
             <Route path="/category-map/:category" component={MapComponent}></Route>{/*지도 페이지*/}
             <Route path="/success" component={SuccessComponent}></Route> {/*성공페이지 */}
             <Route path="/promotion" component={PromotionComponent}></Route>
-            <Route path="/search-board/:search/:serachType" component={SearchPageComponent}></Route>
+            <Route path="/search-board/:search" component={SearchPageComponent}></Route>
             <Route path="/searchside" component={SearchSideComponent}></Route>
             <Route path="/login" component={LoginComponent}></Route>
+            <Route path="/mypage" component={MyPageComponent}></Route>
           </Switch>
          
           
