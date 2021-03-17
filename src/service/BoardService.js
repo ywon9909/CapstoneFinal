@@ -35,14 +35,20 @@ class BoardService {
     deleteBoard(num) {
         return axios.delete(BOARD_API_BASE_URL + "/" + num);
     }
-    searchBoard(keyword,searchType){
-        return axios.get(BOARD_API_BASE_URL+"/search/"+keyword+"/"+searchType);
+    searchBoard(keyword){
+        return axios.get(BOARD_API_BASE_URL+"/search/"+keyword);
 
     }
     updateComment(no, comment) {
         return axios.put(BOARD_API_BASE_URL + "/comment/"+no ,comment);
     }
-  
+    getMemberById(id){
+        return axios.get(BOARD_API_BASE_URL+"/member/"+id);
+
+    }
+   getHotBoard(){
+       return axios.get(BOARD_API_BASE_URL+"/hot");
+   }
 
 }
 

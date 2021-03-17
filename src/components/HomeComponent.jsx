@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import BoardService from '../service/BoardService';
 import SearchSideComponent from '../components/SearchSideComponent'
 class HomeComponent extends Component {
@@ -10,10 +10,11 @@ class HomeComponent extends Component {
             p_num: 1,
             boards: [],
             search: "",
-            searchType: "all"
+            hots:[]
+
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
-        this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
+        this.getHotBoard();
         this.searchKeyWord = this.searchKeyWord.bind(this);
     }
 
@@ -23,16 +24,14 @@ class HomeComponent extends Component {
     }
     searchKeyWord(search, searchType) {
 
-        this.props.history.push(`/search-board/${search}/${searchType}`);
+        this.props.history.push(`/search-board/${search}`);
 
     }
     clearbtn = (event) => {
         this.setState({ search: '' });
 
     }
-    handleSearchTypeChange = (event) => {
-        this.setState({ searchType: event.target.value });
-    }
+
     GotoCategory(category) {
         this.props.history.push(`/category-board/${category}`);
     }
@@ -52,6 +51,14 @@ class HomeComponent extends Component {
     readBoard(num) {
         this.props.history.push(`/read-board/${num}`);
     }
+    getHotBoard(){
+        BoardService.getHotBoard().then((res)=>{
+            this.setState({
+                hots : res.data
+            });
+            
+        });
+    }
 
     render() {
         return (
@@ -59,10 +66,25 @@ class HomeComponent extends Component {
                 <div class="container-fluid" >
                     <div class="row">
 
-                        <div class="col-lg-1">
-                            <h3>계정 정보 와 광고</h3>
+                        <div class="col-lg-2">
+                            <div className="single-features text-center mt-30">
+                                <div className="department-content text-center">
+                                    <a onClick={()=> this.props.history.push('/mypage')}>
+                                        <h4 className="department-title">계정</h4>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div className="single-features text-center mt-30">
+                                <div className="department-content text-center">
+                                    <h4 className="department-title">광고</h4>
+
+                                </div>
+                            </div>
+
+
                         </div>
-                        <div className="row col-lg-8">
+                        <div className="row col-lg-7">
                             <div className="col-lg-4 col-md-8">
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
@@ -168,8 +190,7 @@ class HomeComponent extends Component {
                                     <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
                                         <option value="all">제목+질문</option>
                                         <option value="title">제목</option>
-                                        <option value="question">질문</option>
-
+	@@ -136,34 +173,53 @@ class HomeComponent extends Component {
                                     </select>
                                 </td> */}
 
@@ -178,7 +199,7 @@ class HomeComponent extends Component {
                                             name="search" value={this.state.search}
                                             className="form-control" onChange={this.handleSearchChange} />
                                     </td>
-                                    <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
+                                    <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
 
 
                                 </tr>
@@ -201,7 +222,17 @@ class HomeComponent extends Component {
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
                                             HOT 게시물
-                                            </h4>
+                                           
+                                        </h4>
+                                       
+                                                {
+                                            this.state.hots.map(
+                                                hot =>
+                                               <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a>
+                                            )
+                                        }
+                                                
+                                        
                                     </div>
                                 </div>
 
@@ -209,10 +240,10 @@ class HomeComponent extends Component {
                         </div>
 
 
-
                         <div class="col-lg-7" >
 
-                           
+
+
 
                         </div>
 
@@ -221,7 +252,6 @@ class HomeComponent extends Component {
 
                 </div>
             </body >
-
 
 
         );

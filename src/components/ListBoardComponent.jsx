@@ -11,12 +11,11 @@ class ListBoardComponent extends Component {
             paging: {},
             boards: [],
             search: "",
-            searchType: "all"
-
+            hots:[]
         }
         this.createBoard = this.createBoard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
-        this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
+        this.getHotBoard();
     }
 
     componentDidMount() {
@@ -126,17 +125,15 @@ class ListBoardComponent extends Component {
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
     }
-    searchKeyWord(search, searchType) {
-        this.props.history.push(`/search-board/${search}/${searchType}`);
+    searchKeyWord(search) {
+        this.props.history.push(`/search-board/${search}`);
 
     }
     clearbtn = (event) => {
         this.setState({ search: '' });
 
     }
-    handleSearchTypeChange = (event) => {
-        this.setState({ searchType: event.target.value });
-    }
+   
     mapPage() {
         if (this.state.category != "자유게시판") {
             return (
@@ -147,6 +144,14 @@ class ListBoardComponent extends Component {
         }
 
 
+    }
+    getHotBoard(){
+        BoardService.getHotBoard().then((res)=>{
+            this.setState({
+                hots : res.data
+            });
+            
+        });
     }
     render() {
 
@@ -166,10 +171,11 @@ class ListBoardComponent extends Component {
                 </div>
 
                 {/* 글작성, 게시물 div*/}
-                <div >
-                    <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
-                </div>
+
                 <div class="container-fluid" >
+                    <div >
+                        <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
+                    </div>
                     <div class="row">
                         <div class="col-lg-9">
                             <div >
@@ -214,21 +220,13 @@ class ListBoardComponent extends Component {
                             <div >{/* 검색, 태그 div*/}
                                 <table>
                                     <tr>
-                                        {/* <td>
-                                            <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
-                                                <option value="all">제목+질문</option>
-                                                <option value="title">제목</option>
-                                                <option value="question">질문</option>
-
-                                            </select>
-                                        </td> */}
-
+                                    
                                         <td>
                                             <input type="text" placeholder="검색하기"
                                                 name="search" value={this.state.search}
                                                 className="form-control" onChange={this.handleSearchChange} />
                                         </td>
-                                        <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search, this.state.searchType)}>Search</button></td>
+                                        <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
 
 
                                     </tr>
@@ -253,6 +251,13 @@ class ListBoardComponent extends Component {
                                             <h4 className="department-title">
                                                 HOT 게시물
                                             </h4>
+                                            
+                                        {
+                                            this.state.hots.map(
+                                                hot =>
+                                                <p><a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a></p>
+                                            )
+                                        }
                                         </div>
                                     </div>
 
