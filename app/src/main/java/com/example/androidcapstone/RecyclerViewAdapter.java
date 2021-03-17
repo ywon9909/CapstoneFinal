@@ -88,7 +88,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tag4 = (TextView)itemView.findViewById(R.id.tag4);
             tag5 = (TextView)itemView.findViewById(R.id.tag5);
 
-            // item click 시 ArticleDetail로 title, question 보내줌
+            // item click 시 ArticleDetail로 title, question, ..., tag 모두 보내줌
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

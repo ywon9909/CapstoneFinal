@@ -37,6 +37,9 @@ public interface JsonApi {
     Call<List<BoardData>> getSearchBoards(@Path(value = "keyword") String keyword,
                                           @Path(value = "searchType") String searchType);
 
+    // hot 게시물 조회
+    @GET("/api/board/hot")
+    Call<List<BoardData>> getBoard();
 
 
     /**
