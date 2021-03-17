@@ -153,7 +153,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="hot 게시글"
+                android:text="hot 게시물"
                 android:textColor="@color/black"
                 android:padding="15dp"
                 android:textStyle="bold"/>

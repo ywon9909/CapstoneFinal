@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidCapstone"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PromotionBoard"></activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".PromotionBoard" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -26,7 +27,7 @@
         <activity android:name=".ArticleDetail" />
         <activity
             android:name=".ArticleBoard"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
