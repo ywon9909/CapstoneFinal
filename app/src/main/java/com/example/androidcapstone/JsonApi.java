@@ -33,9 +33,8 @@ public interface JsonApi {
     Call<Void> deletePost(@Path("no") int no);
 
     // 글 검색
-    @GET("/api/board/search/{keyword}/{searchType}")
-    Call<List<BoardData>> getSearchBoards(@Path(value = "keyword") String keyword,
-                                          @Path(value = "searchType") String searchType);
+    @GET("/api/board/search/{keyword}")
+    Call<List<BoardData>> getSearchBoards(@Path(value = "keyword") String keyword);
 
     // hot 게시물 조회
     @GET("/api/board/hot")
