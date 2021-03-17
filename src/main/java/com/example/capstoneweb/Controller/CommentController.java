@@ -39,7 +39,7 @@ public class CommentController {
     @PutMapping("/board/comment/{no}")
     public void updateCommentByNo(
             @PathVariable Integer no, @RequestBody Comment comment){
-commentService.updateComment(no,comment);
+        commentService.updateComment(no,comment);
 
     }
 }
