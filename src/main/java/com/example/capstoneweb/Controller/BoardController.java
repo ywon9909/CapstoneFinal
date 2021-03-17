@@ -63,16 +63,18 @@ public class BoardController {
             @PathVariable Integer no) {
         boardService.deleteBoard(no);
     }
-    @GetMapping("/board/search/{keyword}/{searchType}")
-    public List<Board> getSearchBoards(@PathVariable(value="keyword", required=false) String keyword,
-                                       @PathVariable(value = "searchType", required=false) String searchType){
+    @GetMapping("/board/search/{keyword}")
+    public List<Board> getSearchBoards(@PathVariable(value="keyword", required=false) String keyword){
         //System.out.println(searchType);
         //System.out.println(keyword);
-        if(searchType==null)
-            searchType="title";
         if(keyword==null)
             keyword="help";
-        return boardService.getsearchBoard(keyword, searchType);
+        return boardService.getsearchBoard(keyword);
     }
+    @GetMapping("/board/hot")
+    public List<Board> getHotBoard(){
+        return  boardService.getHotBoard();
+    }
+
 
 }

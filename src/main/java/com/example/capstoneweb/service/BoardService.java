@@ -81,7 +81,7 @@ public class BoardService {
         board.setTitle(updatedBoard.getTitle());
         board.setQuestion(updatedBoard.getQuestion());
         board.setBoard_like(updatedBoard.getBoard_like());
-board.setTag1(updatedBoard.getTag1());
+        board.setTag1(updatedBoard.getTag1());
         board.setTag2(updatedBoard.getTag2());
         board.setTag3(updatedBoard.getTag3());
         board.setTag4(updatedBoard.getTag4());
@@ -98,19 +98,13 @@ board.setTag1(updatedBoard.getTag1());
         // response.put("Deleted Board Data by id : [" + no + "]", Boolean.TRUE);
 
     }
-    public List<Board> getsearchBoard(String keyword,String searchType) {
-        if(searchType=="all"){
+    public List<Board> getsearchBoard(String keyword) {
+
             return boardRepository.findKeywordAll(keyword);
-        }
-        else if(searchType=="title"){
-            return boardRepository.findKeywordTitle(keyword);
-        }
-        else{
-            return boardRepository.findKeywordQuestion(keyword);
-        }
 
-
-
+    }
+    public List<Board> getHotBoard(){
+        return boardRepository.findHotBoard();
     }
 
 }
