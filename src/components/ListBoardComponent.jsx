@@ -166,10 +166,11 @@ class ListBoardComponent extends Component {
                 </div>
 
                 {/* 글작성, 게시물 div*/}
+               
+                <div class="container-fluid" >
                 <div >
                     <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
                 </div>
-                <div class="container-fluid" >
                     <div class="row">
                         <div class="col-lg-9">
                             <div >
@@ -219,7 +220,6 @@ class ListBoardComponent extends Component {
                                                 <option value="all">제목+질문</option>
                                                 <option value="title">제목</option>
                                                 <option value="question">질문</option>
-
                                             </select>
                                         </td> */}
 
