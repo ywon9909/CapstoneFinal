@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidCapstone"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Login"></activity>
+        <activity android:name=".PromotionDetail"></activity>
+        <activity android:name=".Login" />
         <activity android:name=".PromotionBoard" />
 
         <meta-data
