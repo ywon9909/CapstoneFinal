@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidCapstone"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PromotionDetail"></activity>
+        <activity android:name=".Signup"></activity>
+        <activity android:name=".WritingPromotion" />
+        <activity android:name=".PromotionDetail" />
         <activity android:name=".Login" />
         <activity android:name=".PromotionBoard" />
 
