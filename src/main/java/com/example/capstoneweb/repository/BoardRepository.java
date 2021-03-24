@@ -41,6 +41,18 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             +"where board_like>10 "
            ;
 
+    public final static String SELECT_POPULAR_TAG=""
+            +"SELECT TAG , SUM(cnt) AS cnt FROM ("
+            +"select tag1 TAG, COUNT(*) cnt from board group by tag1 union all "
+            +"select tag2 TAG, COUNT(*) cnt from board group by tag2 union all "
+            +"select tag3 TAG, COUNT(*) cnt from board group by tag3 union all "
+            +"select tag4 TAG, COUNT(*) cnt from board group by tag4 union all "
+            +"select tag5 TAG, COUNT(*) cnt from board group by tag5 ) a "
+            +"WHERE TAG IS NOT NULL "
+            +"group by TAG "
+            +"order by 2 desc "
+            +"limit 5";
+
     @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
     List<Board> findFromTo(
             final String category,
@@ -67,5 +79,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query(value = SELECT_HOT_BOARD, nativeQuery = true)
     List<Board> findHotBoard();
 
+    @Query(value = SELECT_POPULAR_TAG, nativeQuery = true)
+    List findPopularTag();
 
 }
