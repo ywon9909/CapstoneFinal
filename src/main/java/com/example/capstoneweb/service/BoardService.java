@@ -106,5 +106,8 @@ public class BoardService {
     public List<Board> getHotBoard(){
         return boardRepository.findHotBoard();
     }
+    public List getPopularTag(){
+        return boardRepository.findPopularTag();
+    }
 
 }

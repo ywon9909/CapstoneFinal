@@ -75,6 +75,10 @@ public class BoardController {
     public List<Board> getHotBoard(){
         return  boardService.getHotBoard();
     }
+    @GetMapping("/board/ptag")
+    public List getPopularTag(){
+        return boardService.getPopularTag();
+    }
 
 
 }
