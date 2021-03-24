@@ -16,7 +16,7 @@ import SearchPageComponent from './components/SearchPageComponent'
 import SearchSideComponent from './components/SearchSideComponent'
 import LoginComponent from './components/LoginComponent';
 import MyPageComponent from './components/MyPageComponent';
-
+import ManageComponent from './components/ManageComponent';
 function App() {
   return (
     <div>
@@ -40,6 +40,7 @@ function App() {
             <Route path="/searchside" component={SearchSideComponent}></Route>
             <Route path="/login" component={LoginComponent}></Route>
             <Route path="/mypage" component={MyPageComponent}></Route>
+            <Route path="/manage" component={ManageComponent}></Route>
           </Switch>
          
           
