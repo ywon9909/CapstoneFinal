@@ -79,6 +79,10 @@ public class BoardController {
     public List getPopularTag(){
         return boardService.getPopularTag();
     }
+    @GetMapping("/board/similartag/{tag1}/{tag2}/{tag3}/{tag4}/{tag5}")
+    public List<Board> getSimilarTag(@PathVariable String tag1,@PathVariable String tag2,@PathVariable String tag3,@PathVariable String tag4,@PathVariable String tag5){
 
+        return boardService.getSimilarTag(tag1,tag2,tag3,tag4,tag5);
+    }
 
 }
