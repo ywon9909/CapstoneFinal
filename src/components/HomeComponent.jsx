@@ -1,6 +1,5 @@
 import React, { Component, useState } from 'react';
 import BoardService from '../service/BoardService';
-import SearchSideComponent from '../components/SearchSideComponent'
 class HomeComponent extends Component {
 
 
@@ -10,11 +9,15 @@ class HomeComponent extends Component {
             p_num: 1,
             boards: [],
             search: "",
-            hots:[]
+            hots:[],
+            tags:"",
+            str01:[]
 
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
+        this.getPopularTag();
+
         this.searchKeyWord = this.searchKeyWord.bind(this);
     }
 
@@ -22,7 +25,7 @@ class HomeComponent extends Component {
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
     }
-    searchKeyWord(search, searchType) {
+    searchKeyWord(search) {
 
         this.props.history.push(`/search-board/${search}`);
 
@@ -59,13 +62,39 @@ class HomeComponent extends Component {
             
         });
     }
+    getPopularTag(){
+        BoardService. getPopularTag().then((res)=>{
+            console.log("this.is"+res.data)
+            this.setState({
+                tags: res.data
+                
+            });
+        });
+        this.returnTag()
+    }
+    
+    returnTag() {
+        const tag= this.state.tags+""
+        console.log("string"+tag)
+          let str01 =tag.split(",");
+    
+           return (
+                <a className="hot">
+                   #{str01[0]}<br/> 
+                   #{str01[2]}<br/>
+                   #{str01[4]}<br/>
+                   #{str01[6]}<br/>
+                   #{str01[8]}
+               </a>
+           )
+
+    }
 
     render() {
         return (
             <body >
                 <div class="container-fluid" >
                     <div class="row">
-
                         <div class="col-lg-2">
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
@@ -73,17 +102,14 @@ class HomeComponent extends Component {
                                         <h4 className="department-title">계정</h4>
                                     </a>
                                 </div>
-
                             </div>
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
                                     <h4 className="department-title">광고</h4>
-
                                 </div>
                             </div>
-
-
                         </div>
+                        
                         <div className="row col-lg-7">
                             <div className="col-lg-4 col-md-8">
                                 <div className="single-features text-center mt-30">
@@ -186,22 +212,12 @@ class HomeComponent extends Component {
                         <div class="col-lg-3">
                             <table>
                                 <tr>
-                                    {/* <td>
-                                    <select className="form-control" name="type" value={this.state.searchType} onChange={this.handleSearchTypeChange}>
-                                        <option value="all">제목+질문</option>
-                                        <option value="title">제목</option>
-	@@ -136,34 +173,53 @@ class HomeComponent extends Component {
-                                    </select>
-                                </td> */}
-
                                     <td>
                                         <input type="text" placeholder="검색하기"
                                             name="search" value={this.state.search}
                                             className="form-control" onChange={this.handleSearchChange} />
                                     </td>
                                     <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
-
-
                                 </tr>
                             </table>
                             <div >
@@ -211,53 +227,33 @@ class HomeComponent extends Component {
                                             #인기태그
                                             </h4>
                                         <p className="text">
-                                            #tag1<br />
-                                                #tag2<br />
-                                                #tag3<br />
-                                                #tag4<br />
-                                                #tag5
-                                            </p>
-
+                                            {this.returnTag()}                                           
+                                        </p>
                                     </div>
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
-                                            HOT 게시물
-                                           
+                                            HOT 게시물                                          
                                         </h4>
-                                       
-                                                {
-                                            this.state.hots.map(
+                                        <table>
+                                            <tbody>
+                                                {this.state.hots.map(
                                                 hot =>
-                                               <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a>
-                                            )
-                                        }
-                                                
-                                        
+                                                <tr>
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a> 👍{hot.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-
-
-                        <div class="col-lg-7" >
-
-
-
-
-                        </div>
-
-
                     </div>
-
                 </div>
             </body >
-
-
         );
     }
 }
-const tdStyle = {
-    border: "1px solid", width: "215px", height: "200px", backgroundColor: "#d4e4f2",
-}
+
 export default HomeComponent;
