@@ -49,7 +49,9 @@ class BoardService {
    getHotBoard(){
        return axios.get(BOARD_API_BASE_URL+"/hot");
    }
-
+   getPopularTag(){
+    return axios.get(BOARD_API_BASE_URL+"/ptag");
+}
 }
 
 export default new BoardService();

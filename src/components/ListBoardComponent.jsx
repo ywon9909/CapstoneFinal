@@ -11,7 +11,7 @@ class ListBoardComponent extends Component {
             paging: {},
             boards: [],
             search: "",
-            hots:[]
+            hots: []
         }
         this.createBoard = this.createBoard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -133,7 +133,7 @@ class ListBoardComponent extends Component {
         this.setState({ search: '' });
 
     }
-   
+
     mapPage() {
         if (this.state.category != "자유게시판") {
             return (
@@ -145,12 +145,12 @@ class ListBoardComponent extends Component {
 
 
     }
-    getHotBoard(){
-        BoardService.getHotBoard().then((res)=>{
+    getHotBoard() {
+        BoardService.getHotBoard().then((res) => {
             this.setState({
-                hots : res.data
+                hots: res.data
             });
-            
+
         });
     }
     render() {
@@ -200,7 +200,7 @@ class ListBoardComponent extends Component {
                                                             </td>
                                                             <td style={{ float: "right" }}>
                                                                 👍{board.board_like}📄
-                                                </td>
+                                                            </td>
 
                                                         </tr>
 
@@ -220,7 +220,7 @@ class ListBoardComponent extends Component {
                             <div >{/* 검색, 태그 div*/}
                                 <table>
                                     <tr>
-                                    
+
                                         <td>
                                             <input type="text" placeholder="검색하기"
                                                 name="search" value={this.state.search}
@@ -251,13 +251,13 @@ class ListBoardComponent extends Component {
                                             <h4 className="department-title">
                                                 HOT 게시물
                                             </h4>
-                                            
-                                        {
-                                            this.state.hots.map(
-                                                hot =>
-                                                <p><a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a></p>
-                                            )
-                                        }
+
+                                            {
+                                                this.state.hots.map(
+                                                    hot =>
+                                                        <p><a className="hot" onClick={() => this.readBoard(hot.board_no)}>{hot.title}</a></p>
+                                                )
+                                            }
                                         </div>
                                     </div>
 
