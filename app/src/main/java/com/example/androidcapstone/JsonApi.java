@@ -38,7 +38,11 @@ public interface JsonApi {
 
     // hot 게시물 조회
     @GET("/api/board/hot")
-    Call<List<BoardData>> getBoard();
+    Call<List<BoardData>> getHotBoard();
+
+    // 인기 태그 조회
+    @GET("/api/board/ptag")
+    Call<List> getPopularTag();
 
 
     /**

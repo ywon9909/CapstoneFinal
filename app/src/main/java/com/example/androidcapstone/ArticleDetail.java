@@ -42,7 +42,8 @@ public class ArticleDetail extends AppCompatActivity {
     RecyclerView recyclerView2;
     RecyclerViewAdapter2 recyclerViewAdapter2;
 
-    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://172.16.66.211:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
