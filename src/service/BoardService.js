@@ -51,10 +51,10 @@ class BoardService {
    }
    getPopularTag(){
     return axios.get(BOARD_API_BASE_URL+"/ptag");
-}
-
-
-
+    }
+    getSimilarTag(tag1,tag2,tag3,tag4,tag5){
+        return axios.get(BOARD_API_BASE_URL+"/similartag/"+tag1+"/"+tag2+"/"+tag3+"/"+tag4+"/"+tag5)
+    }
 }
 
 export default new BoardService();
