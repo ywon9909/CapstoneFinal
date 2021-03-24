@@ -13,14 +13,15 @@ class ReadBoardComponent extends Component {
             comment_date: Date.now(),
             search: props.match.params.search,
             Member:{}, //1
-            hots:[]
+            hots:[],
+            tags:[]
         }
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment = this.createComment.bind(this);
         this.likeboard = this.likeboard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
-
+        this.getPopularTag();
     }
     
     changeanswer = (event) => {
@@ -203,6 +204,33 @@ class ReadBoardComponent extends Component {
             
         });
     }
+    getPopularTag(){
+        BoardService. getPopularTag().then((res)=>{
+            console.log("this.is"+res.data)
+            this.setState({
+                tags: res.data
+                
+            });
+        });
+        this.returnTag()
+    }
+    
+    returnTag() {
+        const tag= this.state.tags+""
+        console.log("string"+tag)
+          let str01 =tag.split(",");
+    
+           return (
+                <a className="hot">
+                   #{str01[0]}<br/> 
+                   #{str01[2]}<br/>
+                   #{str01[4]}<br/>
+                   #{str01[6]}<br/>
+                   #{str01[8]}
+               </a>
+           )
+
+    }
     render() {
         return (
 
@@ -311,23 +339,10 @@ class ReadBoardComponent extends Component {
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
                                             #인기태그
-                                            </h4>
+                                        </h4>
                                         <p className="text">
-                                          
-                                        {/*
-                                            this.state.tags.map(
-                                                tag =>
-                                                <tr>
-                                               <a className="hot">{tag.tag1}</a>
-                                               <a className="hot">{tag.tag2}</a>
-                                               <a className="hot">{tag.tag3}</a>
-                                               <a className="hot">{tag.tag4}</a>
-                                               <a className="hot">{tag.tag5}</a>
-            </tr>
- 
-                                            )
-                                            */  }
-                                            </p>
+                                            {this.returnTag()}                                           
+                                        </p>
 
                                     </div>
                                     <div className="department-content text-center">

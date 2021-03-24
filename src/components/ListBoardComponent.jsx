@@ -11,11 +11,13 @@ class ListBoardComponent extends Component {
             paging: {},
             boards: [],
             search: "",
-            hots: []
+            hots: [],
+            tags:""
         }
         this.createBoard = this.createBoard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
+        this.getPopularTag();
     }
 
     componentDidMount() {
@@ -153,6 +155,33 @@ class ListBoardComponent extends Component {
 
         });
     }
+    getPopularTag(){
+        BoardService. getPopularTag().then((res)=>{
+            console.log("this.is"+res.data)
+            this.setState({
+                tags: res.data
+                
+            });
+        });
+        this.returnTag()
+    }
+    
+    returnTag() {
+        const tag= this.state.tags+""
+        console.log("string"+tag)
+          let str01 =tag.split(",");
+    
+           return (
+                <a className="hot">
+                   #{str01[0]}<br/> 
+                   #{str01[2]}<br/>
+                   #{str01[4]}<br/>
+                   #{str01[6]}<br/>
+                   #{str01[8]}
+               </a>
+           )
+
+    }
     render() {
 
         return (
@@ -239,12 +268,8 @@ class ListBoardComponent extends Component {
                                                 #인기태그
                                             </h4>
                                             <p className="text">
-                                                #tag1<br />
-                                                #tag2<br />
-                                                #tag3<br />
-                                                #tag4<br />
-                                                #tag5
-                                            </p>
+                                                {this.returnTag()}                                           
+                                            </p>   
 
                                         </div>
                                         <div className="department-content text-center">
