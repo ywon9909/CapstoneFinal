@@ -1,6 +1,8 @@
 package com.example.androidcapstone;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,11 +12,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.androidcapstone.databinding.ActivityArticleDetailBinding;
 
@@ -23,6 +29,7 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +49,20 @@ public class ArticleDetail extends AppCompatActivity {
     RecyclerView recyclerView2;
     RecyclerViewAdapter2 recyclerViewAdapter2;
 
+    MenuItem menuItem;
+
+    TextView user;
+    TextView datetime;
+    TextView title;
+    TextView question;
+    TextView tag1;
+    TextView tag2;
+    TextView tag3;
+    TextView tag4;
+    TextView tag5;
+    TextView goodcount;
+    TextView commentcount;
+
     //static final String URL = "http://192.168.35.91:8080";
     static final String URL = "http://172.16.66.211:8080";
 
@@ -50,19 +71,19 @@ public class ArticleDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
-        TextView user = (TextView)findViewById(R.id.user);
-        TextView datetime = (TextView)findViewById(R.id.datetime);
-        TextView title = (TextView)findViewById(R.id.title);
-        TextView question = (TextView)findViewById(R.id.question);
+        user = (TextView)findViewById(R.id.user);
+        datetime = (TextView)findViewById(R.id.datetime);
+        title = (TextView)findViewById(R.id.title);
+        question = (TextView)findViewById(R.id.question);
 
-        TextView tag1 = (TextView)findViewById(R.id.tag1);
-        TextView tag2 = (TextView)findViewById(R.id.tag2);
-        TextView tag3 = (TextView)findViewById(R.id.tag3);
-        TextView tag4 = (TextView)findViewById(R.id.tag4);
-        TextView tag5 = (TextView)findViewById(R.id.tag5);
+        tag1 = (TextView)findViewById(R.id.tag1);
+        tag2 = (TextView)findViewById(R.id.tag2);
+        tag3 = (TextView)findViewById(R.id.tag3);
+        tag4 = (TextView)findViewById(R.id.tag4);
+        tag5 = (TextView)findViewById(R.id.tag5);
 
-        TextView goodcount = (TextView)findViewById(R.id.goodcount);
-        TextView commentcount = (TextView)findViewById(R.id.commentcount);
+        goodcount = (TextView)findViewById(R.id.goodcount);
+        commentcount = (TextView)findViewById(R.id.commentcount);
 
         Intent intent = getIntent();
 
@@ -205,7 +226,6 @@ public class ArticleDetail extends AppCompatActivity {
         };
         jsonApi.getComment(num).enqueue(callback);
 
-
     }
 
     // 글 삭제 연결
@@ -266,5 +286,38 @@ public class ArticleDetail extends AppCompatActivity {
             }
         });
     }
+
+
+    // titlebar에 새로고침 버튼
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.sub_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // titlebar의 새로고침 버튼 눌렀을 때
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.refresh) {
+            menuItem = item;
+            //menuItem.setActionView(R.layout.activity_article_detail);
+            Intent intent = new Intent(getApplicationContext(), ArticleDetail.class);
+            intent.putExtra("board_id", num);
+            intent.putExtra("title", title.getText().toString());
+            intent.putExtra("question", question.getText().toString());
+            intent.putExtra("likecount", goodcount.getText().toString());
+            intent.putExtra("tag1", tag1.getText().toString());
+            intent.putExtra("tag2", tag2.getText().toString());
+            intent.putExtra("tag3", tag3.getText().toString());
+            intent.putExtra("tag4", tag4.getText().toString());
+            intent.putExtra("tag5", tag5.getText().toString());
+            Log.d("ArticleDetail-refresh", "title" + title.getText().toString());
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 }
