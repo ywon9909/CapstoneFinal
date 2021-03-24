@@ -14,26 +14,33 @@ class ReadBoardComponent extends Component {
             search: props.match.params.search,
             Member:{}, //1
             hots:[],
-            tags:[]
+            tags:[],
+            similar:[]
         }
+        this.getOneBoard();
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment = this.createComment.bind(this);
         this.likeboard = this.likeboard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
-        this.getPopularTag();
+        this.getPopularTag();   
+        this.getSimilarTag();
     }
     
     changeanswer = (event) => {
         this.setState({ answer: event.target.value });
     }
-    componentDidMount() {
+    getOneBoard(){
         BoardService.getOneBoard(this.state.num).then(res => {
+            console.log("Board "+res.data)
             this.setState({
                 board: res.data
             });
 
         });
+    }
+    componentDidMount() {
+        
         BoardService.getOneComment(this.state.num).then(res => {
             this.setState({
                 comments: res.data
@@ -177,25 +184,23 @@ class ReadBoardComponent extends Component {
         this.props.history.push(`/search-board/${search}`);
 
     }
-    Doccheck(id){
-        console.log("나와라"+id)
-        BoardService.getMemberById(id).then(res=>{
-            console.log("넌 왜 안나와"+res.data)
-            this.setState({
-                Member: res.data
+    // Doccheck(id){
+    //     console.log("나와라"+id)
+    //     BoardService.getMemberById(id).then(res=>{
+    //         console.log("넌 왜 안나와"+res.data)
+    //         this.setState({
+    //             Member: res.data
                 
-            });
-        });
-        if (this.state.Member.doc != 0 ) {
-            return (
-                <div style={{  position: "absolute",top:"0px",right:"5%"}}> 🩺 </div>
+    //         });
+    //     });
+    //     if (this.state.Member.doc != 0 ) {
+    //         return (
+    //             <div style={{  position: "absolute",top:"0px",right:"5%"}}> 🩺 </div>
 
-            )
+    //         )
 
-        }
-
-
-    }
+    //     }
+    // }
     getHotBoard(){
         BoardService.getHotBoard().then((res)=>{
             this.setState({
@@ -231,6 +236,17 @@ class ReadBoardComponent extends Component {
            )
 
     }
+    getSimilarTag(){
+       
+        BoardService.getSimilarTag(this.state.board.tag1,this.state.board.tag2,this.state.board.tag3,this.state.board.tag4,this.state.board.tag5).then((res)=>{
+            console.log("Similar Tag "+ res.data)
+            this.setState({
+                similar:res.data
+            });
+        });
+       
+    }
+  
     render() {
         return (
 
@@ -240,7 +256,7 @@ class ReadBoardComponent extends Component {
                         <div >
                             <div className="card col-md-10 offset-md-1" >
                                 <div className="row">
-                                    &nbsp;&nbsp;&nbsp;<h5 style={{ color: "gray", padding: "5px" }}> [{this.state.board.category}] {this.Doccheck(this.state.board.id)}</h5>
+                                    &nbsp;&nbsp;&nbsp;<h5 style={{ color: "gray", padding: "5px" }}> [{this.state.board.category}] {/*this.Doccheck(this.state.board.id)*/}</h5>
                                 </div>
                                 <h3 className="text-center"> {this.state.board.title}</h3>
                                 <br />
@@ -357,6 +373,24 @@ class ReadBoardComponent extends Component {
                                                  👍{hot.board_like}📄</p>
                                             )
                                         }
+                                    </div>
+                                    <div className="department-content text-center">
+                                        <h4 className="department-title">
+                                            연관질문
+                                        </h4>
+                                           
+                                        {
+                                            this.state.similar.map(
+                                                simi =>
+                                                       <p><a className="hot" onClick={()=>this.readBoard(simi.board_no)}>{simi.title}</a>
+                                                        👍{simi.board_like}📄</p>)
+                                                    
+                                        }
+                                                
+                                        
+                                        {this.getSimilarTag()}
+       
+                                        
                                     </div>
                                 </div>
                             </div>
