@@ -40,7 +40,8 @@ public class WritingBoard extends AppCompatActivity {
     JsonApi jsonApi;
     Retrofit retrofit;
 
-    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://172.16.66.211:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
