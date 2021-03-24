@@ -313,11 +313,20 @@ class ReadBoardComponent extends Component {
                                             #인기태그
                                             </h4>
                                         <p className="text">
-                                            #tag1<br />
-                                                #tag2<br />
-                                                #tag3<br />
-                                                #tag4<br />
-                                                #tag5
+                                          
+                                        {/*
+                                            this.state.tags.map(
+                                                tag =>
+                                                <tr>
+                                               <a className="hot">{tag.tag1}</a>
+                                               <a className="hot">{tag.tag2}</a>
+                                               <a className="hot">{tag.tag3}</a>
+                                               <a className="hot">{tag.tag4}</a>
+                                               <a className="hot">{tag.tag5}</a>
+            </tr>
+ 
+                                            )
+                                            */  }
                                             </p>
 
                                     </div>
@@ -329,7 +338,8 @@ class ReadBoardComponent extends Component {
                                         {
                                             this.state.hots.map(
                                                 hot =>
-                                                <p><a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a></p>
+                                                <p><a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a>
+                                                 👍{hot.board_like}📄</p>
                                             )
                                         }
                                     </div>

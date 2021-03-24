@@ -51,7 +51,7 @@ class BoardService {
    }
    getPopularTag(){
     return axios.get(BOARD_API_BASE_URL+"/ptag");
-}
+    }
 }
 
 export default new BoardService();

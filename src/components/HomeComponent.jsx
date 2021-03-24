@@ -11,7 +11,6 @@ class HomeComponent extends Component {
             search: "",
             hots:[],
             tags:""
-           
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
