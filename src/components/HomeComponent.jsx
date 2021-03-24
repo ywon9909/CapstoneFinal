@@ -10,9 +10,7 @@ class HomeComponent extends Component {
             boards: [],
             search: "",
             hots:[],
-            tags:"",
-            str01:[]
-
+            tags:""
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();

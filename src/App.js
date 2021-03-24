@@ -2,6 +2,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/style.css'
+//import './assets/css/tabler.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ListBoardComponent from './components/ListBoardComponent';
 import HeaderComponent from './components/HeaderComponent';
@@ -16,7 +17,7 @@ import SearchPageComponent from './components/SearchPageComponent'
 import SearchSideComponent from './components/SearchSideComponent'
 import LoginComponent from './components/LoginComponent';
 import MyPageComponent from './components/MyPageComponent';
-import ManageComponent from './components/ManageComponent';
+
 function App() {
   return (
     <div>
@@ -40,7 +41,7 @@ function App() {
             <Route path="/searchside" component={SearchSideComponent}></Route>
             <Route path="/login" component={LoginComponent}></Route>
             <Route path="/mypage" component={MyPageComponent}></Route>
-            <Route path="/manage" component={ManageComponent}></Route>
+
           </Switch>
          
           
@@ -48,6 +49,7 @@ function App() {
         
 
       </Router>
+      
      <FooterComponent />
     </div>
   );

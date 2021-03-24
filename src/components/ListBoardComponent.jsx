@@ -11,11 +11,13 @@ class ListBoardComponent extends Component {
             paging: {},
             boards: [],
             search: "",
-            hots:[]
+            hots: [],
+            tags:""
         }
         this.createBoard = this.createBoard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
+        this.getPopularTag();
     }
 
     componentDidMount() {
@@ -133,7 +135,7 @@ class ListBoardComponent extends Component {
         this.setState({ search: '' });
 
     }
-   
+
     mapPage() {
         if (this.state.category != "자유게시판") {
             return (
@@ -145,13 +147,40 @@ class ListBoardComponent extends Component {
 
 
     }
-    getHotBoard(){
-        BoardService.getHotBoard().then((res)=>{
+    getHotBoard() {
+        BoardService.getHotBoard().then((res) => {
             this.setState({
-                hots : res.data
+                hots: res.data
             });
-            
+
         });
+    }
+    getPopularTag(){
+        BoardService. getPopularTag().then((res)=>{
+            console.log("this.is"+res.data)
+            this.setState({
+                tags: res.data
+                
+            });
+        });
+        this.returnTag()
+    }
+    
+    returnTag() {
+        const tag= this.state.tags+""
+        console.log("string"+tag)
+          let str01 =tag.split(",");
+    
+           return (
+                <a className="hot">
+                   #{str01[0]}<br/> 
+                   #{str01[2]}<br/>
+                   #{str01[4]}<br/>
+                   #{str01[6]}<br/>
+                   #{str01[8]}
+               </a>
+           )
+
     }
     render() {
 
@@ -200,7 +229,7 @@ class ListBoardComponent extends Component {
                                                             </td>
                                                             <td style={{ float: "right" }}>
                                                                 👍{board.board_like}📄
-                                                </td>
+                                                            </td>
 
                                                         </tr>
 
@@ -220,7 +249,7 @@ class ListBoardComponent extends Component {
                             <div >{/* 검색, 태그 div*/}
                                 <table>
                                     <tr>
-                                    
+
                                         <td>
                                             <input type="text" placeholder="검색하기"
                                                 name="search" value={this.state.search}
@@ -239,25 +268,21 @@ class ListBoardComponent extends Component {
                                                 #인기태그
                                             </h4>
                                             <p className="text">
-                                                #tag1<br />
-                                                #tag2<br />
-                                                #tag3<br />
-                                                #tag4<br />
-                                                #tag5
-                                            </p>
+                                                {this.returnTag()}                                           
+                                            </p>   
 
                                         </div>
                                         <div className="department-content text-center">
                                             <h4 className="department-title">
                                                 HOT 게시물
                                             </h4>
-                                            
-                                        {
-                                            this.state.hots.map(
-                                                hot =>
-                                                <p><a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a></p>
-                                            )
-                                        }
+
+                                            {
+                                                this.state.hots.map(
+                                                    hot =>
+                                                        <p><a className="hot" onClick={() => this.readBoard(hot.board_no)}>{hot.title}</a></p>
+                                                )
+                                            }
                                         </div>
                                     </div>
 
