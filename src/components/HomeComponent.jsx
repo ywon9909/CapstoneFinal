@@ -36,6 +36,9 @@ class HomeComponent extends Component {
     GotoCategory(category) {
         this.props.history.push(`/category-board/${category}`);
     }
+    GotoAdminpage() {
+        this.props.history.push(`/manage`);
+    }
     returnDate(board_date) {
         const dateString = board_date + ""
         let y = dateString.split("T"); //날짜 , 시간.00:00:00
@@ -103,7 +106,8 @@ class HomeComponent extends Component {
                             </div>
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
-                                    <h4 className="department-title">광고</h4>
+                                    <h4 className="department-title" a onClick={() => this.GotoAdminpage()}>광고</h4>
+                                  
                                 </div>
                             </div>
                         </div>
