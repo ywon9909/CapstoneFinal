@@ -13,6 +13,7 @@ public class BoardData {
     String tag3;
     String tag4;
     String tag5;
+    Integer commentcount;
 
     public Integer getBoard_no() {
         return board_no;
@@ -90,6 +91,10 @@ public class BoardData {
 
     public void setTag5(String tag5) { this.tag5 = tag5; }
 
+    public Integer getCommentcount() { return commentcount; }
+
+    public void setCommentcount(Integer commentcount)  { this.commentcount = commentcount; }
+
     @Override
     public String toString() {
         return "{" +
@@ -105,6 +110,7 @@ public class BoardData {
                 ",\"tag3\":\"" + tag3 + "\"" +
                 ",\"tag4\":\"" + tag4 + "\"" +
                 ",\"tag5\":\"" + tag5 + "\"" +
+                ",\"commentcount\":\"" + commentcount + "\"" +
                 '}';
     }
 
