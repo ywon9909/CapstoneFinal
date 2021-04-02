@@ -8,16 +8,15 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     public final static String SELECT_BOARD_LIST_PAGED = ""
-            + "SELECT *"
-            + "FROM board  WHERE 0 < board_no "
-            + "and category = ?1 "
+            + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+            + "FROM board WHERE board.category = ?1 "
             //+ "and category =" +"'"+"정형외과"+"' "
-            + "ORDER BY board_no DESC LIMIT ?2, ?3 ";
+            + "ORDER BY board.board_no DESC LIMIT ?2, ?3 ";
 
     public final static String SELECT_BOARD_LIST_PAGED2 = ""
-            + "SELECT *"
-            + "FROM board  WHERE 0 < board_no "
-            + "and category = ?1 "
+            + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+            + "FROM board  "
+            +" WHERE category = ?1 "
             + "ORDER BY board_no DESC ";
    /* public final static String SELECT_BOARD_SEARCH_QUESTION=""
             +"SELECT *"

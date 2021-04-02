@@ -32,5 +32,4 @@ public class Comment{
 
     @Column(name = "board_no")
     private Integer board_no;
-
 }
