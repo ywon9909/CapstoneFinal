@@ -36,7 +36,7 @@ public class HotRecyclerViewAdapter extends RecyclerView.Adapter<HotRecyclerView
         holder.hotBoard_no.setText(dataList.get(position).getBoard_no().toString());
         holder.hotTitle.setText(dataList.get(position).getTitle());
         holder.hotGoodnum.setText(dataList.get(position).getBoard_like().toString());
-        //holder.hotCommentnum.setText(dataList.get(position).getCommentcount().toString());
+        holder.hotCommentnum.setText(dataList.get(position).getCommentcount().toString());
 
         String str = dataList.get(position).getBoard_date();
         String date = str.substring(0, str.indexOf("T"));
