@@ -48,8 +48,7 @@ public class ExpertFragment extends Fragment implements TextWatcher {
 
 
     //static final String URL = "http://223.194.133.185:8080";
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://172.16.66.211:8080";
+    static final String URL = "http://192.168.35.91:8080";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,26 +72,6 @@ public class ExpertFragment extends Fragment implements TextWatcher {
         //editSearch = (EditText)mView.findViewById(R.id.search);
         recyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
 
-        /*
-        editSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = editSearch.getText().toString();
-                //search(text);
-            }
-        });
-
-         */
 
         ArticleBoard activity = (ArticleBoard) getActivity();
         data = activity.getMyData();

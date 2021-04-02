@@ -63,8 +63,8 @@ public class ArticleDetail extends AppCompatActivity {
     TextView goodcount;
     TextView commentcount;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://172.16.66.211:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://172.16.66.211:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +102,8 @@ public class ArticleDetail extends AppCompatActivity {
         String mGoodcount = intent.getExtras().getString("goodcount");
         goodcount.setText(mGoodcount);
 
-        //String mCommentcount = intent.getExtras().getString("commentcount");
-        //commentcount.setText(mCommentcount);
+        String mCommentcount = intent.getExtras().getString("commentcount");
+        commentcount.setText(mCommentcount);
 
         // 태그 조회
         String mTag1 = intent.getExtras().getString("tag1");
@@ -155,6 +155,7 @@ public class ArticleDetail extends AppCompatActivity {
                 intent.putExtra("title", title.getText().toString());
                 intent.putExtra("question", question.getText().toString());
                 intent.putExtra("likecount", goodcount.getText().toString());
+                intent.putExtra("commentcount", commentcount.getText().toString());
                 intent.putExtra("tag1", tag1.getText().toString());
                 intent.putExtra("tag2", tag2.getText().toString());
                 intent.putExtra("tag3", tag3.getText().toString());
@@ -285,37 +286,6 @@ public class ArticleDetail extends AppCompatActivity {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
-    }
-
-
-    // titlebar에 새로고침 버튼
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.sub_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    // titlebar의 새로고침 버튼 눌렀을 때
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.refresh) {
-            menuItem = item;
-            //menuItem.setActionView(R.layout.activity_article_detail);
-            Intent intent = new Intent(getApplicationContext(), ArticleDetail.class);
-            intent.putExtra("board_id", num);
-            intent.putExtra("title", title.getText().toString());
-            intent.putExtra("question", question.getText().toString());
-            intent.putExtra("likecount", goodcount.getText().toString());
-            intent.putExtra("tag1", tag1.getText().toString());
-            intent.putExtra("tag2", tag2.getText().toString());
-            intent.putExtra("tag3", tag3.getText().toString());
-            intent.putExtra("tag4", tag4.getText().toString());
-            intent.putExtra("tag5", tag5.getText().toString());
-            Log.d("ArticleDetail-refresh", "title" + title.getText().toString());
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 

@@ -48,6 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.title.setText(dataList.get(position).getTitle());
         //holder.board_date.setText(dataList.get(position).getBoard_date().toString());
         holder.goodnum.setText(dataList.get(position).getBoard_like().toString());
+        holder.commentnum.setText(dataList.get(position).getCommentcount().toString());
 
         String str = dataList.get(position).getBoard_date();
         String date = str.substring(0, str.indexOf("T"));
@@ -68,6 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView title;
         TextView board_date;
         TextView goodnum;
+        TextView commentnum;
 
         TextView tag1;
         TextView tag2;
@@ -81,6 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             title = (TextView)itemView.findViewById(R.id.title);
             board_date = (TextView)itemView.findViewById(R.id.board_date);
             goodnum = (TextView)itemView.findViewById(R.id.goodnum);
+            commentnum = (TextView)itemView.findViewById(R.id.commentnum);
 
             tag1 = (TextView)itemView.findViewById(R.id.tag1);
             tag2 = (TextView)itemView.findViewById(R.id.tag2);
@@ -101,6 +104,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         intent.putExtra("num", dataList.get(pos).getBoard_no());
                         intent.putExtra("board_id", dataList.get(pos).getBoard_id());
                         intent.putExtra("goodcount", dataList.get(pos).getBoard_like().toString());
+                        intent.putExtra("commentcount", dataList.get(pos).getCommentcount().toString());
 
                         intent.putExtra("tag1", dataList.get(pos).getTag1());
                         intent.putExtra("tag2", dataList.get(pos).getTag2());
