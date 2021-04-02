@@ -2,11 +2,10 @@ package com.example.capstoneweb.service;
 
 import com.example.capstoneweb.exception.ResourceNotFoundException;
 import com.example.capstoneweb.model.Board;
-import com.example.capstoneweb.model.Comment;
 import com.example.capstoneweb.repository.BoardRepository;
-import com.example.capstoneweb.repository.CommentRepository;
 import com.example.capstoneweb.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +59,6 @@ public class BoardService {
         result.put("category",category);
         result.put("pagingData", pu);
         result.put("list", list);
-
         return ResponseEntity.ok(result);
     }
 
@@ -108,6 +106,9 @@ public class BoardService {
     }
     public List getPopularTag(){
         return boardRepository.findPopularTag();
+    }
+    public List<Board> getSimilarTag(String tag1,String tag2,String tag3,String tag4,String tag5){
+        return boardRepository.findSimilarTag(tag1,tag2,tag3,tag4,tag5);
     }
 
 }

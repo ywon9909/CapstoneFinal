@@ -1,12 +1,7 @@
 package com.example.capstoneweb.model;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
@@ -49,4 +44,6 @@ public class Board {
     private String tag4;
     @Column(name = "tag5")
     private String tag5;
+@Column(name = "commentcount")
+    private Integer commentcount;
 }

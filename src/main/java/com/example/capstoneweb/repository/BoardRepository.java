@@ -8,16 +8,15 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     public final static String SELECT_BOARD_LIST_PAGED = ""
-            + "SELECT *"
-            + "FROM board  WHERE 0 < board_no "
-            + "and category = ?1 "
+            + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+            + "FROM board WHERE board.category = ?1 "
             //+ "and category =" +"'"+"정형외과"+"' "
-            + "ORDER BY board_no DESC LIMIT ?2, ?3 ";
+            + "ORDER BY board.board_no DESC LIMIT ?2, ?3 ";
 
     public final static String SELECT_BOARD_LIST_PAGED2 = ""
-            + "SELECT *"
-            + "FROM board  WHERE 0 < board_no "
-            + "and category = ?1 "
+            + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+            + "FROM board  "
+            +" WHERE category = ?1 "
             + "ORDER BY board_no DESC ";
    /* public final static String SELECT_BOARD_SEARCH_QUESTION=""
             +"SELECT *"
@@ -51,7 +50,16 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             +"WHERE TAG IS NOT NULL "
             +"group by TAG "
             +"order by 2 desc "
-            +"limit 5";
+            +"limit 5 "
+            ;
+
+    public final static String SELECT_SIMILAR_TAG=""
+            +"select * from capstone.board "
+            +"where tag1 in (?1,?2,?3,?4,?5) "
+            +"or tag2 in (?1,?2,?3,?4,?5) "
+            +"or tag3 in (?1,?2,?3,?4,?5) "
+            +"or tag4 in (?1,?2,?3,?4,?5)"
+            +"or tag5 in (?1,?2,?3,?4,?5) ";
 
     @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
     List<Board> findFromTo(
@@ -82,4 +90,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query(value = SELECT_POPULAR_TAG, nativeQuery = true)
     List findPopularTag();
 
+    @Query(value = SELECT_SIMILAR_TAG,nativeQuery = true)
+    List<Board> findSimilarTag(String tag1,String tag2,String tag3,String tag4,String tag5);
 }
