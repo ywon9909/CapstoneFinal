@@ -59,7 +59,6 @@ public class BoardService {
         result.put("category",category);
         result.put("pagingData", pu);
         result.put("list", list);
-
         return ResponseEntity.ok(result);
     }
 
