@@ -110,5 +110,8 @@ public class BoardService {
     public List<Board> getSimilarTag(String tag1,String tag2,String tag3,String tag4,String tag5){
         return boardRepository.findSimilarTag(tag1,tag2,tag3,tag4,tag5);
     }
+    public List<Board> getRecentBoard(String category){
+        return boardRepository.findRecentBoard(category);
+    }
 
 }
