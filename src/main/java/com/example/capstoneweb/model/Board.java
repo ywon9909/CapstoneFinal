@@ -44,6 +44,6 @@ public class Board {
     private String tag4;
     @Column(name = "tag5")
     private String tag5;
-@Column(name = "commentcount")
+    @Column(name = "commentcount")
     private Integer commentcount;
 }
