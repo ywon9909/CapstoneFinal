@@ -61,6 +61,13 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             +"or tag4 in (?1,?2,?3,?4,?5)"
             +"or tag5 in (?1,?2,?3,?4,?5) ";
 
+    public final static String SELECT_RECENT_BOARD=""
+            +"select * from board "
+            +"where category = ?1 "
+            +"order by board_date desc "
+            +"limit 5";
+
+
     @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
     List<Board> findFromTo(
             final String category,
@@ -92,4 +99,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query(value = SELECT_SIMILAR_TAG,nativeQuery = true)
     List<Board> findSimilarTag(String tag1,String tag2,String tag3,String tag4,String tag5);
+
+    @Query(value = SELECT_RECENT_BOARD, nativeQuery = true)
+    List<Board> findRecentBoard(String category);
 }

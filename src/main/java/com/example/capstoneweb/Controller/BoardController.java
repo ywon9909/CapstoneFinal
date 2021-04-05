@@ -84,5 +84,9 @@ public class BoardController {
 
         return boardService.getSimilarTag(tag1,tag2,tag3,tag4,tag5);
     }
+    @GetMapping("/board/recentboard/{category}")
+    public List<Board> getRecentBoard(@PathVariable String category){
+        return boardService.getRecentBoard(category);
+    }
 
 }
