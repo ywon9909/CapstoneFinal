@@ -55,6 +55,9 @@ class BoardService {
     getSimilarTag(tag1,tag2,tag3,tag4,tag5){
         return axios.get(BOARD_API_BASE_URL+"/similartag/"+tag1+"/"+tag2+"/"+tag3+"/"+tag4+"/"+tag5)
     }
+    getRecentBoard(category){
+        return axios.get(BOARD_API_BASE_URL+"/recentboard/"+category)
+    }
 }
 
 export default new BoardService();
