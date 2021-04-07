@@ -64,7 +64,7 @@ class HomeComponent extends Component {
         });
     }
     getPopularTag(){
-        BoardService. getPopularTag().then((res)=>{
+        BoardService.getPopularTag().then((res)=>{
             console.log("this.is"+res.data)
             this.setState({
                 tags: res.data
@@ -72,6 +72,14 @@ class HomeComponent extends Component {
             });
         });
         this.returnTag()
+    }
+    getRecentBoard(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards : res.data
+            });
+        });
     }
     
     returnTag() {
@@ -117,7 +125,17 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("자유게시판")}><h4 className="department-title">자유게시판</h4></a>
-
+                                        {this.getRecentBoard("정형외과")}
+                                        <table>
+                                            <tbody>
+                                                {this.state.boards.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="hot" onClick={()=>this.getRecentBoard("정형외과")}>{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +143,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("정형외과")}><h4 className="department-title">정형외과</h4></a>
-
+                                        {this.getRecentBoard("정형외과")}
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="hot" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

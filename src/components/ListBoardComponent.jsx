@@ -228,7 +228,7 @@ class ListBoardComponent extends Component {
                                                                 <p>{board.id}</p>
                                                             </td>
                                                             <td style={{ float: "right" }}>
-                                                                👍{board.board_like}📄
+                                                                👍{board.board_like}📄{board.commentcount}
                                                             </td>
 
                                                         </tr>
