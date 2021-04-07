@@ -9,13 +9,16 @@ class HomeComponent extends Component {
             p_num: 1,
             boards: [],
             search: "",
-            hots:[],
-            tags:""
+            hots: [],
+            tags: "",
+            str01 : []
+
+
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
         this.getPopularTag();
-
+        
         this.searchKeyWord = this.searchKeyWord.bind(this);
     }
 
@@ -55,33 +58,33 @@ class HomeComponent extends Component {
     readBoard(num) {
         this.props.history.push(`/read-board/${num}`);
     }
-    getHotBoard(){
-        BoardService.getHotBoard().then((res)=>{
+    getHotBoard() {
+        BoardService.getHotBoard().then((res) => {
             this.setState({
-                hots : res.data
+                hots: res.data
             });
-            
+
         });
     }
-    getPopularTag(){
-        BoardService.getPopularTag().then((res)=>{
-            console.log("this.is"+res.data)
+    getPopularTag() {
+        BoardService.getPopularTag().then((res) => {
+            console.log("this.is" + res.data)
             this.setState({
                 tags: res.data
-                
+
             });
         });
         this.returnTag()
     }
-    getRecentBoard(category){
-        BoardService.getRecentBoard(category).then((res)=>{
-            console.log("recentboard "+res.data)
+    getRecentBoard(category) {
+        BoardService.getRecentBoard(category).then((res) => {
+            console.log("recentboard " + res.data)
             this.setState({
-                boards : res.data
+                boards: res.data //카테고리별로 5개씩 총 12개의 데이터를 받아옴
             });
         });
     }
-    
+
     returnTag() {
         const tag= this.state.tags+""
         console.log("string"+tag)
@@ -107,7 +110,7 @@ class HomeComponent extends Component {
                         <div class="col-lg-2">
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
-                                    <a onClick={()=> this.props.history.push('/mypage')}>
+                                    <a onClick={() => this.props.history.push('/mypage')}>
                                         <h4 className="department-title">계정</h4>
                                     </a>
                                 </div>
@@ -115,27 +118,16 @@ class HomeComponent extends Component {
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
                                     <h4 className="department-title" a onClick={() => this.GotoAdminpage()}>광고</h4>
-                                  
+
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className="row col-lg-7">
                             <div className="col-lg-4 col-md-8">
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("자유게시판")}><h4 className="department-title">자유게시판</h4></a>
-                                        {this.getRecentBoard("정형외과")}
-                                        <table>
-                                            <tbody>
-                                                {this.state.boards.map(
-                                                board =>
-                                                <tr>
-                                                    <a className="hot" onClick={()=>this.getRecentBoard("정형외과")}>{board.title}</a> 👍{board.board_like}📄
-                                                </tr>
-                                                )}
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -143,15 +135,17 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("정형외과")}><h4 className="department-title">정형외과</h4></a>
-                                        {this.getRecentBoard("정형외과")}
                                         <table>
                                             <tbody>
-                                                
+                                                {this.getRecentBoard("정형외과")}
                                                 {this.state.boards.map(
-                                                board =>
-                                                <tr>
-                                                    <a className="hot" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
-                                                </tr>
+                                                    board =>
+
+                                                        <tr>
+                                                            <a className="homecategory" onClick={() => this.readBoard(board.board_no)} >{board.title}</a>
+                                                        </tr>
+
+
                                                 )}
                                             </tbody>
                                         </table>
@@ -256,22 +250,23 @@ class HomeComponent extends Component {
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
                                             #인기태그
-                                            </h4>
+                                        </h4>
+                                        
                                         <p className="text">
-                                            {this.returnTag()}                                           
+                                        {this.returnTag()}    
                                         </p>
                                     </div>
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
-                                            HOT 게시물                                          
+                                            HOT 게시물
                                         </h4>
                                         <table>
                                             <tbody>
                                                 {this.state.hots.map(
-                                                hot =>
-                                                <tr>
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a> 👍{hot.board_like}📄
-                                                </tr>
+                                                    hot =>
+                                                        <tr>
+                                                            <a className="hot" onClick={() => this.readBoard(hot.board_no)}>{hot.title}</a> 👍{hot.board_like}📄{hot.commentcount}
+                                                        </tr>
                                                 )}
                                             </tbody>
                                         </table>

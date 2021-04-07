@@ -92,7 +92,17 @@ ul, ol {
   padding: 0px;
   list-style-type: none; }
 .hot{
-  color:#049ae5
+  color:#049ae5;
+}
+.homecategory{
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 150px;
+  text-align: center;
+}
+.homecategory:hover{
+  color:#bad1e6
 }
 .hot:hover{
   color:#bad1e6
@@ -1381,7 +1391,7 @@ p {
       .single-features .features-content .more i {
         font-size: 13px; }
   .single-features.active, .single-features:hover {
-    background-color: #049ae5; }
+    background-color: #d6eaf5; }
     .single-features.active .features-icon i, .single-features:hover .features-icon i {
       color: #fff; }
     .single-features.active .features-content .features-title a, .single-features:hover .features-content .features-title a {
