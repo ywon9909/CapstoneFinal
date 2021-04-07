@@ -22,8 +22,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             +"SELECT *"
             +"FROM board WHERE question LIKE %?1% ";*/
     public final static String SELECT_BOARD_SEARCH_ALL=""
-            +"SELECT * "
-            +"FROM board WHERE (title LIKE %?1% or question LIKE %?1%)";
+           + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+           +"FROM board WHERE (title LIKE %?1% or question LIKE %?1%)";
 
    /* public final static String SELECT_BOARD_SEARCH_TITLE=""
             +"SELECT *"
@@ -35,7 +35,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             +"FROM board WHERE category =?1 ";
 
     public final static String SELECT_HOT_BOARD=""
-            +"SELECT *"
+            +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
             +"FROM board "
             +"where board_like>10 "
            ;
@@ -54,7 +54,10 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             ;
 
     public final static String SELECT_SIMILAR_TAG=""
-            +"select * from capstone.board "
+            +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,(SELECT COUNT(*) FROM  " +
+            "comment WHERE comment.board_no = board.board_no) commentcount "
+            +"from capstone.board "
+
             +"where tag1 in (?1,?2,?3,?4,?5) "
             +"or tag2 in (?1,?2,?3,?4,?5) "
             +"or tag3 in (?1,?2,?3,?4,?5) "
