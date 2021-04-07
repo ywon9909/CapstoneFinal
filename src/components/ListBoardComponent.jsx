@@ -280,7 +280,8 @@ class ListBoardComponent extends Component {
                                             {
                                                 this.state.hots.map(
                                                     hot =>
-                                                        <p><a className="hot" onClick={() => this.readBoard(hot.board_no)}>{hot.title}</a></p>
+                                                        <p><a className="hot" onClick={() => this.readBoard(hot.board_no)}>{hot.title}</a>
+                                                        👍{hot.board_like}📄{hot.commentcount}</p>
                                                 )
                                             }
                                         </div>
