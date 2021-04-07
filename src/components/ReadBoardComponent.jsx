@@ -370,7 +370,7 @@ class ReadBoardComponent extends Component {
                                             this.state.hots.map(
                                                 hot =>
                                                 <p><a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a>
-                                                 👍{hot.board_like}📄</p>
+                                                 👍{hot.board_like}📄{hot.commentcount}</p>
                                             )
                                         }
                                     </div>
@@ -383,7 +383,7 @@ class ReadBoardComponent extends Component {
                                             this.state.similar.map(
                                                 simi =>
                                                        <p><a className="hot" onClick={()=>this.readBoard(simi.board_no)}>{simi.title}</a>
-                                                        👍{simi.board_like}📄</p>)
+                                                        👍{simi.board_like}📄{simi.commentcount}</p>)
                                                     
                                         }
                                                 
