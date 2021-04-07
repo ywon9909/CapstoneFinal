@@ -7,16 +7,40 @@ class HomeComponent extends Component {
         super(props)
         this.state = {
             p_num: 1,
-            boards: [],
+            boards1: [],
+            boards2: [],
+            boards3: [],
+            boards4: [],
+            boards5: [],
+            boards6: [],
+            boards7: [],
+            boards8: [],
+            boards9: [],
+            boards10: [],
+            boards11: [],
+            boards12: [],
             search: "",
             hots:[],
-            tags:""
+            tags:"",
+            str01: ""
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
         this.getPopularTag();
-
+        this.getRecentBoard1("자유게시판");
+        this.getRecentBoard2("정형외과");
+        this.getRecentBoard3("신경외과");
+        this.getRecentBoard4("비뇨기과");
+        this.getRecentBoard5("성형외과");
+        this.getRecentBoard6("한방과");
+        this.getRecentBoard7("피부과");
+        this.getRecentBoard8("내과");
+        this.getRecentBoard9("치과");
+        this.getRecentBoard10("이비인후과");
+        this.getRecentBoard11("소아과");
+        this.getRecentBoard12("안과");
         this.searchKeyWord = this.searchKeyWord.bind(this);
+ 
     }
 
 
@@ -57,6 +81,7 @@ class HomeComponent extends Component {
     }
     getHotBoard(){
         BoardService.getHotBoard().then((res)=>{
+            console.log("this.is. hot"+res.data)
             this.setState({
                 hots : res.data
             });
@@ -71,34 +96,112 @@ class HomeComponent extends Component {
                 
             });
         });
-        this.returnTag()
+        const tag= this.state.tags+""
+        console.log("this.is tags"+tag)
+        let str01s =tag.split(",");
+  
+        this.setState({
+          str01 : str01s
+        });
+    
     }
-    getRecentBoard(category){
+    getRecentBoard1(category){
         BoardService.getRecentBoard(category).then((res)=>{
             console.log("recentboard "+res.data)
             this.setState({
-                boards : res.data
+                boards1 : res.data
             });
         });
     }
-    
-    returnTag() {
-        const tag= this.state.tags+""
-        console.log("string"+tag)
-          let str01 =tag.split(",");
-    
-           return (
-                <a className="hot">
-                   #{str01[0]}<br/> 
-                   #{str01[2]}<br/>
-                   #{str01[4]}<br/>
-                   #{str01[6]}<br/>
-                   #{str01[8]}
-               </a>
-           )
-
+    getRecentBoard2(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards2 : res.data
+            });
+        });
     }
-
+    getRecentBoard3(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards3 : res.data
+            });
+        });
+    }
+    getRecentBoard4(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards4 : res.data
+            });
+        });
+    }
+    getRecentBoard5(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards5 : res.data
+            });
+        });
+    }
+    getRecentBoard6(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards6 : res.data
+            });
+        });
+    }
+    getRecentBoard7(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards7 : res.data
+            });
+        });
+    }
+    getRecentBoard8(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards8 : res.data
+            });
+        });
+    }
+    getRecentBoard9(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards9 : res.data
+            });
+        });
+    }
+    getRecentBoard10(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards10 : res.data
+            });
+        });
+    }
+    getRecentBoard11(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards11 : res.data
+            });
+        });
+    }
+    getRecentBoard12(category){
+        BoardService.getRecentBoard(category).then((res)=>{
+            console.log("recentboard "+res.data)
+            this.setState({
+                boards12 : res.data
+            });
+        });
+    }
+   
     render() {
         return (
             <body >
@@ -125,17 +228,17 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("자유게시판")}><h4 className="department-title">자유게시판</h4></a>
-                                        {this.getRecentBoard("정형외과")}
+                                       
                                         <table>
                                             <tbody>
-                                                {this.state.boards.map(
+                                                {this.state.boards1.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="hot" onClick={()=>this.getRecentBoard("정형외과")}>{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 👍{board.board_like}📄
                                                 </tr>
                                                 )}
-                                            </tbody>
-                                        </table>
+                                            </tbody> 
+                                         </table> 
                                     </div>
                                 </div>
                             </div>
@@ -143,18 +246,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("정형외과")}><h4 className="department-title">정형외과</h4></a>
-                                        {this.getRecentBoard("정형외과")}
+                                        
                                         <table>
                                             <tbody>
                                                 
-                                                {this.state.boards.map(
+                                                {this.state.boards2.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="hot" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
                                                 </tr>
                                                 )}
                                             </tbody>
-                                        </table>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +265,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("신경외과")}><h4 className="department-title">신경외과</h4></a>
-
+                                       
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards3.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +284,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("비뇨기과")}><h4 className="department-title">비뇨기과</h4></a>
-
+                                    
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards4.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +303,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("성형외과")}><h4 className="department-title">성형외과</h4></a>
-
+                                      
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards5.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +322,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("한방과")}><h4 className="department-title">한방과</h4></a>
-
+                                       
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards6.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +341,19 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("피부과")}><h4 className="department-title">피부과</h4></a>
-
+                                        
+                                   
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards7.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +361,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("내과")}><h4 className="department-title">내과</h4></a>
-
+                                    
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards8.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +380,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("치과")}><h4 className="department-title">치과</h4></a>
-
+                                 
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards9.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +399,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("이비인후과")}><h4 className="department-title">이비인후과</h4></a>
-
+                                       
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards10.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -226,7 +418,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("소아과")}><h4 className="department-title">소아과</h4></a>
-
+                                   
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards11.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +437,18 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("안과")}><h4 className="department-title">안과</h4></a>
-
+                                      
+                                        <table>
+                                            <tbody>
+                                                
+                                                {this.state.boards12.map(
+                                                board =>
+                                                <tr>
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table> 
                                     </div>
                                 </div>
                             </div>
@@ -258,7 +472,15 @@ class HomeComponent extends Component {
                                             #인기태그
                                             </h4>
                                         <p className="text">
-                                            {this.returnTag()}                                           
+                                       
+                                        <a className="hot">
+                   #{this.state.str01[0]}<br/> 
+                   #{this.state.str01[2]}<br/>
+                   #{this.state.str01[4]}<br/>
+                   #{this.state.str01[6]}<br/>
+                   #{this.state.str01[8]}
+               </a>
+          
                                         </p>
                                     </div>
                                     <div className="department-content text-center">
@@ -270,7 +492,7 @@ class HomeComponent extends Component {
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr>
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a> 👍{hot.board_like}📄
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a> 👍{hot.board_like}📄{hot.commentcount}
                                                 </tr>
                                                 )}
                                             </tbody>
