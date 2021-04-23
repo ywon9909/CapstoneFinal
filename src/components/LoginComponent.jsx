@@ -12,17 +12,20 @@ class LoginComponent extends Component {
                                     Login
                                 </h3>
                                 <div className="about-content mt-40">
-                                    <div className="about-form">
-                                        <form action="#">
-                                            <input type="text" placeholder="ID"></input>
+                                <form action="/" method="post">
+                               
 
-                                            <input type="text" placeholder="PW"></input>
-                                        </form>
+                                    <div className="about-form">
+                                       
+                                            <input type="text" placeholder="ID" name="id" value={this.state.id} onChange={this.handleIdChange}></input>
+
+                                            <input type="text" placeholder="PW" name="pw" value={this.state.pw} onChange={this.handlePw}></input>
+                                       
 
                                     </div>
                                     <div className="container text-center">
-                                        <div className="row ">
-                                            <button className="main-btn" style={{marginLeft:"150px"}}>
+                                        <div className="row">
+                                            <button type="submit" className="main-btn" style={{marginLeft:"150px"}} onClick={()=>this.gotoHome(this.state.id)}>
                                                 Login
                                             </button>
                                             <button className="main-btn">
@@ -34,7 +37,7 @@ class LoginComponent extends Component {
                                         </div>
 
                                     </div>
-
+                                    </form>
                                 </div>
                             </div>
                         </div>

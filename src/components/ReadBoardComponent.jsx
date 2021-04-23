@@ -15,7 +15,8 @@ class ReadBoardComponent extends Component {
             Member:{}, //1
             hots:[],
             tags:[],
-            similar:[]
+            similar:[],
+            imagesrc: ''
         }
         this.getOneBoard();
         this.goToUpdate = this.goToUpdate.bind(this);
@@ -24,9 +25,10 @@ class ReadBoardComponent extends Component {
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
         this.getPopularTag();   
-        this.getSimilarTag();
+       // this.getSimilarTag();
+        
     }
-    
+   
     changeanswer = (event) => {
         this.setState({ answer: event.target.value });
     }
@@ -109,7 +111,8 @@ class ReadBoardComponent extends Component {
             board_date: this.state.board.board_date,
             board_like: this.state.board.board_like + 1,
             category: this.state.board.category,
-            id: this.state.board.id
+            id: this.state.board.id,
+            filepath:this.state.board.filepath
 
         };
         BoardService.updateBoard(this.state.num, board).then(res => {
@@ -236,7 +239,7 @@ class ReadBoardComponent extends Component {
            )
 
     }
-    getSimilarTag(){
+  /*  getSimilarTag(){
        
         BoardService.getSimilarTag(this.state.board.tag1,this.state.board.tag2,this.state.board.tag3,this.state.board.tag4,this.state.board.tag5).then((res)=>{
             console.log("Similar Tag "+ res.data)
@@ -245,7 +248,26 @@ class ReadBoardComponent extends Component {
             });
         });
        
+    }*/
+getimage(filepath){
+
+   
+    this.setState({
+       imagesrc: filepath
+    });
+
+    if(filepath != 'undefined'){
+        return <img src={require('../../src/image/'+filepath).default} />
     }
+    else{
+        
+       return  "error"
+    }
+   
+
+  
+}
+
   
     render() {
         return (
@@ -260,6 +282,10 @@ class ReadBoardComponent extends Component {
                                 </div>
                                 <h3 className="text-center"> {this.state.board.title}</h3>
                                 <br />
+                                <div className="row">
+                               {this.getimage(this.state.board.filepath)}
+                               
+                                                                       </div>
                                 <div className="row">
                                     <h5 style={{ display: 'inline' }}>&nbsp;&nbsp;&nbsp;&nbsp;{this.state.board.id}</h5>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.returnDate(this.state.board.board_date)}
@@ -287,6 +313,7 @@ class ReadBoardComponent extends Component {
                                     </div>
                                 </div>
                             </div>
+                            
 
                             <div className="card col-md-10 offset-md-1" >
 
@@ -357,7 +384,7 @@ class ReadBoardComponent extends Component {
                                             #인기태그
                                         </h4>
                                         <p className="text">
-                                            {this.returnTag()}                                           
+                                            {/*this.returnTag()*/}                                           
                                         </p>
 
                                     </div>
@@ -379,16 +406,16 @@ class ReadBoardComponent extends Component {
                                             연관질문
                                         </h4>
                                            
-                                        {
+                                        {/*
                                             this.state.similar.map(
                                                 simi =>
                                                        <p><a className="hot" onClick={()=>this.readBoard(simi.board_no)}>{simi.title}</a>
                                                         👍{simi.board_like}📄{simi.commentcount}</p>)
                                                     
-                                        }
+                                            */ }
                                                 
                                         
-                                        {this.getSimilarTag()}
+                                        {/*this.getSimilarTag()*/}
        
                                         
                                     </div>
