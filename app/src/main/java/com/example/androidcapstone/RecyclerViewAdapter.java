@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +78,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView tag4;
         TextView tag5;
 
+        ImageView filepath;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             board_no = (TextView)itemView.findViewById(R.id.board_no);
@@ -90,6 +93,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tag3 = (TextView)itemView.findViewById(R.id.tag3);
             tag4 = (TextView)itemView.findViewById(R.id.tag4);
             tag5 = (TextView)itemView.findViewById(R.id.tag5);
+
+            filepath = (ImageView)itemView.findViewById(R.id.boardImage);
 
             // item click 시 ArticleDetail로 title, question, ..., tag 모두 보내줌
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +116,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         intent.putExtra("tag3", dataList.get(pos).getTag3());
                         intent.putExtra("tag4", dataList.get(pos).getTag4());
                         intent.putExtra("tag5", dataList.get(pos).getTag5());
+
+                        intent.putExtra("filepath", dataList.get(pos).getFilepath());
 
                         String str = dataList.get(pos).getBoard_date();
                         String date = str.substring(0, str.indexOf("T"));

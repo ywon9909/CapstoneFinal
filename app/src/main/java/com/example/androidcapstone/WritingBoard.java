@@ -3,11 +3,14 @@ package com.example.androidcapstone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +27,13 @@ import static com.example.androidcapstone.ExpertFragment.URL;
 import static com.example.androidcapstone.RecyclerViewAdapter2.num;
 
 public class WritingBoard extends AppCompatActivity {
+    Button imageUploadButton;
     Button button;
     EditText editTextTitle;
     EditText editTextMultiLineBoard;
+    ImageView newImage;
+
+    private final int GET_GALLERY_IMAGE = 200;
 
     EditText tag1;
     EditText tag2;
@@ -40,8 +47,8 @@ public class WritingBoard extends AppCompatActivity {
     JsonApi jsonApi;
     Retrofit retrofit;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://172.16.66.211:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://172.16.66.211:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,8 @@ public class WritingBoard extends AppCompatActivity {
         editTextTitle = (EditText)findViewById(R.id.editTextTitle);
         editTextMultiLineBoard = (EditText)findViewById(R.id.editTextMultiLineBoard);
         button = (Button)findViewById(R.id.submit);
+        imageUploadButton = (Button)findViewById(R.id.imageUploadButton);
+        newImage = (ImageView)findViewById(R.id.newImage);
 
         tag1 = (EditText)findViewById(R.id.tag1);
         tag2 = (EditText)findViewById(R.id.tag2);
@@ -67,6 +76,15 @@ public class WritingBoard extends AppCompatActivity {
                 .build();
 
         jsonApi = retrofit.create(JsonApi.class);
+
+        imageUploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent, GET_GALLERY_IMAGE);
+            }
+        });
 
         String edit="edit";
         if(mode.equals(edit)){ // 글 수정 시
@@ -105,10 +123,10 @@ public class WritingBoard extends AppCompatActivity {
                 }
                 else { // 글 등록 시
                     bd.id="user3";
-                    bd.board_like=2;
+                    bd.board_like=0;
                     bd.category=ArticleBoard.name;
                     bd.board_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
-
+                    bd.filepath = "b.PNG";
                     addBoard(bd);
                 }
 
@@ -119,6 +137,17 @@ public class WritingBoard extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // imageLoad
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+            newImage.setImageURI(selectedImageUri);
+        }
+
     }
 
     // 글 등록 연결

@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -27,6 +32,8 @@ import com.example.androidcapstone.databinding.ActivityArticleDetailBinding;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
@@ -62,6 +69,7 @@ public class ArticleDetail extends AppCompatActivity {
     TextView tag5;
     TextView goodcount;
     TextView commentcount;
+    ImageView boardImage;
 
     static final String URL = "http://192.168.35.91:8080";
     //static final String URL = "http://172.16.66.211:8080";
@@ -84,6 +92,8 @@ public class ArticleDetail extends AppCompatActivity {
 
         goodcount = (TextView)findViewById(R.id.goodcount);
         commentcount = (TextView)findViewById(R.id.commentcount);
+
+        boardImage = (ImageView)findViewById(R.id.boardImage);
 
         Intent intent = getIntent();
 
@@ -117,6 +127,18 @@ public class ArticleDetail extends AppCompatActivity {
         String mTag5 = intent.getExtras().getString("tag5");
         tag5.setText(mTag5);
 
+        // 이미지 조회 (drawble말고 assets사용한 bitmap)
+        String mFilepath = intent.getExtras().getString("filepath");
+        AssetManager am = getResources().getAssets();
+        InputStream is = null;
+        try {
+            if(mFilepath == null)   is = am.open("noimg.PNG");
+            else is = am.open(mFilepath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Bitmap bm = BitmapFactory.decodeStream(is);
+        boardImage.setImageBitmap(bm);
 
         num = intent.getExtras().getInt("num");
 

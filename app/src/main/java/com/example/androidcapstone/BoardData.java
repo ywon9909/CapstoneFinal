@@ -14,6 +14,7 @@ public class BoardData {
     String tag4;
     String tag5;
     Integer commentcount;
+    String filepath;
 
     public Integer getBoard_no() {
         return board_no;
@@ -95,6 +96,10 @@ public class BoardData {
 
     public void setCommentcount(Integer commentcount)  { this.commentcount = commentcount; }
 
+    public String getFilepath() { return filepath; }
+
+    public void setFilepath(String filepath) { this.filepath = filepath; }
+
     @Override
     public String toString() {
         return "{" +
@@ -111,6 +116,7 @@ public class BoardData {
                 ",\"tag4\":\"" + tag4 + "\"" +
                 ",\"tag5\":\"" + tag5 + "\"" +
                 ",\"commentcount\":\"" + commentcount + "\"" +
+                ",\"filepath\":\"" + filepath + "\"" +
                 '}';
     }
 
