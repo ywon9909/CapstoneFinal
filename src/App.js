@@ -18,6 +18,7 @@ import SearchSideComponent from './components/SearchSideComponent'
 import LoginComponent from './components/LoginComponent';
 import MyPageComponent from './components/MyPageComponent';
 import ManageComponent from './components/ManageComponent';
+import Auth from './components/Auth';
 function App() {
   return (
     <div>

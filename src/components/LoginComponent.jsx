@@ -1,6 +1,48 @@
 import React, { Component } from 'react';
-
+import MemberService from '../service/MemberService';
 class LoginComponent extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            id:"",
+            pw:"",
+          
+            member:[]
+        }
+        
+        this.handleIdChange = this.handleIdChange.bind(this)
+        
+        this.handlePw = this.handlePw.bind(this)
+    }
+    handleIdChange = (event) => {
+        this.setState({ id: event.target.value });
+    }
+    handlePw = (event)=>{
+        
+        this.setState({
+            pw : event.target.value
+        })
+    }
+    gotoHome(){
+        console.log("id="+this.state.id)
+        MemberService.getOneMember(this.state.id).then((res)=>{
+            console.log("member = " +res.data)
+            this.setState({
+                member:res.data
+            });
+        });
+        
+        console.log("auth = "+this.state.member.authorities);
+        
+        
+        //this.props.onLogin();
+        if(this.state.id==this.state.member.id &&this.state.pw==this.state.member.pw){
+            window.sessionStorage.setItem('id', this.state.id);
+            window.sessionStorage.setItem('pw', this.state.pw);
+            window.sessionStorage.setItem('login',"login");
+            return this.props.history.push('/');
+        }
+    }   
     render() {
         return (
             <div className="container">
@@ -12,17 +54,20 @@ class LoginComponent extends Component {
                                     Login
                                 </h3>
                                 <div className="about-content mt-40">
-                                    <div className="about-form">
-                                        <form action="#">
-                                            <input type="text" placeholder="ID"></input>
+                                <form action="/" method="post">
+                               
 
-                                            <input type="text" placeholder="PW"></input>
-                                        </form>
+                                    <div className="about-form">
+                                       
+                                            <input type="text" placeholder="ID" name="id" value={this.state.id} onChange={this.handleIdChange}></input>
+
+                                            <input type="text" placeholder="PW" name="pw" value={this.state.pw} onChange={this.handlePw}></input>
+                                       
 
                                     </div>
                                     <div className="container text-center">
-                                        <div className="row ">
-                                            <button className="main-btn" style={{marginLeft:"150px"}}>
+                                        <div className="row">
+                                            <button type="submit" className="main-btn" style={{marginLeft:"150px"}} onClick={()=>this.gotoHome(this.state.id)}>
                                                 Login
                                             </button>
                                             <button className="main-btn">
@@ -34,7 +79,7 @@ class LoginComponent extends Component {
                                         </div>
 
                                     </div>
-
+                                    </form>
                                 </div>
                             </div>
                         </div>

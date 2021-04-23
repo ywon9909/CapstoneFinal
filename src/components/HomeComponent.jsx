@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import BoardService from '../service/BoardService';
+import MemberService from '../service/MemberService';
 class HomeComponent extends Component {
 
 
@@ -41,7 +42,7 @@ class HomeComponent extends Component {
         this.getRecentBoard11("소아과");
         this.getRecentBoard12("안과");
         this.searchKeyWord = this.searchKeyWord.bind(this);
- 
+        this.onLogin();
     }
 
 
@@ -204,7 +205,12 @@ class HomeComponent extends Component {
             });
         });
     }
-   
+    onLogin(){
+        const id = window.sessionStorage.getItem('id');
+        const login = window.sessionStorage.getItem('login');
+      
+        console.log("id="+id+", login="+login)
+    }
     render() {
         return (
             <body >
@@ -480,12 +486,12 @@ class HomeComponent extends Component {
 
                                        
                                         <a className="hot">
-                   #{this.state.str01[0]}<br/> 
-                   #{this.state.str01[2]}<br/>
-                   #{this.state.str01[4]}<br/>
-                   #{this.state.str01[6]}<br/>
-                   #{this.state.str01[8]}
-               </a>
+                                            #{this.state.str01[0]}<br/> 
+                                            #{this.state.str01[2]}<br/>
+                                            #{this.state.str01[4]}<br/>
+                                            #{this.state.str01[6]}<br/>
+                                            #{this.state.str01[8]}
+                                        </a>
           
                                         </p>
                                     </div>
