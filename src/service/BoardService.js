@@ -10,9 +10,12 @@ class BoardService {
         return axios.get(BOARD_API_BASE_URL+"?p_num="+p_num+"&category="+category);
     }
 
-    createBoard(board){
-        return axios.post(BOARD_API_BASE_URL,board);
+    createBoardFile( board){
+        return axios.post(BOARD_API_BASE_URL,  board);
+       
     }
+
+
     createComment(comment){
         return axios.post(BOARD_API_BASE_URL+"/comment",comment);
     }
