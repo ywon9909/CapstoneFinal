@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
-
+import Axios from 'axios';
 
 class CreateBoardComponent extends Component {
     constructor(props) {
@@ -20,7 +20,8 @@ class CreateBoardComponent extends Component {
             tag2: '',
             tag3: '',
             tag4: '',
-            tag5: ''
+            tag5: '',
+            filepath:''
         }
 
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -70,8 +71,18 @@ class CreateBoardComponent extends Component {
     changetag5Handler = (event) => {
         this.setState({ tag5: event.target.value });
     }
+
+    handleFileInput(e){
+        console.log("selected path:"+ e.target.files[0].name)
+        this.setState({
+         filepath: e.target.files[0].name
+      
+        })
+      }
+    
     createBoard = (event) => {
         event.preventDefault();
+    
         let board = {
             title: this.state.title,
             question: this.state.question,
@@ -83,15 +94,19 @@ class CreateBoardComponent extends Component {
             tag2: this.state.tag2,
             tag3: this.state.tag3,
             tag4: this.state.tag4,
-            tag5: this.state.tag5
-
+            tag5: this.state.tag5,
+            filepath: this.state.filepath
         };
-      
-        console.log("board=> " + JSON.stringify(board));
+       
         if (this.state.num === '_create') {
-            BoardService.createBoard(board ).then(res => {
+        
+            BoardService.createBoardFile(board).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
+                
+                
+                
+            
 
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
@@ -140,12 +155,14 @@ class CreateBoardComponent extends Component {
                     tag2:  board.tag2,
                     tag3:  board.tag3,
                     tag4: board.tag4,
-                    tag5:  board.tag5
+                    tag5:  board.tag5,
+                    filepath: board.filepath
                 });
             });
         }
     }
 
+   
     render() {
         return (
             <div>
@@ -178,9 +195,15 @@ class CreateBoardComponent extends Component {
                                     <div className="form-group" style={{float:"right", marginLeft:"10px",width: "65%"}}>
                                         <label> Title </label>
                                         <input type="text" placeholder="title" name="title" className="form-control" cols="60" rows="8"
-                                            value={this.state.title} onChange={this.changeTitleHandler} />
+                                            value={this.state.title} onChange={this.changeTitleHandler}  />
                                     </div>
+
+                                    {/* 파일 추가 */}
                                    
+                                    <div id="inputFile">
+                                    <input type="file" name="file"  accept="image/png, image/jpeg, image/jpg" onChange={e => this.handleFileInput(e)}/>  {/* image 1개 전송 */}
+                </div> 
+      
                                     <div className="form-group" style={{clear:"both"}}>
                                         <label> Question  </label>
                                         <textarea style={{height:"200px"}} placeholder="question" name="question" className="form-control"
