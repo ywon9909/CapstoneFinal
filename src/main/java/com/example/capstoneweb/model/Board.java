@@ -46,4 +46,6 @@ public class Board {
     private String tag5;
     @Column(name = "commentcount")
     private Integer commentcount;
+    @Column
+    private  String filepath;
 }
