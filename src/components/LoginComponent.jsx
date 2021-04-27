@@ -1,6 +1,54 @@
 import React, { Component } from 'react';
-
+import MemberService from '../service/MemberService';
 class LoginComponent extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            id:"",
+            pw:"",
+          
+            member:[]
+        }
+        
+        this.handleIdChange = this.handleIdChange.bind(this)
+        
+        this.handlePw = this.handlePw.bind(this)
+    }
+    handleIdChange = (event) => {
+        this.setState({ id: event.target.value });
+    }
+    handlePw = (event)=>{
+        
+        this.setState({
+            pw : event.target.value
+        })
+    }
+    gotoHome(){
+        console.log("id="+this.state.id)
+        MemberService.getOneMember(this.state.id).then((res)=>{
+            console.log("member = " +res.data)
+            this.setState({
+                member:res.data
+            });
+        });
+        
+        console.log("auth = "+this.state.member.authorities);
+        
+        
+        //this.props.onLogin();
+        if(this.state.id==this.state.member.id &&this.state.pw==this.state.member.pw){
+            window.sessionStorage.setItem('id', this.state.id);
+            window.sessionStorage.setItem('pw', this.state.pw);
+            window.sessionStorage.setItem('login',"login");
+            return this.props.history.push('/');
+        }
+    }   
+    gotoFindIdPw(){
+        this.props.history.push('/find');
+    }
+    gotoSignup(){
+        this.props.history.push('/Signup')
+    }
     render() {
         return (
             <div className="container">
@@ -12,7 +60,7 @@ class LoginComponent extends Component {
                                     Login
                                 </h3>
                                 <div className="about-content mt-40">
-                                <form action="/" method="post">
+                                <form action="/" method="get">
                                
 
                                     <div className="about-form">
@@ -28,16 +76,16 @@ class LoginComponent extends Component {
                                             <button type="submit" className="main-btn" style={{marginLeft:"150px"}} onClick={()=>this.gotoHome(this.state.id)}>
                                                 Login
                                             </button>
-                                            <button className="main-btn">
+                                            <button className="main-btn" onClick={()=>this.gotoSignup() }>
                                                 회원가입
                                             </button>
-                                            <button className="main-btn">
+                                            <button className="main-btn" onClick={()=>this.gotoFindIdPw()}>
                                                 ID/PW 찾기
                                             </button>
                                         </div>
 
                                     </div>
-                                    </form>
+                                </form>
                                 </div>
                             </div>
                         </div>

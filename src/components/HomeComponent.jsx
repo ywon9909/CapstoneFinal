@@ -42,7 +42,19 @@ class HomeComponent extends Component {
         this.searchKeyWord = this.searchKeyWord.bind(this);
  
     }
-
+    componentDidMount() {
+        
+        
+        BoardService. getPopularTag().then((res)=>{
+            console.log("this is popularTag"+res.data)
+            this.setState({
+                tags: res.data
+                
+            });
+        });
+        
+       
+    }
 
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
@@ -88,23 +100,7 @@ class HomeComponent extends Component {
             
         });
     }
-    getPopularTag(){
-        BoardService.getPopularTag().then((res)=>{
-            console.log("this.is"+res.data)
-            this.setState({
-                tags: res.data
-                
-            });
-        });
-        const tag= this.state.tags+""
-        console.log("this.is tags"+tag)
-        let str01s =tag.split(",");
-  
-        this.setState({
-          str01 : str01s
-        });
     
-    }
     getRecentBoard1(category){
         BoardService.getRecentBoard(category).then((res)=>{
             console.log("recentboard "+res.data)
@@ -201,7 +197,51 @@ class HomeComponent extends Component {
             });
         });
     }
-   
+   returnTAG(tagz){
+
+        console.log("this.is tags"+tagz)
+    
+  
+        const tags = tagz + ""
+        let ys = tags.split(","); //날짜 , 시간.00:00:00
+       
+
+        return(<a className="hot">
+            #{this.state.tags[2]}<br/> 
+            </a>
+            /*
+#{this.state.str01[0]}<br/> 
+#{this.state.str01[2]}<br/>
+#{this.state.str01[4]}<br/>
+#{this.state.str01[6]}<br/>
+#{this.state.str01[8]}
+*/
+        )
+   }
+
+
+   getPopularTag(){
+        
+    this.returnTag()
+}
+
+returnTag = () => {
+    const tag= this.state.tags+""
+    console.log("string"+ tag)
+      let str01 =tag.split(",");
+
+       return (
+            <a className="hot">
+               #{str01[0]}<br/> 
+               #{str01[2]}<br/>
+               #{str01[4]}<br/>
+               #{str01[6]}<br/>
+               #{str01[8]}
+           </a>
+       )
+
+}
+
     render() {
         return (
             <body >
@@ -234,7 +274,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards1.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody> 
@@ -253,7 +293,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards2.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -272,7 +312,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards3.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -291,7 +331,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards4.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -310,7 +350,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards5.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -329,7 +369,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards6.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -349,7 +389,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards7.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -368,7 +408,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards8.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -387,7 +427,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards9.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -406,7 +446,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards10.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -425,7 +465,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards11.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -444,7 +484,7 @@ class HomeComponent extends Component {
                                                 {this.state.boards12.map(
                                                 board =>
                                                 <tr>
-                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 👍{board.board_like}📄
+                                                    <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -473,13 +513,7 @@ class HomeComponent extends Component {
                                             </h4>
                                         <p className="text">
                                        
-                                        <a className="hot">
-                   #{this.state.str01[0]}<br/> 
-                   #{this.state.str01[2]}<br/>
-                   #{this.state.str01[4]}<br/>
-                   #{this.state.str01[6]}<br/>
-                   #{this.state.str01[8]}
-               </a>
+                                        {this.returnTag()}     
           
                                         </p>
                                     </div>
