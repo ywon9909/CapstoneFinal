@@ -18,6 +18,9 @@ import SearchSideComponent from './components/SearchSideComponent'
 import LoginComponent from './components/LoginComponent';
 import MyPageComponent from './components/MyPageComponent';
 import ManageComponent from './components/ManageComponent';
+import FindIdPwComponent from './components/FindIdPwComponent';
+import SignupComponent from './components/SignupComponent';
+import Auth from './components/Auth';
 function App() {
   return (
     <div>
@@ -26,7 +29,7 @@ function App() {
         {/* <div style={{float:"right",width:"500px"}}>
                     <SearchSideComponent ></SearchSideComponent>
                 </div> */}
-        <div className="container"  style={{marginLeft:"30px"}}>
+         <div className="container"  style={{width: "100%"}}>
         
           <Switch>
             <Route path="/" exact component={HomeComponent}></Route> {/*나중에 홈 화면 jsx 만들 것 */}
@@ -42,6 +45,8 @@ function App() {
             <Route path="/login" component={LoginComponent}></Route>
             <Route path="/mypage" component={MyPageComponent}></Route>
             <Route path="/manage" component={ManageComponent}></Route>
+            <Route path="/find" component={FindIdPwComponent}></Route>{/*Id/Pw 찾기 */}
+            <Route path="/Signup" component={SignupComponent}></Route> {/*성공페이지 */}
           </Switch>
          
           

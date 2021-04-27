@@ -12,37 +12,55 @@ class ReadBoardComponent extends Component {
             answer: '',
             comment_date: Date.now(),
             search: props.match.params.search,
-            Member:{}, //1
-            hots:[],
-            tags:[],
-            similar:[],
+            Member: {}, //1
+            hots: [],
+            tags: [],
+            similar: [],
             imagesrc: ''
         }
-        this.getOneBoard();
+
+        //this.getOneBoard();
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment = this.createComment.bind(this);
         this.likeboard = this.likeboard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
-        this.getPopularTag();   
-       // this.getSimilarTag();
-        
+        //his.getPopularTag();
+        this.returnTag();
+
+        // this.getSimilarTag();
+
     }
-   
+
     changeanswer = (event) => {
         this.setState({ answer: event.target.value });
     }
-    getOneBoard(){
+    // getOneBoard(){
+    //     BoardService.getOneBoard(this.state.num).then(res => {
+    //         console.log("Board "+res.data)
+    //         this.setState({
+    //             board: res.data,
+    //             imagesrc: res.data.filepath
+    //         });
+
+    //     });
+    // }
+    componentDidMount() {
+
         BoardService.getOneBoard(this.state.num).then(res => {
-            console.log("Board "+res.data)
+            console.log("Board " + res.data)
             this.setState({
-                board: res.data
+                board: res.data,
+                imagesrc: res.data.filepath
+            });
+            BoardService.getSimilarTag(this.state.board.tag1, this.state.board.tag2, this.state.board.tag3, this.state.board.tag4, this.state.board.tag5).then((res) => {
+                console.log("Similar Tag " + res.data)
+                this.setState({
+                    similar: res.data
+                });
             });
 
         });
-    }
-    componentDidMount() {
-        
         BoardService.getOneComment(this.state.num).then(res => {
             this.setState({
                 comments: res.data
@@ -50,6 +68,23 @@ class ReadBoardComponent extends Component {
         });
 
 
+
+
+        BoardService.getPopularTag().then((res) => {
+            console.log("this is popularTag" + res.data)
+            this.setState({
+                tags: res.data
+
+            });
+        });
+
+        BoardService.getHotBoard().then((res) => {
+            console.log("Hot" + res.data)
+            this.setState({
+                hots: res.data
+            });
+
+        });
     }
     createComment = (event) => {
         event.preventDefault();
@@ -112,7 +147,7 @@ class ReadBoardComponent extends Component {
             board_like: this.state.board.board_like + 1,
             category: this.state.board.category,
             id: this.state.board.id,
-            filepath:this.state.board.filepath
+            filepath: this.state.board.filepath
 
         };
         BoardService.updateBoard(this.state.num, board).then(res => {
@@ -183,7 +218,7 @@ class ReadBoardComponent extends Component {
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
     }
-    searchKeyWord(search){
+    searchKeyWord(search) {
         this.props.history.push(`/search-board/${search}`);
 
     }
@@ -193,7 +228,7 @@ class ReadBoardComponent extends Component {
     //         console.log("넌 왜 안나와"+res.data)
     //         this.setState({
     //             Member: res.data
-                
+
     //         });
     //     });
     //     if (this.state.Member.doc != 0 ) {
@@ -204,71 +239,106 @@ class ReadBoardComponent extends Component {
 
     //     }
     // }
-    getHotBoard(){
-        BoardService.getHotBoard().then((res)=>{
-            this.setState({
-                hots : res.data
-            });
-            
-        });
+    getHotBoard() {
+
     }
-    getPopularTag(){
-        BoardService. getPopularTag().then((res)=>{
-            console.log("this.is"+res.data)
-            this.setState({
-                tags: res.data
-                
-            });
-        });
-        this.returnTag()
-    }
-    
-    returnTag() {
-        const tag= this.state.tags+""
-        console.log("string"+tag)
-          let str01 =tag.split(",");
-    
-           return (
-                <a className="hot">
-                   #{str01[0]}<br/> 
-                   #{str01[2]}<br/>
-                   #{str01[4]}<br/>
-                   #{str01[6]}<br/>
+    // getPopularTag(){
+
+    //     this.returnTag()
+    // }
+
+    returnTag = () => {
+        const tag = this.state.tags + ""
+        console.log("this is hot" + tag)
+        let str01 = tag.split(",");
+
+        return (
+            <a className="hot">
+                #{str01[0]}<br />
+                   #{str01[2]}<br />
+                   #{str01[4]}<br />
+                   #{str01[6]}<br />
                    #{str01[8]}
-               </a>
-           )
+            </a>
+        )
 
     }
-  /*  getSimilarTag(){
-       
-        BoardService.getSimilarTag(this.state.board.tag1,this.state.board.tag2,this.state.board.tag3,this.state.board.tag4,this.state.board.tag5).then((res)=>{
-            console.log("Similar Tag "+ res.data)
-            this.setState({
-                similar:res.data
-            });
-        });
-       
-    }*/
-getimage(filepath){
 
-   
-    this.setState({
-       imagesrc: filepath
-    });
 
-    if(filepath != 'undefined'){
-        return <img src={require('../../src/image/'+filepath).default} />
+
+    getTitle(filepath) {
+        console.log(filepath)
+        if (filepath === null) {
+            return (<h3 className="text-center"></h3>)
+        } else if (filepath === undefined) {
+            return (<h3 className="text-center"></h3>)
+        }
+        else {
+            return (<div className="row">
+                <img src={require('../../src/image/' + filepath).default} />
+
+            </div>)
+
+        }
     }
-    else{
-        
-       return  "error"
+    getcommentboard(comments) {
+        if (this.state.board.category != '홍보게시판') {
+            return (
+                <div>
+                    <div className="card col-md-10 offset-md-1" >
+
+                        <div className="row" >
+
+                            <textarea style={{ width: "80%", height: "40px", resize: "none", outline: "none" }}
+                                type="text"
+                                placeholder="댓글" name="answer"
+                                value={this.state.answer}
+                                onChange={this.changeanswer}
+                            />
+                            <button style={{ width: "20%", height: "40px" }} className="btn btn-primary" onClick={this.createComment} >댓글</button>
+
+
+                        </div>
+                    </div>
+
+                    {
+                        comments.map(
+
+                            comment =>
+                                <div className="card col-md-10 offset-md-1">
+                                    <div className="row"  >
+                                        &nbsp;&nbsp;&nbsp;&nbsp; <h5>{comment.comment_id}</h5> &nbsp;  &nbsp; &nbsp; {this.returnDate(comment.comment_date)}
+                                        <br />
+                                        <div style={{ position: "absolute", top: "0px", right: "5%" }}>
+                                            <a onClick={() => this.updateComment(comment.comment_no, comment.comment_like, comment.comment_date, comment.comment_id, comment.answer)}>👍{comment.comment_like}</a> &nbsp;&nbsp;&nbsp;
+                    <a onClick={() => this.deleteComment(comment.comment_no)}>삭제</a>
+                                        </div>
+                                    </div>
+                                    {comment.answer}
+
+                                    {comment.comement_id}<br />
+
+
+                                </div>
+
+
+                        )
+
+
+                    }
+                </div>
+            )
+        }
     }
-   
-
-  
-}
-
-  
+    gettags() {
+        if(this.state.board.category != '홍보게시판'){
+            return(
+            <div><label> <div style={{ border: "5px", borderColor: "black" }}>
+            TAG: #{this.state.board.tag1} , #{this.state.board.tag2}   , #{this.state.board.tag3},
+             #{this.state.board.tag4}, #{this.state.board.tag5}  </div></label></div>
+            )
+        }
+    }
     render() {
         return (
 
@@ -282,10 +352,13 @@ getimage(filepath){
                                 </div>
                                 <h3 className="text-center"> {this.state.board.title}</h3>
                                 <br />
-                                <div className="row">
-                               {this.getimage(this.state.board.filepath)}
-                               
-                                                                       </div>
+                                <div className="image-div">
+
+
+                                    {this.getTitle(this.state.board.filepath)}
+                                    {/* <img src={require('../../src/image/'+this.state.board.filepath).default}/>  */}
+
+                                </div>
                                 <div className="row">
                                     <h5 style={{ display: 'inline' }}>&nbsp;&nbsp;&nbsp;&nbsp;{this.state.board.id}</h5>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.returnDate(this.state.board.board_date)}
@@ -299,64 +372,23 @@ getimage(filepath){
                                         {this.state.board.question}
                                     </div >
                                     <br />
-                                    <div><label> <div style={{ border: "5px", borderColor: "black" }}>
-                                        TAG: #{this.state.board.tag1} , #{this.state.board.tag2}   , #{this.state.board.tag3},
-                                         #{this.state.board.tag4}, #{this.state.board.tag5}  </div></label></div>
-                                    <br /><br />
+                                    {this.gettags()}
+                                    <br />
+                                    <br />
                                     <div style={{ position: "absolute", bottom: "10px", left: "5%" }}>
-                                        <button className="btn btn-primary" onClick={this.goToList.bind(this)} >목록</button>
+                                        <button className="main-btn" onClick={this.goToList.bind(this)} >목록</button>
                                     </div>
                                     <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
-                                        <button className="btn btn-info" onClick={this.goToUpdate} >글 수정</button>
-                                        <button className="btn btn-danger" onClick={() => this.deleteView()} >글 삭제</button>
-                                        <button className="btn btn-warning" onClick={this.likeboard} >👍{this.state.board.board_like}</button>
+                                        <button className="main-btn-like" onClick={this.likeboard} >👍{this.state.board.board_like}</button>
+                                        <button className="main-btn-change" onClick={this.goToUpdate} >글 수정</button>
+                                        <button className="main-btn-cancle" onClick={() => this.deleteView()} >글 삭제</button>
+
                                     </div>
                                 </div>
                             </div>
-                            
-
-                            <div className="card col-md-10 offset-md-1" >
-
-                                <div className="row" >
-
-                                    <textarea style={{ width: "80%", height: "40px", resize: "none", outline: "none" }}
-                                        type="text"
-                                        placeholder="댓글" name="answer"
-                                        value={this.state.answer}
-                                        onChange={this.changeanswer}
-                                    />
-                                    <button style={{ width: "20%", height: "40px" }} className="btn btn-primary" onClick={this.createComment} >댓글</button>
 
 
-                                </div>
-                            </div>
-
-
-                            {
-                                this.state.comments.map(
-
-                                    comment =>
-                                        <div className="card col-md-10 offset-md-1">
-                                            <div className="row"  >
-                                                &nbsp;&nbsp;&nbsp;&nbsp; <h5>{comment.comment_id}</h5> &nbsp;  &nbsp; &nbsp; {this.returnDate(comment.comment_date)}
-                                                <br />
-                                                <div style={{ position: "absolute", top: "0px", right: "5%" }}>
-                                                    <a onClick={() => this.updateComment(comment.comment_no, comment.comment_like, comment.comment_date, comment.comment_id, comment.answer)}>👍{comment.comment_like}</a> &nbsp;&nbsp;&nbsp;
-                                            <a onClick={() => this.deleteComment(comment.comment_no)}>삭제</a>
-                                                </div>
-                                            </div>
-                                            {comment.answer}
-
-                                            {comment.comement_id}<br />
-
-
-                                        </div>
-
-
-                                )
-
-
-                            }
+                            {this.getcommentboard(this.state.comments)}
 
                         </div>
 
@@ -365,7 +397,7 @@ getimage(filepath){
                         <div >{/* 검색, 태그 div*/}
                             <table>
                                 <tr>
-                                    
+
                                     <td>
                                         <input type="text" placeholder="검색하기"
                                             name="search" value={this.state.search}
@@ -384,7 +416,7 @@ getimage(filepath){
                                             #인기태그
                                         </h4>
                                         <p className="text">
-                                            {/*this.returnTag()*/}                                           
+                                            {this.returnTag()}
                                         </p>
 
                                     </div>
@@ -392,11 +424,11 @@ getimage(filepath){
                                         <h4 className="department-title">
                                             HOT 게시물
                                             </h4>
-                                            
+
                                         {
                                             this.state.hots.map(
                                                 hot =>
-                                                <p><a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a>
+                                                    <p><a className="hot" onClick={() => this.readBoard(hot.board_no)}>{hot.title}</a>
                                                  👍{hot.board_like}📄{hot.commentcount}</p>
                                             )
                                         }
@@ -405,19 +437,19 @@ getimage(filepath){
                                         <h4 className="department-title">
                                             연관질문
                                         </h4>
-                                           
-                                        {/*
+
+                                        {
                                             this.state.similar.map(
                                                 simi =>
-                                                       <p><a className="hot" onClick={()=>this.readBoard(simi.board_no)}>{simi.title}</a>
+                                                    <p><a className="hot" onClick={() => this.readBoard(simi.board_no)}>{simi.title}</a>
                                                         👍{simi.board_like}📄{simi.commentcount}</p>)
-                                                    
-                                            */ }
-                                                
-                                        
-                                        {/*this.getSimilarTag()*/}
-       
-                                        
+
+                                        }
+
+
+                                        {/* {this.getSimilarTag()} */}
+
+
                                     </div>
                                 </div>
                             </div>

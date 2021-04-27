@@ -94,6 +94,7 @@ ul, ol {
 .hot{
   color:#049ae5;
 }
+
 .homecategory{
   overflow: hidden; 
   text-overflow: ellipsis;
@@ -211,7 +212,153 @@ p {
       background-color: #d4e4f2;
       border-color: #049ae5;
       color: #fff; }
+.main-btn {
+  display: inline-block;
+  font-weight: 700;
+  margin : 10px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid #bad1e6;
+  padding: 0 30px;
+  font-size: 14px;
+  height: 50px;
+  line-height: 46px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 5;
+  -webkit-transition: all 0.4s ease-out 0s;
+  -moz-transition: all 0.4s ease-out 0s;
+  -ms-transition: all 0.4s ease-out 0s;
+  -o-transition: all 0.4s ease-out 0s;
+  transition: all 0.4s ease-out 0s;
+  background-color: #bad1e6;
+  font-family: "Open Sans", sans-serif;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  text-transform: uppercase;
+  border-radius: 50px; }
 
+
+  .main-btn-cancle {
+    display: inline-block;
+    font-weight: 700;
+    margin : 10px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid #bad1e6;
+    padding: 0 30px;
+    font-size: 14px;
+    height: 50px;
+    line-height: 46px;
+    color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    cursor: pointer;
+    z-index: 5;
+    -webkit-transition: all 0.4s ease-out 0s;
+    -moz-transition: all 0.4s ease-out 0s;
+    -ms-transition: all 0.4s ease-out 0s;
+    -o-transition: all 0.4s ease-out 0s;
+    transition: all 0.4s ease-out 0s;
+    background-color: #fbb9ab;
+    font-family: "Open Sans", sans-serif;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    text-transform: uppercase;
+    border-radius: 50px; }
+
+    .main-btn-like {
+      display: inline-block;
+      font-weight: 700;
+      margin : 10px;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      border: 1px solid #bad1e6;
+      padding: 0 30px;
+      font-size: 14px;
+      height: 50px;
+      line-height: 46px;
+      color: #fff;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      cursor: pointer;
+      z-index: 5;
+      -webkit-transition: all 0.4s ease-out 0s;
+      -moz-transition: all 0.4s ease-out 0s;
+      -ms-transition: all 0.4s ease-out 0s;
+      -o-transition: all 0.4s ease-out 0s;
+      transition: all 0.4s ease-out 0s;
+      background-color: #f7e9e4;
+      font-family: "Open Sans", sans-serif;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      text-transform: uppercase;
+      border-radius: 50px; } 
+      .main-btn-change {
+        display: inline-block;
+        font-weight: 700;
+        margin : 10px;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: 1px solid #bad1e6;
+        padding: 0 30px;
+        font-size: 14px;
+        height: 50px;
+        line-height: 46px;
+        color: #fff;
+        text-shadow: -1px 0 #bad1e6, 0 1px #bad1e6, 1px 0 #bad1e6, 0 -1px #bad1e6;
+        cursor: pointer;
+        z-index: 5;
+        -webkit-transition: all 0.4s ease-out 0s;
+        -moz-transition: all 0.4s ease-out 0s;
+        -ms-transition: all 0.4s ease-out 0s;
+        -o-transition: all 0.4s ease-out 0s;
+        transition: all 0.4s ease-out 0s;
+        background-color: #d4e4f2;
+        font-family: "Open Sans", sans-serif;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        text-transform: uppercase;
+        border-radius: 50px; }   
+
+
+/*=====image =====*/
+.image-div{
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+}
+
+.image{
+  width: 300px;
+  height: 300px;
+  
+  margin:auto;
+
+}
 /*===== All Section Title Style =====*/
 .section-title .sub-title {
   font-size: 18px;
@@ -636,7 +783,7 @@ p {
   background-color: #d4e4f2;
 }
   .navigation .container{
-    margin-left: 20px;
+    width:"100%"
     
   }
   .navigation .navbar {
