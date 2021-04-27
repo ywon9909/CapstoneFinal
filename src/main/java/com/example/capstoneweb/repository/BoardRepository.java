@@ -8,7 +8,8 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
  public final static String SELECT_BOARD_LIST_PAGED = ""
-         + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+         + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath," +
+         "(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          + "FROM board WHERE board.category = ?1 "
          //+ "and category =" +"'"+"정형외과"+"' "
          + "ORDER BY board.board_no DESC LIMIT ?2, ?3 ";
@@ -22,7 +23,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
           +"SELECT *"
           +"FROM board WHERE question LIKE %?1% ";*/
  public final static String SELECT_BOARD_SEARCH_ALL=""
-         + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+         + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath," +
+         "(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          +"FROM board WHERE (title LIKE %?1% or question LIKE %?1%)";
 
    /* public final static String SELECT_BOARD_SEARCH_TITLE=""
