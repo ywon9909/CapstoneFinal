@@ -43,6 +43,12 @@ class LoginComponent extends Component {
             return this.props.history.push('/');
         }
     }   
+    gotoFindIdPw(){
+        this.props.history.push('/find');
+    }
+    gotoSignup(){
+        this.props.history.push('/Signup')
+    }
     render() {
         return (
             <div className="container">
@@ -54,7 +60,7 @@ class LoginComponent extends Component {
                                     Login
                                 </h3>
                                 <div className="about-content mt-40">
-                                <form action="/" method="post">
+                                <form action="/" method="get">
                                
 
                                     <div className="about-form">
@@ -70,16 +76,16 @@ class LoginComponent extends Component {
                                             <button type="submit" className="main-btn" style={{marginLeft:"150px"}} onClick={()=>this.gotoHome(this.state.id)}>
                                                 Login
                                             </button>
-                                            <button className="main-btn">
+                                            <button className="main-btn" onClick={()=>this.gotoSignup() }>
                                                 회원가입
                                             </button>
-                                            <button className="main-btn">
+                                            <button className="main-btn" onClick={()=>this.gotoFindIdPw()}>
                                                 ID/PW 찾기
                                             </button>
                                         </div>
 
                                     </div>
-                                    </form>
+                                </form>
                                 </div>
                             </div>
                         </div>

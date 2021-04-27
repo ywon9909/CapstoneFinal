@@ -1,6 +1,5 @@
 import React, { Component, useState } from 'react';
 import BoardService from '../service/BoardService';
-import MemberService from '../service/MemberService';
 class HomeComponent extends Component {
 
 
@@ -21,7 +20,6 @@ class HomeComponent extends Component {
             boards11: [],
             boards12: [],
             search: "",
-
             hots:[],
             tags:"",
             str01: ""
@@ -42,9 +40,21 @@ class HomeComponent extends Component {
         this.getRecentBoard11("소아과");
         this.getRecentBoard12("안과");
         this.searchKeyWord = this.searchKeyWord.bind(this);
-        this.onLogin();
+ 
     }
-
+    componentDidMount() {
+        
+        
+        BoardService. getPopularTag().then((res)=>{
+            console.log("this is popularTag"+res.data)
+            this.setState({
+                tags: res.data
+                
+            });
+        });
+        
+       
+    }
 
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
@@ -81,34 +91,16 @@ class HomeComponent extends Component {
     readBoard(num) {
         this.props.history.push(`/read-board/${num}`);
     }
-
     getHotBoard(){
         BoardService.getHotBoard().then((res)=>{
             console.log("this.is. hot"+res.data)
             this.setState({
-                hots: res.data
+                hots : res.data
             });
-
+            
         });
     }
-    getPopularTag() {
-        BoardService.getPopularTag().then((res) => {
-            console.log("this.is" + res.data)
-            this.setState({
-                tags: res.data
-
-            });
-        });
-        const tag= this.state.tags+""
-        console.log("this.is tags"+tag)
-        let str01s =tag.split(",");
-  
-        this.setState({
-          str01 : str01s
-        });
     
-    }
-
     getRecentBoard1(category){
         BoardService.getRecentBoard(category).then((res)=>{
             console.log("recentboard "+res.data)
@@ -205,12 +197,51 @@ class HomeComponent extends Component {
             });
         });
     }
-    onLogin(){
-        const id = window.sessionStorage.getItem('id');
-        const login = window.sessionStorage.getItem('login');
-      
-        console.log("id="+id+", login="+login)
-    }
+   returnTAG(tagz){
+
+        console.log("this.is tags"+tagz)
+    
+  
+        const tags = tagz + ""
+        let ys = tags.split(","); //날짜 , 시간.00:00:00
+       
+
+        return(<a className="hot">
+            #{this.state.tags[2]}<br/> 
+            </a>
+            /*
+#{this.state.str01[0]}<br/> 
+#{this.state.str01[2]}<br/>
+#{this.state.str01[4]}<br/>
+#{this.state.str01[6]}<br/>
+#{this.state.str01[8]}
+*/
+        )
+   }
+
+
+   getPopularTag(){
+        
+    this.returnTag()
+}
+
+returnTag = () => {
+    const tag= this.state.tags+""
+    console.log("string"+ tag)
+      let str01 =tag.split(",");
+
+       return (
+            <a className="hot">
+               #{str01[0]}<br/> 
+               #{str01[2]}<br/>
+               #{str01[4]}<br/>
+               #{str01[6]}<br/>
+               #{str01[8]}
+           </a>
+       )
+
+}
+
     render() {
         return (
             <body >
@@ -219,7 +250,7 @@ class HomeComponent extends Component {
                         <div class="col-lg-2">
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
-                                    <a onClick={() => this.props.history.push('/mypage')}>
+                                    <a onClick={()=> this.props.history.push('/mypage')}>
                                         <h4 className="department-title">계정</h4>
                                     </a>
                                 </div>
@@ -227,11 +258,11 @@ class HomeComponent extends Component {
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
                                     <h4 className="department-title" a onClick={() => this.GotoAdminpage()}>광고</h4>
-
+                                  
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div className="row col-lg-7">
                             <div className="col-lg-4 col-md-8">
                                 <div className="single-features text-center mt-30">
@@ -255,7 +286,6 @@ class HomeComponent extends Component {
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("정형외과")}><h4 className="department-title">정형외과</h4></a>
-
                                         
                                         <table>
                                             <tbody>
@@ -480,29 +510,20 @@ class HomeComponent extends Component {
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
                                             #인기태그
-                                        </h4>
-                                        
+                                            </h4>
                                         <p className="text">
-
                                        
-                                        <a className="hot">
-                                            #{this.state.str01[0]}<br/> 
-                                            #{this.state.str01[2]}<br/>
-                                            #{this.state.str01[4]}<br/>
-                                            #{this.state.str01[6]}<br/>
-                                            #{this.state.str01[8]}
-                                        </a>
+                                        {this.returnTag()}     
           
                                         </p>
                                     </div>
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
-                                            HOT 게시물
+                                            HOT 게시물                                          
                                         </h4>
                                         <table>
                                             <tbody>
                                                 {this.state.hots.map(
-
                                                 hot =>
                                                 <tr>
                                                     <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a> 👍{hot.board_like}📄{hot.commentcount}

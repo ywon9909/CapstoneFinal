@@ -64,9 +64,9 @@ class ListBoardComponent extends Component {
         let tt = t.split(".");
         let hhmmss = tt[0];
         return (
-            <p>
-                [ {yymmdd}, {hhmmss} ]
-            </p>
+            <div style={{ display: 'inline' }}>
+                 {yymmdd}, {hhmmss} 
+                </div>
         )
     }
 
@@ -137,7 +137,7 @@ class ListBoardComponent extends Component {
     }
 
     mapPage() {
-        if (this.state.category != "자유게시판") {
+        if (this.state.category != "자유게시판" && this.state.category != "홍보게시판" ) {
             return (
                 <h2 style={{ fontWeight: 'bold', display: "inline" }}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
 
@@ -203,42 +203,49 @@ class ListBoardComponent extends Component {
 
                 <div class="container-fluid" >
                     <div >
-                        <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
+                    <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
                     </div>
                     <div class="row">
                         <div class="col-lg-9">
-                            <div >
-                                <table >
+                            
+                           
 
-                                    <tbody>
+                                  
 
                                         {
                                             this.state.boards.map(
                                                 board =>
-                                                    <tr key={board.board_no} style={{ border: "1px solid" }}>
-                                                        <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
-                                                        <tr style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
-                                                            {board.question}
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                {this.returnDate(board.board_date)}
-                                                            </td>
-                                                            <td>
-                                                                <p>{board.id}</p>
-                                                            </td>
-                                                            <td style={{ float: "right" }}>
+                                                <div >
+                                             
+                                                    <div key={board.board_no} style={{ border: "1px solid" ,padding: "5px"}}>
+
+                                                            <div><a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
+                                                            </div>
+                                                            <div style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
+                                                            {board.question} 
+                                                            </div> 
+                                                            <div style={{ left: "5%" ,display: "inline"}}>
+                                                            {this.returnDate(board.board_date)}
+                                                            &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
+                                                            {board.id}
+                                                            </div>
+                                                            <div style={{display: "inline",position: "absolute",  right: "5%" }}>
                                                                 👍{board.board_like}📄{board.commentcount}
-                                                            </td>
-
-                                                        </tr>
-
-                                                    </tr>
+                                                            
+                                                            </div>
+                                                       
+                                                       
+                                                        
+                                                       
+                                                          
+                                                       
+                                                    </div>
+                                               </div>   
                                             )
                                         }
-                                    </tbody>
-                                </table>
-                            </div>
+                                 
+                            
+                            
                         </div>{/* 글작성, 게시물 div*/}
 
 

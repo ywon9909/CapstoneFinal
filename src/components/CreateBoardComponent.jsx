@@ -16,12 +16,12 @@ class CreateBoardComponent extends Component {
             board_like: '0',
             category: '자유게시판',
             id: '',
-            tag1: '',
-            tag2: '',
-            tag3: '',
-            tag4: '',
-            tag5: '',
-            filepath:''
+            tag1: null,
+            tag2: null,
+            tag3: null,
+            tag4: null,
+            tag5: null,
+            filepath:null
         }
 
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -162,7 +162,41 @@ class CreateBoardComponent extends Component {
         }
     }
 
-   
+   returnTag(){
+       
+       if(this.state.category != '홍보게시판') return(
+        <div className="form-group">
+        <label> tag</label>
+        <br></br>
+           <table>
+        <tbody>
+            <td>
+            #<input aria-multiline placeholder="tag1추가" name="tag1" className="form-control"
+        value={this.state.tag1} onChange={this.changetag1Handler} />
+            </td>
+            <td>
+            #<input aria-multiline placeholder="tag2추가" name="tag2" className="form-control"
+        value={this.state.tag2} onChange={this.changetag2Handler} />
+            </td>
+            <td>
+            #<input aria-multiline placeholder="tag3추가" name="tag3" className="form-control"
+        value={this.state.tag3} onChange={this.changetag3Handler}/>
+            </td>
+            <td>
+            #<input aria-multiline placeholder="tag4추가" name="tag4" className="form-control"
+        value={this.state.tag4} onChange={this.changetag4Handler}/>
+            </td>
+            <td>
+            #<input aria-multiline placeholder="tag5추가" name="tag5" className="form-control"
+        value={this.state.tag5} onChange={this.changetag5Handler}/>
+            </td>
+        </tbody>
+    </table>
+    </div>)
+    else
+    return(<div> </div>)
+       
+   }
     render() {
         return (
             <div>
@@ -190,6 +224,7 @@ class CreateBoardComponent extends Component {
                                             <option value="비뇨기과">비뇨기과</option>
                                             <option value="피부과">피부과</option>
                                             <option value="이비인후과">이비인후과</option>
+                                            <option value="홍보게시판">홍보게시판</option>
                                         </select>
                                     </div>
                                     <div className="form-group" style={{float:"right", marginLeft:"10px",width: "65%"}}>
@@ -214,37 +249,13 @@ class CreateBoardComponent extends Component {
                                         <input placeholder="id" name="id" className="form-control" style={{width: "40%"}}
                                             value={this.state.id} onChange={this.changeidHandler} />
                                     </div>
-                                    <div className="form-group">
-                                        <label> tag</label>
-                                        <br></br>
-                                        <table>
-                                            <tbody>
-                                                <td>
-                                                #<input aria-multiline placeholder="tag1추가" name="tag1" className="form-control"
-                                            value={this.state.tag1} onChange={this.changetag1Handler} />
-                                                </td>
-                                                <td>
-                                                #<input aria-multiline placeholder="tag2추가" name="tag2" className="form-control"
-                                            value={this.state.tag2} onChange={this.changetag2Handler} />
-                                                </td>
-                                                <td>
-                                                #<input aria-multiline placeholder="tag3추가" name="tag3" className="form-control"
-                                            value={this.state.tag3} onChange={this.changetag3Handler}/>
-                                                </td>
-                                                <td>
-                                                #<input aria-multiline placeholder="tag4추가" name="tag4" className="form-control"
-                                            value={this.state.tag4} onChange={this.changetag4Handler}/>
-                                                </td>
-                                                <td>
-                                                #<input aria-multiline placeholder="tag5추가" name="tag5" className="form-control"
-                                            value={this.state.tag5} onChange={this.changetag5Handler}/>
-                                                </td>
-                                            </tbody>
-                                        </table>
+                                  
+                                       {this.returnTag()}
                                       
-                                    </div>
-                                    <button className="btn btn-success" onClick={this.createBoard} >저장</button>
-                                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>취소</button>
+                                   
+                                       <button className="main-btn" onClick={this.createBoard} >저장</button>
+                                    <button className="main-btn-cancle" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>취소</button>
+
                                 </form>
                             </div>
                         </div>

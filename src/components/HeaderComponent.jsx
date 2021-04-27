@@ -10,15 +10,15 @@ class HeaderComponent extends Component {
 
     render() {
         return (
-            <div >
-                <header>
+            <div style={{width: "100%"}}>
+                <header style={{ width:"100%"}}>
                 
-                        <div className="navigation navigation-two">
+                        <div className="navigation navigation-two" >
                         
                             <div className="container">
                                 
 
-                                    <nav className="navbar navbar-expand-lg">
+                                <nav className="navbar navbar-expand-lg" style={{ width: "100%" }}>
                                     <a className="navbar-brand" href="http://localhost:3000" ><img src={mypic} alt='mypic' />덕분에 </a>
                                         <div className="collapse navbar-collapse sub-menu-bar">
                                             <ul className="navbar-nav ml-auto">
@@ -68,7 +68,7 @@ class HeaderComponent extends Component {
                                                 </li>
 
 
-                                                <li className="nav-item"><a className="nav-link" href="http://localhost:3000/promotion">홍보</a></li>
+                                                <li className="nav-item"><a className="nav-link" href="http://localhost:3000/category-board/홍보게시판">홍보</a></li>
 
                                             </ul>
                                         </div>
