@@ -22,7 +22,8 @@ class HomeComponent extends Component {
             search: "",
             hots:[],
             tags:"",
-            str01: ""
+            str01: "",
+            id:''
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.getHotBoard();
@@ -43,8 +44,15 @@ class HomeComponent extends Component {
  
     }
     componentDidMount() {
+     
         
-        
+        BoardService. getUserName( ).then ((res)=>{
+            console.log("id is "+res.data)
+            this.setState({
+                id: res.data
+                
+            });
+        });
         BoardService. getPopularTag().then((res)=>{
             console.log("this is popularTag"+res.data)
             this.setState({

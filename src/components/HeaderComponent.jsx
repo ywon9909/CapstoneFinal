@@ -19,7 +19,7 @@ class HeaderComponent extends Component {
                                 
 
                                 <nav className="navbar navbar-expand-lg" style={{ width: "100%" }}>
-                                    <a className="navbar-brand" href="http://localhost:3000" ><img src={mypic} alt='mypic' />덕분에 </a>
+                                    <a className="navbar-brand" href="http://localhost:3000/home" ><img src={mypic} alt='mypic' />덕분에 </a>
                                         <div className="collapse navbar-collapse sub-menu-bar">
                                             <ul className="navbar-nav ml-auto">
                                            
