@@ -15,7 +15,7 @@ class CreateBoardComponent extends Component {
             board_date: Date.now(),
             board_like: '0',
             category: '자유게시판',
-            id: '',
+            id: ' ',
             tag1: null,
             tag2: null,
             tag3: null,
@@ -134,6 +134,13 @@ class CreateBoardComponent extends Component {
 
 
     componentDidMount() {
+        BoardService. getUserName( ).then ((res)=>{
+            console.log("id is "+res.data)
+            this.setState({
+                id: res.data
+                
+            });
+        });
         if (this.state.num === '_create') {
             return
         } else {
@@ -245,9 +252,9 @@ class CreateBoardComponent extends Component {
                                             value={this.state.question} onChange={this.changeQuestionHandler} />
                                     </div>
                                     <div className="form-group">
-                                        <label> id</label>
+                                        <label> id {this.state.id}</label>
                                         <input placeholder="id" name="id" className="form-control" style={{width: "40%"}}
-                                            value={this.state.id} onChange={this.changeidHandler} />
+                                            value={this.state.id} onChange={this.changeidHandler} ></input>
                                     </div>
                                   
                                        {this.returnTag()}

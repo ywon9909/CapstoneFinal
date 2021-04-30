@@ -7,60 +7,131 @@ class BoardService {
 
 
     getBoards(category,p_num) {
-        return axios.get(BOARD_API_BASE_URL+"?p_num="+p_num+"&category="+category);
-    }
-
+        return axios.get(BOARD_API_BASE_URL+"?p_num="+p_num+"&category="+category,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     createBoardFile( board){
-        return axios.post(BOARD_API_BASE_URL,  board);
-       
-    }
+        return axios.post(BOARD_API_BASE_URL,  board,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
 
 
     createComment(comment){
-        return axios.post(BOARD_API_BASE_URL+"/comment",comment);
-    }
- 
+        return axios.post(BOARD_API_BASE_URL+"/comment",comment,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     deleteComment(num) {
-        return axios.delete(BOARD_API_BASE_URL + "/comment/" + num);
-    }
-
+        return axios.delete(BOARD_API_BASE_URL + "/comment/" + num,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     getOneBoard(num){
-        return axios.get(BOARD_API_BASE_URL+"/"+num);
-    }
+        return axios.get(BOARD_API_BASE_URL+"/"+num,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     getOneComment(num){
-        return axios.get(BOARD_API_BASE_URL+"/comment/"+num);
-    }
-   
+        return axios.get(BOARD_API_BASE_URL+"/comment/"+num,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
 
     updateBoard(num, board) {
-        return axios.put(BOARD_API_BASE_URL + "/" + num, board);
-    }
+        return axios.put(BOARD_API_BASE_URL + "/" + num, board,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     deleteBoard(num) {
-        return axios.delete(BOARD_API_BASE_URL + "/" + num);
-    }
+        return axios.delete(BOARD_API_BASE_URL + "/" + num,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     searchBoard(keyword){
-        return axios.get(BOARD_API_BASE_URL+"/search/"+keyword);
-
-    }
+        return axios.get(BOARD_API_BASE_URL+"/search/"+keyword,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     updateComment(no, comment) {
-        return axios.put(BOARD_API_BASE_URL + "/comment/"+no ,comment);
-    }
+        return axios.put(BOARD_API_BASE_URL + "/comment/"+no ,comment,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     getMemberById(id){
-        return axios.get(BOARD_API_BASE_URL+"/member/"+id);
-
-    }
+        return axios.get(BOARD_API_BASE_URL+"/member/"+id,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
    getHotBoard(){
-       return axios.get(BOARD_API_BASE_URL+"/hot");
+       return axios.get(BOARD_API_BASE_URL+"/hot",{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
    }
    getPopularTag(){
-    return axios.get(BOARD_API_BASE_URL+"/ptag");
-    }
+    return axios.get(BOARD_API_BASE_URL+"/ptag",{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+   }
     getSimilarTag(tag1,tag2,tag3,tag4,tag5){
-        return axios.get(BOARD_API_BASE_URL+"/similartag/"+tag1+"/"+tag2+"/"+tag3+"/"+tag4+"/"+tag5)
-    }
+        return axios.get(BOARD_API_BASE_URL+"/similartag/"+tag1+"/"+tag2+"/"+tag3+"/"+tag4+"/"+tag5,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
     getRecentBoard(category){
-        return axios.get(BOARD_API_BASE_URL+"/recentboard/"+category)
-    }
+        return axios.get(BOARD_API_BASE_URL+"/recentboard/"+category,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
+
+
+
+  
+      fetchToken(token) {
+        localStorage.setItem("token", token);
+        console.log(" token is " + token);
+      }
+
+
+      getUserName( ){
+        return axios.get(BOARD_API_BASE_URL+"/authenticate", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
+
 }
 
 export default new BoardService();

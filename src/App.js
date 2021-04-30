@@ -30,7 +30,8 @@ function App() {
          <div className="container"  style={{width: "100%"}}>
         
           <Switch>
-            <Route path="/" exact component={HomeComponent}></Route> {/*나중에 홈 화면 jsx 만들 것 */}
+          <Route path="/" exact component={LoginComponent} />
+            <Route path="/home" exact component={HomeComponent}></Route> {/*나중에 홈 화면 jsx 만들 것 */}
             <Route path="/board" component={HomeComponent}></Route>
             <Route path="/create-board/:num" component={CreateBoardComponent}></Route>{/*생성페이지*/}
             <Route path="/read-board/:num" component={ReadBoardComponent}></Route>{/*상세페이지*/}
@@ -39,7 +40,6 @@ function App() {
             <Route path="/success" component={SuccessComponent}></Route> {/*성공페이지 */}
             <Route path="/search-board/:search" component={SearchPageComponent}></Route>
             <Route path="/searchside" component={SearchSideComponent}></Route>
-            <Route path="/login" component={LoginComponent}></Route>
             <Route path="/mypage" component={MyPageComponent}></Route>
             <Route path="/manage" component={ManageComponent}></Route>
             <Route path="/find" component={FindIdPwComponent}></Route>{/*Id/Pw 찾기 */}
