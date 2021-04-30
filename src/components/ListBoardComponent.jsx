@@ -172,7 +172,7 @@ class ListBoardComponent extends Component {
           let str01 =tag.split(",");
     
            return (
-                <a className="hot">
+                <a >
                    #{str01[0]}<br/> 
                    #{str01[2]}<br/>
                    #{str01[4]}<br/>
@@ -203,14 +203,10 @@ class ListBoardComponent extends Component {
 
                 <div class="container-fluid" >
                     <div >
-                    <button className="btn btn-primary" onClick={this.createBoard}>글 작성</button>
+                    <button className="main-btn" onClick={this.createBoard}>글 작성</button>
                     </div>
                     <div class="row">
                         <div class="col-lg-9">
-                            
-                           
-
-                                  
 
                                         {
                                             this.state.boards.map(
@@ -233,12 +229,7 @@ class ListBoardComponent extends Component {
                                                                 👍{board.board_like}📄{board.commentcount}
                                                             
                                                             </div>
-                                                       
-                                                       
-                                                        
-                                                       
-                                                          
-                                                       
+
                                                     </div>
                                                </div>   
                                             )
@@ -283,13 +274,16 @@ class ListBoardComponent extends Component {
                                             <h4 className="department-title">
                                                 HOT 게시물
                                             </h4>
-
-                                            {
-                                                this.state.hots.map(
-                                                    hot =>
-                                                        <p><a className="hot" onClick={() => this.readBoard(hot.board_no)}>{hot.title}</a>  👍{hot.board_like}📄{hot.commentcount}</p>
-                                                )
-                                            }
+                                        <table className="table-board">
+                                            <tbody>
+                                                {this.state.hots.map(
+                                                hot =>
+                                                <tr className="tr">
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 👍{hot.board_like}📄{hot.commentcount}</a>
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
                                         </div>
                                     </div>
 

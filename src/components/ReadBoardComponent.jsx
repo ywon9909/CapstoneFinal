@@ -17,6 +17,7 @@ class ReadBoardComponent extends Component {
             tags: [],
             similar: [],
             imagesrc: ''
+            
         }
 
         //this.getOneBoard();
@@ -54,10 +55,14 @@ class ReadBoardComponent extends Component {
                 imagesrc: res.data.filepath
             });
             BoardService.getSimilarTag(this.state.board.tag1, this.state.board.tag2, this.state.board.tag3, this.state.board.tag4, this.state.board.tag5).then((res) => {
-                console.log("Similar Tag " + res.data)
+                console.log("Similar Tag " + res.data )
+                const no = this.state.num
                 this.setState({
-                    similar: res.data
+                    similar :  res.data.filter(function(element){
+                        return element.board_no != no
+                    })
                 });
+              
             });
 
         });
@@ -253,7 +258,7 @@ class ReadBoardComponent extends Component {
         let str01 = tag.split(",");
 
         return (
-            <a className="hot">
+            <a>
                 #{str01[0]}<br />
                    #{str01[2]}<br />
                    #{str01[4]}<br />
@@ -275,7 +280,7 @@ class ReadBoardComponent extends Component {
         }
         else {
             return (<div className="row">
-                <img src={require('../../src/image/' + filepath).default} />
+                <img className="image" src={require('../../src/image/' + filepath).default} />
 
             </div>)
 
@@ -289,13 +294,13 @@ class ReadBoardComponent extends Component {
 
                         <div className="row" >
 
-                            <textarea style={{ width: "80%", height: "40px", resize: "none", outline: "none" }}
+                            <textarea className="comment-textarea"
                                 type="text"
                                 placeholder="댓글" name="answer"
                                 value={this.state.answer}
                                 onChange={this.changeanswer}
                             />
-                            <button style={{ width: "20%", height: "40px" }} className="btn btn-primary" onClick={this.createComment} >댓글</button>
+                            <button className="main-btn" onClick={this.createComment} >댓글</button>
 
 
                         </div>
@@ -379,8 +384,8 @@ class ReadBoardComponent extends Component {
                                         <button className="main-btn" onClick={this.goToList.bind(this)} >목록</button>
                                     </div>
                                     <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
-                                        <button className="main-btn-like" onClick={this.likeboard} >👍{this.state.board.board_like}</button>
-                                        <button className="main-btn-change" onClick={this.goToUpdate} >글 수정</button>
+                                        <button className="main-btn" onClick={this.likeboard} >👍{this.state.board.board_like}</button>
+                                        <button className="main-btn" onClick={this.goToUpdate} >글 수정</button>
                                         <button className="main-btn-cancle" onClick={() => this.deleteView()} >글 삭제</button>
 
                                     </div>
@@ -424,27 +429,33 @@ class ReadBoardComponent extends Component {
                                         <h4 className="department-title">
                                             HOT 게시물
                                             </h4>
-
-                                        {
-                                            this.state.hots.map(
+                                            <table className="table-board">
+                                            <tbody>
+                                                {this.state.hots.map(
                                                 hot =>
-                                                    <p><a className="hot" onClick={() => this.readBoard(hot.board_no)}>{hot.title}</a>
-                                                 👍{hot.board_like}📄{hot.commentcount}</p>
-                                            )
-                                        }
+                                                <tr className="tr">
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 👍{hot.board_like}📄{hot.commentcount}</a>
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
                                             연관질문
                                         </h4>
-
-                                        {
+                                        <table className="table-board">
+                                            <tbody>
+                                            {
                                             this.state.similar.map(
                                                 simi =>
-                                                    <p><a className="hot" onClick={() => this.readBoard(simi.board_no)}>{simi.title}</a>
-                                                        👍{simi.board_like}📄{simi.commentcount}</p>)
-
-                                        }
+                                                <tr className="tr">
+                                                    <a className="hot" onClick={() => this.readBoard(simi.board_no)}>{simi.title}
+                                                        👍{simi.board_like}📄{simi.commentcount}</a></tr>)
+                                            }
+                                            </tbody>
+                                        </table>              
+                                        
 
 
                                         {/* {this.getSimilarTag()} */}

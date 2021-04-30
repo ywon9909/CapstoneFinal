@@ -231,7 +231,7 @@ returnTag = () => {
       let str01 =tag.split(",");
 
        return (
-            <a className="hot">
+            <a >
                #{str01[0]}<br/> 
                #{str01[2]}<br/>
                #{str01[4]}<br/>
@@ -269,11 +269,11 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("자유게시판")}><h4 className="department-title">자유게시판</h4></a>
                                        
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 {this.state.boards1.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -287,12 +287,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("정형외과")}><h4 className="department-title">정형외과</h4></a>
                                         
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards2.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -306,12 +306,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("신경외과")}><h4 className="department-title">신경외과</h4></a>
                                        
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards3.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -325,12 +325,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("비뇨기과")}><h4 className="department-title">비뇨기과</h4></a>
                                     
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards4.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -344,12 +344,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("성형외과")}><h4 className="department-title">성형외과</h4></a>
                                       
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards5.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -363,12 +363,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("한방과")}><h4 className="department-title">한방과</h4></a>
                                        
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards6.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -383,12 +383,12 @@ returnTag = () => {
                                         <a onClick={() => this.GotoCategory("피부과")}><h4 className="department-title">피부과</h4></a>
                                         
                                    
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards7.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -402,12 +402,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("내과")}><h4 className="department-title">내과</h4></a>
                                     
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards8.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -421,12 +421,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("치과")}><h4 className="department-title">치과</h4></a>
                                  
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards9.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory" onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -440,12 +440,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("이비인후과")}><h4 className="department-title">이비인후과</h4></a>
                                        
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards10.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -459,12 +459,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("소아과")}><h4 className="department-title">소아과</h4></a>
                                    
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards11.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -478,12 +478,12 @@ returnTag = () => {
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("안과")}><h4 className="department-title">안과</h4></a>
                                       
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 
                                                 {this.state.boards12.map(
                                                 board =>
-                                                <tr>
+                                                <tr className="tr">
                                                     <a className="homecategory"  onClick={()=>this.readBoard(board.board_no)} >{board.title}</a> 
                                                 </tr>
                                                 )}
@@ -521,12 +521,12 @@ returnTag = () => {
                                         <h4 className="department-title">
                                             HOT 게시물                                          
                                         </h4>
-                                        <table>
+                                        <table className="table-board">
                                             <tbody>
                                                 {this.state.hots.map(
                                                 hot =>
-                                                <tr>
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}</a> 👍{hot.board_like}📄{hot.commentcount}
+                                                <tr className="tr">
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 👍{hot.board_like}📄{hot.commentcount}</a>
                                                 </tr>
                                                 )}
                                             </tbody>

@@ -64,41 +64,39 @@ class SearchPageComponent extends Component {
             <div>
                 
                 <h2>검색</h2>
-                <div className="row">
-                    <div class="col-lg-9">
-                        <div >
-                            <table >
+                <div class="row">
+                        <div class="col-lg-9">
 
-                                <tbody>
+                                        {
+                                            this.state.boards.map(
+                                                board =>
+                                                <div >
+                                             
+                                                    <div key={board.board_no} style={{ border: "1px solid" ,padding: "5px"}}>
 
-                                    {
-                                        this.state.boards.map(
-                                            board =>
-                                                <tr key={board.board_no} style={{ border: "1px solid" }}>
-                                                    <a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
-                                                    <tr style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
-                                                        {board.question}
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
+                                                            <div><a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
+                                                            </div>
+                                                            <div style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
+                                                            {board.question} 
+                                                            </div> 
+                                                            <div style={{ left: "5%" ,display: "inline"}}>
                                                             {this.returnDate(board.board_date)}
-                                                        </td>
-                                                        <td>
-                                                            <p>{board.id}</p>
-                                                        </td>
-                                                        <td style={{ float: "right" }}>
-                                                            👍{board.board_like}📄
-                                                </td>
+                                                            &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
+                                                            {board.id}
+                                                            </div>
+                                                            <div style={{display: "inline",position: "absolute",  right: "5%" }}>
+                                                                👍{board.board_like}📄{board.commentcount}
+                                                            
+                                                            </div>
 
-                                                    </tr>
-
-                                                </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>{/* 글작성, 게시물 div*/}
+                                                    </div>
+                                               </div>   
+                                            )
+                                        }
+                                 
+                            
+                            
+                        </div>{/* 글작성, 게시물 div*/}
 
                     <div class="col-lg-3">
                         <div >{/* 검색, 태그 div*/}
