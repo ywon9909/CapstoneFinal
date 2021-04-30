@@ -70,7 +70,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
          +"select * from board "
          +"where category = ?1 "
          +"order by board_date desc "
-         +"limit 5";
+         +"limit 3";
 
 
  @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
