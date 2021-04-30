@@ -11,7 +11,6 @@ import CreateBoardComponent from './components/CreateBoardComponent';
 import ReadBoardComponent from './components/ReadBoardComponent';
 import MapComponent from './components/MapComponent';
 import SuccessComponent from './components/SuccessComponent';
-import PromotionComponent from './components/PromotionComponent';
 import HomeComponent from './components/HomeComponent';
 import SearchPageComponent from './components/SearchPageComponent'
 import SearchSideComponent from './components/SearchSideComponent'
@@ -39,7 +38,6 @@ function App() {
             <Route path="/category-board/:category" component={ListBoardComponent}></Route> {/*카테고리별 리스트 보여줌*/}
             <Route path="/category-map/:category" component={MapComponent}></Route>{/*지도 페이지*/}
             <Route path="/success" component={SuccessComponent}></Route> {/*성공페이지 */}
-            <Route path="/promotion" component={PromotionComponent}></Route>
             <Route path="/search-board/:search" component={SearchPageComponent}></Route>
             <Route path="/searchside" component={SearchSideComponent}></Route>
             <Route path="/mypage" component={MyPageComponent}></Route>

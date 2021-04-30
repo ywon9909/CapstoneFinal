@@ -11,8 +11,8 @@ class MapComponent extends Component {
             category: props.match.params.category,
             //keyword:props.match.params.category
         }
-        this.SearchKeywordhandler=this.SearchKeywordhandler.bind(this);
-        
+        this.SearchKeywordhandler = this.SearchKeywordhandler.bind(this);
+
     }
     listBoard(category) {
         this.props.history.push(`/category-board/${category}`);
@@ -40,20 +40,20 @@ class MapComponent extends Component {
                     level: 7
                 };
                 const map = new window.kakao.maps.Map(container, options);
-               
+
                 const ps = new window.kakao.maps.services.Places();
                 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-               
+
                 searchPlaces(this.state.category);
-                function searchPlaces(keyword){
+                function searchPlaces(keyword) {
                     //var keyword=document.getElementById('keyword').value;
-                   
+
                     // this.setState({keyword:document.getElementById('keyword').value})
-                    
+
                     ps.keywordSearch(keyword, placesSearchCB);
 
                 }
-               
+
                 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
                 function placesSearchCB(data, status, pagination) {
                     if (status === kakao.maps.services.Status.OK) {
@@ -129,7 +129,7 @@ class MapComponent extends Component {
                     var el = document.createElement('li'),
                         itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
                             '<div class="info">' +
-                            '   <h5>' + (index + 1) +'. '+places.place_name +'</h5>';
+                            '   <h5>' + (index + 1) + '. ' + places.place_name + '</h5>';
 
                     if (places.road_address_name) {
                         itemStr += '    <span>' + places.road_address_name + '</span>' +
@@ -303,35 +303,40 @@ class MapComponent extends Component {
             });
         };
     }
-    SearchKeywordhandler=(event)=>{
-       this.setState({keyword:event.target.value});
+    SearchKeywordhandler = (event) => {
+        this.setState({ keyword: event.target.value });
     }
     render() {
         return (
-            <div style={{width:"1300px",height:"800px"}}>
+            <div style={{ width: "1300px", height: "800px" }}>
                 <h2 className="text-center"  >{this.state.category}
-                <br></br><h2 style={{ fontWeight: 'bold' ,display:"inline"}}><a onClick={() => this.listBoard(this.state.category, 1)}>
-                📃 게시판</a></h2> &nbsp;&nbsp;
+                    <br></br>
+                    <h2 style={{ fontWeight: 'bold', display: "inline" }}><a onClick={() => this.listBoard(this.state.category, 1)}>
+                        📃 게시판</a></h2> &nbsp;&nbsp;
+
+                    <h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}>🗺 지도 </h2>
+                </h2>
                 
-                 <h2 style={{ color: '#FBB9AB',display:"inline", fontWeight: 'bold' ,textDecorationColor:'#FBB9AB',textDecoration:"underline"}}>🗺 지도 </h2>
-               </h2>
-                <div id="MyMap" style={{  width: "700px", height: "600px", float: "right" }}>
-                   
-                </div>
-                <div id="menu_wrap" style={{ backgroundColor: 'white', margin:'0px',float: "left", width:'400px',height:'600px',overflow:'scroll'}}>
+                    <div id="MyMap" style={{ width: "800px", height: "600px", float: "right" }}>
+
+                    </div>
+               
+                
+                    <div id="menu_wrap" style={{ backgroundColor: 'white', margin: '0px', float: "left", width: '400px', height: '600px', overflow: 'scroll' }}>
                         <div >
                             <div className="form-group">
                                 <form onsubmit="searchPlaces(); return false;">
                                     {/* 키워드 : <input type="text" value={this.state.category} id="keyword" size="15" onChange={this.SearchKeywordhandler}/>
                                     <button type="submit" >검색하기</button> */}
-                                    
+
                                 </form>
-        </div>
+                            </div>
                         </div>
-                        <ul id="placesList" style={{listStyleType:"none"}}></ul>
+                        <ul id="placesList" style={{ listStyleType: "none" }}></ul>
                         <div id="pagination"></div>
                     </div>
-            </div>
+                </div>
+            
 
         );
     }
