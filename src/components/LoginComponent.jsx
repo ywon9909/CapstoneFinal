@@ -4,7 +4,7 @@ import ApiService from "../service/BoardService";
 import AuthService from "../service/AuthService";
 import axios from "axios";
 import { API_URL } from "../service/ApiUrl";
-import { useCookies } from 'react-cookie';
+
 const LOGIN_API_URL = API_URL + "authenticate";
 class LoginComponent extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class LoginComponent extends Component {
       username: this.state.username,
       password: this.state.password,
     };
- 
+
     axios
       .post(LOGIN_API_URL, reqBody)
       .then((response) => {
