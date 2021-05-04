@@ -5,7 +5,20 @@ const BOARD_API_BASE_URL = "http://localhost:8080/api/board";
 
 class BoardService {
 
-
+    getAllBoards(){
+      return axios.get(BOARD_API_BASE_URL+"s",{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    }
+    getAllComments(){
+      return axios.get(BOARD_API_BASE_URL+"/comments",{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    }
     getBoards(category,p_num) {
         return axios.get(BOARD_API_BASE_URL+"?p_num="+p_num+"&category="+category,{
             headers: {
@@ -13,7 +26,7 @@ class BoardService {
             },
           });
        }
-    createBoardFile( board){
+    createBoardFile(board){
         return axios.post(BOARD_API_BASE_URL,  board,{
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
