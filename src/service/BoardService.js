@@ -138,7 +138,13 @@ class BoardService {
           });
        }
     
-
+       createBoard(board){
+        return axios.post(BOARD_API_BASE_URL,board,{
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+      }
        getCommentliketoByNum(num,username) {
         return axios.get(BOARD_API_BASE_URL+"/commentlike/"+num+"/"+username,{
             headers: {
