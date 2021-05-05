@@ -2,6 +2,7 @@ package com.example.capstoneweb.Controller;
 
 import com.example.capstoneweb.model.Board;
 import com.example.capstoneweb.model.Comment;
+import com.example.capstoneweb.model.commentliketo;
 import com.example.capstoneweb.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +41,22 @@ public class CommentController {
         commentService.deleteComment(no);
     }
     // update comment
-    @PutMapping("/board/comment/{no}")
+   @PutMapping("/board/comment/{no}")
     public void updateCommentByNo(
             @PathVariable Integer no, @RequestBody Comment comment){
         commentService.updateComment(no,comment);
 
     }
+
+    @GetMapping("/board/commentlike/{num}/{username}")
+    public String getCommentliketoByNum(
+            @PathVariable Integer num,@PathVariable String username){
+
+        return  commentService.getCommentliketo(num,username);
+    }
+    @PostMapping("/board/commentlike")
+    public commentliketo createCommentlike(@RequestBody commentliketo commentliketo){
+        return commentService.createCommentlike(commentliketo);
+    }
+
 }
