@@ -1,6 +1,8 @@
 package com.example.capstoneweb.Controller;
 
 
+import com.example.capstoneweb.model.boardliketo;
+import com.example.capstoneweb.model.commentliketo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -89,4 +91,15 @@ public class BoardController {
         return boardService.getRecentBoard(category);
     }
 
+
+    @GetMapping("/board/boardlike/{num}/{username}")
+    public String getboardliketoByNum(
+            @PathVariable Integer num,@PathVariable String username){
+
+        return  boardService.getboardliketo(num,username);
+    }
+    @PostMapping("/board/boardlike")
+    public boardliketo createboardlike(@RequestBody boardliketo boardliketo){
+        return boardService.createboardlike(boardliketo);
+    }
 }

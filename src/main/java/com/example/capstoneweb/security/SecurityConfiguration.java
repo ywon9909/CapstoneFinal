@@ -36,7 +36,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers("/api/board/**" ).hasAnyAuthority("ROLE_USER","ADMIN").
                 antMatchers("/api/board/*" ).hasAnyAuthority("ROLE_USER","ADMIN").
 
-                antMatchers("/products/**").hasAuthority("ADMIN").
 
                 anyRequest().authenticated().and().sessionManagement().
                 sessionCreationPolicy(SessionCreationPolicy.STATELESS);
