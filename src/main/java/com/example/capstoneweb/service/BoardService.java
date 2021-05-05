@@ -2,7 +2,10 @@ package com.example.capstoneweb.service;
 
 import com.example.capstoneweb.exception.ResourceNotFoundException;
 import com.example.capstoneweb.model.Board;
+import com.example.capstoneweb.model.boardliketo;
+import com.example.capstoneweb.model.commentliketo;
 import com.example.capstoneweb.repository.BoardRepository;
+import com.example.capstoneweb.repository.boardliketoRepository;
 import com.example.capstoneweb.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +21,8 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private boardliketoRepository boardliketoRepository;
 
     public int findAllCount() {
         return (int) boardRepository.count();
@@ -114,4 +119,11 @@ public class BoardService {
         return boardRepository.findRecentBoard(category);
     }
 
+    public boardliketo createboardlike(boardliketo boardliketo) {
+        return boardliketoRepository.save(boardliketo);
+    }
+
+    public String getboardliketo(Integer num,String username) {
+        return boardRepository.findboardLike(num,username);
+    }
 }

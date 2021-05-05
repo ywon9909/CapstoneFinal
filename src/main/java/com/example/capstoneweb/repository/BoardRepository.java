@@ -71,7 +71,14 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
          +"where category = ?1 "
          +"order by board_date desc "
          +"limit 3";
+ public final static String SELECT_FINE_BOARD=""
+         +"select count(*) from boardliketo "
+         +"where  board_no=?1 and username=?2";
 
+ @Query(value = SELECT_FINE_BOARD, nativeQuery = true)
+ String findboardLike(
+         final Integer comment_no,
+         final String username);
 
  @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
  List<Board> findFromTo(
