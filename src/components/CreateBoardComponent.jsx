@@ -51,7 +51,7 @@ class CreateBoardComponent extends Component {
         this.setState({ board_like: event.target.value });
     }
     changeidHandler = (event) => {
-        this.setState({ id: event.target.value });
+        this.setState({ id:this.state.id });
     }
     changeCategoryHandler = (event) => {
         this.setState({ category: event.target.value });
@@ -99,11 +99,9 @@ class CreateBoardComponent extends Component {
         };
        
         if (this.state.num === '_create') {
-        
             BoardService.createBoard(board).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
-                
                 
                 
             
@@ -170,8 +168,9 @@ class CreateBoardComponent extends Component {
     }
 
    returnTag(){
-       
-       if(this.state.category != '홍보게시판' && this.state.category!= '건의사항' && this.state.category != '공지사항') return(
+
+    if(this.state.category != '홍보게시판' && this.state.category!= '건의사항' && this.state.category != '공지사항')  return(
+
         <div className="form-group">
         <label> tag</label>
         <br></br>
@@ -258,7 +257,7 @@ class CreateBoardComponent extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label> id {this.state.id}</label>
-                                        
+
                                     </div>
                                   
                                        {this.returnTag()}
