@@ -12,7 +12,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
          "(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          + "FROM board WHERE board.category = ?1 "
          //+ "and category =" +"'"+"정형외과"+"' "
-         + "ORDER BY board.board_no DESC LIMIT ?2, ?3 ";
+         + "ORDER BY board.board_date DESC LIMIT ?2, ?3 ";
 
  public final static String SELECT_BOARD_LIST_PAGED2 = ""
          + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
@@ -58,24 +58,20 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
  public final static String SELECT_SIMILAR_TAG=""
          +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  "
          +"comment WHERE comment.board_no = board.board_no) commentcount,"
-
          +"(tag1 like '%?1%' or tag1 like'%?2%' or tag1 like'%?3%' or tag1 like'%?4%' or tag1 like'%?5%') " +
          "+ (tag2 like '%?1%' or tag2 like'%?2%' or tag2 like'%?3%' or tag2 like'%?4%' or tag2 like'%?5%') +" +
          "(tag3 like '%?1%' or tag3 like'%?2%' or tag3 like'%?3%' or tag3 like'%?4%' or tag3 like'%?5%') " +
          "+ (tag4 like '%?1%' or tag4 like'%?2%' or tag4 like'%?3%' or tag4 like'%?4%' or tag4 like'%?5%')" +
          "+(tag5 like '%?1%' or tag5 like '%?2%' or tag5 like '%?3%' or tag5 like '%?4%' or tag5 like '%?5%') "
-
-
-
          +"as score "
          +"from board "
-
          +"where tag1 in (?1,?2,?3,?4,?5) "
          +"or tag2 in (?1,?2,?3,?4,?5) "
          +"or tag3 in (?1,?2,?3,?4,?5) "
          +"or tag4 in (?1,?2,?3,?4,?5)"
          +"or tag5 in (?1,?2,?3,?4,?5) "
-         +"order by score desc ";
+         +"order by score desc " +
+         "limit 5";
 
  public final static String SELECT_RECENT_BOARD=""
          +"select * from board "
