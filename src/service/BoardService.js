@@ -13,14 +13,7 @@ class BoardService {
             },
           });
        }
-    createBoardFile( board){
-        return axios.post(BOARD_API_BASE_URL,  board,{
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          });
-       }
-
+   
 
     createComment(comment){
         return axios.post(BOARD_API_BASE_URL+"/comment",comment,{
@@ -131,7 +124,34 @@ class BoardService {
             },
           });
        }
+    
 
+       getCommentliketoByNum(num,username) {
+        return axios.get(BOARD_API_BASE_URL+"/commentlike/"+num+"/"+username,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
+       createcommentlikt(commentliketo){ return axios.post(BOARD_API_BASE_URL+"/commentlike",commentliketo,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+       }
+       getboardliketoByNum(num,username) {
+        return axios.get(BOARD_API_BASE_URL+"/boardlike/"+num+"/"+username,{
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+       }
+       createboardlikt(boardliketo){ return axios.post(BOARD_API_BASE_URL+"/boardlike",boardliketo,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+       }
 }
 
 export default new BoardService();

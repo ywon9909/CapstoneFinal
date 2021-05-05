@@ -16,7 +16,9 @@ class ReadBoardComponent extends Component {
             hots: [],
             tags: [],
             similar: [],
-            imagesrc: ''
+            imagesrc: '',
+            id:'',
+            commentliketo:null
             
         }
 
@@ -47,6 +49,13 @@ class ReadBoardComponent extends Component {
     //     });
     // }
     componentDidMount() {
+        BoardService. getUserName( ).then ((res)=>{
+            console.log("id is "+res.data)
+            this.setState({
+                id: res.data
+                
+            });
+        });
 
         BoardService.getOneBoard(this.state.num).then(res => {
             console.log("Board " + res.data)
@@ -142,9 +151,13 @@ class ReadBoardComponent extends Component {
     }
 
 
+
+    
+
     likeboard = (event) => {
         event.preventDefault();
         this.setState({ board_like: event.target.value });
+        
         let board = {
             title: this.state.board.title,
             question: this.state.board.question,
@@ -155,42 +168,54 @@ class ReadBoardComponent extends Component {
             filepath: this.state.board.filepath
 
         };
-        BoardService.updateBoard(this.state.num, board).then(res => {
-            //this.props.history.push(`/category-board/${this.state.board.category}`);
-            if (res.status === 200) {
-                window.location.replace('/read-board/' + this.state.num);
-            } else {
-                alert("실패했습니다.");
-            }
-        });
-
-    }
-
-
-
-    updateComment = async function (comment_no, comment_like, comment_date, comment_id, answer) {
-
-        let comment = {
-
-            answer: answer,
-            comment_id: comment_id,
-            board_no: this.state.board.board_no,
-            board_id: this.state.board.id,
-            comment_date: comment_date,
-            comment_like: comment_like + 1
-
+        
+        let boardliketo = {
+ 
+            like_no:this.state.board.board_like + 1,
+            board_no:this.state.board.board_no,
+            username:this.state.id,
+            like_check:true
+ 
         };
-        BoardService.updateComment(comment_no, comment).then(res => {
-            console.log("delete result => " + JSON.stringify(res));
-            if (res.status === 200) {
-                window.location.replace('/read-board/' + this.state.num);
-            } else {
-                alert("수정이 실패했습니다.");
-            }
-        });
-
+         
+ 
+         BoardService.getboardliketoByNum(this.state.board.board_no,this.state.id).then(res => {
+          console.log("what is that " + JSON.stringify(res.data));
+          
+          if(res.data === 0){
+              BoardService.createboardlikt(boardliketo).then(res => {
+                  console.log("delete result => " + JSON.stringify(res));
+                  if (res.status === 200) {
+                     BoardService.updateBoard(this.state.num, board).then(res => {
+                         //this.props.history.push(`/category-board/${this.state.board.category}`);
+                         if (res.status === 200) {
+                             window.location.replace('/read-board/' + this.state.num);
+                         } else {
+                             alert("실패했습니다.");
+                         }
+                     });
+      
+      
+                     
+          } else {
+                      window.alert("수정이 실패했습니다.");
+          }
+       });
+      
+          }
+          else{
+             window.alert("이미 좋아요를 완료했습니다");
+          }
+      });
+  
+       
+      
+      
 
     }
+
+
+
     deleteView = async function () {
         if (window.confirm("정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구 할 수 없습니다.")) {
             BoardService.deleteBoard(this.state.num).then(res => {
@@ -310,13 +335,14 @@ class ReadBoardComponent extends Component {
                         comments.map(
 
                             comment =>
-                                <div className="card col-md-10 offset-md-1">
+                                <div key={comment} className="card col-md-10 offset-md-1">
                                     <div className="row"  >
                                         &nbsp;&nbsp;&nbsp;&nbsp; <h5>{comment.comment_id}</h5> &nbsp;  &nbsp; &nbsp; {this.returnDate(comment.comment_date)}
                                         <br />
                                         <div style={{ position: "absolute", top: "0px", right: "5%" }}>
-                                            <a onClick={() => this.updateComment(comment.comment_no, comment.comment_like, comment.comment_date, comment.comment_id, comment.answer)}>👍{comment.comment_like}</a> &nbsp;&nbsp;&nbsp;
-                    <a onClick={() => this.deleteComment(comment.comment_no)}>삭제</a>
+                                         <a onClick={() => this.updateComment(comment.comment_date,comment.comment_id,comment.answer,comment.comment_like,comment.comment_no,this.state.id,)}>👍{comment.comment_like}</a>
+                                         
+                                        &nbsp;&nbsp;&nbsp;<a onClick={() => this.deleteComment(comment.comment_no)}>삭제</a>
                                         </div>
                                     </div>
                                     {comment.answer}
@@ -335,6 +361,67 @@ class ReadBoardComponent extends Component {
             )
         }
     }
+  
+
+      
+       updateComment = async function ( comment_date, comment_id, answer,comment_like,comment_no,id) {
+       console.log(comment_date, comment_id, answer,comment_like,comment_no,id)
+let commentlike = ''
+console.log("comment like is "+ commentlike +"is that")
+
+        let comment = {
+            comment_no:comment_no,
+            answer: answer,
+            comment_id: comment_id,
+            board_no: this.state.board.board_no,
+            board_id: this.state.board.id,
+            comment_date: comment_date,
+            comment_like: comment_like + 1
+
+        };
+    
+        let commentliketo = {
+
+           like_no:comment_like+1,
+           comment_no:comment_no,
+           username:id,
+           like_check:true
+
+        };
+        console.log("comment like is "+ commentlike)
+
+       BoardService.getCommentliketoByNum(comment_no,id).then(res => {
+        console.log("what is that " + JSON.stringify(res.data));
+        
+        if(res.data === 0){
+            BoardService.createcommentlikt(commentliketo).then(res => {
+                console.log("delete result => " + JSON.stringify(res));
+                if (res.status === 200) {
+                    BoardService.updateComment(comment_no, comment).then(res => {
+                        console.log("delete result => " + JSON.stringify(res));
+                        if (res.status === 200) {
+                            window.location.replace('/read-board/' + this.state.num);
+                        } else {
+                            window.alert("수정이 실패했습니다.");
+                        }
+                    }
+                    );
+    
+    
+                   
+        } else {
+                    window.alert("수정이 실패했습니다.");
+        }
+     });
+    
+        }
+        else{
+           window.alert("이미 좋아요를 완료했습니다");
+        }
+    });
+
+     
+    }
     gettags() {
         if(this.state.board.category != '홍보게시판'){
             return(
@@ -344,6 +431,8 @@ class ReadBoardComponent extends Component {
             )
         }
     }
+
+     
     render() {
         return (
 
@@ -384,7 +473,7 @@ class ReadBoardComponent extends Component {
                                         <button className="main-btn" onClick={this.goToList.bind(this)} >목록</button>
                                     </div>
                                     <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
-                                        <button className="main-btn" onClick={this.likeboard} >👍{this.state.board.board_like}</button>
+                                        {<button className="main-btn" onClick={this.likeboard} >👍{this.state.board.board_like}</button>}
                                         <button className="main-btn" onClick={this.goToUpdate} >글 수정</button>
                                         <button className="main-btn-cancle" onClick={() => this.deleteView()} >글 삭제</button>
 
