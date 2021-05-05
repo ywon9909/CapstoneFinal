@@ -18,7 +18,10 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
-
+    @GetMapping("/boards")
+    public  List<Board>getAllBoards(){
+        return boardService.getAllBoard();
+    }
     @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num") Integer p_num,@RequestParam(value="category") String category) {
         //String cate = null;

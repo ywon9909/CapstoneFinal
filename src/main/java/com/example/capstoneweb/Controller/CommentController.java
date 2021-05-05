@@ -22,6 +22,10 @@ public class CommentController {
     public Comment createComment(@RequestBody Comment comment){
         return commentService.createComment(comment);
     }
+    @GetMapping("/board/comments")
+    public List<Comment> getAllComments(){
+        return commentService.getAllComments();
+    }
     //get comment
     @GetMapping("/board/comment/{num}")
     public List<Comment> getCommentByNum(
