@@ -22,16 +22,12 @@ class ReadBoardComponent extends Component {
             
         }
 
-        //this.getOneBoard();
         this.goToUpdate = this.goToUpdate.bind(this);
         this.createComment = this.createComment.bind(this);
         this.likeboard = this.likeboard.bind(this);
-        this.handleSearchChange = this.handleSearchChange.bind(this);
-        this.getHotBoard();
-        //his.getPopularTag();
+        this.handleSearchChange = this.handleSearchChange.bind(this);    
         this.returnTag();
 
-        // this.getSimilarTag();
 
     }
 
@@ -104,7 +100,7 @@ class ReadBoardComponent extends Component {
         event.preventDefault();
         let comment = {
             answer: this.state.answer,
-            comment_id: 'user1',
+            comment_id:this.state.id,
             board_no: this.state.board.board_no,
             board_id: this.state.board.id,
             comment_date: this.state.comment_date,
@@ -252,31 +248,7 @@ class ReadBoardComponent extends Component {
         this.props.history.push(`/search-board/${search}`);
 
     }
-    // Doccheck(id){
-    //     console.log("나와라"+id)
-    //     BoardService.getMemberById(id).then(res=>{
-    //         console.log("넌 왜 안나와"+res.data)
-    //         this.setState({
-    //             Member: res.data
-
-    //         });
-    //     });
-    //     if (this.state.Member.doc != 0 ) {
-    //         return (
-    //             <div style={{  position: "absolute",top:"0px",right:"5%"}}> 🩺 </div>
-
-    //         )
-
-    //     }
-    // }
-    getHotBoard() {
-
-    }
-    // getPopularTag(){
-
-    //     this.returnTag()
-    // }
-
+    
     returnTag = () => {
         const tag = this.state.tags + ""
         console.log("this is hot" + tag)
@@ -342,7 +314,8 @@ class ReadBoardComponent extends Component {
                                         <div style={{ position: "absolute", top: "0px", right: "5%" }}>
                                          <a onClick={() => this.updateComment(comment.comment_date,comment.comment_id,comment.answer,comment.comment_like,comment.comment_no,this.state.id,)}>👍{comment.comment_like}</a>
                                          
-                                        &nbsp;&nbsp;&nbsp;<a onClick={() => this.deleteComment(comment.comment_no)}>삭제</a>
+                                        &nbsp;&nbsp;&nbsp;
+                                        {this.checkidcomment(comment.comment_id,comment.comment_no)}
                                         </div>
                                     </div>
                                     {comment.answer}
@@ -362,7 +335,19 @@ class ReadBoardComponent extends Component {
         }
     }
   
-
+checkidcomment(id,comment_no){
+    console.log("id is"+id+ comment_no)
+    if(this.state.id == id ){
+        return(
+           <a onClick={() => this.deleteComment(comment_no)}>삭제</a>
+        )
+    }
+    else{
+        return(
+            <div></div>
+        )
+    }
+}
       
        updateComment = async function ( comment_date, comment_id, answer,comment_like,comment_no,id) {
        console.log(comment_date, comment_id, answer,comment_like,comment_no,id)
@@ -432,7 +417,26 @@ console.log("comment like is "+ commentlike +"is that")
         }
     }
 
-     
+     checkid(boardid){
+         console.log("checkid"+this.state.id +boardid)
+         if(this.state.id == boardid){
+            return(
+                <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
+                {<button className="main-btn" onClick={this.likeboard} >👍{this.state.board.board_like}</button>}
+                <button className="main-btn" onClick={this.goToUpdate} >글 수정</button>
+                <button className="main-btn-cancle" onClick={() => this.deleteView()} >글 삭제</button>
+                </div>
+             )
+         }
+         else {
+             return(
+                <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
+                {<button className="main-btn" onClick={this.likeboard} >👍{this.state.board.board_like}</button>}
+                </div>
+             )
+         }
+        
+     }
     render() {
         return (
 
@@ -472,12 +476,10 @@ console.log("comment like is "+ commentlike +"is that")
                                     <div style={{ position: "absolute", bottom: "10px", left: "5%" }}>
                                         <button className="main-btn" onClick={this.goToList.bind(this)} >목록</button>
                                     </div>
-                                    <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
-                                        {<button className="main-btn" onClick={this.likeboard} >👍{this.state.board.board_like}</button>}
-                                        <button className="main-btn" onClick={this.goToUpdate} >글 수정</button>
-                                        <button className="main-btn-cancle" onClick={() => this.deleteView()} >글 삭제</button>
+                         
+                                        {this.checkid(this.state.board.id)}
+                                       
 
-                                    </div>
                                 </div>
                             </div>
 
