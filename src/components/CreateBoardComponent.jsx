@@ -100,7 +100,7 @@ class CreateBoardComponent extends Component {
        
         if (this.state.num === '_create') {
         
-            BoardService.createBoardFile(board).then(res => {
+            BoardService.createBoard(board).then(res => {
                 this.props.history.push(`/category-board/${this.state.category}`);
             });
                 
@@ -171,7 +171,7 @@ class CreateBoardComponent extends Component {
 
    returnTag(){
        
-       if(this.state.category != '홍보게시판') return(
+       if(this.state.category != '홍보게시판' && this.state.category!= '건의사항' && this.state.category != '공지사항') return(
         <div className="form-group">
         <label> tag</label>
         <br></br>
@@ -235,6 +235,8 @@ class CreateBoardComponent extends Component {
                                             <option value="피부과">피부과</option>
                                             <option value="이비인후과">이비인후과</option>
                                             <option value="홍보게시판">홍보게시판</option>
+                                            <option value="건의사항">건의사항</option>
+                                            <option value="공지사항">공지사항</option>
                                         </select>
                                     </div>
                                     <div className="form-group" style={{float:"right", marginLeft:"10px",width: "65%"}}>
@@ -256,8 +258,7 @@ class CreateBoardComponent extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label> id {this.state.id}</label>
-                                        <input placeholder="id" name="id" className="form-control" style={{width: "40%"}}
-                                            value={this.state.id} onChange={this.changeidHandler} ></input>
+                                        
                                     </div>
                                   
                                        {this.returnTag()}
