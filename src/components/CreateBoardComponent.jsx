@@ -246,8 +246,8 @@ class CreateBoardComponent extends Component {
                                     {/* 파일 추가 */}
                                    
                                     <div id="inputFile">
-                                    <input type="file" name="file"  accept="image/png, image/jpeg, image/jpg" onChange={e => this.handleFileInput(e)}/>  {/* image 1개 전송 */}
-                </div> 
+                                        <input type="file" name="file"  accept="image/png, image/jpeg, image/jpg" onChange={e => this.handleFileInput(e)}/>  {/* image 1개 전송 */}
+                                    </div> 
       
                                     <div className="form-group" style={{clear:"both"}}>
                                         <label> Question  </label>
