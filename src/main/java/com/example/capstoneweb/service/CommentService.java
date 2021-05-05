@@ -17,6 +17,9 @@ public class CommentService {
     @Autowired
     private CommentliketoRepository commentliketoRepository;
 
+    public List<Comment> getAllComments(){
+        return commentRepository.findAll();
+    }
     public List<Comment> getComment(Integer num) {
 
         List<Comment> comment = commentRepository.findCommentBy(num);
