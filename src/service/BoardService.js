@@ -27,7 +27,13 @@ class BoardService {
           });
        }
 
-
+    createBoard(board){
+      return axios.post(BOARD_API_BASE_URL,board,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    }
     createComment(comment){
         return axios.post(BOARD_API_BASE_URL+"/comment",comment,{
             headers: {

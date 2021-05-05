@@ -137,7 +137,7 @@ class ListBoardComponent extends Component {
     }
 
     mapPage() {
-        if (this.state.category != "자유게시판" && this.state.category != "홍보게시판" ) {
+        if (this.state.category != "자유게시판" && this.state.category != "홍보게시판" &&this.state.category !="건의사항" &&this.state.category != "공지사항") {
             return (
                 <h2 style={{ fontWeight: 'bold', display: "inline" }}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
 
