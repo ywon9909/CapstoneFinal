@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
-
+import BoardService from '../service/BoardService';
 class MyPageComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: ' ',
+           password:''
+        }
+
+       
+    }
+    componentDidMount() {
+        BoardService. getUserName( ).then ((res)=>{
+            console.log("id is "+res.data)
+            this.setState({
+                id: res.data
+                
+            });
+        });
+       
+    }
     render() {
         return (
             <div>
                 <div className="text-center">
                     <h2>My Page</h2>
+                    <br/>
                 </div>
 
                 <div className="container">
@@ -13,30 +33,30 @@ class MyPageComponent extends Component {
                         
 
 
-                            <div className="col-lg-6 text-center">
-                                <div className="call-action d-lg-flex justify-content-between align-items-center">
-                                    <div className="action-content">
+                            <div className="col-lg-5 text-center" >
+                                <div className="single-features text-center mt-30" style={{height:"200px"}}>
+                                    <div className="department-content text-center">
                                         <h4 className="action-title">
                                             내 정보
-                                    </h4>
-                                    <p className="text">ID</p>
-                                    <p className="text">닉네임</p>
+                                        </h4>
+                                        <p className="text">ID {this.state.id}</p>
+                                    
                                         <button className="main-btn">로그아웃</button>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-6 text-center">
-                                <div className="call-action d-lg-flex justify-content-between align-items-center">
-                                    <div className="action-content">
+                            <div className="col-lg-5 text-center">
+                                <div className="single-features text-center mt-30" style={{height:"200px"}}>
+                                    <div className="department-content text-center">
                                         <h4 className="action-title">계정</h4>
                                         <p className="text">전문가 인증</p>
                                         <p className="text">비밀번호 변경</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-6 text-center">
-                                <div className="call-action d-lg-flex justify-content-between align-items-center">
-                                    <div className="action-content">
+                            <div className="col-lg-5 text-center">
+                                <div className="single-features text-center mt-30" style={{height:"200px"}}>
+                                    <div className="department-content text-center">
                                         <h4 className="action-title">커뮤니티
                                     </h4>
                                         <p className="text">닉네임 설정</p>
@@ -44,21 +64,20 @@ class MyPageComponent extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-6 text-center">
-                                <div className="call-action d-lg-flex justify-content-between align-items-center">
-                                    <div className="action-content">
+                            <div className="col-lg-5 text-center">
+                                <div className="single-features text-center mt-30" style={{height:"200px"}}>
+                                    <div className="department-content text-center">
                                         <h4 className="action-title">이용안내
                                     </h4>
-                                        <p className="text">문의하기</p>
-                                        <p className="text">공지사항</p>
+                                        
                                         <p className="text">서비스 이용약관</p>
                                         <p className="text">개인정보 처리방침</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-6 text-center">
-                                <div className="call-action d-lg-flex justify-content-between align-items-center">
-                                    <div className="action-content">
+                            <div className="col-lg-5 text-center">
+                                <div className="single-features text-center mt-30" style={{height:"200px"}}>
+                                    <div className="department-content text-center">
                                         <h4 className="action-title">기타
                                     </h4>
                                         <p className="text">정보동의 설정</p>
@@ -66,9 +85,9 @@ class MyPageComponent extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-6 text-center">
-                                <div className="call-action d-lg-flex justify-content-between align-items-center">
-                                    <div className="action-content">
+                            <div className="col-lg-5 text-center">
+                                <div className="single-features text-center mt-30" style={{height:"200px"}}>
+                                    <div className="department-content text-center">
                                         <h4 className="action-title">개발자 정보
                                     </h4>
                                         <p className="text">개발자</p>

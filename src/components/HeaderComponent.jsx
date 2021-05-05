@@ -69,6 +69,8 @@ class HeaderComponent extends Component {
 
 
                                                 <li className="nav-item"><a className="nav-link" href="http://localhost:3000/category-board/홍보게시판">홍보</a></li>
+                                                
+                                                <li className="nav-item"><a className="nav-link" href="http://localhost:3000/category-board/공지사항">공지사항</a></li>
 
                                             </ul>
                                         </div>

@@ -49,18 +49,18 @@ const dataPieBoard = [
 const COLORS = ['#e7edf7','#d4e4f2', '#bad1e6','#fbb9ab','#f7e9e4','#f3f0f2', ];
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
-	cx, cy, midAngle, innerRadius, outerRadius, percent, index,name
+   cx, cy, midAngle, innerRadius, outerRadius, percent, index,name
 }) => {
-	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-	const x = cx + radius * Math.cos(-midAngle * RADIAN);
-	const y = cy + radius * Math.sin(-midAngle * RADIAN);
+   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+   const x = cx + radius * Math.cos(-midAngle * RADIAN);
+   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-	return (
-		<text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-			{/* {`${(percent * 100).toFixed(0)}%`}*/}
+   return (
+      <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+         {/* {`${(percent * 100).toFixed(0)}%`}*/}
       {name} 
-		</text>
-	);
+      </text>
+   );
 };
 
 class HomeComponent extends Component {
@@ -69,16 +69,25 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      p_num: 1,
       Boards:[],
       countBoards: '',
       countComment: '',
       dataPie:[],
       dataPieBoard:[],
-      countCategory:''
+      countCategory:'',
+      paging: {},
+      boards: [],
+      search: "",
+      hots: [],
+      tags:"",
+      category:"건의사항"
     }
 
   }
-  
+  readBoard(num) {
+    this.props.history.push(`/read-board/${num}`);
+}
   componentDidMount(){
     BoardService.getAllBoards().then((res)=>{
       
@@ -103,6 +112,16 @@ class HomeComponent extends Component {
           id: res.data
           
       });
+
+      BoardService.getBoards(this.state.category, this.state.p_num).then((res) => {
+        this.setState({
+            p_num: res.data.pagingData.currentPageNum,
+            category: this.state.category,
+            paging: res.data.pagingData,
+            boards: res.data.list
+
+        });
+    })
   });
     this.setState({
       dataPie : [
@@ -127,8 +146,84 @@ class HomeComponent extends Component {
   }
  
 
- 
-  
+  listBoard(category, p_num) {
+    console.log("pageNum : " + p_num);
+    BoardService.getBoards(category, p_num).then((res) => {
+        console.log(res.data);
+        this.setState({
+            p_num: res.data.pagingData.currentPageNum,
+            category: this.state.category,
+            paging: res.data.pagingData,
+            boards: res.data.list
+        });
+    });
+    //this.props.history.push(`?p_num=${p_num}`);
+}
+returnDate(board_date) {
+  const dateString = board_date + ""
+  let y = dateString.split("T"); //날짜 , 시간.00:00:00
+  let yymmdd = y[0];
+  let t = y[1] + "";
+  let tt = t.split(".");
+  let hhmmss = tt[0];
+  return (
+      <div style={{ display: 'inline' }}>
+           {yymmdd}, {hhmmss} 
+          </div>
+  )
+}
+viewPaging() {
+  const pageNums = [];
+  for (let i = this.state.paging.pageNumStart; i <= this.state.paging.pageNumEnd; i++) {
+      pageNums.push(i);
+  }
+  let currentpage = this.state.paging.currentPageNum;
+  return (pageNums.map((page) =>
+      <li className="page-item" key={page.toString()}>
+          <a className="page-link" onClick={() => this.listBoard(this.state.category, page)}>
+              {
+                  (function () {
+                      if (page == currentpage)
+                          return (<div style={{ color: '#fbb9ab', fontWeight: 'bold' }}>{page}</div>);
+                      else return (<div>{page}</div>);
+
+
+                  })()
+              }
+          </a>
+
+      </li>
+  ));
+}
+
+isPagingPrev() {
+  if (this.state.paging.prev) {
+      return (
+          <li className="page-item">
+              <a className="page-link" onClick={() => this.listBoard(this.state.category, this.state.paging.currentPageNum - 1)} tabIndex="-1">Previous</a>
+          </li>
+      );
+  }
+}
+
+isPagingNext() {
+  if (this.state.paging.next) {
+      return (
+          <li className="page-item">
+              <a className="page-link" onClick={() => this.listBoard(this.state.category, this.state.paging.currentPageNum + 1)} tabIndex="-1">Next</a>
+          </li>
+      );
+  }
+}
+isMoveToFirstPage() {
+  if (this.state.p_num !== 0) {//1
+      return (
+          <li className="page-item">
+              <a className="page-link" onClick={() => this.listBoard(this.state.category, 1)} tabIndex="-1">Page1</a>
+          </li>
+      );
+  }
+}
   render() {
     return (
       
@@ -211,14 +306,14 @@ class HomeComponent extends Component {
                 
                 <Pie dataKey="value" cx={200} cy={200} data={this.state.dataPie}   fill="#8884d8" label={renderCustomizedLabel} labelLine={false}>
                 {
-          	    this.state.dataPie.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                 this.state.dataPie.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                 }
                 </Pie>
                
                 
                 <Pie dataKey="value" cx={700} cy={200} data={this.state.dataPieBoard} label={renderCustomizedLabel} labelLine={false}>
                 {
-          	    this.state.dataPieBoard.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                 this.state.dataPieBoard.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                 }
                 </Pie>
                 
@@ -233,60 +328,81 @@ class HomeComponent extends Component {
           <div>
 
           
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>건의사항</TableCell>
-                  <TableCell align="right">자유게시판</TableCell>
-                  <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                  <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                  <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    22323
-              </TableCell>
-                  <TableCell align="right">12</TableCell>
-                  <TableCell align="right">333</TableCell>
-                  <TableCell align="right">44</TableCell>
-                  <TableCell align="right">555</TableCell>
-                </TableRow>
-
-              </TableBody>
-            </Table>
-
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>공지사항</TableCell>
-                  <TableCell align="right">자유게시판</TableCell>
-                  <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                  <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                  <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    22323
-              </TableCell>
-                  <TableCell align="right">12</TableCell>
-                  <TableCell align="right">333</TableCell>
-                  <TableCell align="right">44</TableCell>
-                  <TableCell align="right">555</TableCell>
-                </TableRow>
-
-              </TableBody>
-            </Table>
-          </TableContainer>
+        
           </div>
         </div>
 
+        <div>
+
+
+
+
+{/* 글작성, 게시물 div*/}
+
+<div class="container-fluid" >
+    <h1>건의사항</h1> <br></br>
+    <div class="row">
+        <div >
+
+                        {
+                            this.state.boards.map(
+                                board =>
+                                <div >
+                             
+                                    <div key={board.board_no} style={{ border: "1px solid" ,padding: "5px"}}>
+
+                                            <div><a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
+                                            </div>
+                                            <div style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
+                                            {board.question} 
+                                            </div> 
+                                            <div style={{ left: "5%" ,display: "inline"}}>
+                                            {this.returnDate(board.board_date)}
+                                            &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
+                                            {board.id}
+                                            </div>
+                                            
+
+                                    </div>
+                               </div>   
+                            )
+                        }
+                 
+                 <br></br>
+        <br></br>
+            
+        </div>{/* 글작성, 게시물 div*/}
+
+
+
+       
+
+
+        <div >
+            <nav aria-label="Page navigation example">
+                <ul className="pagination justify-content-center">
+
+                    {
+                        this.isMoveToFirstPage()
+                    }
+                    {
+                        this.isPagingPrev()
+                    }
+                    {
+                        this.viewPaging()
+                    }
+                    {
+                        this.isPagingNext()
+                    }
+
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</div>
+
+</div>
 
 
       </body >
@@ -295,6 +411,5 @@ class HomeComponent extends Component {
 }
 
 export default HomeComponent;
-
 
 
