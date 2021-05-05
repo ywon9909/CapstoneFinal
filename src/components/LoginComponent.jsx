@@ -93,35 +93,43 @@ class LoginComponent extends Component {
       <div>
         <h2 className="text-center">Login </h2>
         <form>
-          <div className="form-group">
-            <label>User Name:</label>
+        <div className="about-content mt-40">
+          <div className="about-form">
+           
             <input
               type="text"
               placeholder="username"
               name="username"
-              className="form-control"
+              
               value={this.state.username}
               onChange={this.onChange}
             />
           </div>
-          <div className="form-group">
-            <label>Password</label>
+          <div className="about-form">
+           
             <input
               type="password"
               placeholder="password"
               name="password"
-              className="form-control"
+           
               value={this.state.password}
               onChange={this.onChange}
             />
           </div>
+
+         </div>
           <button
-            className="btn btn-success"
+          style={{marginLeft:"300px"}}
+           className="main-btn"
             type="submit"
             onClick={this.userLogin}
           >
             Login User
           </button>
+          <button className="main-btn" 
+          style={{marginLeft:"150px"}}>
+                                                ID/PW 찾기
+                                            </button>
         </form>
       </div>
     );
