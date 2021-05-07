@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
 
 
     static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://172.16.66.211:8080";
+    //static final String URL = "http://223.194.158.215:8080";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

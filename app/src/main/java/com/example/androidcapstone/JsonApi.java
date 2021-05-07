@@ -13,6 +13,16 @@ import retrofit2.http.Query;
 
 public interface JsonApi {
     /**
+     * 멤버 관련
+     */
+
+    // 멤버 조회
+    @GET("/api/board/authenticate")
+    Call<UserDto> getUser(UserDto userDto);
+
+
+
+    /**
      * 글 관련
      */
 
