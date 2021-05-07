@@ -1,5 +1,6 @@
 package com.example.androidcapstone;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -48,12 +49,16 @@ public class WritingBoard extends AppCompatActivity {
     Retrofit retrofit;
 
     static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://172.16.66.211:8080";
+    //static final String URL = "http://223.194.158.215:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writing_board);
+
+        // titlebar 없애기
+        ActionBar bar = getSupportActionBar();
+        bar.hide();
 
         Intent intent = getIntent();
         String mode = intent.getExtras().getString("mode");
@@ -65,6 +70,7 @@ public class WritingBoard extends AppCompatActivity {
         newImage = (ImageView)findViewById(R.id.newImage);
 
         tag1 = (EditText)findViewById(R.id.tag1);
+        //if(tag1.length() == 0)  tag1 = null;
         tag2 = (EditText)findViewById(R.id.tag2);
         tag3 = (EditText)findViewById(R.id.tag3);
         tag4 = (EditText)findViewById(R.id.tag4);
@@ -112,6 +118,12 @@ public class WritingBoard extends AppCompatActivity {
                 bd.title = editTextTitle.getText().toString();
                 bd.question = editTextMultiLineBoard.getText().toString();
                 bd.board_like = likecount;
+                /*
+                if(tag1 == null) {
+                    tag1.setText(" ");
+                }
+
+                 */
                 bd.tag1 = tag1.getText().toString();
                 bd.tag2 = tag2.getText().toString();
                 bd.tag3 = tag3.getText().toString();

@@ -72,7 +72,7 @@ public class ArticleDetail extends AppCompatActivity {
     ImageView boardImage;
 
     static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://172.16.66.211:8080";
+    //static final String URL = "http://223.194.158.215:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +162,11 @@ public class ArticleDetail extends AppCompatActivity {
                 bd.question = question.getText().toString();
                 bd.board_like = Integer.parseInt(goodcount.getText().toString());
                 bd.board_like++;
+                bd.tag1 = tag1.getText().toString();
+                bd.tag2 = tag2.getText().toString();
+                bd.tag3 = tag3.getText().toString();
+                bd.tag4 = tag4.getText().toString();
+                bd.tag5 = tag5.getText().toString();
                 updateLike(bd);
             }
         });
