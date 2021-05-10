@@ -3,9 +3,12 @@ import BoardService from '../service/BoardService';
 class MyPageComponent extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             id: ' ',
-           password:''
+           password:'',
+           isDeveloperModalOn:false,
+           
         }
 
        
@@ -20,6 +23,13 @@ class MyPageComponent extends Component {
         });
        
     }
+    handleDeveloperModal = (e) =>{
+        this.setState({
+            isDeveloperModalOn:!this.state.isDeveloperModalOn,
+        })
+    }
+
+    
     render() {
         return (
             <div>
@@ -59,7 +69,6 @@ class MyPageComponent extends Component {
                                     <div className="department-content text-center">
                                         <h4 className="action-title">커뮤니티
                                     </h4>
-                                        <p className="text">닉네임 설정</p>
                                         <p className="text">커뮤니티 이용규칙</p>
                                     </div>
                                 </div>
@@ -89,12 +98,14 @@ class MyPageComponent extends Component {
                                 <div className="single-features text-center mt-30" style={{height:"200px"}}>
                                     <div className="department-content text-center">
                                         <h4 className="action-title">개발자 정보
-                                    </h4>
-                                        <p className="text">개발자</p>
+                                        </h4>
+                                        <p className="text" onClick={this.handleDeveloperModal}>개발자</p>
+                                       
                                         
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 

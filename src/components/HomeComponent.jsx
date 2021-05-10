@@ -265,7 +265,7 @@ returnTag = () => {
                             </div>
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
-                                    <h4 className="department-title" a onClick={() => this.GotoAdminpage()}>광고</h4>
+                                    <h4 className="department-title" a onClick={() => this.GotoAdminpage()}>관리</h4>
                                   
                                 </div>
                             </div>

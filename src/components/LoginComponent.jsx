@@ -87,7 +87,9 @@ class LoginComponent extends Component {
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-
+  gotoFindIDPW=()=>{
+    return this.props.history.push('/find')
+  }
   render() {
     return (
       <div>
@@ -118,18 +120,12 @@ class LoginComponent extends Component {
           </div>
 
          </div>
-          <button
-          style={{marginLeft:"300px"}}
-           className="main-btn"
-            type="submit"
-            onClick={this.userLogin}
-          >
+          <button style={{marginLeft:"300px"}} className="main-btn" type="submit" onClick={this.userLogin}>
             Login User
           </button>
-          <button className="main-btn" 
-          style={{marginLeft:"150px"}}>
-                                                ID/PW 찾기
-                                            </button>
+          <button className="main-btn" style={{marginLeft:"150px"}} onClick={this.gotoFindIDPW}>
+                ID/PW 찾기
+          </button>
         </form>
       </div>
     );
