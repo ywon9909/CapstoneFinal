@@ -204,7 +204,15 @@ class CreateBoardComponent extends Component {
        
    }
 
-
+returnAll(){
+    console.log(this.state.id)
+    if(this.state.id === "admin" )
+{
+    return(<option value="공지사항">공지사항</option>);
+}else{
+    return( <a></a>);
+}
+}
  
     render() {
         return (
@@ -235,7 +243,8 @@ class CreateBoardComponent extends Component {
                                             <option value="이비인후과">이비인후과</option>
                                             <option value="홍보게시판">홍보게시판</option>
                                             <option value="건의사항">건의사항</option>
-                                            <option value="공지사항">공지사항</option>
+                                            {this.returnAll()}
+                                          
                                         </select>
                                     </div>
                                     <div className="form-group" style={{float:"right", marginLeft:"10px",width: "65%"}}>

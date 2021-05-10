@@ -372,7 +372,7 @@ p {
     resize: none;
     outline: none;
     width: 75%;
-    height: 20%;
+    height: 40px;
     border: 2px solid #049ae5;
     padding: 5px 10px 10px 10px;
     margin:10px;

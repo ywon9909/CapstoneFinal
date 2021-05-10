@@ -182,6 +182,29 @@ class ListBoardComponent extends Component {
            )
 
     }
+    write(){
+        if(this.state.category != '공지사항'){
+return(
+    <div >
+                    <button className="main-btn" onClick={this.createBoard}>글 작성</button>
+                    </div>
+);
+        }
+        else {
+            return(<div><h3>📣공지사항 한번씩 확인해주세요~📣</h3></div>);
+        }
+    }
+    showlist(){
+        if(this.state.category != '공지사항'&& this.state.category != '자유게시판'&& this.state.category != '홍보게시판'){
+            return(<h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}><a onClick={() => this.listBoard(this.state.category, 1)}><u>📃 게시판</u></a></h2>);
+ 
+        }
+        else{
+            return(<a>
+
+            </a>)
+        }
+   }
     render() {
 
         return (
@@ -191,7 +214,7 @@ class ListBoardComponent extends Component {
 
                 <div>
                     <h2 className="text-center"  >{this.state.category}
-                        <br></br><h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}><a onClick={() => this.listBoard(this.state.category, 1)}>📃 게시판</a></h2> &nbsp;&nbsp;
+                        <br></br>{this.showlist()} &nbsp;&nbsp;
                         {this.mapPage()}
                     </h2>
 
@@ -202,9 +225,7 @@ class ListBoardComponent extends Component {
                 {/* 글작성, 게시물 div*/}
 
                 <div class="container-fluid" >
-                    <div >
-                    <button className="main-btn" onClick={this.createBoard}>글 작성</button>
-                    </div>
+                    {this.write()}
                     <div class="row">
                         <div class="col-lg-9">
 
