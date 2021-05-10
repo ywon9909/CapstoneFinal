@@ -33,25 +33,26 @@ class FindIdPwComponent extends Component {
         })
     }
     findId(name){
-        MemberService.getOneMember("user1").then((res)=>{
-            console.log("member = " +res.data)
+        MemberService.getOneMember(name).then((res)=>{
+            console.log("member = " +res.data.username)
             this.setState({
                 member:res.data,
-                findid:res.data.id
+                findid:res.data.username
             });
         });
     }
     findPw(id){
-        MemberService.getOneMember("user1").then((res)=>{
+        MemberService.getOneMember(id).then((res)=>{
             console.log("member = " +res.data)
             this.setState({
                 member:res.data,
-                findpw:res.data.pw
+                findpw:res.data.password
             });
         });
         
         
     }
+    
     render() {
         return (
             <div>
