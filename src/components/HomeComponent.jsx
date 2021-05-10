@@ -263,12 +263,15 @@ returnTag = () => {
                                     </a>
                                 </div>
                             </div>
-                            <div className="single-features text-center mt-30">
+                            <div className="single-features text-center mt-30" style={{padding:'0px'}}>
                                 <div className="department-content text-center">
-                                    <h4 className="department-title" a onClick={() => this.GotoAdminpage()}>광고</h4>
+                                    <h4 style={{padding:'0px'}} className="department-title" a onClick={() => this.GotoAdminpage()}> <img className="image" src={require('../../src/image/ad5.jpg' ).default} /></h4>
                                   
                                 </div>
                             </div>
+
+
+                           
                         </div>
                         
                         <div className="row col-lg-7">
