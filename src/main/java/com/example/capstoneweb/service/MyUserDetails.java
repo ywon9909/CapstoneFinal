@@ -1,6 +1,7 @@
 package com.example.capstoneweb.service;
 
 import com.example.capstoneweb.model.User;
+import com.example.capstoneweb.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
