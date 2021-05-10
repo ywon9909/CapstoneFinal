@@ -25,6 +25,12 @@ public class MyUserDetailsService implements UserDetailsService {
         System.out.println(u.get());
         return u.map(MyUserDetails::new).get();
     }
+    public UserDetails getUserId(String username){
+        Optional<User> u = userRepository.findByUserName(username);
+        u.orElseThrow(() -> new UsernameNotFoundException("Not Found: " + username));
+
+        return u.map(MyUserDetails::new).get();
+    }
 
 
 }
