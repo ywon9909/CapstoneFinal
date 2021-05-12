@@ -408,7 +408,7 @@ console.log("comment like is "+ commentlike +"is that")
      
     }
     gettags() {
-        if(this.state.board.category != '홍보게시판'&&this.state.board.category != '공지사항'){
+        if(this.state.board.category != '홍보게시판'&&this.state.board.category != '공지사항' && this.state.board.category !="건의사항"){
             return(
             <div><label> <div style={{ border: "5px", borderColor: "black" }}>
             TAG: #{this.state.board.tag1} , #{this.state.board.tag2}   , #{this.state.board.tag3},

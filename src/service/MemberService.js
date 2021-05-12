@@ -8,8 +8,12 @@ class MemberService{
     getOneMember(id){
         return axios.get(MEMBER_API_BASE_URL+"member/"+id);
     }
-    onLogin(){
-        return axios.post(MEMBER_API_BASE_URL);
+  
+    deleteMember(id){
+        return axios.delete(MEMBER_API_BASE_URL+"member/"+id);
+    }
+    updateMember(changePassword,id){
+        return axios.put(MEMBER_API_BASE_URL+"member/"+changePassword+"/"+id);
     }
 }
 export default new MemberService();
