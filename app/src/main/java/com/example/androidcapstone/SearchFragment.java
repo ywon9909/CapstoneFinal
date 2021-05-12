@@ -21,11 +21,14 @@ import android.widget.Spinner;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.androidcapstone.Login.token;
 
 public class SearchFragment extends Fragment {
 
@@ -45,6 +48,7 @@ public class SearchFragment extends Fragment {
 
     //static final String URL = "http://223.194.158.215:8080";
     static final String URL = "http://192.168.35.91:8080";
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,40 +63,18 @@ public class SearchFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_search, container, false);
 
         /*
-        // 스피너
-        final String[] spi = new String[1];
-        spinner= (Spinner)view.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,schools);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                //Toast.makeText(getActivity(),Integer.toString(position),Toast.LENGTH_SHORT); //본인이 원하는 작업.
-                spi[0] =schools[position];
-                Log.i("what is that", spi[0]);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-         */
-
-
         // retrofit 통신 연결 - Spring 웹 서버와 연결
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+         */
+
         recyclerView = view.findViewById(R.id.recycler_view);
 
-        jsonApi = retrofit.create(JsonApi.class);
-
+        //jsonApi = retrofit.create(JsonApi.class);
+        jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         editSearch = (EditText)view.findViewById(R.id.search);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
@@ -115,7 +97,6 @@ public class SearchFragment extends Fragment {
                                 Log.d("ExpertFragment", dataList2.toString());
 
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//                            dataList2.notifyAll();
                                 recyclerViewAdapter = new RecyclerViewAdapter(getContext(), dataList2);
                                 recyclerView.setAdapter(recyclerViewAdapter);
 
@@ -154,7 +135,6 @@ public class SearchFragment extends Fragment {
                             Log.d("ExpertFragment", dataList2.toString());
 
                             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//                            dataList2.notifyAll();
                             recyclerViewAdapter = new RecyclerViewAdapter(getContext(), dataList2);
                             recyclerView.setAdapter(recyclerViewAdapter);
 

@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.androidcapstone.Login.token;
 
 public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapter2.ViewHolder> {
     // 댓글 recyclerview 관리
@@ -35,6 +38,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
 
     static final String URL = "http://192.168.35.91:8080";
     //static final String URL = "http://172.16.66.211:8080";
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     static int num;
     int comment_no;
@@ -85,11 +89,15 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            /*
             retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            jsonApi = retrofit.create(JsonApi.class);
+
+             */
+            //jsonApi = retrofit.create(JsonApi.class);
+            jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
             answer = (TextView)itemView.findViewById(R.id.answer);
             comment_date = (TextView)itemView.findViewById(R.id.comment_date);

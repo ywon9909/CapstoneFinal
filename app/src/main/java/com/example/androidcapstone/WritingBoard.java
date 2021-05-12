@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +26,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.androidcapstone.ExpertFragment.URL;
+import static com.example.androidcapstone.Login.token;
 import static com.example.androidcapstone.RecyclerViewAdapter2.num;
 
 public class WritingBoard extends AppCompatActivity {
@@ -50,6 +52,7 @@ public class WritingBoard extends AppCompatActivity {
 
     static final String URL = "http://192.168.35.91:8080";
     //static final String URL = "http://223.194.158.215:8080";
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +79,15 @@ public class WritingBoard extends AppCompatActivity {
         tag4 = (EditText)findViewById(R.id.tag4);
         tag5 = (EditText)findViewById(R.id.tag5);
 
+        /*
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         jsonApi = retrofit.create(JsonApi.class);
+         */
+        jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         imageUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override

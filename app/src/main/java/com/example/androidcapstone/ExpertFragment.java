@@ -23,11 +23,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.androidcapstone.Login.token;
 
 
 public class ExpertFragment extends Fragment implements TextWatcher {
@@ -47,8 +50,9 @@ public class ExpertFragment extends Fragment implements TextWatcher {
     TextView textView;
 
 
+    static final String URL = "http://192.168.35.91:8080";
     //static final String URL = "http://223.194.158.215:8080";
-    static String URL;
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +60,7 @@ public class ExpertFragment extends Fragment implements TextWatcher {
         mView = inflater.inflate(R.layout.fragment_expert, container, false);
 
         // 연필 모양 버튼 누르면 글 작성 액티비티로 넘어감
-        button = (Button)mView.findViewById(R.id.write);
+        button = (Button) mView.findViewById(R.id.write);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,18 +74,27 @@ public class ExpertFragment extends Fragment implements TextWatcher {
         });
 
         //editSearch = (EditText)mView.findViewById(R.id.search);
-        recyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
 
 
         ArticleBoard activity = (ArticleBoard) getActivity();
         data = activity.getMyData();
 
+        /*
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        jsonApi = retrofit.create(JsonApi.class);
+         */
+
+        //jsonApi = retrofit.create(JsonApi.class);
+        jsonApi = ServiceGenerator.createService(JsonApi.class, token);
+
+        return loadStores();
+    }
+
+    public View loadStores() {
 
         Callback<List<BoardData>> callback = new Callback<List<BoardData>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
