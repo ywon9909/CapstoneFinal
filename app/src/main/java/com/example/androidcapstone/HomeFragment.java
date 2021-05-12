@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
 
     static final String URL = "http://192.168.35.91:8080";
     //static final String URL = "http://223.194.158.215:8080";
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +65,7 @@ public class HomeFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_home, container, false);
 
         // 홈에서 검색 버튼 누르면 전체 게사글 검색 화면으로 넘어감
-        Button button=(Button)mView.findViewById(R.id.buttonsearch);
+        Button button = (Button) mView.findViewById(R.id.buttonsearch);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +88,7 @@ public class HomeFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         token = activity.getMyToken();
 
-        recyclerView = (RecyclerView)mView.findViewById(R.id.hot_recyclerview);
+        recyclerView = (RecyclerView) mView.findViewById(R.id.hot_recyclerview);
 
         /*
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
@@ -101,15 +102,19 @@ public class HomeFragment extends Fragment {
             }
         }).build();
 
-         */
+        */
 
+        /*
         retrofit = new Retrofit.Builder()
                 //.client(client)
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        jsonApi = retrofit.create(JsonApi.class);
+         */
+
+        //jsonApi = retrofit.create(JsonApi.class);
+        jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         tag01 = (TextView) mView.findViewById(R.id.tag01);
         tag02 = (TextView) mView.findViewById(R.id.tag02);
@@ -117,6 +122,10 @@ public class HomeFragment extends Fragment {
         tag04 = (TextView) mView.findViewById(R.id.tag04);
         tag05 = (TextView) mView.findViewById(R.id.tag05);
 
+        return loadStores();
+    }
+
+    public View loadStores() {
         // 인기 태그 web-server와 연결
         Callback<List> callbacks = new Callback<List>() {
             @Override
@@ -147,7 +156,7 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<List> call, Throwable t) {
-                Log.d("tag", "Fail");
+                Log.d("tag", t.getMessage());
             }
         };
         jsonApi.getPopularTag().enqueue(callbacks);
@@ -170,7 +179,7 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<List<BoardData>> call, Throwable t) {
-                Log.d("hot", "Fail");
+                Log.d("hot", t.getMessage());
             }
         };
         jsonApi.getHotBoard().enqueue(callback);

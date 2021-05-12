@@ -12,16 +12,12 @@ public class ServiceGenerator {
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create());
+                    .baseUrl(URL)
+                    .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit retrofit = builder.build();
 
-    public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null);
-    }
-
-    public static <S> S createService(Class<S> serviceClass, final String authToken) {
+    public static <JsonApi> JsonApi createService(Class<JsonApi> serviceClass, final String authToken) {
         if(!TextUtils.isEmpty(authToken)) {
             AuthenticationInterceptor interceptor = new AuthenticationInterceptor("Bearer " + authToken);
 

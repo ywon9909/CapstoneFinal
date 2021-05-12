@@ -38,11 +38,14 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.androidcapstone.Login.token;
 
 public class ArticleDetail extends AppCompatActivity {
     // 글 목록의 아이템을 누르면 나오는 글 상세 화면
@@ -73,6 +76,7 @@ public class ArticleDetail extends AppCompatActivity {
 
     static final String URL = "http://192.168.35.91:8080";
     //static final String URL = "http://223.194.158.215:8080";
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,15 +146,19 @@ public class ArticleDetail extends AppCompatActivity {
 
         num = intent.getExtras().getInt("num");
 
+        /*
         // retrofit 통신 연결 - Spring 웹 서버와 연결
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+         */
+
         recyclerView2 = findViewById(R.id.recycler_view2);
 
-        jsonApi = retrofit.create(JsonApi.class);
+        //jsonApi = retrofit.create(JsonApi.class);
+        jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         // 좋아요 버튼
         Button like = (Button)findViewById(R.id.like);
@@ -243,7 +251,7 @@ public class ArticleDetail extends AppCompatActivity {
                     Log.d("board_no", String.valueOf(num));
 
                 } else {
-                    Log.d("log", "Status Code " + response.code());
+                    Log.d("comment", "Status Code " + response.code());
                 }
             }
             @Override
