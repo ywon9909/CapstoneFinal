@@ -177,6 +177,11 @@ class BoardService {
         },
       });
        }
+
+SignUp(User){
+  return axios.post("http://localhost:8080/api/member",User);
+}
+
 }
 
 export default new BoardService();

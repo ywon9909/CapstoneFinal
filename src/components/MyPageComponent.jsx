@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
+import MemberService from '../service/MemberService';
 class MyPageComponent extends Component {
     constructor(props) {
         super(props);
@@ -20,15 +21,53 @@ class MyPageComponent extends Component {
                 id: res.data
                 
             });
+            MemberService.getOneMember(this.state.id).then((res)=>{
+                this.setState({
+                    password:res.data.password
+                })
+            })
         });
        
     }
-    handleDeveloperModal = (e) =>{
-        this.setState({
-            isDeveloperModalOn:!this.state.isDeveloperModalOn,
-        })
+    gotoHome=()=>{
+        this.props.history.push('/')
     }
+    handleDeveloperModal = (e) =>{
+        
+        window.alert("개발자 : 김예원, 김한빛, 조하영");
+    }
+    communityRules=()=>{
+        window.alert("비방, 욕설 금지")
+    }
+    deleteMember=()=>{
+        
+        if (window.confirm("정말로 회원탈퇴하시겠습니까?\n탈퇴한 계정은 복구 할 수 없습니다.")) {
+            MemberService.deleteMember(this.state.id).then(res => {
+                console.log("delete result => " + JSON.stringify(res));
+                if (res.status === 200) {
+                    this.props.history.push('/');
+                } else {
+                    alert("회원탈퇴에 실패했습니다.");
+                }
+            });
 
+        }
+    }
+    changePassword=()=>{
+        let checkPassword = prompt("현재 비밀번호 입력")
+        if(checkPassword==this.state.password){
+            this.changedPassword = prompt("새 비밀번호 입력")
+            console.log(this.changedPassword)
+            MemberService.updateMember(this.changedPassword,this.state.id).then((res)=>{
+                console.log("changePassword"+this.changedPassword)
+                window.alert("비밀번호가 변경되었습니다.")
+            })
+        }
+        else{
+            window.alert("비밀번호가 다릅니다.")
+        }
+    }
+    }
     
     render() {
         return (
@@ -50,8 +89,8 @@ class MyPageComponent extends Component {
                                             내 정보
                                         </h4>
                                         <p className="text">ID {this.state.id}</p>
-                                    
-                                        <button className="main-btn">로그아웃</button>
+                                        <button className="main-btn" onClick={this.gotoHome}>로그아웃</button>
+                                
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +99,7 @@ class MyPageComponent extends Component {
                                     <div className="department-content text-center">
                                         <h4 className="action-title">계정</h4>
                                         <p className="text">전문가 인증</p>
-                                        <p className="text">비밀번호 변경</p>
+                                        <p className="text" onClick={this.changePassword}>비밀번호 변경</p>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +108,7 @@ class MyPageComponent extends Component {
                                     <div className="department-content text-center">
                                         <h4 className="action-title">커뮤니티
                                     </h4>
-                                        <p className="text">커뮤니티 이용규칙</p>
+                                    <p className="text" onClick={this.communityRules}>커뮤니티 이용규칙</p>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +129,7 @@ class MyPageComponent extends Component {
                                         <h4 className="action-title">기타
                                     </h4>
                                         <p className="text">정보동의 설정</p>
-                                        <p className="text">회원 탈퇴</p>
+                                        <p className="text" onClick={this.deleteMember}>회원 탈퇴</p>
                                     </div>
                                 </div>
                             </div>
