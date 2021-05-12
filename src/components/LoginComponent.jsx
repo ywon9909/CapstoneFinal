@@ -90,9 +90,11 @@ class LoginComponent extends Component {
   gotoFindIDPW=()=>{
     return this.props.history.push('/find')
   }
+
   gotoSignup=()=>{
     return this.props.history.push('/Signup')
   }
+
   render() {
     return (
       <div>
@@ -129,9 +131,11 @@ class LoginComponent extends Component {
           <button className="main-btn" style={{marginLeft:"150px"}} onClick={this.gotoFindIDPW}>
                 ID/PW 찾기
           </button>
+
           <button className="main-btn" style={{marginLeft:"150px"}} onClick={this.gotoSignup}>
                 회원가입
           </button>
+
         </form>
       </div>
     );

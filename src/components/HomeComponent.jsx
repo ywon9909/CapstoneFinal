@@ -82,7 +82,8 @@ class HomeComponent extends Component {
     }
     GotoAdminpage() {
         if(this.state.id === "admin" )
-        this.props.history.push(`/manage`);
+            this.props.history.push(`/manage`);
+
     }
     returnDate(board_date) {
         const dateString = board_date + ""
@@ -266,7 +267,10 @@ returnTag = () => {
                             </div>
                             <div className="single-features text-center mt-30" style={{padding:'0px'}}>
                                 <div className="department-content text-center">
+
+
                                     <h4 style={{padding:'0px'}} className="department-title" a onClick={() => this.GotoAdminpage()}> <img className="image" src={require('../../src/image/ad5.jpg' ).default} /></h4>
+
                                   
                                 </div>
                             </div>
