@@ -7,15 +7,27 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 public class InfoFragment extends Fragment {
     // 회원 정보 화면
 
+    View mView;
+    TextView ID;
+    TextView name;
+    TextView type;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false);
+        mView = inflater.inflate(R.layout.fragment_info, container, false);
+
+        ID = (TextView) mView.findViewById(R.id.ID);
+        name = (TextView)mView.findViewById(R.id.name);
+        type = (TextView)mView.findViewById(R.id.type);
+
+        return mView;
     }
 }
