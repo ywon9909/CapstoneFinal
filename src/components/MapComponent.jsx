@@ -308,21 +308,18 @@ class MapComponent extends Component {
     }
     render() {
         return (
-            <div style={{ width: "1300px", height: "800px" }}>
-                <h2 className="text-center"  >{this.state.category}
+            <div >
+         
+                       
+                 <h2 className="text-center"  >{this.state.category}
                     <br></br>
                     <h2 style={{ fontWeight: 'bold', display: "inline" }}><a onClick={() => this.listBoard(this.state.category, 1)}>
                         📃 게시판</a></h2> &nbsp;&nbsp;
 
                     <h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}>🗺 지도 </h2>
                 </h2>
-                
-                    <div id="MyMap" style={{ width: "800px", height: "600px", float: "right" }}>
-
-                    </div>
-               
-                
-                    <div id="menu_wrap" style={{ backgroundColor: 'white', margin: '0px', float: "left", width: '400px', height: '600px', overflow: 'scroll' }}>
+                <div class="container-fluid">
+                <div class="col-lg-6" id="menu_wrap" style={{ backgroundColor: 'white', margin: '0px', float: "left", width: '400px', height: '600px', overflow: 'scroll' }}>
                         <div >
                             <div className="form-group">
                                 <form onsubmit="searchPlaces(); return false;">
@@ -335,6 +332,13 @@ class MapComponent extends Component {
                         <ul id="placesList" style={{ listStyleType: "none" }}></ul>
                         <div id="pagination"></div>
                     </div>
+                    <div class="col-lg-6" id="MyMap" style={{ width: "800px", height: "600px", float: "right" }}>
+
+                    </div>
+               
+                
+                   
+                </div>
                 </div>
             
 
