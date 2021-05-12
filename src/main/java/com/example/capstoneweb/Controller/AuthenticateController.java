@@ -2,7 +2,7 @@ package com.example.capstoneweb.Controller;
 
 import com.example.capstoneweb.model.AuthenticationRequest;
 import com.example.capstoneweb.model.AuthenticationResponse;
-import com.example.capstoneweb.model.Board;
+import com.example.capstoneweb.model.User;
 import com.example.capstoneweb.service.JwtUtil;
 import com.example.capstoneweb.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -60,5 +61,17 @@ public class AuthenticateController {
         UserDetails u = userDetailsService.getUserId(id);
 
         return u;
+    }
+    @DeleteMapping("/api/member/{id}")
+    public void deleteMemberById(@PathVariable String id) {
+        userDetailsService.deleteUser(id);
+    }
+    @PutMapping("/api/member/{changePassword}/{id}")
+    public void updateMember(@PathVariable String changePassword,@PathVariable String id){
+        userDetailsService.updateUser(changePassword,id);
+    }
+    @PostMapping("/api/member")
+    public User SignUpUser(@RequestBody User user){
+        return userDetailsService.SignUpUser(user);
     }
 }
