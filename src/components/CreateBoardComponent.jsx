@@ -100,7 +100,10 @@ class CreateBoardComponent extends Component {
        
         if (this.state.num === '_create') {
             BoardService.createBoard(board).then(res => {
-                this.props.history.push(`/category-board/${this.state.category}`);
+                if(this.state.category != "건의사항" )
+                    this.props.history.push(`/category-board/${this.state.category}`);
+                else
+                    this.props.history.push('/home');
             });
                 
                 
@@ -108,8 +111,12 @@ class CreateBoardComponent extends Component {
 
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
+                if(this.state.category != "건의사항" )
                 this.props.history.push(`/category-board/${this.state.category}`);
-            });
+            else
+            this.props.history.push('/home');
+        });
+         
 
 
         }

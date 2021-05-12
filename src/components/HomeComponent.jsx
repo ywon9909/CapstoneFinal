@@ -81,6 +81,7 @@ class HomeComponent extends Component {
         this.props.history.push(`/category-board/${category}`);
     }
     GotoAdminpage() {
+        if(this.state.id === "admin" )
         this.props.history.push(`/manage`);
     }
     returnDate(board_date) {
