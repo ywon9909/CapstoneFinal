@@ -15,7 +15,7 @@ public class User implements UserDetails {
 
     @Id
     @Column(name = "username")
-    private String userName;
+    private String username;
     @Column(name = "password")
     private String password;
     @Column(name = "active")
@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private String roles;
 
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class User implements UserDetails {
     }
 
     public void setUsername(String username) {
-        this.userName = username;
+        this.username = username;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class User implements UserDetails {
     }
     @Override
     public String toString() {
-        return "User [ userName=" + userName + ", password=" + password + ", active=" + active
+        return "User [ userName=" + username + ", password=" + password + ", active=" + active
                 + ", roles=" + roles + "]";
     }
 }
