@@ -73,6 +73,30 @@
             android:layout_centerInParent="true"
             android:background="#000000" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="개발자 정보"
+            android:textStyle="bold"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="컴퓨터공학부 18학번 조하영\n컴퓨터공학부 18학번 김예원\n컴퓨터공학부 18학번 김한빛"
+            android:textSize="10dp"
+            android:layout_margin="5dp"/>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"
+            android:background="#000000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="공지사항과 건의사항 기능은 웹에서만 가능합니다."/>
 
 
     </LinearLayout>
