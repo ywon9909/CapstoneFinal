@@ -19,6 +19,7 @@ import MyPageComponent from './components/MyPageComponent';
 import ManageComponent from './components/ManageComponent';
 import FindIdPwComponent from './components/FindIdPwComponent';
 import SignupComponent from './components/SignupComponent';
+
 function App() {
   return (
     <div>
@@ -46,7 +47,7 @@ function App() {
             <Route path="/Signup" component={SignupComponent}></Route> {/*성공페이지 */}
           </Switch>
          
-          
+         
         </div>
         
 

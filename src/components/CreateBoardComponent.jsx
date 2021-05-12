@@ -112,11 +112,13 @@ class CreateBoardComponent extends Component {
         } else {
             BoardService.updateBoard(this.state.num, board).then(res => {
                 if(this.state.category != "건의사항" )
+
                 this.props.history.push(`/category-board/${this.state.category}`);
             else
             this.props.history.push('/home');
         });
          
+
 
 
         }
