@@ -83,6 +83,7 @@ class HomeComponent extends Component {
     GotoAdminpage() {
         if(this.state.id === "admin" )
             this.props.history.push(`/manage`);
+
     }
     returnDate(board_date) {
         const dateString = board_date + ""
