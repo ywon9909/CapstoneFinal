@@ -205,6 +205,16 @@ return(
             </a>)
         }
    }
+   showLikeComment(like,comment){
+       if(this.state.category != '공지사항' && this.state.category != '홍보게시판')
+        {
+            return(
+                <div style={{display: "inline",position: "absolute",  right: "5%" }}>
+                    🤍{like} 🗨️{comment}                                                              
+                </div>
+            )
+        }
+   }
     render() {
 
         return (
@@ -228,13 +238,13 @@ return(
                     {this.write()}
                     <div class="row">
                         <div class="col-lg-9">
-
+                        <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
                                         {
                                             this.state.boards.map(
                                                 board =>
                                                 <div >
-                                             
-                                                    <div key={board.board_no} style={{ border: "1px solid" ,padding: "5px"}}>
+                                                        
+                                                    <div key={board.board_no} style={{ padding: "5px", borderRadius:"10px"}}>
 
                                                             <div><a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
                                                             </div>
@@ -246,12 +256,12 @@ return(
                                                             &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
                                                             {board.id}
                                                             </div>
-                                                            <div style={{display: "inline",position: "absolute",  right: "5%" }}>
-                                                                👍{board.board_like}📄{board.commentcount}
                                                             
-                                                            </div>
-
+                                                                {this.showLikeComment(board.board_like,board.commentcount)}
+                                                            
+                                                            <hr style={{ width: "100%", border: "1px solid #bad1e6"}} />
                                                     </div>
+                                                    
                                                </div>   
                                             )
                                         }
@@ -300,7 +310,7 @@ return(
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 👍{hot.board_like}📄{hot.commentcount}</a>
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like}🗨️ {hot.commentcount}</a>
                                                 </tr>
                                                 )}
                                             </tbody>

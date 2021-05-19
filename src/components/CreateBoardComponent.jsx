@@ -10,8 +10,8 @@ class CreateBoardComponent extends Component {
         this.state = {
 
             num: this.props.match.params.num,
-            title: '',
-            question: '',
+            title: null,
+            question: null,
             board_date: Date.now(),
             board_like: '0',
             category: '자유게시판',
@@ -97,30 +97,33 @@ class CreateBoardComponent extends Component {
             tag5: this.state.tag5,
             filepath: this.state.filepath
         };
-       
-        if (this.state.num === '_create') {
-            BoardService.createBoard(board).then(res => {
-                if(this.state.category != "건의사항" )
-                    this.props.history.push(`/category-board/${this.state.category}`);
-                else
-                    this.props.history.push('/home');
-            });
-                
-                
-            
-
-        } else {
-            BoardService.updateBoard(this.state.num, board).then(res => {
-                if(this.state.category != "건의사항" )
-
-                this.props.history.push(`/category-board/${this.state.category}`);
+        if(board.title != null && board.question != null){
+            if (this.state.num === '_create') {
+                BoardService.createBoard(board).then(res => {
+                    if(this.state.category != "건의사항" ){
+                        this.props.history.push(`/category-board/${this.state.category}`);
+                    }
+                        
+                    else{
+                        window.alert("소중한 의견 감사합니다.")
+                        this.props.history.push('/home');
+                    }
+                        
+                });
+            } else {
+                BoardService.updateBoard(this.state.num, board).then(res => {
+                    if(this.state.category != "건의사항" )
+                        this.props.history.push(`/category-board/${this.state.category}`);
+                    else
+                        this.props.history.push('/home');
+                });
+             
+            }
+        }else{
+            if(board.title ==null)
+                window.alert("제목을 작성해주세요")
             else
-            this.props.history.push('/home');
-        });
-         
-
-
-
+                window.alert("질문을 작성해주세요")
         }
 
 

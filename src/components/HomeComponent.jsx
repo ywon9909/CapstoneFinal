@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import BoardService from '../service/BoardService';
+import userIcon from '../assets/images/user-icon.png';
 class HomeComponent extends Component {
 
 
@@ -252,6 +253,7 @@ returnTag = () => {
 
 }
 
+
     render() {
         return (
             <body >
@@ -263,6 +265,14 @@ returnTag = () => {
                                     <a onClick={()=> this.props.history.push('/mypage')}>
                                         <h4 className="department-title">계정</h4>
                                     </a>
+                                    <div>
+                                    <img src={userIcon} alt='userIcon' ></img>
+                                    </div>
+                                    <div>
+                                        <button  onClick={()=> this.props.history.push('/mypage')}>내 정보</button>
+                                        <button onClick={()=> this.props.history.push('/')}>로그아웃</button>
+                                    </div>
+                                    <div></div>
                                 </div>
                             </div>
                             <div className="single-features text-center mt-30" style={{padding:'0px'}}>
@@ -280,7 +290,7 @@ returnTag = () => {
                         </div>
                         
                         <div className="row col-lg-7">
-                            <div className="col-lg-4 col-md-8">
+                            <div className="col-lg-4 col-md-8" >
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
                                         <a onClick={() => this.GotoCategory("자유게시판")}><h4 className="department-title">자유게시판</h4></a>
@@ -534,7 +544,7 @@ returnTag = () => {
                                         </p>
                                     </div>
                                     <div className="department-content text-center">
-                                        <h4 className="department-title">
+                                        <h4 className="department-title" >
                                             HOT 게시물                                          
                                         </h4>
                                         <table className="table-board">
@@ -542,7 +552,7 @@ returnTag = () => {
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 👍{hot.board_like}📄{hot.commentcount}</a>
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️ {hot.commentcount}</a>
                                                 </tr>
                                                 )}
                                             </tbody>

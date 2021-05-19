@@ -19,18 +19,21 @@ class HeaderComponent extends Component {
                                 
 
                                 <nav className="navbar navbar-expand-lg" style={{ width: "100%" }}>
-                                    <a className="navbar-brand" href="http://localhost:3000/home" ><img src={mypic} alt='mypic' />덕분에 </a>
+                                    <a className="navbar-brand" href="http://localhost:3000/home" ><img src={mypic} alt='mypic' style={{width:"50px"}} />덕분에 </a>
                                         <div className="collapse navbar-collapse sub-menu-bar">
                                             <ul className="navbar-nav ml-auto">
                                            
                                            
                                            
-                                                <li className="nav-item"><a href="http://localhost:3000/category-board/자유게시판">자유게시판</a></li>
-                                                <li className="nav-item"><a>병원</a>
+                                                {/* <li className="nav-item"><a href="http://localhost:3000/category-board/자유게시판">자유게시판</a></li> */}
+                                                <li className="nav-item"><a>게시판</a>
                                                     <button className="sub-nav-toggler">
                                                         <i className="lni-chevron-down"></i>
                                                     </button>
                                                     <ul className="sub-menu">
+                                                    <li>
+                                                            <a href="http://localhost:3000/category-board/자유게시판">자유게시판</a>
+                                                        </li>
                                                         <li>
                                                             <a href="http://localhost:3000/category-board/정형외과">정형외과</a>
                                                         </li>
