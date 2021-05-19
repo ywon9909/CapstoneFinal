@@ -80,6 +80,14 @@ public class BoardController {
     public List<Board> getHotBoard(){
         return  boardService.getHotBoard();
     }
+    @GetMapping("/board/allhot")
+    public List<Board> getAllHotBoard(){
+        return  boardService.getAllHotBoard();
+    }
+    @GetMapping("/board/allhot/{category}")
+    public List<Board> getCategoryHotBoard(@PathVariable String category){
+        return  boardService.getCategoryHotBoard(category);
+    }
     @GetMapping("/board/ptag")
     public List getPopularTag(){
         return boardService.getPopularTag();
@@ -92,6 +100,11 @@ public class BoardController {
     @GetMapping("/board/recentboard/{category}")
     public List<Board> getRecentBoard(@PathVariable String category){
         return boardService.getRecentBoard(category);
+    }
+
+    @GetMapping("/board/searchtag/{tag}")
+    public List<Board> getsearchtag(@PathVariable String tag){
+        return boardService.SearchTag(tag);
     }
 
 
