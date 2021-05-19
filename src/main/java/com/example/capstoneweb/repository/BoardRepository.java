@@ -39,6 +39,11 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
  public final static String SELECT_HOT_BOARD=""
          +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          +"FROM board "
+         +"where board_like>10 limit 3"
+         ;
+ public final static String SELECT_ALL_HOT_BOARD=""
+         +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+         +"FROM board "
          +"where board_like>10 "
          ;
 
@@ -72,6 +77,12 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
          +"or tag5 in (?1,?2,?3,?4,?5) "
          +"order by score desc " +
          "limit 5";
+//select * from board where category="성형외과" and board_like>10
+public final static String GET_CATEGORY_HOT=""
+        +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+        +"FROM board "
+        +"where category =?1 and board_like>10 "
+        ;
 
  public final static String SELECT_RECENT_BOARD=""
          +"select * from board "
@@ -81,6 +92,16 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
  public final static String SELECT_FINE_BOARD=""
          +"select count(*) from boardliketo "
          +"where  board_no=?1 and username=?2";
+
+
+
+ public final static String SEARCH_TAG=""
+         +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+         +"FROM board "
+         +"where tag1 = ?1 or tag2 = ?1 or tag3 = ?1 or tag4=?1 or tag5=?1";
+
+ @Query(value = SEARCH_TAG, nativeQuery = true)
+ List<Board> SearchTag(final String tag);
 
  @Query(value = SELECT_FINE_BOARD, nativeQuery = true)
  String findboardLike(
@@ -112,7 +133,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
  @Query(value = SELECT_HOT_BOARD, nativeQuery = true)
  List<Board> findHotBoard();
-
+ @Query(value = SELECT_ALL_HOT_BOARD, nativeQuery = true)
+ List<Board> findAllHotBoard();
  @Query(value = SELECT_POPULAR_TAG, nativeQuery = true)
  List findPopularTag();
 
@@ -121,4 +143,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
  @Query(value = SELECT_RECENT_BOARD, nativeQuery = true)
  List<Board> findRecentBoard(String category);
+
+ @Query(value = GET_CATEGORY_HOT, nativeQuery = true)
+ List<Board> findCategoryHotBoard(String category);
+
+
 }
