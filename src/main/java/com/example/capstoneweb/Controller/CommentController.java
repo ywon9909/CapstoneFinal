@@ -58,9 +58,6 @@ public class CommentController {
     public commentliketo createCommentlike(@RequestBody commentliketo commentliketo){
         return commentService.createCommentlike(commentliketo);
     }
-    @GetMapping("/board/mycomment/{id}")
-    public List<Comment> getMyComment(@PathVariable String id){
-        return commentService.getMyComment(id);
-    }
+
 
 }

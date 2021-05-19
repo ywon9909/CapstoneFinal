@@ -123,4 +123,8 @@ public class BoardController {
     public boardliketo createboardlike(@RequestBody boardliketo boardliketo){
         return boardService.createboardlike(boardliketo);
     }
+    @GetMapping("/board/mycomment/{id}")
+    public List<Board> getMyComment(@PathVariable String id){
+        return boardService.getMyComment(id);
+    }
 }

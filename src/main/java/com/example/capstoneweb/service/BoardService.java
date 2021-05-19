@@ -140,4 +140,7 @@ public class BoardService {
     public List<Board> getMyBoard(String id) {
         return boardRepository.findMyBoard(id);
     }
+    public List<Board> getMyComment(String id) {
+        return boardRepository.findMyComment(id);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.capstoneweb.service;
 
 import com.example.capstoneweb.exception.ResourceNotFoundException;
+import com.example.capstoneweb.model.Board;
 import com.example.capstoneweb.model.Comment;
 import com.example.capstoneweb.model.commentliketo;
 import com.example.capstoneweb.repository.CommentRepository;
@@ -58,7 +59,5 @@ public class CommentService {
         return commentRepository.findcommentLike(num,username);
     }
 
-    public List<Comment> getMyComment(String id) {
-        return commentRepository.findMyComment(id);
-    }
+
 }

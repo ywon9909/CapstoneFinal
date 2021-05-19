@@ -24,10 +24,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer>{
             +"select count(*) from commentliketo "
             +"where  comment_no=?1 and username=?2";
 
-    public final static String SELECT_MY_COMMENT=""
-            +"SELECT * FROM comment "
-            +"where comment_id = ?1 "
-            +"order by board_no desc;";
+
 
 
     //  WHERE board_no=1
@@ -39,6 +36,5 @@ public interface CommentRepository extends JpaRepository<Comment, Integer>{
    String findcommentLike(
             final Integer comment_no,
             final String username);
-    @Query(value = SELECT_MY_COMMENT, nativeQuery = true)
-    List<Comment> findMyComment(String id);
+
 }
