@@ -1,6 +1,29 @@
 import React, { Component, useState } from 'react';
 import BoardService from '../service/BoardService';
+import Slider from "react-slick";
 import userIcon from '../assets/images/user-icon.png';
+import { yellow } from '@material-ui/core/colors';
+function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block",color:'yellow'}}
+        onClick={onClick}
+      />
+    );
+  }
+  
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "green" }}
+        onClick={onClick}
+      />
+    );
+  }
 class HomeComponent extends Component {
 
 
@@ -208,27 +231,22 @@ class HomeComponent extends Component {
             });
         });
     }
-   returnTAG(tagz){
-
-        console.log("this.is tags"+tagz)
+    returnTag = () => {
+        const tag= this.state.tags+""
+        console.log("string"+ tag)
+          let str01 =tag.split(",");
     
-  
-        const tags = tagz + ""
-        let ys = tags.split(","); //날짜 , 시간.00:00:00
-       
-
-        return(<a className="hot">
-            #{this.state.tags[2]}<br/> 
-            </a>
-            /*
-#{this.state.str01[0]}<br/> 
-#{this.state.str01[2]}<br/>
-#{this.state.str01[4]}<br/>
-#{this.state.str01[6]}<br/>
-#{this.state.str01[8]}
-*/
-        )
-   }
+           return (
+                <div>
+                  <a className="homecategory" onClick={() => this.searchtag(str01[0])} > #{str01[0]} </a><br/> 
+                  <a className="homecategory" onClick={() => this.searchtag(str01[2])} >#{str01[2]}</a><br/> 
+                  <a className="homecategory" onClick={() => this.searchtag(str01[4])} > #{str01[4]}</a><br/> 
+                  <a  className="homecategory" onClick={() => this.searchtag(str01[6])} > #{str01[6]}</a><br/> 
+                  <a className="homecategory" onClick={() => this.searchtag(str01[8])} > #{str01[8]}</a><br/> 
+               </div>
+           )
+    
+    }
 
 
    getPopularTag(){
@@ -236,25 +254,24 @@ class HomeComponent extends Component {
     this.returnTag()
 }
 
-returnTag = () => {
-    const tag= this.state.tags+""
-    console.log("string"+ tag)
-      let str01 =tag.split(",");
 
-       return (
-            <a >
-               #{str01[0]}<br/> 
-               #{str01[2]}<br/>
-               #{str01[4]}<br/>
-               #{str01[6]}<br/>
-               #{str01[8]}
-           </a>
-       )
-
+searchtag(tag) {
+    this.props.history.push(`/SearchTagComponent/${tag}`);
+}
+AllHotBoard() {
+    this.props.history.push(`/Allhotboard`);
 }
 
-
     render() {
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            //nextArrow: <SampleNextArrow />,
+            //prevArrow: <SamplePrevArrow />
+          };
         return (
             <body >
                 <div class="container-fluid" >
@@ -268,18 +285,28 @@ returnTag = () => {
                                     <div>
                                     <img src={userIcon} alt='userIcon' ></img>
                                     </div>
-                                    <div>
-                                        <button  onClick={()=> this.props.history.push('/mypage')}>내 정보</button>
-                                        <button onClick={()=> this.props.history.push('/')}>로그아웃</button>
+                                    <div >
+                                        <button className="mybtn" onClick={()=> this.props.history.push('/mypage')} >내 정보</button>
+                                        <button className="mybtn" onClick={()=> this.props.history.push('/')} >로그아웃</button>
                                     </div>
-                                    <div></div>
+                                    
+                                </div>
+                            </div>
+                            <div className="single-features text-center mt-30">
+                                <div className="department-content text-center">
+                                    <h5 >내가 쓴 글</h5>
+                                </div>
+                            </div>
+                            <div className="single-features text-center mt-30">
+                                <div className="department-content text-center">
+                                    <h5>내가 쓴 댓글</h5>
                                 </div>
                             </div>
                             <div className="single-features text-center mt-30" style={{padding:'0px'}}>
                                 <div className="department-content text-center">
 
 
-                                    <h4 style={{padding:'0px'}} className="department-title" a onClick={() => this.GotoAdminpage()}> <img className="image" src={require('../../src/image/ad5.jpg' ).default} /></h4>
+                                    <h4 style={{padding:'0px'}} className="department-title" a onClick={() => this.GotoAdminpage()}> <img className="image" src={require('../../src/image/ad3.png').default} style={{height:"150px"}}/></h4>
 
                                   
                                 </div>
@@ -289,7 +316,206 @@ returnTag = () => {
                            
                         </div>
                         
-                        <div className="row col-lg-7">
+                        <div class="col-lg-7" style={{ padding:"30px" ,border:"1px solid #bad1e6",textAlign:"center"}}>
+                            <Slider {...settings}>
+                            <div style={{textAlign:"center"}}>
+                                <h3 onClick={() => this.GotoCategory("자유게시판")} className="mousecursor">자유게시판</h3>
+                                <table className="hometable">
+                                    <tbody >
+                                        {this.state.boards1.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table>
+                                <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
+                                <h3 onClick={() => this.GotoCategory("정형외과")} className="mousecursor">정형외과</h3>
+                                <table  className="hometable">
+                                    <tbody>
+                                        {this.state.boards2.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table>
+                                <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
+                                <h3 onClick={() => this.GotoCategory("신경외과")} className="mousecursor">신경외과</h3>
+                                <table  className="hometable">
+                                    <tbody>
+                                        {this.state.boards3.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table> 
+                            </div>
+                           
+                            
+                            <div>
+                                <h3 onClick={() => this.GotoCategory("비뇨기과")} className="mousecursor">비뇨기과</h3>
+                                <table className="hometable">
+                                    <tbody>
+                                        {this.state.boards4.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table>
+                                <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
+                                <h3 onClick={() => this.GotoCategory("성형외과")} className="mousecursor">성형외과</h3>
+                                <table className="hometable">
+                                    <tbody>
+                                        {this.state.boards5.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table> 
+                                <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
+                                <h3 onClick={() => this.GotoCategory("한방과")} className="mousecursor">한방과</h3>
+                                <table className="hometable">
+                                    <tbody>
+                                        {this.state.boards6.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table>   
+                            </div>
+                            <div>
+                                <h3 onClick={() => this.GotoCategory("피부과")} className="mousecursor">피부과</h3>
+                                <table className="hometable">
+                                    <tbody>
+                                        {this.state.boards7.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table> 
+                                <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
+                                <h3 onClick={() => this.GotoCategory("내과")} className="mousecursor">내과</h3>
+                                <table className="hometable">
+                                    <tbody >
+                                        {this.state.boards8.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table>
+                                <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />  
+                                <h3 onClick={() => this.GotoCategory("치과")} className="mousecursor">치과</h3>
+                                <table className="hometable">
+                                    <tbody>
+                                        {this.state.boards9.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table>  
+                            </div>
+                            <div>
+                                <h3 onClick={() => this.GotoCategory("이비인후과")} className="mousecursor"> 이비인후과</h3>
+                                <table className="hometable">
+                                    <tbody>
+                                        {this.state.boards10.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table> 
+                                <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
+                                <h3 onClick={() => this.GotoCategory("소아과")} className="mousecursor">소아과</h3>
+                                <table className="hometable">
+                                    <tbody>
+                                        {this.state.boards11.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table>
+                                <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
+                                <h3 onClick={() => this.GotoCategory("안과")} className="mousecursor">안과</h3>
+                                <table className="hometable">
+                                    <tbody>
+                                        {this.state.boards12.map(
+                                            board =>
+                                                <tr className="tr">
+                                                    <a  onClick={()=>this.readBoard(board.board_no)}>{board.title}</a> 
+                                                </tr>
+                                                )}
+                                    </tbody> 
+                                </table>    
+                            </div>
+
+                            </Slider>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="text" placeholder="검색하기"
+                                            name="search" value={this.state.search}
+                                            className="form-control" onChange={this.handleSearchChange} />
+                                    </td>
+                                    <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
+                                </tr>
+                            </table>
+                            <div >
+                                <div className="single-department-two mt-30">
+                                    <div className="department-content text-center">
+                                        <h4 className="department-title">
+                                            #인기태그
+                                            </h4>
+                                        <p className="text">
+                                       
+                                        {this.returnTag()}     
+          
+                                        </p>
+                                    </div>
+                                    <div className="department-content text-center">
+                                        <h4 className="department-title" onClick={()=>this.AllHotBoard()} >
+                                            HOT 게시물                                          
+                                        </h4>
+                                        <table className="table-board">
+                                            <tbody>
+                                                {this.state.hots.map(
+                                                hot =>
+                                                <tr className="tr">
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️ {hot.commentcount}</a>
+                                                </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="row col-lg-12">
                             <div className="col-lg-4 col-md-8" >
                                 <div className="single-features text-center mt-30">
                                     <div className="department-content text-center">
@@ -518,51 +744,7 @@ returnTag = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-3">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <input type="text" placeholder="검색하기"
-                                            name="search" value={this.state.search}
-                                            className="form-control" onChange={this.handleSearchChange} />
-                                    </td>
-                                    <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
-                                </tr>
-                            </table>
-                            <div >
-                                <div className="single-department-two mt-30">
-                                    <div className="department-content text-center">
-                                        <h4 className="department-title">
-                                            #인기태그
-                                            </h4>
-                                        <p className="text">
-                                       
-                                        {this.returnTag()}     
-          
-                                        </p>
-                                    </div>
-                                    <div className="department-content text-center">
-                                        <h4 className="department-title" >
-                                            HOT 게시물                                          
-                                        </h4>
-                                        <table className="table-board">
-                                            <tbody>
-                                                {this.state.hots.map(
-                                                hot =>
-                                                <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️ {hot.commentcount}</a>
-                                                </tr>
-                                                )}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                        </div> */}
                 </div>
             </body >
         );

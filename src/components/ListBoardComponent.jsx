@@ -165,28 +165,37 @@ class ListBoardComponent extends Component {
         });
         this.returnTag()
     }
-    
+    searchtag(tag) {
+        this.props.history.push(`/SearchTagComponent/${tag}`);
+    }
     returnTag() {
         const tag= this.state.tags+""
         console.log("string"+tag)
           let str01 =tag.split(",");
     
            return (
-                <a >
-                   #{str01[0]}<br/> 
-                   #{str01[2]}<br/>
-                   #{str01[4]}<br/>
-                   #{str01[6]}<br/>
-                   #{str01[8]}
-               </a>
+            <div>
+            <a className="homecategory" onClick={() => this.searchtag(str01[0])} > #{str01[0]} </a><br/> 
+            <a className="homecategory" onClick={() => this.searchtag(str01[2])} >#{str01[2]}</a><br/> 
+            <a className="homecategory" onClick={() => this.searchtag(str01[4])} > #{str01[4]}</a><br/> 
+            <a  className="homecategory" onClick={() => this.searchtag(str01[6])} > #{str01[6]}</a><br/> 
+            <a className="homecategory" onClick={() => this.searchtag(str01[8])} > #{str01[8]}</a><br/> 
+         </div>
            )
 
     }
+
+
+gotoListBoard(category){
+    this.props.history.push(`/Categoryhotboard/${category}`);
+}
+   
     write(){
         if(this.state.category != '공지사항'){
 return(
     <div >
-                    <button className="main-btn" onClick={this.createBoard}>글 작성</button>
+                   <button className="main-btn" onClick={() => this.gotoListBoard
+(this.state.category)} >Hot</button><button className="main-btn">목록</button> <button className="main-btn" onClick={this.createBoard} >글 작성</button>
                     </div>
 );
         }
@@ -194,6 +203,7 @@ return(
             return(<div><h3>📣공지사항 한번씩 확인해주세요~📣</h3></div>);
         }
     }
+
     showlist(){
         if(this.state.category != '공지사항'&& this.state.category != '자유게시판'&& this.state.category != '홍보게시판'){
             return(<h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}><a onClick={() => this.listBoard(this.state.category, 1)}><u>📃 게시판</u></a></h2>);
@@ -215,6 +225,9 @@ return(
             )
         }
    }
+   AllHotBoard() {
+    this.props.history.push(`/Allhotboard`);
+}
     render() {
 
         return (
@@ -303,7 +316,7 @@ return(
                                         </div>
                                         <div className="department-content text-center">
                                             <h4 className="department-title">
-                                                HOT 게시물
+                                            <a className="hot" onClick={()=>this.AllHotBoard()}>  HOT 게시물   </a>    
                                             </h4>
                                         <table className="table-board">
                                             <tbody>

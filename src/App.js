@@ -2,7 +2,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/style.css'
-//import './assets/css/tabler.css'
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ListBoardComponent from './components/ListBoardComponent';
 import HeaderComponent from './components/HeaderComponent';
@@ -19,6 +19,9 @@ import MyPageComponent from './components/MyPageComponent';
 import ManageComponent from './components/ManageComponent';
 import FindIdPwComponent from './components/FindIdPwComponent';
 import SignupComponent from './components/SignupComponent';
+import AllHotBoardComponent from './components/AllHotBoardComponent';
+import CategoryHotBoardComponent from './components/CategoryHotBoardComponent';
+import SearchTagComponent from './components/SearchTagComponent';
 
 function App() {
   return (
@@ -45,6 +48,9 @@ function App() {
             <Route path="/manage" component={ManageComponent}></Route>
             <Route path="/find" component={FindIdPwComponent}></Route>{/*Id/Pw 찾기 */}
             <Route path="/Signup" component={SignupComponent}></Route> {/*성공페이지 */}
+            <Route path="/Allhotboard" component={AllHotBoardComponent}></Route> {/*성공페이지 */}
+            <Route path="/Categoryhotboard/:category" component={CategoryHotBoardComponent}></Route> {/*성공페이지 */}
+            <Route path="/SearchTagComponent/:tag" component={SearchTagComponent}></Route> {/*성공페이지 */}
           </Switch>
          
          

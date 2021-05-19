@@ -250,20 +250,22 @@ class ReadBoardComponent extends Component {
         this.props.history.push(`/search-board/${search}`);
 
     }
-    
+    searchtag(tag) {
+        this.props.history.push(`/SearchTagComponent/${tag}`);
+    }
     returnTag = () => {
         const tag = this.state.tags + ""
         console.log("this is hot" + tag)
         let str01 = tag.split(",");
 
         return (
-            <a>
-                #{str01[0]}<br />
-                   #{str01[2]}<br />
-                   #{str01[4]}<br />
-                   #{str01[6]}<br />
-                   #{str01[8]}
-            </a>
+            <div>
+            <a className="homecategory" onClick={() => this.searchtag(str01[0])} > #{str01[0]} </a><br/> 
+            <a className="homecategory" onClick={() => this.searchtag(str01[2])} >#{str01[2]}</a><br/> 
+            <a className="homecategory" onClick={() => this.searchtag(str01[4])} > #{str01[4]}</a><br/> 
+            <a  className="homecategory" onClick={() => this.searchtag(str01[6])} > #{str01[6]}</a><br/> 
+            <a className="homecategory" onClick={() => this.searchtag(str01[8])} > #{str01[8]}</a><br/> 
+         </div>
         )
 
     }
@@ -440,6 +442,9 @@ console.log("comment like is "+ commentlike +"is that")
          }
         
      }
+     AllHotBoard() {
+        this.props.history.push(`/Allhotboard`);
+    }
     render() {
         return (
 
@@ -521,7 +526,7 @@ console.log("comment like is "+ commentlike +"is that")
                                     </div>
                                     <div className="department-content text-center">
                                         <h4 className="department-title">
-                                            HOT 게시물
+                                        <a className="hot" onClick={()=>this.AllHotBoard()}>  HOT 게시물   </a>    
                                             </h4>
                                             <table className="table-board">
                                             <tbody>

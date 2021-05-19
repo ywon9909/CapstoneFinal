@@ -1,40 +1,58 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
 
-class SearchPageComponent extends Component {
+
+class CategoryHotBoardComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            category: props.match.params.category,
             boards: [],
-            search: props.match.params.search,
-            hots:[]
+            search: "",
+            hots: [],
+            tags:"",
+            tag:""
+
         }
+        this.createBoard = this.createBoard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
-       
+        this.handleSearchtag = this.handleSearchtag.bind(this);
         this.getHotBoard();
         this.getPopularTag();
+        this.searchtag();
     }
 
+    componentDidMount() {
+        BoardService.getCategoryhotboard(this.state.category).then((res) => {
+            this.setState({
+           
+                boards: res.data
 
-    handleSearchChange = (event) => {
-        this.setState({ search: event.target.value });
+            });
+        })
     }
-    searchKeyWord = (event) => {
 
-        this.props.history.push(`/search-board/${this.state.search}`);
-        BoardService.searchBoard(this.state.search).then(res => {
+    createBoard() {
+        this.props.history.push('/create-board/_create');
+    }
+    readBoard(num) {
+        this.props.history.push(`/read-board/${num}`);
+    }
+    mapBoard(category) {
+        this.props.history.push(`/category-map/${category}`);
+    }
+
+    listBoard(category, p_num) {
+        console.log("pageNum : " + p_num);
+        BoardService.getBoards(category, p_num).then((res) => {
+            console.log(res.data);
             this.setState({
                 boards: res.data
             });
         });
-
+        //this.props.history.push(`?p_num=${p_num}`);
     }
-    clearbtn = (event) => {
-        this.setState({ search: '' });
 
-    }
-   
     returnDate(board_date) {
         const dateString = board_date + ""
         let y = dateString.split("T"); //날짜 , 시간.00:00:00
@@ -44,19 +62,45 @@ class SearchPageComponent extends Component {
         let hhmmss = tt[0];
         return (
             <div style={{ display: 'inline' }}>
-            {yymmdd}, {hhmmss} 
-           </div>
+                 {yymmdd}, {hhmmss} 
+                </div>
         )
     }
-    readBoard(num) {
-        this.props.history.push(`/read-board/${num}`);
+
+
+    mapPage() {
+        if (this.state.category != "자유게시판" && this.state.category != "홍보게시판" &&this.state.category !="건의사항" &&this.state.category != "공지사항") {
+            return (
+                <h2 style={{ fontWeight: 'bold', display: "inline" }}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
+
+            )
+
+        }
+
+
     }
-    getHotBoard(){
-        BoardService.getHotBoard().then((res)=>{
+    handleSearchChange = (event) => {
+        this.setState({ search: event.target.value });
+    }
+    handleSearchtag = (event) => {
+        this.setState({ tag: event.target.value });
+    }
+    searchKeyWord(search) {
+        this.props.history.push(`/search-board/${search}`);
+
+    }
+    clearbtn = (event) => {
+        this.setState({ search: '' });
+
+    }
+
+ 
+    getHotBoard() {
+        BoardService.getHotBoard().then((res) => {
             this.setState({
-                hots : res.data
+                hots: res.data
             });
-            
+
         });
     }
     getPopularTag(){
@@ -69,7 +113,8 @@ class SearchPageComponent extends Component {
         });
         this.returnTag()
     }
-      searchtag(tag) {
+    searchtag (tag) {
+
         this.props.history.push(`/SearchTagComponent/${tag}`);
     }
     returnTag() {
@@ -88,25 +133,80 @@ class SearchPageComponent extends Component {
            )
 
     }
-    AllHotBoard() {
-        this.props.history.push(`/Allhotboard`);
+
+ 
+getCategoryhot(category){
+    this.props.history.push(`/category-board/${category}`);
+}
+    write(){
+        if(this.state.category != '공지사항'){
+return(
+    <div >
+         <button className="main-btn">Hot</button><button  className="main-btn" onClick={()=>this.getCategoryhot(this.state.category)}>목록</button> <button className="main-btn" onClick={this.createBoard} >글 작성</button>
+                    </div>
+);
+        }
+        else {
+            return(<div><h3>📣공지사항 한번씩 확인해주세요~📣</h3></div>);
+        }
+        
     }
+
+    showlist(){
+        if(this.state.category != '공지사항'&& this.state.category != '자유게시판'&& this.state.category != '홍보게시판'){
+            return(<h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}><a onClick={() => this.listBoard(this.state.category, 1)}><u>📃 게시판</u></a></h2>);
+ 
+        }
+        else{
+            return(<a>
+
+            </a>)
+        }
+   }
+   showLikeComment(like,comment){
+       if(this.state.category != '공지사항' && this.state.category != '홍보게시판')
+        {
+            return(
+                <div style={{display: "inline",position: "absolute",  right: "5%" }}>
+                    🤍{like} 🗨️{comment}                                                              
+                </div>
+            )
+        }
+   }
+
+   AllHotBoard() {
+    this.props.history.push(`/Allhotboard`);
+}
     render() {
+
         return (
-           
-            <div  class="container-fluid">
-                
-                <h2 style={{textAlign:'center'}}>" {this.state.search} " &nbsp;&nbsp; 검색</h2><br/>
-                <div class="row">
+            <div>
+
+
+
+                <div>
+                    <h2 className="text-center"  >{this.state.category}
+                        <br></br>{this.showlist()} &nbsp;&nbsp;
+                        {this.mapPage()}
+                    </h2>
+
+
+
+                </div>
+
+                {/* 글작성, 게시물 div*/}
+
+                <div class="container-fluid" >
+                    {this.write()}
+                    <div class="row">
                         <div class="col-lg-9">
                         <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
-                       
-                        {
+                                        {
                                             this.state.boards.map(
                                                 board =>
                                                 <div >
-                                             
-                                                    <div key={board.board_no} style={{ borderRadius:"10px"}}>
+                                                        
+                                                    <div key={board.board_no} style={{ padding: "5px", borderRadius:"10px"}}>
 
                                                             <div><a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
                                                             </div>
@@ -118,12 +218,12 @@ class SearchPageComponent extends Component {
                                                             &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
                                                             {board.id}
                                                             </div>
-                                                            <div style={{display: "inline",position: "absolute",  right: "5%" }}>
-                                                                🤍{board.board_like} 🗨️{board.commentcount}
                                                             
-                                                            </div>
+                                                                {this.showLikeComment(board.board_like,board.commentcount)}
+                                                            
                                                             <hr style={{ width: "100%", border: "1px solid #bad1e6"}} />
                                                     </div>
+                                                    
                                                </div>   
                                             )
                                         }
@@ -131,6 +231,11 @@ class SearchPageComponent extends Component {
                             
                             
                         </div>{/* 글작성, 게시물 div*/}
+
+
+
+
+
                         <div class="col-lg-3">
                             <div >{/* 검색, 태그 div*/}
                                 <table>
@@ -167,7 +272,7 @@ class SearchPageComponent extends Component {
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️{hot.commentcount}</a>
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like}🗨️ {hot.commentcount}</a>
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -178,10 +283,17 @@ class SearchPageComponent extends Component {
                                 </div>
                             </div>{/* 검색, 태그 div*/}
                         </div>
+
+
+                   
+                      
+                    </div>
                 </div>
+
             </div>
+
         );
     }
 }
 
-export default SearchPageComponent;
+export default CategoryHotBoardComponent;
