@@ -9,7 +9,7 @@ class ReadBoardComponent extends Component {
             num: props.match.params.num,
             board: {},
             comments: [],
-            answer: '',
+            answer: null,
             comment_date: Date.now(),
             search: props.match.params.search,
             Member: {}, //1
@@ -106,14 +106,15 @@ class ReadBoardComponent extends Component {
             comment_date: this.state.comment_date,
             comment_like: 0
         };
-
-        BoardService.createComment(comment).then(res => {
-            window.location.replace('/read-board/' + this.state.num);
-            //this.props.history.push('/read-board/'+this.state.num);
-        });
-
-
-
+        if(comment.answer != null){
+            BoardService.createComment(comment).then(res => {
+                window.location.replace('/read-board/' + this.state.num);
+                //this.props.history.push('/read-board/'+this.state.num);
+            });
+        }
+        else{
+            window.alert("댓글을 작성해주세요")
+        }
     }
 
     returnBoardType(category) {
@@ -226,6 +227,7 @@ class ReadBoardComponent extends Component {
         }
     }
     deleteComment = async function (comment_no) {
+        window.alert("댓글을 삭제하시겠습니까?\n삭제된 댓글은 복수할 수 없습니다.")
         BoardService.deleteComment(comment_no).then(res => {
             console.log("delete result => " + JSON.stringify(res));
             if (res.status === 200) {
@@ -312,7 +314,7 @@ class ReadBoardComponent extends Component {
                                         &nbsp;&nbsp;&nbsp;&nbsp; <h5>{comment.comment_id}</h5> &nbsp;  &nbsp; &nbsp; {this.returnDate(comment.comment_date)}
                                         <br />
                                         <div style={{ position: "absolute", top: "0px", right: "5%" }}>
-                                         <a onClick={() => this.updateComment(comment.comment_date,comment.comment_id,comment.answer,comment.comment_like,comment.comment_no,this.state.id,)}>👍{comment.comment_like}</a>
+                                         <a onClick={() => this.updateComment(comment.comment_date,comment.comment_id,comment.answer,comment.comment_like,comment.comment_no,this.state.id,)}>🤍{comment.comment_like}</a>
                                          
                                         &nbsp;&nbsp;&nbsp;
                                         {this.checkidcomment(comment.comment_id,comment.comment_no)}
@@ -423,16 +425,16 @@ console.log("comment like is "+ commentlike +"is that")
          if(this.state.id == boardid){
             return(
                 <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
-                {<button className="main-btn" onClick={this.likeboard} >👍{this.state.board.board_like}</button>}
+                {<button className="main-btn" onClick={this.likeboard} >🤍{this.state.board.board_like}</button>}
                 <button className="main-btn" onClick={this.goToUpdate} >글 수정</button>
                 <button className="main-btn-cancle" onClick={() => this.deleteView()} >글 삭제</button>
                 </div>
              )
          }
-         else {
+         else if(this.state.board.category != '홍보게시판'&&this.state.board.category != '공지사항'&& this.state.board.category !="건의사항"){
              return(
                 <div style={{ position: "absolute", bottom: "10px", right: "5%" }}>
-                {<button className="main-btn" onClick={this.likeboard} >👍{this.state.board.board_like}</button>}
+                {<button className="main-btn" onClick={this.likeboard} >🤍{this.state.board.board_like}</button>}
                 </div>
              )
          }
@@ -526,7 +528,7 @@ console.log("comment like is "+ commentlike +"is that")
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 👍{hot.board_like}📄{hot.commentcount}</a>
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️{hot.commentcount}</a>
                                                 </tr>
                                                 )}
                                             </tbody>
@@ -543,7 +545,7 @@ console.log("comment like is "+ commentlike +"is that")
                                                 simi =>
                                                 <tr className="tr">
                                                     <a className="hot" onClick={() => this.readBoard(simi.board_no)}>{simi.title}
-                                                        👍{simi.board_like}📄{simi.commentcount}</a></tr>)
+                                                        🤍{simi.board_like} 🗨️{simi.commentcount}</a></tr>)
                                             }
                                             </tbody>
                                         </table>              

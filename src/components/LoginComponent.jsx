@@ -58,32 +58,9 @@ class LoginComponent extends Component {
       })
       .catch((error) => {
         console.log("error");
+        window.alert("아이디나 비밀번호가 다릅니다")
       });
-    // axios
-    //   .post("http://localhost:8080/authenticate", reqBody)
-    //   .then((response) => {
-    //     const history = this.props.history;
-
-    //     AuthService.login(
-    //       () => {
-    //         history.push("/home");
-    //       },
-    //       response.data.token,
-    //       response.data.firstName,
-    //       response.data.credentials
-    //     );
-    //     this.setState({
-    //       loggedIn: true,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     this.setState({
-    //       username: "",
-    //       password: "",
-    //       error: true,
-    //     });
-    //   });
+   
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });

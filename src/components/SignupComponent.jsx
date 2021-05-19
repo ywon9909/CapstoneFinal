@@ -35,7 +35,7 @@ class SignupComponent extends Component {
     } 
     gotoHome2 = (event) => {
         event.preventDefault();
-    let usernames;
+        let usernames;
         console.log(this.state.radioGroup);
         if(this.state.radioGroup == "Doctor"){
             usernames = "Doc"+ this.state.username
@@ -49,12 +49,19 @@ class SignupComponent extends Component {
             roles:'ROLE_USER',
             active:true
         };
+        if(User.username==null || User.username.length<5 || User.username.length>20){
+            window.alert("ID는 5~20자 이어야 합니다")
+        }
+        else if(User.password==null || User.password.length<5 || User.password.length>20){
+            window.alert("Password는 5~20자 이어야 합니다")
+        }
 
-
-        BoardService.SignUp(User).then(res =>{
-            this.props.history.push('/');
-            
-        });
+        else{
+            BoardService.SignUp(User).then(res =>{
+                this.props.history.push('/');
+                window.alert("회원가입에 성공했습니다")
+            });
+        }   
       
     
 } 
@@ -81,10 +88,10 @@ class SignupComponent extends Component {
                                     <div className="about-form">
                                        
                           
-                                      <input type="text" placeholder="ID" name="id" 
+                                      <input type="text" placeholder="ID는 5~20자" name="id" 
                                        onChange={this.handleIdChange} ></input>
 
-                                           <input type="text" placeholder="PW" name="pw" onChange={this.handlePw}></input>
+                                           <input type="text" placeholder="PW는 5~20자" name="pw" onChange={this.handlePw}></input>
                                           
                                            <input type="radio"  style={{display: "inline"}}
                 name="radioGroup"
