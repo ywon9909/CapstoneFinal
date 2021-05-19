@@ -26,6 +26,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer>{
 
 
 
+
     //  WHERE board_no=1
     @Query(value = SELECT_COMMENT, nativeQuery = true)
     List<Comment> findCommentBy(Integer num);
@@ -35,4 +36,5 @@ public interface CommentRepository extends JpaRepository<Comment, Integer>{
    String findcommentLike(
             final Integer comment_no,
             final String username);
+
 }
