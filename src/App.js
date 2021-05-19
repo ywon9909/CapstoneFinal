@@ -22,7 +22,7 @@ import SignupComponent from './components/SignupComponent';
 import AllHotBoardComponent from './components/AllHotBoardComponent';
 import CategoryHotBoardComponent from './components/CategoryHotBoardComponent';
 import SearchTagComponent from './components/SearchTagComponent';
-
+import PrivateComponent from './components/PrivateComponent';
 function App() {
   return (
     <div>
@@ -51,6 +51,7 @@ function App() {
             <Route path="/Allhotboard" component={AllHotBoardComponent}></Route> {/*성공페이지 */}
             <Route path="/Categoryhotboard/:category" component={CategoryHotBoardComponent}></Route> {/*성공페이지 */}
             <Route path="/SearchTagComponent/:tag" component={SearchTagComponent}></Route> {/*성공페이지 */}
+            <Route path="/PrivateComponent/:mode" component={PrivateComponent}></Route> {/*성공페이지 */}
           </Switch>
          
          
