@@ -100,6 +100,17 @@ public final static String GET_CATEGORY_HOT=""
          +"FROM board "
          +"where tag1 = ?1 or tag2 = ?1 or tag3 = ?1 or tag4=?1 or tag5=?1";
 
+ public final static String GET_MY_BOARD=""
+         +"SELECT * FROM board "
+         +"where id = ?1 "
+         +"order by board_no desc ";
+
+ public final static String SELECT_MY_COMMENT=""
+         +"SELECT b.board_no,b.title,b.question, b.board_date, b.board_like,b.category, b.id,b.tag1,b.tag2,b.tag3,b.tag4,b.tag5,b.filepath,b.commentcount " +
+         " FROM comment c,board b "
+         +"where c.comment_id = ?1 && b.board_no = c.board_no "
+         +"order by b.board_no desc ";
+
  @Query(value = SEARCH_TAG, nativeQuery = true)
  List<Board> SearchTag(final String tag);
 
@@ -147,5 +158,8 @@ public final static String GET_CATEGORY_HOT=""
  @Query(value = GET_CATEGORY_HOT, nativeQuery = true)
  List<Board> findCategoryHotBoard(String category);
 
-
+ @Query(value = GET_MY_BOARD,nativeQuery = true)
+ List<Board> findMyBoard(String id);
+ @Query(value = SELECT_MY_COMMENT, nativeQuery = true)
+ List<Board> findMyComment(String id);
 }

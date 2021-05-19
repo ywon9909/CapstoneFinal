@@ -136,4 +136,11 @@ public class BoardService {
     public String getboardliketo(Integer num,String username) {
         return boardRepository.findboardLike(num,username);
     }
+
+    public List<Board> getMyBoard(String id) {
+        return boardRepository.findMyBoard(id);
+    }
+    public List<Board> getMyComment(String id) {
+        return boardRepository.findMyComment(id);
+    }
 }
