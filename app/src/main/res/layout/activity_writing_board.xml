@@ -26,14 +26,6 @@
                 android:textStyle="bold"
                 android:padding="10dp"/>
             <Button
-                android:id="@+id/imageUploadButton"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:textSize="12dp"
-                android:layout_toStartOf="@+id/submit"
-                android:text="📷"
-                android:layout_margin="5dp"/>
-            <Button
                 android:id="@+id/submit"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
@@ -59,8 +51,9 @@
                 android:hint="제목"
                 android:inputType="textPersonName"
                 android:background="@drawable/edittext_rectangle"
-                android:textSize="14dp"
-                android:layout_margin="10dp"/>
+                android:textSize="28dp"
+                android:layout_margin="10dp"
+                android:padding="10dp"/>
 
             <EditText
                 android:id="@+id/editTextMultiLineBoard"
@@ -71,14 +64,31 @@
                 android:hint="여기를 눌러서 글을 작성할 수 있습니다."
                 android:inputType="textMultiLine"
                 android:background="@drawable/edittext_rectangle"
-                android:textSize="12dp"
-                android:layout_margin="10dp"/>
+                android:textSize="18dp"
+                android:layout_margin="10dp"
+                android:padding="10dp"/>
 
-            <ImageView
-                android:id="@+id/newImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                tools:srcCompat="@tools:sample/avatars" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/newImage"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <Button
+                    android:id="@+id/imageUploadButton"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toEndOf="@+id/newImage"
+                    android:text="📷"
+                    android:textSize="12dp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textView"

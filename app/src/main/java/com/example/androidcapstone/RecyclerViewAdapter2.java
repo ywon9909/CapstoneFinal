@@ -62,7 +62,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     public void onBindViewHolder(@NonNull RecyclerViewAdapter2.ViewHolder holder, int position) {
 
         holder.answer.setText(dataList.get(position).getAnswer());
-        holder.comment_id.setText("작성자 : " + dataList.get(position).getComment_id());
+        holder.comment_id.setText(" " + dataList.get(position).getComment_id());
         holder.comment_like_count.setText(String.valueOf(dataList.get(position).getComment_like()));
         //holder.comment_date.setText(dataList.get(position).getComment_date());
 

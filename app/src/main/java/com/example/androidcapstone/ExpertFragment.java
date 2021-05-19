@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +47,7 @@ public class ExpertFragment extends Fragment implements TextWatcher {
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
     Button button;
-    EditText editSearch;
-    TextView textView;
-
+    TextView category;
 
     static final String URL = "http://192.168.35.91:8080";
     //static final String URL = "http://223.194.158.215:8080";
@@ -58,6 +57,12 @@ public class ExpertFragment extends Fragment implements TextWatcher {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_expert, container, false);
+
+        ArticleBoard activity = (ArticleBoard) getActivity();
+        data = activity.getMyData();
+
+        category = (TextView) mView.findViewById(R.id.category);
+        category.setText(data);
 
         // 연필 모양 버튼 누르면 글 작성 액티비티로 넘어감
         button = (Button) mView.findViewById(R.id.write);
@@ -73,12 +78,7 @@ public class ExpertFragment extends Fragment implements TextWatcher {
             }
         });
 
-        //editSearch = (EditText)mView.findViewById(R.id.search);
         recyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
-
-
-        ArticleBoard activity = (ArticleBoard) getActivity();
-        data = activity.getMyData();
 
         /*
         retrofit = new Retrofit.Builder()
@@ -90,6 +90,8 @@ public class ExpertFragment extends Fragment implements TextWatcher {
 
         //jsonApi = retrofit.create(JsonApi.class);
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
+
+        String st = getUser();
 
         return loadStores();
     }
@@ -125,6 +127,29 @@ public class ExpertFragment extends Fragment implements TextWatcher {
 
         // Inflate the layout for this fragment
         return  mView;
+    }
+
+
+    // username 가져오기
+    private String getUser() {
+        final String[] str = new String[1];
+        Call<String> call = jsonApi.getUsername();
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()) {
+                    Log.i("ExpertFragment - username", response.body());
+                    str[0] = response.body();
+                } else {
+                    Log.e("ExpertFragment - getUsername", "Status Code " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("ExpertFragment - getUsername fail", t.getMessage());
+            }
+        });
+        return String.valueOf(str);
     }
 
     @Override

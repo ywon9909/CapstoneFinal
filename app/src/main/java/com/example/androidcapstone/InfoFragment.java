@@ -18,6 +18,9 @@ public class InfoFragment extends Fragment {
     TextView name;
     TextView type;
 
+    static final String URL = "http://192.168.35.91:8080";
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
