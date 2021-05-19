@@ -61,6 +61,7 @@ public class ArticleDetail extends AppCompatActivity {
 
     MenuItem menuItem;
 
+    TextView category;
     TextView user;
     TextView datetime;
     TextView title;
@@ -83,6 +84,11 @@ public class ArticleDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
+        // titlebar 없애기
+        ActionBar bar = getSupportActionBar();
+        bar.hide();
+
+        category = (TextView)findViewById(R.id.category);
         user = (TextView)findViewById(R.id.user);
         datetime = (TextView)findViewById(R.id.datetime);
         title = (TextView)findViewById(R.id.title);
@@ -101,8 +107,11 @@ public class ArticleDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        String c = intent.getExtras().getString("category");
+        category.setText(c);
+
         String id = intent.getExtras().getString("board_id");
-        user.setText("작성자 : " +id);
+        user.setText(" "+id);
 
         String mTitle = intent.getExtras().getString("title");
         title.setText(mTitle);

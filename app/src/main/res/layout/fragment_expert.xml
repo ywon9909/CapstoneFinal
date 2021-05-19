@@ -7,34 +7,25 @@
 
 
     <!-- TODO: Update blank fragment layout -->
-    <!--
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello_expert_fragment" />
-        -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!--
-    <EditText
-        android:id="@+id/search"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:textSize="15sp"
-        android:hint="검색" />
-        -->
-
-    <Button
-        android:id="@+id/write"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:text="✏ 글 등록 ✏"
-        android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="category"
+            android:id="@+id/category"
+            android:textSize="20dp"
+            android:padding="10dp"/>
+        <Button
+            android:id="@+id/write"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:text="글 등록"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <!--RecyclerView-->
@@ -45,8 +36,5 @@
         android:layout_alignParentBottom="true"
 
         android:scrollbars="vertical" />
-
-
-
 
 </LinearLayout>

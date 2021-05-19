@@ -17,8 +17,6 @@ import retrofit2.http.Query;
 
 public interface JsonApi {
 
-    static final String tr = ((Login) Login.mContext).getTokens();
-
     /**
      * 멤버 관련
      */
@@ -27,6 +25,9 @@ public interface JsonApi {
     @POST("/authenticate")
     Call<AuthenticationResponse> SignIn(@Body UserDto userDto);
 
+    // 토큰 보내고 멤버 가져오기
+    @GET("/api/board/authenticate")
+    Call<String> getUsername();
 
     /**
      * 글 관련
