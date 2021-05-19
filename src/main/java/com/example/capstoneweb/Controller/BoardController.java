@@ -76,6 +76,11 @@ public class BoardController {
             keyword="help";
         return boardService.getsearchBoard(keyword);
     }
+    //get my board
+    @GetMapping("/board/my/{id}")
+    public List<Board>getMyBoard(@PathVariable String id){
+        return boardService.getMyBoard(id);
+    }
     @GetMapping("/board/hot")
     public List<Board> getHotBoard(){
         return  boardService.getHotBoard();

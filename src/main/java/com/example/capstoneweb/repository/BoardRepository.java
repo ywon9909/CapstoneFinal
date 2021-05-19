@@ -100,6 +100,10 @@ public final static String GET_CATEGORY_HOT=""
          +"FROM board "
          +"where tag1 = ?1 or tag2 = ?1 or tag3 = ?1 or tag4=?1 or tag5=?1";
 
+ public final static String GET_MY_BOARD=""
+         +"SELECT * FROM board "
+         +"where id = ?1 "
+         +"order by board_no desc ";
  @Query(value = SEARCH_TAG, nativeQuery = true)
  List<Board> SearchTag(final String tag);
 
@@ -147,5 +151,6 @@ public final static String GET_CATEGORY_HOT=""
  @Query(value = GET_CATEGORY_HOT, nativeQuery = true)
  List<Board> findCategoryHotBoard(String category);
 
-
+ @Query(value = GET_MY_BOARD,nativeQuery = true)
+ List<Board> findMyBoard(String id);
 }

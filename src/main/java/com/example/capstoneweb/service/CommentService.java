@@ -58,4 +58,7 @@ public class CommentService {
         return commentRepository.findcommentLike(num,username);
     }
 
+    public List<Comment> getMyComment(String id) {
+        return commentRepository.findMyComment(id);
+    }
 }
