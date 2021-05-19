@@ -15,7 +15,7 @@ public class ArticleBoard extends AppCompatActivity {
 
     ExpertFragment expertFragment;
 
-   static String name;
+    static String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +41,6 @@ public class ArticleBoard extends AppCompatActivity {
         // ArticleMenuFragment에서 values값 받았다는 로그.
         Log.i("ArticleBoard", name);
 
-        /*
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, expertFragment).commit();
-
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new MapFragment()).commit();
-            }
-        });
-
-         */
     }
 
     public String getMyData(){

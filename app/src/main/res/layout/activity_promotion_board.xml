@@ -12,42 +12,33 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextTextPersonName"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:textSize="12dp"
-                android:inputType="textPersonName"
-                android:hint="글을 검색해보세요."
-                android:layout_margin="5dp"/>
-
+                android:text="병원 홍보 게시판"
+                android:id="@+id/category"
+                android:textSize="20dp"
+                android:padding="10dp"/>
             <Button
-                android:id="@+id/search_promotion"
-                android:layout_width="wrap_content"
+                android:id="@+id/writePro"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="🔍"
-                android:layout_margin="5dp"/>
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:text="글 등록"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="✏"
-                android:layout_margin="5dp"/>
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <!--RecyclerView-->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/recycler_view_pro"
             android:layout_width="match_parent"
             android:layout_height="675dp"
             android:layout_alignParentBottom="true"

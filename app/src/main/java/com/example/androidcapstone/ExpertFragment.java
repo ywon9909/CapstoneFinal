@@ -64,15 +64,14 @@ public class ExpertFragment extends Fragment implements TextWatcher {
         category = (TextView) mView.findViewById(R.id.category);
         category.setText(data);
 
-        // 연필 모양 버튼 누르면 글 작성 액티비티로 넘어감
+        // 버튼 누르면 글 작성 액티비티로 넘어감
         button = (Button) mView.findViewById(R.id.write);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("ExpertFragment", "button");
-                // 선택된 category 값을 보내주면서 WritingBoard를 시작
+                // 선택된 mode 값을 보내주면서 WritingBoard를 시작
                 Intent intent = new Intent(getContext(), WritingBoard.class);
-
                 intent.putExtra("mode", "else");
                 startActivity(intent);
             }
