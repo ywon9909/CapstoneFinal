@@ -1,33 +1,49 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
 
-class SearchPageComponent extends Component {
+class SearchTagComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
 
             boards: [],
-            search: props.match.params.search,
+            tag: props.match.params.tag,
+            tags:"",
             hots:[]
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
-       
+        
+       // this.searchtag(this.state.tag);
         this.getHotBoard();
         this.getPopularTag();
+    }
+    componentDidMount() {
+        BoardService.getSearchTag(this.state.tag).then((res) => {
+            this.setState({
+    
+                boards: res.data
+
+            });
+        })
     }
 
 
     handleSearchChange = (event) => {
-        this.setState({ search: event.target.value });
+        this.setState({ tag: event.target.value });
     }
-    searchKeyWord = (event) => {
+    // searchKeyWord = (event) => {
 
-        this.props.history.push(`/search-board/${this.state.search}`);
-        BoardService.searchBoard(this.state.search).then(res => {
-            this.setState({
-                boards: res.data
-            });
-        });
+    //     this.props.history.push(`/search-board/${this.state.search}`);
+    //     BoardService.searchBoard(this.state.search).then(res => {
+    //         this.setState({
+    //             boards: res.data
+    //         });
+    //     });
+
+    // }
+    searchKeyWord(search) {
+
+        this.props.history.push(`/search-board/${search}`);
 
     }
     clearbtn = (event) => {
@@ -69,9 +85,23 @@ class SearchPageComponent extends Component {
         });
         this.returnTag()
     }
-      searchtag(tag) {
-        this.props.history.push(`/SearchTagComponent/${tag}`);
-    }
+
+    searchtag(tag) {
+        window.location.replace("/SearchTagComponent/"+tag)
+       
+       
+}
+
+      // searchKeyWord = (event) => {
+
+    //     this.props.history.push(`/search-board/${this.state.search}`);
+    //     BoardService.searchBoard(this.state.search).then(res => {
+    //         this.setState({
+    //             boards: res.data
+    //         });
+    //     });
+
+    // }
     returnTag() {
         const tag= this.state.tags+""
         console.log("string"+tag)
@@ -88,15 +118,12 @@ class SearchPageComponent extends Component {
            )
 
     }
-    AllHotBoard() {
-        this.props.history.push(`/Allhotboard`);
-    }
     render() {
         return (
            
             <div  class="container-fluid">
                 
-                <h2 style={{textAlign:'center'}}>" {this.state.search} " &nbsp;&nbsp; 검색</h2><br/>
+                <h2 style={{textAlign:'center'}}>#{this.state.tag}</h2><br/>
                 <div class="row">
                         <div class="col-lg-9">
                         <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
@@ -160,7 +187,7 @@ class SearchPageComponent extends Component {
                                         </div>
                                         <div className="department-content text-center">
                                             <h4 className="department-title">
-                                            <a className="hot" onClick={()=>this.AllHotBoard()}>  HOT 게시물   </a>    
+                                                HOT 게시물
                                             </h4>
                                         <table className="table-board">
                                             <tbody>
@@ -184,4 +211,4 @@ class SearchPageComponent extends Component {
     }
 }
 
-export default SearchPageComponent;
+export default SearchTagComponent;

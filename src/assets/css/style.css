@@ -90,12 +90,15 @@ h5 {
 h6 {
   font-size: 16px; }
 
+.mousecursor:hover{
+  cursor: pointer;
+}
 ul, ol {
   margin: 0px;
   padding: 0px;
   list-style-type: none; }
 .hot{
-  color:#049ae5;
+  color:#212849;
   text-align: center;
 }
 
@@ -114,7 +117,23 @@ ul, ol {
 .hot:hover{
   background-color: #d4e4f2;
   cursor: pointer;
-  
+}
+.mybtn{
+  display: inline-block;
+  font-weight: 500;
+  margin : 5px;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #bad1e6;
+  padding: 0 5px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #bad1e6;
+  font-family: "Open Sans", sans-serif;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  border-radius: 10px;
 }
 p {
   font-size: 16px;
@@ -372,7 +391,7 @@ p {
     resize: none;
     outline: none;
     width: 75%;
-    height: 40px;
+    height: 60px;
     border: 2px solid #049ae5;
     padding: 5px 10px 10px 10px;
     margin:10px;
@@ -394,6 +413,18 @@ p {
   color: #049ae5;
   background-color: #d4e4f2;
   
+}
+.hometable{
+  width: 100%;
+  cursor: pointer;
+  
+}
+.hometable .tr{
+  
+}
+.hometable .tr:hover{
+  background-color: #d4e4f2;
+
 }
 /*==Footer==*/
 .footer{
