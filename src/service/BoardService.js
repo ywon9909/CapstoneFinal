@@ -176,13 +176,33 @@ class BoardService {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-      });
+        });
        }
 
-SignUp(User){
-  return axios.post("http://localhost:8080/api/member",User);
-}
-
+      SignUp(User){
+      return axios.post("http://localhost:8080/api/member",User);
+      }
+      getAllHotBoard(){
+        return axios.get(BOARD_API_BASE_URL+"/allhot",{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    }
+    getCategoryhotboard(category){
+      return axios.get(BOARD_API_BASE_URL+"/allhot/"+category,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    }
+    getSearchTag(tag){
+      return axios.get(BOARD_API_BASE_URL+"/searchtag/"+tag,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    }
 }
 
 export default new BoardService();
