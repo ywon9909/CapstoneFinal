@@ -203,6 +203,20 @@ class BoardService {
         },
       });
     }
+    getmyboard(id){
+      return axios.get(BOARD_API_BASE_URL+"/my/"+id,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    }
+    getmycomment(id){
+      return axios.get(BOARD_API_BASE_URL+"/mycomment/"+id,{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    }
 }
 
 export default new BoardService();
