@@ -294,12 +294,12 @@ AllHotBoard() {
                             </div>
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
-                                    <h5 >내가 쓴 글</h5>
+                                    <h5 onClick={()=> this.props.history.push('/PrivateComponent/board')}> 내가 쓴 글</h5>
                                 </div>
                             </div>
                             <div className="single-features text-center mt-30">
                                 <div className="department-content text-center">
-                                    <h5>내가 쓴 댓글</h5>
+                                    <h5 onClick={()=> this.props.history.push('/PrivateComponent/comment')}>내가 쓴 댓글</h5>
                                 </div>
                             </div>
                             <div className="single-features text-center mt-30" style={{padding:'0px'}}>
