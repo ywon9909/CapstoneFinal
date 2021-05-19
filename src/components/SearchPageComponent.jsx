@@ -91,17 +91,17 @@ class SearchPageComponent extends Component {
            
             <div  class="container-fluid">
                 
-                <h2>검색</h2>
+                <h2 style={{textAlign:'center'}}>검색</h2><br/>
                 <div class="row">
                         <div class="col-lg-9">
-
+                        <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
                        
                         {
                                             this.state.boards.map(
                                                 board =>
                                                 <div >
                                              
-                                                    <div key={board.board_no} style={{ border: "1px solid" ,padding: "5px"}}>
+                                                    <div key={board.board_no} style={{ borderRadius:"10px"}}>
 
                                                             <div><a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
                                                             </div>
@@ -114,10 +114,10 @@ class SearchPageComponent extends Component {
                                                             {board.id}
                                                             </div>
                                                             <div style={{display: "inline",position: "absolute",  right: "5%" }}>
-                                                                👍{board.board_like}📄{board.commentcount}
+                                                                🤍{board.board_like} 🗨️{board.commentcount}
                                                             
                                                             </div>
-
+                                                            <hr style={{ width: "100%", border: "1px solid #bad1e6"}} />
                                                     </div>
                                                </div>   
                                             )
@@ -162,7 +162,7 @@ class SearchPageComponent extends Component {
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 👍{hot.board_like}📄{hot.commentcount}</a>
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️{hot.commentcount}</a>
                                                 </tr>
                                                 )}
                                             </tbody>

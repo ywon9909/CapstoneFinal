@@ -53,6 +53,9 @@ class FindIdPwComponent extends Component {
         
     }
     
+    gotoHome=()=>{
+        return  this.props.history.push('/')
+    }
     render() {
         return (
             <div>
@@ -65,7 +68,7 @@ class FindIdPwComponent extends Component {
                             </h4>
                             <div className="about-form">
                                 <input type="text" placeholder="이름" name="name" value={this.state.name} onChange={this.handleNameChage}></input>
-                                <input type="text" placeholder="Phone" name="phone" value={this.state.phone} onChange={this.handlePhoneChange}></input>
+
                             </div>
                             <button className="main-btn" onClick={()=>this.findId(this.state.name)}>ID 찾기</button>
                             <div> {this.state.findid}</div>
@@ -78,14 +81,14 @@ class FindIdPwComponent extends Component {
                             <div className="about-form">
                                        
                                 <input type="text" placeholder="ID" name="id" value={this.state.id} onChange={this.handleIdChange}></input>
-                                <input type="text" placeholder="이름" name="name" value={this.state.name} onChange={this.handleNameChage}></input>
-                                <input type="text" placeholder="Phone" name="phone" value={this.state.phone} onChange={this.handlePhoneChange}></input>
+                           
                             </div>
                             <button type="submit" className="main-btn" onClick={()=>this.findPw(this.state.id)}>PW 찾기</button>
                             <div>{this.state.findpw}</div>
-
+                            <button type="submit" className="main-btn" onClick={this.gotoHome}>로그인하기</button>
 
                         </div>
+                        
                     </div>
                 </div>
             </div>
