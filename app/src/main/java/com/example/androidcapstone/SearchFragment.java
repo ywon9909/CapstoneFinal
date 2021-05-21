@@ -46,8 +46,9 @@ public class SearchFragment extends Fragment {
     EditText editSearch;
     EditText textView;
 
-    //static final String URL = "http://223.194.158.215:8080";
-    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.52:8080";
+
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override

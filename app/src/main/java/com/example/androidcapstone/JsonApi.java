@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -26,8 +27,8 @@ public interface JsonApi {
     Call<AuthenticationResponse> SignIn(@Body UserDto userDto);
 
     // 토큰 보내고 멤버 가져오기
-    @GET("/api/board/authenticate")
-    Call<String> getUsername();
+    @GET("/api/board/mobile/authenticate")
+    Call<Username> getUsername();
 
     /**
      * 글 관련
@@ -71,7 +72,7 @@ public interface JsonApi {
     Call<List<CommentData>> getComment(@Path("num") Integer num);
 
     // 댓글 등록
-    @POST("api/board/comment")
+    @POST("/api/board/comment")
     Call<CommentData> addComment(@Body CommentData commentData);
 
     // 댓글 수정

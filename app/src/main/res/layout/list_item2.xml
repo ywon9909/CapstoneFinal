@@ -39,7 +39,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="👍🏻"
+                    android:text="♡"
                     android:textSize="9dp"
                     android:padding="3dp"/>
                 <TextView
@@ -89,7 +89,8 @@
                     android:id="@+id/comment_like"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:text="👍🏻" />
+                    android:text="♡"
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/comment_delete"

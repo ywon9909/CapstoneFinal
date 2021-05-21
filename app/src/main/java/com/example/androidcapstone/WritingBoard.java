@@ -1,11 +1,13 @@
 package com.example.androidcapstone;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,8 +52,11 @@ public class WritingBoard extends AppCompatActivity {
     JsonApi jsonApi;
     Retrofit retrofit;
 
-    static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://223.194.158.215:8080";
+    String username;
+
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.52:8080";
+
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -89,6 +94,8 @@ public class WritingBoard extends AppCompatActivity {
          */
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
+        username = loadUsername();
+
         imageUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,12 +131,7 @@ public class WritingBoard extends AppCompatActivity {
                 bd.title = editTextTitle.getText().toString();
                 bd.question = editTextMultiLineBoard.getText().toString();
                 bd.board_like = likecount;
-                /*
-                if(tag1 == null) {
-                    tag1.setText(" ");
-                }
 
-                 */
                 bd.tag1 = tag1.getText().toString();
                 bd.tag2 = tag2.getText().toString();
                 bd.tag3 = tag3.getText().toString();
@@ -140,9 +142,9 @@ public class WritingBoard extends AppCompatActivity {
                     updateBoard(bd);
                 }
                 else { // 글 등록 시
-                    bd.id="user3";
-                    bd.board_like=0;
-                    bd.category=ArticleBoard.name;
+                    bd.id = username;
+                    bd.board_like = 0;
+                    bd.category = ArticleBoard.name;
                     bd.board_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
                     bd.filepath = "b.PNG";
                     addBoard(bd);
@@ -199,6 +201,28 @@ public class WritingBoard extends AppCompatActivity {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
+    }
+
+    private String loadUsername(){
+        Callback<Username> call = new Callback<Username>(){
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<Username> call, Response<Username> response) {
+                if(response.isSuccessful()) {
+                    Log.i("PromotionDetail - username", response.body().getName());
+                    username = response.body().getName();
+                } else {
+                    Log.e("PromotionDetail - getUsername", "Status Code " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<Username> call, Throwable t) {
+                Log.e("PromotionDetail - getUsername fail", t.getMessage());
+            }
+        };
+        jsonApi.getUsername().enqueue(call);
+
+        return username;
     }
 
 }

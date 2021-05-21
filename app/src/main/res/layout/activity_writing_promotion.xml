@@ -76,7 +76,7 @@
                 android:ems="10"
                 android:hint="제목"
                 android:inputType="textPersonName"
-                android:textSize="20dp"
+                android:textSize="28dp"
                 android:textStyle="bold" />
 
             <EditText
@@ -88,7 +88,7 @@
                 android:hint="여기를 눌러서 글을 작성할 수 있습니다."
                 android:inputType="textMultiLine"
                 android:background="@drawable/edittext_rectangle"
-                android:textSize="12dp"
+                android:textSize="18dp"
                 android:layout_margin="10dp"/>
 
         </LinearLayout>

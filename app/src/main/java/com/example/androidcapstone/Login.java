@@ -21,7 +21,8 @@ public class Login extends AppCompatActivity {
     JsonApi jsonApi;
     Retrofit retrofit;
 
-    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.52:8080";
 
     EditText editTextID;
     EditText editTextPwd;

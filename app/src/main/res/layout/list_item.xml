@@ -10,14 +10,6 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/board_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="board_no"
-            android:textColor="#000000"
-            android:textSize="12dp" />
-        <TextView
             android:id="@+id/board_date"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
@@ -30,7 +22,6 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/board_no"
             android:layout_marginTop="5dp"
             android:text="title"
             android:textColor="#000000"
@@ -42,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/goodnum"
             android:layout_alignParentBottom="true"
-            android:text="👍🏻 " />
+            android:text="♡ " />
 
         <TextView
             android:id="@+id/goodnum"
