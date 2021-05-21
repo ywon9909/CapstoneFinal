@@ -106,13 +106,14 @@ public final static String GET_CATEGORY_HOT=""
          +"where id = ?1 "
          +"order by board_no desc ";
 
+
+
  public final static String SELECT_MY_COMMENT=""
          +"SELECT board.board_no,board.title,board.question, board.board_date, board.board_like,board.category, board.id,board.tag1,board.tag2,board.tag3,board.tag4,board.tag5,board.filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount " +
          " FROM comment,board "
          +"where comment.comment_id = ?1 && board.board_no = comment.board_no "
          +"group by board.board_no "
          +"order by board.board_no desc ";
-
 
  @Query(value = SEARCH_TAG, nativeQuery = true)
  List<Board> SearchTag(final String tag);
