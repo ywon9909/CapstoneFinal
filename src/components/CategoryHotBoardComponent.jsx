@@ -11,7 +11,6 @@ class CategoryHotBoardComponent extends Component {
             hots: [],
             tags:"",
             tag:""
-
         }
         this.createBoard = this.createBoard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
