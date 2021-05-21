@@ -159,7 +159,7 @@ getCategoryhot(category){
             <div>
                 <div>
                     <h2 className="text-center"  >{this.state.category}
-                        <br></br>{this.showlist()} &nbsp;&nbsp;
+                        <br></br>{this.showlist()}&nbsp;&nbsp;
                         {this.mapPage()}
                     </h2>
                 </div>

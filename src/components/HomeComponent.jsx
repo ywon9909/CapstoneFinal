@@ -2,6 +2,9 @@ import React, { Component, useState } from 'react';
 import BoardService from '../service/BoardService';
 import Slider from "react-slick";
 import userIcon from '../assets/images/user-icon.png';
+import userIcon1 from '../assets/images/userIcon1.png';
+import userIcon2 from '../assets/images/userIcon2.png';
+import userIcon3 from '../assets/images/userIcon3.png';
 import { yellow } from '@material-ui/core/colors';
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -283,7 +286,7 @@ AllHotBoard() {
                                         <h4 className="department-title">계정</h4>
                                     </a>
                                     <div>
-                                    <img src={userIcon} alt='userIcon' ></img>
+                                    <img src={userIcon3} alt='userIcon' ></img>
                                     </div>
                                     <div >
                                         <button className="mybtn" onClick={()=> this.props.history.push('/mypage')} >내 정보</button>
