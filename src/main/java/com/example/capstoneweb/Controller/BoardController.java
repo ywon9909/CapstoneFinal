@@ -77,7 +77,7 @@ public class BoardController {
         return boardService.getsearchBoard(keyword);
     }
     //get my board
-    @GetMapping("/board/my/{id}")
+    @GetMapping("/board/my/{id}") //id
     public List<Board>getMyBoard(@PathVariable String id){
         return boardService.getMyBoard(id);
     }
@@ -125,6 +125,6 @@ public class BoardController {
     }
     @GetMapping("/board/mycomment/{id}")
     public List<Board> getMyComment(@PathVariable String id){
-        return boardService.getMyComment(id);
+        return boardService.getMyComment(id); //comment
     }
 }
