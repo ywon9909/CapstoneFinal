@@ -1,11 +1,13 @@
 package com.example.androidcapstone;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,8 +36,9 @@ public class PromotionBoard extends AppCompatActivity {
 
     static String name;
 
-    static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://223.194.158.215:8080";
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.52:8080";
+
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -87,6 +90,25 @@ public class PromotionBoard extends AppCompatActivity {
             }
         };
         jsonApi.getBoard(name).enqueue(callback);
+
+        Callback<Username> call = new Callback<Username>(){
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<Username> call, Response<Username> response) {
+                if(response.isSuccessful()) {
+                    Log.i("Promotion - username", response.body().getName());
+
+                } else {
+                    Log.e("Promotion - getUsername", "Status Code " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<Username> call, Throwable t) {
+                Log.e("Promotion - getUsername fail", t.getMessage());
+            }
+        };
+        jsonApi.getUsername().enqueue(call);
+
     }
 
 }

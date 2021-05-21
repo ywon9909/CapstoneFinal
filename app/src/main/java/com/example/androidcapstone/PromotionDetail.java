@@ -1,5 +1,6 @@
 package com.example.androidcapstone;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,12 +9,14 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,8 +47,11 @@ public class PromotionDetail extends AppCompatActivity {
     TextView question;
     ImageView promotionImage;
 
-    static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://223.194.158.215:8080";
+    String username;
+
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.52:8080";
+
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -93,18 +99,25 @@ public class PromotionDetail extends AppCompatActivity {
 
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
+        username = loadUsername();
+
         // 홍보글 수정
         Button update = (Button)findViewById(R.id.update);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(getApplicationContext(), WritingPromotion.class);
-                intent1.putExtra("mode", "edit");
-                intent1.putExtra("board_no", no);
-                intent1.putExtra("title", title.getText().toString());
-                intent1.putExtra("question", question.getText().toString());
-                Log.i("PromotionDetail - title", title.getText().toString());
-                startActivity(intent1);
+                if(username.equals(id)) {
+                    Intent intent1 = new Intent(getApplicationContext(), WritingPromotion.class);
+                    intent1.putExtra("mode", "edit");
+                    intent1.putExtra("board_no", no);
+                    intent1.putExtra("title", title.getText().toString());
+                    intent1.putExtra("question", question.getText().toString());
+                    Log.i("PromotionDetail - title", title.getText().toString());
+                    startActivity(intent1);
+                } else {
+                    Log.d("PromotionDetail - username & id", username + "&" + id);
+                    Toast.makeText(PromotionDetail.this, "수정할 수 있는 권한이 없습니다.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -113,13 +126,18 @@ public class PromotionDetail extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deletePost(no);
+                if(username.equals(id)) {
+                    deletePost(no);
 
-                // 글 삭제 시 앞으로 넘어감
-                Intent intent2 = new Intent(PromotionDetail.this, PromotionBoard.class);
-                String name = PromotionBoard.name;
-                intent2.putExtra("values", name);
-                startActivity(intent2);
+                    // 글 삭제 시 앞으로 넘어감
+                    Intent intent2 = new Intent(PromotionDetail.this, PromotionBoard.class);
+                    String name = PromotionBoard.name;
+                    intent2.putExtra("values", name);
+                    startActivity(intent2);
+                } else {
+                    Log.d("PromotionDetail - username & id", username + " & " + id);
+                    Toast.makeText(PromotionDetail.this, "삭제할 수 있는 권한이 없습니다.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -143,5 +161,29 @@ public class PromotionDetail extends AppCompatActivity {
                 Log.i("board delete fail", String.valueOf(no));
             }
         });
+
+    }
+
+    private String loadUsername(){
+        Callback<Username> call = new Callback<Username>(){
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<Username> call, Response<Username> response) {
+                if(response.isSuccessful()) {
+                    Log.i("PromotionDetail - username", response.body().getName());
+                    username = response.body().getName();
+                } else {
+                    Log.e("PromotionDetail - getUsername", "Status Code " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<Username> call, Throwable t) {
+                Log.e("PromotionDetail - getUsername fail", t.getMessage());
+            }
+        };
+        jsonApi.getUsername().enqueue(call);
+
+        return username;
     }
 }
+

@@ -1,10 +1,12 @@
 package com.example.androidcapstone;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -38,8 +40,11 @@ public class WritingPromotion extends AppCompatActivity {
     JsonApi jsonApi;
     Retrofit retrofit;
 
-    static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://223.194.158.215:8080";
+    String username;
+
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.52:8080";
+
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -61,6 +66,8 @@ public class WritingPromotion extends AppCompatActivity {
         promotionImage = (ImageView) findViewById(R.id.promotionUploadImage);
 
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
+
+        username = loadUsername();
 
         imageUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +102,7 @@ public class WritingPromotion extends AppCompatActivity {
                     updateBoard(bd);
                 }
                 else { // 글 등록 시
-                    bd.id="user1";
+                    bd.id = username;
                     bd.category = "홍보게시판";
                     bd.board_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
                     bd.filepath = "b.PNG";
@@ -154,5 +161,27 @@ public class WritingPromotion extends AppCompatActivity {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
+    }
+
+    private String loadUsername(){
+        Callback<Username> call = new Callback<Username>(){
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<Username> call, Response<Username> response) {
+                if(response.isSuccessful()) {
+                    Log.i("PromotionDetail - username", response.body().getName());
+                    username = response.body().getName();
+                } else {
+                    Log.e("PromotionDetail - getUsername", "Status Code " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<Username> call, Throwable t) {
+                Log.e("PromotionDetail - getUsername fail", t.getMessage());
+            }
+        };
+        jsonApi.getUsername().enqueue(call);
+
+        return username;
     }
 }

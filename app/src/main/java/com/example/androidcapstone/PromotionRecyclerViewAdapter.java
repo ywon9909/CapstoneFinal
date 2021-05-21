@@ -28,8 +28,9 @@ public class PromotionRecyclerViewAdapter extends RecyclerView.Adapter<Promotion
     Retrofit retrofit;
     JsonApi jsonApi;
 
-    static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://172.16.66.211:8080";
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.129:8080";
+
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     public PromotionRecyclerViewAdapter(Context c, List<BoardData> dataList) {
@@ -46,7 +47,7 @@ public class PromotionRecyclerViewAdapter extends RecyclerView.Adapter<Promotion
 
     @Override
     public void onBindViewHolder(@NonNull PromotionRecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.no.setText(String.valueOf(dataList.get(position).getBoard_no()));
+        //holder.no.setText(String.valueOf(dataList.get(position).getBoard_no()));
         holder.title.setText(dataList.get(position).getTitle());
 
         String str = dataList.get(position).getBoard_date();
@@ -71,7 +72,6 @@ public class PromotionRecyclerViewAdapter extends RecyclerView.Adapter<Promotion
 
             jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
-            no = (TextView)itemView.findViewById(R.id.no);
             title = (TextView)itemView.findViewById(R.id.promotion_title);
             promotion_date = (TextView)itemView.findViewById(R.id.promotion_date);
             filepath = (ImageView)itemView.findViewById(R.id.promotionImage);

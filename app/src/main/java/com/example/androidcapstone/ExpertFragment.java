@@ -21,10 +21,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,15 +46,14 @@ public class ExpertFragment extends Fragment implements TextWatcher {
     List<BoardData> dataList;
 
     String data;
-
     View mView;
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
     Button button;
     TextView category;
 
-    static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://223.194.158.215:8080";
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.52:8080";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -90,8 +93,6 @@ public class ExpertFragment extends Fragment implements TextWatcher {
         //jsonApi = retrofit.create(JsonApi.class);
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
-        String st = getUser();
-
         return loadStores();
     }
 
@@ -121,34 +122,26 @@ public class ExpertFragment extends Fragment implements TextWatcher {
         };
         jsonApi.getBoard(data).enqueue(callback);
 
-
-        //editSearch.addTextChangedListener(this);
-
-        // Inflate the layout for this fragment
-        return  mView;
-    }
-
-
-    // username 가져오기
-    private String getUser() {
-        final String[] str = new String[1];
-        Call<String> call = jsonApi.getUsername();
-        call.enqueue(new Callback<String>() {
+        Callback<Username> call = new Callback<Username>(){
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Username> call, Response<Username> response) {
                 if(response.isSuccessful()) {
-                    Log.i("ExpertFragment - username", response.body());
-                    str[0] = response.body();
+                    Log.i("ExpertFragment - username", response.body().getName());
+
                 } else {
                     Log.e("ExpertFragment - getUsername", "Status Code " + response.code());
                 }
             }
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Username> call, Throwable t) {
                 Log.e("ExpertFragment - getUsername fail", t.getMessage());
             }
-        });
-        return String.valueOf(str);
+        };
+        jsonApi.getUsername().enqueue(call);
+
+        // Inflate the layout for this fragment
+        return  mView;
     }
 
     @Override

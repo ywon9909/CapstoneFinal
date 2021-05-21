@@ -75,8 +75,10 @@ public class ArticleDetail extends AppCompatActivity {
     TextView commentcount;
     ImageView boardImage;
 
-    static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://223.194.158.215:8080";
+    String username;
+
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.52:8080";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -169,6 +171,8 @@ public class ArticleDetail extends AppCompatActivity {
         //jsonApi = retrofit.create(JsonApi.class);
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
+        username = loadUsername();
+
         // 좋아요 버튼
         Button like = (Button)findViewById(R.id.like);
         like.setOnClickListener(new View.OnClickListener() {
@@ -188,25 +192,30 @@ public class ArticleDetail extends AppCompatActivity {
             }
         });
 
-        // 글 수정
+        // 글 수정 버튼
         Button update = (Button)findViewById(R.id.update);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WritingBoard.class);
-                intent.putExtra("mode","edit");
-                intent.putExtra("board_no", num);
-                intent.putExtra("title", title.getText().toString());
-                intent.putExtra("question", question.getText().toString());
-                intent.putExtra("likecount", goodcount.getText().toString());
-                intent.putExtra("commentcount", commentcount.getText().toString());
-                intent.putExtra("tag1", tag1.getText().toString());
-                intent.putExtra("tag2", tag2.getText().toString());
-                intent.putExtra("tag3", tag3.getText().toString());
-                intent.putExtra("tag4", tag4.getText().toString());
-                intent.putExtra("tag5", tag5.getText().toString());
-                Log.d("ArticleDetail - title", title.getText().toString());
-                startActivity(intent);
+                if(username.equals(id)) {
+                    Intent intent = new Intent(getApplicationContext(), WritingBoard.class);
+                    intent.putExtra("mode", "edit");
+                    intent.putExtra("board_no", num);
+                    intent.putExtra("title", title.getText().toString());
+                    intent.putExtra("question", question.getText().toString());
+                    intent.putExtra("likecount", goodcount.getText().toString());
+                    intent.putExtra("commentcount", commentcount.getText().toString());
+                    intent.putExtra("tag1", tag1.getText().toString());
+                    intent.putExtra("tag2", tag2.getText().toString());
+                    intent.putExtra("tag3", tag3.getText().toString());
+                    intent.putExtra("tag4", tag4.getText().toString());
+                    intent.putExtra("tag5", tag5.getText().toString());
+                    Log.d("ArticleDetail - title", title.getText().toString());
+                    startActivity(intent);
+                } else {
+                    Log.d("ArticleDetail - username & id", username + " & " + id);
+                    Toast.makeText(ArticleDetail.this, "수정할 수 있는 권한이 없습니다.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -215,13 +224,18 @@ public class ArticleDetail extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deletePost(num);
+                if(username.equals(id)) {
+                    deletePost(num);
 
-                // 글 삭제 시 앞으로 넘어감
-                Intent intent2=new Intent(ArticleDetail.this, ArticleBoard.class);
-                String name=ArticleBoard.name;
-                intent2.putExtra("values",name);
-                startActivity(intent2);
+                    // 글 삭제 시 앞으로 넘어감
+                    Intent intent2 = new Intent(ArticleDetail.this, ArticleBoard.class);
+                    String name = ArticleBoard.name;
+                    intent2.putExtra("values", name);
+                    startActivity(intent2);
+                } else {
+                    Log.d("ArticleDetail - username & id", username + " & " + id);
+                    Toast.makeText(ArticleDetail.this, "삭제할 수 있는 권한이 없습니다.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -236,7 +250,7 @@ public class ArticleDetail extends AppCompatActivity {
                 cd.answer = editTextComment.getText().toString();
                 cd.board_no = num;
                 cd.board_id = id;
-                cd.comment_id = "user2";
+                cd.comment_id = username;
                 cd.comment_like = 0;
                 cd.comment_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date());
                 if(cd.answer.equals("")) return;
@@ -332,6 +346,26 @@ public class ArticleDetail extends AppCompatActivity {
         });
     }
 
+    private String loadUsername(){
+        Callback<Username> call = new Callback<Username>(){
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<Username> call, Response<Username> response) {
+                if(response.isSuccessful()) {
+                    Log.i("PromotionDetail - username", response.body().getName());
+                    username = response.body().getName();
+                } else {
+                    Log.e("PromotionDetail - getUsername", "Status Code " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<Username> call, Throwable t) {
+                Log.e("PromotionDetail - getUsername fail", t.getMessage());
+            }
+        };
+        jsonApi.getUsername().enqueue(call);
 
+        return username;
+    }
 
 }

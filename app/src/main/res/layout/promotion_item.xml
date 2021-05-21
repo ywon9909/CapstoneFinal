@@ -11,33 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/promotionImage"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            tools:srcCompat="@tools:sample/avatars" />
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/promotionImage">
 
             <TextView
-                android:id="@+id/no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="no"
-                android:layout_marginTop="10dp"
-                android:textSize="12dp" />
-
-            <TextView
                 android:id="@+id/promotion_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="title"
-                android:layout_below="@+id/no"
+                android:textColor="#000000"
                 android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/promotion_date"

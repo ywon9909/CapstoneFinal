@@ -2,6 +2,7 @@ package com.example.androidcapstone;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -36,8 +38,9 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     Retrofit retrofit;
     JsonApi jsonApi;
 
-    static final String URL = "http://192.168.35.91:8080";
-    //static final String URL = "http://172.16.66.211:8080";
+    //static final String URL = "http://192.168.35.91:8080";
+    static final String URL = "http://223.194.154.129:8080";
+
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     static int num;
@@ -86,6 +89,8 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
         TextView comment_id;
         TextView comment_like_count;
 
+        String username;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -99,6 +104,8 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
             //jsonApi = retrofit.create(JsonApi.class);
             jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
+            username = loadUsername();
+
             answer = (TextView)itemView.findViewById(R.id.answer);
             comment_date = (TextView)itemView.findViewById(R.id.comment_date);
             comment_id = (TextView)itemView.findViewById(R.id.comment_id);
@@ -110,36 +117,38 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                 @Override
                 public void onClick(View v) {
                     // TODO : process click event.
-                    comment_no = dataList.get(getAdapterPosition()).getComment_no();
-                    Log.i("comment_no", String.valueOf(comment_no));
-                    Call<Void> calls = jsonApi.deleteComment(comment_no);
-                    calls.enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (!response.isSuccessful()) {
+                    String str1 = comment_id.getText().toString();
+                    String id = str1.substring(str1.indexOf(" ") +1);
+                    Log.i("id", id);
 
-                                Log.i("board delete", "comment_no="+comment_no);
+                    if(username.equals(id)) {
+                        comment_no = dataList.get(getAdapterPosition()).getComment_no();
+                        Log.i("comment_no", String.valueOf(comment_no));
+                        Call<Void> calls = jsonApi.deleteComment(comment_no);
+                        calls.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (!response.isSuccessful()) {
 
-                                //1번누르면 DB에서 삭제,2번 누르면 datalist에서 삭제
-                                dataList.remove(getAdapterPosition());
-                                notifyItemRemoved(getAdapterPosition());
-                                notifyItemRangeChanged(getAdapterPosition(), getItemCount());
+                                    Log.i("board delete", "comment_no=" + comment_no);
 
+                                    //1번누르면 DB에서 삭제,2번 누르면 datalist에서 삭제
+                                    dataList.remove(getAdapterPosition());
+                                    notifyItemRemoved(getAdapterPosition());
+                                    notifyItemRangeChanged(getAdapterPosition(), getItemCount());
 
-                                //textViewResult.setText("code: " + response.code());boar
-                               /* Intent intent2=new Intent(ArticleDetail.this, ArticleBoard.class);
-                                String name=ArticleBoard.name;
-                                intent2.putExtra("values",name);
-                                startActivity(intent2);*/
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Log.i("board delete fail", String.valueOf(num));
-                        }
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.i("board delete fail", String.valueOf(num));
+                            }
 
-                    });
+                        });
+                    } else {
+                        Log.d("Can't commentDelete - username & id", username + " & " + id);
+                    }
                 }
             });
 
@@ -173,6 +182,28 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                     Log.i("comment like fail", String.valueOf(num));
                 }
             });
+        }
+
+        private String loadUsername(){
+            Callback<Username> call = new Callback<Username>(){
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public void onResponse(Call<Username> call, Response<Username> response) {
+                    if(response.isSuccessful()) {
+                        Log.i("PromotionDetail - username", response.body().getName());
+                        username = response.body().getName();
+                    } else {
+                        Log.e("PromotionDetail - getUsername", "Status Code " + response.code());
+                    }
+                }
+                @Override
+                public void onFailure(Call<Username> call, Throwable t) {
+                    Log.e("PromotionDetail - getUsername fail", t.getMessage());
+                }
+            };
+            jsonApi.getUsername().enqueue(call);
+
+            return username;
         }
 
     }

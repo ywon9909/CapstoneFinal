@@ -33,7 +33,7 @@ public class HotRecyclerViewAdapter extends RecyclerView.Adapter<HotRecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.hotBoard_no.setText(dataList.get(position).getBoard_no().toString());
+        //holder.hotBoard_no.setText(dataList.get(position).getBoard_no().toString());
         holder.hotTitle.setText(dataList.get(position).getTitle());
         holder.hotGoodnum.setText(dataList.get(position).getBoard_like().toString());
         holder.hotCommentnum.setText(dataList.get(position).getCommentcount().toString());
@@ -60,7 +60,7 @@ public class HotRecyclerViewAdapter extends RecyclerView.Adapter<HotRecyclerView
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            hotBoard_no = (TextView)itemView.findViewById(R.id.hotBoard_no);
+            //hotBoard_no = (TextView)itemView.findViewById(R.id.hotBoard_no);
             hotTitle = (TextView)itemView.findViewById(R.id.hotTitle);
             hotBoard_date = (TextView)itemView.findViewById(R.id.hotBoard_date);
             hotGoodnum = (TextView)itemView.findViewById(R.id.hotGoodnum);
