@@ -101,15 +101,19 @@ public final static String GET_CATEGORY_HOT=""
          +"where tag1 = ?1 or tag2 = ?1 or tag3 = ?1 or tag4=?1 or tag5=?1";
 
  public final static String GET_MY_BOARD=""
-         +"SELECT * FROM board "
+         +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
+         +"FROM board "
          +"where id = ?1 "
          +"order by board_no desc ";
 
+
+
  public final static String SELECT_MY_COMMENT=""
-         +"SELECT b.board_no,b.title,b.question, b.board_date, b.board_like,b.category, b.id,b.tag1,b.tag2,b.tag3,b.tag4,b.tag5,b.filepath,b.commentcount " +
-         " FROM comment c,board b "
-         +"where c.comment_id = ?1 && b.board_no = c.board_no "
-         +"order by b.board_no desc ";
+         +"SELECT board.board_no,board.title,board.question, board.board_date, board.board_like,board.category, board.id,board.tag1,board.tag2,board.tag3,board.tag4,board.tag5,board.filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount " +
+         " FROM comment,board "
+         +"where comment.comment_id = ?1 && board.board_no = comment.board_no "
+         +"group by board.board_no "
+         +"order by board.board_no desc ";
 
  @Query(value = SEARCH_TAG, nativeQuery = true)
  List<Board> SearchTag(final String tag);
