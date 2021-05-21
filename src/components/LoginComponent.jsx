@@ -84,7 +84,7 @@ class LoginComponent extends Component {
               type="text"
               placeholder="username"
               name="username"
-              
+              style={{ alignContent:"center",width:"600px", marginLeft:"220px", marginBottom:"0px"}}
               value={this.state.username}
               onChange={this.onChange}
             />
@@ -95,26 +95,27 @@ class LoginComponent extends Component {
               type="password"
               placeholder="password"
               name="password"
-           
+              style={{ alignContent:"center",width:"600px", marginLeft:"220px",marginTop:"0px" , marginBottom:"0px"}}
               value={this.state.password}
               onChange={this.onChange}
             />
           </div>
 
          </div>
-         <div style={{textAlign:"center"}}>
-         <button  className="main-btn" type="submit" onClick={this.userLogin}>
+         <div style={{textAlign:"center" }}>
+         <button  className="main-btn" type="submit"  style={{ alignContent:"center",width:"600px", marginTop:"0px" , marginBottom:"0px"}} onClick={this.userLogin}>
             Login User
           </button>
          </div>
-          <div style={{textAlign:"right"}}>
-          <button className="main-btn"  onClick={this.gotoFindIDPW}>
-                ID/PW 찾기
-          </button>
-
-          <button className="main-btn"  onClick={this.gotoSignup}>
+         <br/>
+          <div style={{ textAlign:"center" , display: "inline" }} >
+          <p  style={{  display: "inline" ,textAlign:"right" , marginLeft:"670px"}} onClick={this.gotoFindIDPW}>
+                ID/PW 찾기 | 
+          </p>
+      
+          <p style={{  display: "inline",textAlign:"right"  }} onClick={this.gotoSignup}>
                 회원가입
-          </button>
+          </p>
           </div>
           
 

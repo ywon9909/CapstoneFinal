@@ -139,13 +139,11 @@ class ListBoardComponent extends Component {
     mapPage() {
         if (this.state.category != "자유게시판" && this.state.category != "홍보게시판" &&this.state.category !="건의사항" &&this.state.category != "공지사항") {
             return (
-                <h2 style={{ fontWeight: 'bold', display: "inline" }}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
-
+                <h2 style={{ fontWeight: 'bold', display: "inline" }}>
+                     <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a>
+                </h2>
             )
-
         }
-
-
     }
     getHotBoard() {
         BoardService.getHotBoard().then((res) => {
@@ -191,14 +189,24 @@ class ListBoardComponent extends Component {
     }
    
     write(){
-        if(this.state.category != '공지사항'){
-            return(
-                <div >
-                   <button className="main-btn" onClick={() => this.gotoListBoard(this.state.category)} >Hot</button>
-                    <button className="red-btn" >목록</button>
-                     <button className="main-btn" onClick={this.createBoard} style={{marginLeft:"450px"}}>글 작성</button>
-                </div>
-            );
+        if(this.state.category != '공지사항' ){
+            if( this.state.category=='홍보게시판'){
+                return(
+                    <div >
+                         <button className="main-btn" onClick={this.createBoard} style={{marginLeft:"670px"}}>글 작성</button>
+                    </div>
+                );
+            }
+            else{
+                return(
+                    <div >
+                       <button className="main-btn" onClick={() => this.gotoListBoard(this.state.category)} >Hot</button>
+                        <button className="red-btn" >목록</button>
+                         <button className="main-btn" onClick={this.createBoard} style={{marginLeft:"450px"}}>글 작성</button>
+                    </div>
+                );
+            }
+            
         }
         else {
             return(<div><h3>&nbsp;  &nbsp; &nbsp;📣공지사항 한번씩 확인해주세요~📣</h3></div>);
@@ -238,7 +246,7 @@ class ListBoardComponent extends Component {
 
                 <div>
                     <h2 className="text-center"  >{this.state.category}
-                        <br></br>{this.showlist()} &nbsp;&nbsp;
+                        <br></br>{this.showlist()}&nbsp;&nbsp;
                         {this.mapPage()}
                     </h2>
 
@@ -338,6 +346,7 @@ class ListBoardComponent extends Component {
 
 
                         <div >
+                    
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination justify-content-center">
 
