@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
 
-
 class CategoryHotBoardComponent extends Component {
     constructor(props) {
         super(props)
@@ -16,18 +15,14 @@ class CategoryHotBoardComponent extends Component {
         }
         this.createBoard = this.createBoard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
-        this.handleSearchtag = this.handleSearchtag.bind(this);
         this.getHotBoard();
         this.getPopularTag();
-        this.searchtag();
     }
 
     componentDidMount() {
         BoardService.getCategoryhotboard(this.state.category).then((res) => {
             this.setState({
-           
                 boards: res.data
-
             });
         })
     }
@@ -42,17 +37,6 @@ class CategoryHotBoardComponent extends Component {
         this.props.history.push(`/category-map/${category}`);
     }
 
-    listBoard(category, p_num) {
-        console.log("pageNum : " + p_num);
-        BoardService.getBoards(category, p_num).then((res) => {
-            console.log(res.data);
-            this.setState({
-                boards: res.data
-            });
-        });
-        //this.props.history.push(`?p_num=${p_num}`);
-    }
-
     returnDate(board_date) {
         const dateString = board_date + ""
         let y = dateString.split("T"); //날짜 , 시간.00:00:00
@@ -63,7 +47,7 @@ class CategoryHotBoardComponent extends Component {
         return (
             <div style={{ display: 'inline' }}>
                  {yymmdd}, {hhmmss} 
-                </div>
+            </div>
         )
     }
 
@@ -71,27 +55,22 @@ class CategoryHotBoardComponent extends Component {
     mapPage() {
         if (this.state.category != "자유게시판" && this.state.category != "홍보게시판" &&this.state.category !="건의사항" &&this.state.category != "공지사항") {
             return (
-                <h2 style={{ fontWeight: 'bold', display: "inline" }}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
-
+                <h2 style={{ fontWeight: 'bold', display: "inline" }}>
+                     <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a>
+                </h2>
             )
-
         }
-
-
     }
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
     }
-    handleSearchtag = (event) => {
-        this.setState({ tag: event.target.value });
-    }
+
     searchKeyWord(search) {
         this.props.history.push(`/search-board/${search}`);
 
     }
     clearbtn = (event) => {
         this.setState({ search: '' });
-
     }
 
  
@@ -100,7 +79,6 @@ class CategoryHotBoardComponent extends Component {
             this.setState({
                 hots: res.data
             });
-
         });
     }
     getPopularTag(){
@@ -140,27 +118,25 @@ getCategoryhot(category){
 }
     write(){
         if(this.state.category != '공지사항'){
-return(
-    <div >
-         <button className="main-btn">Hot</button><button  className="main-btn" onClick={()=>this.getCategoryhot(this.state.category)}>목록</button> <button className="main-btn" onClick={this.createBoard} >글 작성</button>
-                    </div>
-);
+            return(
+            <div >
+                <button className="red-btn" >Hot</button>
+                <button  className="main-btn" onClick={()=>this.getCategoryhot(this.state.category)}>목록</button>
+            <button className="main-btn" onClick={this.createBoard}  style={{marginLeft:"450px"}}>글 작성</button>
+            </div>
+            );
         }
         else {
             return(<div><h3>📣공지사항 한번씩 확인해주세요~📣</h3></div>);
-        }
-        
+        } 
     }
 
     showlist(){
         if(this.state.category != '공지사항'&& this.state.category != '자유게시판'&& this.state.category != '홍보게시판'){
             return(<h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}><a onClick={() => this.listBoard(this.state.category, 1)}><u>📃 게시판</u></a></h2>);
- 
         }
         else{
-            return(<a>
-
-            </a>)
+            return(<a></a>)
         }
    }
    showLikeComment(like,comment){
@@ -181,21 +157,13 @@ return(
 
         return (
             <div>
-
-
-
                 <div>
                     <h2 className="text-center"  >{this.state.category}
                         <br></br>{this.showlist()} &nbsp;&nbsp;
                         {this.mapPage()}
                     </h2>
-
-
-
                 </div>
-
                 {/* 글작성, 게시물 div*/}
-
                 <div class="container-fluid" >
                     {this.write()}
                     <div class="row">

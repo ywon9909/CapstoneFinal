@@ -186,18 +186,19 @@ class ListBoardComponent extends Component {
     }
 
 
-gotoListBoard(category){
-    this.props.history.push(`/Categoryhotboard/${category}`);
-}
+    gotoListBoard(category){
+        this.props.history.push(`/Categoryhotboard/${category}`);
+    }
    
     write(){
         if(this.state.category != '공지사항'){
-return(
-    <div >
-                   <button className="main-btn" onClick={() => this.gotoListBoard
-(this.state.category)} >Hot</button><button className="main-btn">목록</button> <button className="main-btn" onClick={this.createBoard} >글 작성</button>
-                    </div>
-);
+            return(
+                <div >
+                   <button className="main-btn" onClick={() => this.gotoListBoard(this.state.category)} >Hot</button>
+                    <button className="red-btn" >목록</button>
+                     <button className="main-btn" onClick={this.createBoard} style={{marginLeft:"450px"}}>글 작성</button>
+                </div>
+            );
         }
         else {
             return(<div><h3>&nbsp;  &nbsp; &nbsp;📣공지사항 한번씩 확인해주세요~📣</h3></div>);
