@@ -3,6 +3,7 @@ package com.example.capstoneweb.Controller;
 import com.example.capstoneweb.model.AuthenticationRequest;
 import com.example.capstoneweb.model.AuthenticationResponse;
 import com.example.capstoneweb.model.User;
+import com.example.capstoneweb.model.Username;
 import com.example.capstoneweb.service.JwtUtil;
 import com.example.capstoneweb.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,16 @@ public class AuthenticateController {
     @PostMapping("/api/member")
     public User SignUpUser(@RequestBody User user){
         return userDetailsService.SignUpUser(user);
+    }
+    @GetMapping("/api/board/mobile/authenticate")
+    public Username getUsername2(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        System.out.println(userDetails.getUsername());
+        Username us = new Username();
+        us.setUsername("username");
+        us.setName(userDetails.getUsername());
+        return us;
+
     }
 }
