@@ -102,16 +102,21 @@ class LoginComponent extends Component {
           </div>
 
          </div>
-          <button style={{marginLeft:"300px"}} className="main-btn" type="submit" onClick={this.userLogin}>
+         <div style={{textAlign:"center"}}>
+         <button  className="main-btn" type="submit" onClick={this.userLogin}>
             Login User
           </button>
-          <button className="main-btn" style={{marginLeft:"150px"}} onClick={this.gotoFindIDPW}>
+         </div>
+          <div style={{textAlign:"right"}}>
+          <button className="main-btn"  onClick={this.gotoFindIDPW}>
                 ID/PW 찾기
           </button>
 
-          <button className="main-btn" style={{marginLeft:"150px"}} onClick={this.gotoSignup}>
+          <button className="main-btn"  onClick={this.gotoSignup}>
                 회원가입
           </button>
+          </div>
+          
 
         </form>
       </div>
