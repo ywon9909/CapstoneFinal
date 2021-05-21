@@ -1603,7 +1603,7 @@ p {
   .single-features .features-icon i {
     font-size: 85px;
     line-height: 80px;
-    color: #049ae5;
+    color: #bad1e6;
     -webkit-transition: all 0.3s ease-out 0s;
     -moz-transition: all 0.3s ease-out 0s;
     -ms-transition: all 0.3s ease-out 0s;
@@ -1614,7 +1614,7 @@ p {
     .single-features .features-content .features-title a {
       font-weight: 700;
       font-size: 24px;
-      color: #212849;
+      color: #bad1e6;
       -webkit-transition: all 0.3s ease-out 0s;
       -moz-transition: all 0.3s ease-out 0s;
       -ms-transition: all 0.3s ease-out 0s;
@@ -1637,7 +1637,7 @@ p {
       -o-transition: all 0.3s ease-out 0s;
       transition: all 0.3s ease-out 0s; }
     .single-features .features-content .more {
-      color: #049ae5;
+      color: #bad1e6;
       font-size: 15px;
       font-weight: 700;
       margin-top: 20px;

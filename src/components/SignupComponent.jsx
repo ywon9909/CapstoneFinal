@@ -93,12 +93,12 @@ class SignupComponent extends Component {
 
                                            <input type="text" placeholder="PW는 5~20자" name="pw" onChange={this.handlePw}></input>
                                           
-                                           <input type="radio"  style={{display: "inline"}}
+                                           <input type="radio" style={{width:"23px",height:"23px"}}
                 name="radioGroup"
                 value='Doctor'
                 checked={this.state.radioGroup['Doctor']}
                 onChange={this.handleRadio}/>전문가
-            <input type="radio" style={{display: "inline"}}
+            <input type="radio" style={{width:"23px",height:"23px"}}
                 name="radioGroup"
                 value='Nondoctor'
                 checked={this.state.radioGroup['NonDoctor']}
