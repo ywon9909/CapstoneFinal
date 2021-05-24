@@ -139,13 +139,11 @@ class ListBoardComponent extends Component {
     mapPage() {
         if (this.state.category != "자유게시판" && this.state.category != "홍보게시판" &&this.state.category !="건의사항" &&this.state.category != "공지사항") {
             return (
-                <h2 style={{ fontWeight: 'bold', display: "inline" }}> <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a></h2>
-
+                <h2 style={{ fontWeight: 'bold', display: "inline" }}>
+                     <a onClick={() => this.mapBoard(this.state.category)}>🗺 지도 </a>
+                </h2>
             )
-
         }
-
-
     }
     getHotBoard() {
         BoardService.getHotBoard().then((res) => {
@@ -191,14 +189,24 @@ class ListBoardComponent extends Component {
     }
    
     write(){
-        if(this.state.category != '공지사항'){
-            return(
-                <div >
-                   <button className="main-btn" onClick={() => this.gotoListBoard(this.state.category)} >Hot</button>
-                    <button className="red-btn" >목록</button>
-                     <button className="main-btn" onClick={this.createBoard} style={{marginLeft:"450px"}}>글 작성</button>
-                </div>
-            );
+        if(this.state.category != '공지사항' ){
+            if( this.state.category=='홍보게시판'){
+                return(
+                    <div >
+                         <button className="main-btn" onClick={this.createBoard} style={{marginLeft:"670px"}}>글 작성</button>
+                    </div>
+                );
+            }
+            else{
+                return(
+                    <div >
+                       <button className="main-btn" onClick={() => this.gotoListBoard(this.state.category)} >Hot</button>
+                        <button className="red-btn" >목록</button>
+                         <button className="main-btn" onClick={this.createBoard} style={{marginLeft:"450px"}}>글 작성</button>
+                    </div>
+                );
+            }
+            
         }
         else {
             return(<div><h3>&nbsp;  &nbsp; &nbsp;📣공지사항 한번씩 확인해주세요~📣</h3></div>);
@@ -238,7 +246,7 @@ class ListBoardComponent extends Component {
 
                 <div>
                     <h2 className="text-center"  >{this.state.category}
-                        <br></br>{this.showlist()} &nbsp;&nbsp;
+                        <br></br>{this.showlist()}&nbsp;&nbsp;
                         {this.mapPage()}
                     </h2>
 
@@ -289,55 +297,57 @@ class ListBoardComponent extends Component {
 
 
                         <div class="col-lg-3">
-                            <div >{/* 검색, 태그 div*/}
-                                <table>
-                                    <tr>
-
-                                        <td>
-                                            <input type="text" placeholder="검색하기"
-                                                name="search" value={this.state.search}
-                                                className="form-control" onChange={this.handleSearchChange} />
-                                        </td>
-                                        <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
-
-
-                                    </tr>
-                                </table>
-
-                                <div >
-                                    <div className="single-department-two mt-30">
-                                        <div className="department-content text-center">
-                                            <h4 className="department-title">
-                                                #인기태그
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="text" placeholder="검색하기"
+                                            name="search" value={this.state.search}
+                                            className="form-control" onChange={this.handleSearchChange} />
+                                    </td>
+                                    <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <div >
+                                <div className="single-features text-center mt-30">
+                                    <div className="department-content text-center">
+                                        <h4 className="department-title">
+                                            #인기태그
                                             </h4>
-                                            <p className="text">
-                                                {this.returnTag()}                                           
-                                            </p>   
-
-                                        </div>
-                                        <div className="department-content text-center">
-                                            <h4 className="department-title">
-                                            <a className="hot" onClick={()=>this.AllHotBoard()}>  HOT 게시물   </a>    
-                                            </h4>
+                                        <p className="text">
+                                       
+                                        {this.returnTag()}     
+          
+                                        </p>
+                                    </div>
+                                    
+                                </div>
+                               
+                                <div className="single-features text-center mt-30">
+                                        <div className="department-content text-center">  
+                                          
+                                        <h4 className="department-title" onClick={()=>this.AllHotBoard()} >
+                                            HOT 게시물                                          
+                                        </h4>
                                         <table className="table-board">
                                             <tbody>
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like}🗨️ {hot.commentcount}</a>
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️ {hot.commentcount}</a>
                                                 </tr>
                                                 )}
                                             </tbody>
-                                        </table>
+                                        </table> <br/>
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>{/* 검색, 태그 div*/}
-                        </div>
+                            </div>
+                        </div>{/* 검색 div*/}
+                       
 
 
                         <div >
+                    
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination justify-content-center">
 
