@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
-
+import heart from '../assets/images/heart.png';
 class ReadBoardComponent extends Component {
     constructor(props) {
         super(props);
@@ -533,8 +533,8 @@ console.log("comment like is "+ commentlike +"is that")
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️{hot.commentcount}</a>
-                                                </tr>
+                                                <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}  <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{hot.board_like} 🗨️ {hot.commentcount}</a>
+                                            </tr>
                                                 )}
                                             </tbody>
                                         </table>
@@ -550,7 +550,7 @@ console.log("comment like is "+ commentlike +"is that")
                                                 simi =>
                                                 <tr className="tr">
                                                     <a className="hot" onClick={() => this.readBoard(simi.board_no)}>{simi.title}
-                                                        🤍{simi.board_like} 🗨️{simi.commentcount}</a></tr>)
+                                                    <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{simi.board_like} 🗨️{simi.commentcount}</a></tr>)
                                             }
                                             </tbody>
                                         </table>              

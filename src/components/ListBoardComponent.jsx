@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
-
+import heart from '../assets/images/heart.png';
 
 class ListBoardComponent extends Component {
     constructor(props) {
@@ -229,7 +229,7 @@ class ListBoardComponent extends Component {
         {
             return(
                 <div style={{display: "inline",position: "absolute",  right: "5%" }}>
-                    🤍{like} 🗨️{comment}                                                              
+                     <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{like} 🗨️{comment}                                                              
                 </div>
             )
         }
@@ -332,7 +332,7 @@ class ListBoardComponent extends Component {
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like}🗨️ {hot.commentcount}</a>
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}  <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{hot.board_like} 🗨️ {hot.commentcount}</a>
                                                 </tr>
                                                 )}
                                             </tbody>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
-
+import heart from '../assets/images/heart.png';
 class PrivateComponent extends Component {
     constructor(props) {
         super(props)
@@ -179,7 +179,7 @@ class PrivateComponent extends Component {
                                                             {board.id}
                                                             </div>
                                                             <div style={{display: "inline",position: "absolute",  right: "5%" }}>
-                                                                🤍{board.board_like} 🗨️{board.commentcount}
+                                                            <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{board.board_like} 🗨️{board.commentcount}
                                                             
                                                             </div>
                                                             <hr style={{ width: "100%", border: "1px solid #bad1e6"}} />
@@ -227,8 +227,8 @@ class PrivateComponent extends Component {
                                                 {this.state.hots.map(
                                                 hot =>
                                                 <tr className="tr">
-                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title} 🤍{hot.board_like} 🗨️{hot.commentcount}</a>
-                                                </tr>
+                                                <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}  <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{hot.board_like} 🗨️ {hot.commentcount}</a>
+                                            </tr>
                                                 )}
                                             </tbody>
                                         </table>
