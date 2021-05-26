@@ -19,19 +19,24 @@ public class JwtUtil {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
+
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
+
     /*
      * Anytime you can pass in userdetails to generate token method whats is going
      * to get back is jwt for that user someone authicates you will need to create a
@@ -39,9 +44,10 @@ public class JwtUtil {
      */
     //is to create JWT based of the userdetails taken into the jwt
     public String generateToken(UserDetails userDetails) {
-        Map<String , Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userDetails.getUsername());
     }
+
     //create token Map(empty) claim(anything you want to create payload, subject is the person who has been authenticated (builder pattern)
     // signwith (pass the secret key. compact(builder pattern used by JWT)
     private String createToken(Map<String, Object> claims, String subject) {

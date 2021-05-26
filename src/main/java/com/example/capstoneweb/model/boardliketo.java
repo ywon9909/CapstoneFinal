@@ -1,11 +1,10 @@
 package com.example.capstoneweb.model;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name="boardliketo")
+@Table(name = "boardliketo")
 @ToString
 @Getter
 @Setter
@@ -15,10 +14,10 @@ import javax.persistence.*;
 public class boardliketo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="borNo")
+    @Column(name = "borNo")
     private Integer borNo;
 
-    @Column(name="like_no")
+    @Column(name = "like_no")
     private Integer like_no;
 
     @Column(name = "board_no")

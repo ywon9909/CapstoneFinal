@@ -28,21 +28,24 @@ public class MyUserDetailsService implements UserDetailsService {
         System.out.println(u.get());
         return u.map(MyUserDetails::new).get();
     }
-    public UserDetails getUserId(String username){
+
+    public UserDetails getUserId(String username) {
         Optional<User> u = userRepository.findByUsername(username);
         u.orElseThrow(() -> new UsernameNotFoundException("Not Found: " + username));
 
         return u.map(MyUserDetails::new).get();
     }
-    public void deleteUser(String username){
+
+    public void deleteUser(String username) {
         userRepository.deleteByUsername(username);
     }
 
 
-    public void updateUser(String changePassword,String id) {
-        userRepository.updateByUsername(changePassword,id);
+    public void updateUser(String changePassword, String id) {
+        userRepository.updateByUsername(changePassword, id);
     }
-    public User SignUpUser(User userDetails){
+
+    public User SignUpUser(User userDetails) {
         return userRepository.save(userDetails);
     }
 }

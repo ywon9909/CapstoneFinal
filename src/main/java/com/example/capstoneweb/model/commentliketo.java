@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="commentliketo")
+@Table(name = "commentliketo")
 @ToString
 @Getter
 @Setter
@@ -16,10 +16,10 @@ import java.util.Date;
 public class commentliketo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="comNo")
+    @Column(name = "comNo")
     private Integer comNo;
 
-    @Column(name="like_no")
+    @Column(name = "like_no")
     private Integer like_no;
 
     @Column(name = "comment_no")
