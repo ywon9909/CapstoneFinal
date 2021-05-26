@@ -11,11 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -33,8 +30,7 @@ public class AuthenticateController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
-
-    //@PostMapping("/authenticate")
+    //login 할때 토큰값 생성
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
@@ -50,6 +46,7 @@ public class AuthenticateController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
+    //토큰 값 넘겨줄 경우 username 가져오기-web
     @GetMapping("/api/board/authenticate")
     public String getUsername() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
@@ -57,26 +54,38 @@ public class AuthenticateController {
         System.out.println(userDetails.getUsername());
         return userDetails.getUsername();
     }
-    @GetMapping("/api/member/{id}")
-    public UserDetails getUserId(@PathVariable String id){
-        UserDetails u = userDetailsService.getUserId(id);
 
-        return u;
+    //회원가입
+    @PostMapping("/api/member")
+    public User SignUpUser(@RequestBody User user) {
+        return userDetailsService.SignUpUser(user);
     }
+
+
+    //회원탈퇴
     @DeleteMapping("/api/member/{id}")
     public void deleteMemberById(@PathVariable String id) {
         userDetailsService.deleteUser(id);
     }
+
+
+    //id 값을 넘겨줄 경우 user 객체 받아오기, 비밀번호 변경시 활용
+    @GetMapping("/api/member/{id}")
+    public UserDetails getUserId(@PathVariable String id) {
+        UserDetails u = userDetailsService.getUserId(id);
+        return u;
+    }
+
+    //비밀번호변경
     @PutMapping("/api/member/{changePassword}/{id}")
-    public void updateMember(@PathVariable String changePassword,@PathVariable String id){
-        userDetailsService.updateUser(changePassword,id);
+    public void updateMember(@PathVariable String changePassword, @PathVariable String id) {
+        userDetailsService.updateUser(changePassword, id);
     }
-    @PostMapping("/api/member")
-    public User SignUpUser(@RequestBody User user){
-        return userDetailsService.SignUpUser(user);
-    }
+
+
+    //토큰 값 넘겨줄 경우 username 가져오기-mobile
     @GetMapping("/api/board/mobile/authenticate")
-    public Username getUsername2(){
+    public Username getUsername2() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
         System.out.println(userDetails.getUsername());
@@ -84,6 +93,6 @@ public class AuthenticateController {
         us.setUsername("username");
         us.setName(userDetails.getUsername());
         return us;
-
     }
+
 }

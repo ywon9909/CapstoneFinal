@@ -1,13 +1,12 @@
 package com.example.capstoneweb.model;
+
 import java.util.Date;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 @Entity
-@Table(name="Board")
+@Table(name = "Board")
 @ToString
 @Getter
 @Setter
@@ -16,7 +15,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Board {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer board_no;
 
     @Column(name = "title")
@@ -29,10 +28,11 @@ public class Board {
     private Date board_date;
     @Column(name = "board_like")
     private Integer board_like;
-    @Column(name="category")
+    @Column(name = "category")
     private String category;
     @Column(name = "id")
     private String id;
+
 
     @Column(name = "tag1")
     private String tag1;
@@ -46,6 +46,7 @@ public class Board {
     private String tag5;
     @Column(name = "commentcount")
     private Integer commentcount;
+
     @Column
-    private  String filepath;
+    private String filepath;
 }
