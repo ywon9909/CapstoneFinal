@@ -5,12 +5,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name="user_db")
+@Table(name = "user_db")
 public class User implements UserDetails {
 
     @Id
@@ -59,21 +58,27 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
     public boolean isActive() {
         return active;
     }
+
     public void setActive(boolean active) {
         this.active = active;
     }
+
     public String getRoles() {
         return roles;
     }
+
     public void setRoles(String roles) {
         this.roles = roles;
     }
+
     @Override
     public String toString() {
         return "User [ userName=" + username + ", password=" + password + ", active=" + active

@@ -1,20 +1,21 @@
 package com.example.capstoneweb.model;
+
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="comment")
+@Table(name = "comment")
 @ToString
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment{
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="comment_no")
+    @Column(name = "comment_no")
     private Integer comment_no;
 
     @Column(name = "answer")
