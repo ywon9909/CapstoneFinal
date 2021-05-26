@@ -21,8 +21,8 @@ public class Login extends AppCompatActivity {
     JsonApi jsonApi;
     Retrofit retrofit;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
 
     EditText editTextID;
     EditText editTextPwd;
@@ -47,12 +47,14 @@ public class Login extends AppCompatActivity {
         editTextPwd = (EditText)findViewById(R.id.editTextPwd);
         loginSubmit = (Button)findViewById(R.id.loginSubmit);
 
+        // 이 class에서만 retrofit 연결 방식 약간 다름
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         jsonApi = retrofit.create(JsonApi.class);
 
+        // login 버튼 클릭 시
         loginSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +68,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void loadAll(UserDto userDto) {
-
+        // token 가져오기
         jsonApi.SignIn(userDto).enqueue(new Callback<AuthenticationResponse>() {
             @Override
             public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
@@ -77,11 +79,6 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this, MainActivity.class);
                 intent.putExtra("token", token);
                 startActivity(intent);
-
-//                session이나 쿠키에 저장
-//                localStorage.setItem("token", token);
-//                console.log(" token is " + token);
-
             }
 
             @Override

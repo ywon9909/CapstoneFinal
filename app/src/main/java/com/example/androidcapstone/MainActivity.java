@@ -40,27 +40,9 @@ public class MainActivity extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         bar.hide();
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("키해시는 :", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        //authToken = AuthenticationInterceptor
-
-
-
+        // Login에서 넘어오면서 token 받아오기
         Intent getIntent = getIntent();
         token = getIntent.getExtras().getString("token");
-
-
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 

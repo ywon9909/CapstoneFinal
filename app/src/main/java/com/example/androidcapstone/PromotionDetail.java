@@ -32,14 +32,9 @@ import static com.example.androidcapstone.Login.token;
 
 public class PromotionDetail extends AppCompatActivity {
 
-    Retrofit retrofit;
     JsonApi jsonApi;
-    List<BoardData> dataList;
 
     Integer no;
-
-    RecyclerView proRecyclerview;
-    PromotionRecyclerViewAdapter promotionRecyclerViewAdapter;
 
     TextView user;
     TextView datetime;
@@ -49,8 +44,8 @@ public class PromotionDetail extends AppCompatActivity {
 
     String username;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -69,6 +64,7 @@ public class PromotionDetail extends AppCompatActivity {
         question = (TextView)findViewById(R.id.promotion_detail);
         promotionImage = (ImageView)findViewById(R.id.promotionImage);
 
+        // PromotionBoard - PromotionRecyclerViewAdapter에서 받아오기
         Intent intent = getIntent();
 
         // 글 정보 intent로 받아오기

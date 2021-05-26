@@ -40,7 +40,6 @@ public class ArticleMenuFragment extends Fragment {
                 else {
                     Intent intent2 = new Intent(getContext(), ArticleBoard.class);
                     intent2.putExtra("values", values[(int) id]); // 게시판 카테고리 넘겨주기
-                    //Log.i("values", values[(int) id].toString());
                     startActivity(intent2);
                 }
             }
@@ -49,17 +48,5 @@ public class ArticleMenuFragment extends Fragment {
         return rootView;
     }
 
-
-
-    /*
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        String strText = (String) l.getItemAtPosition(position);
-        Log.d("Fragment: ", position + ": " + strText);
-        //Toast.makeText(this.getContext(), "클릭: " + position +" " + strText, Toast.LENGTH_SHORT).show();
-    }
-
-
-     */
 
 }

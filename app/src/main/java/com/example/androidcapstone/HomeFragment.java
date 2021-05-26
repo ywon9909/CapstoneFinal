@@ -56,8 +56,8 @@ public class HomeFragment extends Fragment {
     String token;
     static String str;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
     
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -93,30 +93,6 @@ public class HomeFragment extends Fragment {
 
         recyclerView = (RecyclerView) mView.findViewById(R.id.hot_recyclerview);
 
-        /*
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-            @NotNull
-            @Override
-            public okhttp3.Response intercept(@NotNull Chain chain) throws IOException {
-                Request newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer" + token)
-                        .build();
-                return chain.proceed(newRequest);
-            }
-        }).build();
-
-        */
-
-        /*
-        retrofit = new Retrofit.Builder()
-                //.client(client)
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-         */
-
-        //jsonApi = retrofit.create(JsonApi.class);
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         tag01 = (TextView) mView.findViewById(R.id.tag01);
@@ -187,6 +163,7 @@ public class HomeFragment extends Fragment {
         };
         jsonApi.getHotBoard().enqueue(callback);
 
+        // token 보내고 username 받아오기
         Callback<Username> call = new Callback<Username>(){
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override

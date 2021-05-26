@@ -33,7 +33,6 @@ public class HotRecyclerViewAdapter extends RecyclerView.Adapter<HotRecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //holder.hotBoard_no.setText(dataList.get(position).getBoard_no().toString());
         holder.hotTitle.setText(dataList.get(position).getTitle());
         holder.hotGoodnum.setText(dataList.get(position).getBoard_like().toString());
         holder.hotCommentnum.setText(dataList.get(position).getCommentcount().toString());
@@ -51,21 +50,17 @@ public class HotRecyclerViewAdapter extends RecyclerView.Adapter<HotRecyclerView
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView hotBoard_no;
         TextView hotTitle;
         TextView hotBoard_date;
         TextView hotGoodnum;
         TextView hotCommentnum;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            //hotBoard_no = (TextView)itemView.findViewById(R.id.hotBoard_no);
             hotTitle = (TextView)itemView.findViewById(R.id.hotTitle);
             hotBoard_date = (TextView)itemView.findViewById(R.id.hotBoard_date);
             hotGoodnum = (TextView)itemView.findViewById(R.id.hotGoodnum);
             hotCommentnum = (TextView)itemView.findViewById(R.id.hotCommentnum);
-
 
             // item click 시 ArticleDetail로 title, question, ..., tag 모두 보내줌
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +68,7 @@ public class HotRecyclerViewAdapter extends RecyclerView.Adapter<HotRecyclerView
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
+                        // recyclerview의 item이 선택된 경우 그 item의 모든 것을 ArticleDetail로 넘겨주기
                         Intent intent = new Intent(v.getContext(), ArticleDetail.class);
 
                         intent.putExtra("title", dataList.get(pos).getTitle());

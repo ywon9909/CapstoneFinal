@@ -36,8 +36,8 @@ public class PromotionBoard extends AppCompatActivity {
 
     static String name;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -50,6 +50,7 @@ public class PromotionBoard extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         bar.hide();
 
+        // ArticleMenuFragment에서 받아오기
         Intent intent = getIntent();
         name = intent.getExtras().getString("values");
         Log.i("PromotionBoard", name);
@@ -91,6 +92,7 @@ public class PromotionBoard extends AppCompatActivity {
         };
         jsonApi.getBoard(name).enqueue(callback);
 
+        // token 보내고 username 받아오기
         Callback<Username> call = new Callback<Username>(){
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
