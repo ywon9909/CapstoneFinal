@@ -10,10 +10,8 @@ import FooterComponent from './components/FooterComponent';
 import CreateBoardComponent from './components/CreateBoardComponent';
 import ReadBoardComponent from './components/ReadBoardComponent';
 import MapComponent from './components/MapComponent';
-import SuccessComponent from './components/SuccessComponent';
 import HomeComponent from './components/HomeComponent';
 import SearchPageComponent from './components/SearchPageComponent'
-import SearchSideComponent from './components/SearchSideComponent'
 import LoginComponent from './components/LoginComponent';
 import MyPageComponent from './components/MyPageComponent';
 import ManageComponent from './components/ManageComponent';
@@ -28,11 +26,7 @@ function App() {
     <div>
       <Router>
         <HeaderComponent />
-        {/* <div style={{float:"right",width:"500px"}}>
-                    <SearchSideComponent ></SearchSideComponent>
-                </div> */}
          <div className="container"  style={{width: "100%"}}>
-        
           <Switch>
           <Route path="/" exact component={LoginComponent} />
             <Route path="/home" exact component={HomeComponent}></Route> {/*나중에 홈 화면 jsx 만들 것 */}
@@ -41,9 +35,7 @@ function App() {
             <Route path="/read-board/:num" component={ReadBoardComponent}></Route>{/*상세페이지*/}
             <Route path="/category-board/:category" component={ListBoardComponent}></Route> {/*카테고리별 리스트 보여줌*/}
             <Route path="/category-map/:category" component={MapComponent}></Route>{/*지도 페이지*/}
-            <Route path="/success" component={SuccessComponent}></Route> {/*성공페이지 */}
             <Route path="/search-board/:search" component={SearchPageComponent}></Route>
-            <Route path="/searchside" component={SearchSideComponent}></Route>
             <Route path="/mypage" component={MyPageComponent}></Route>
             <Route path="/manage" component={ManageComponent}></Route>
             <Route path="/find" component={FindIdPwComponent}></Route>{/*Id/Pw 찾기 */}
@@ -53,13 +45,8 @@ function App() {
             <Route path="/SearchTagComponent/:tag" component={SearchTagComponent}></Route> {/*성공페이지 */}
             <Route path="/PrivateComponent/:mode" component={PrivateComponent}></Route> {/*성공페이지 */}
           </Switch>
-         
-         
         </div>
-        
-
       </Router>
-      
      <FooterComponent />
     </div>
   );
