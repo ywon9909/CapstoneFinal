@@ -42,8 +42,8 @@ public class WritingPromotion extends AppCompatActivity {
 
     String username;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -68,7 +68,7 @@ public class WritingPromotion extends AppCompatActivity {
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         username = loadUsername();
-
+        // imageUploadButton을 누르면 갤러리에 있는 이미지로 선택할 수 있도록.
         imageUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +163,7 @@ public class WritingPromotion extends AppCompatActivity {
         });
     }
 
+    // token 보내고 username 받아오기
     private String loadUsername(){
         Callback<Username> call = new Callback<Username>(){
             @RequiresApi(api = Build.VERSION_CODES.N)

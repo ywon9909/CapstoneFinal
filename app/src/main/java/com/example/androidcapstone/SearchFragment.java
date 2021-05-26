@@ -35,26 +35,22 @@ public class SearchFragment extends Fragment {
     private Spinner spinner;
     private String[] schools = new String[]{"all","title"};
 
-    Retrofit retrofit;
     JsonApi jsonApi;
     List<BoardData> dataList2;
-
-
 
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
     EditText editSearch;
     EditText textView;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -63,25 +59,14 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_search, container, false);
 
-        /*
-        // retrofit 통신 연결 - Spring 웹 서버와 연결
-        retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-         */
-
         recyclerView = view.findViewById(R.id.recycler_view);
 
-        //jsonApi = retrofit.create(JsonApi.class);
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         editSearch = (EditText)view.findViewById(R.id.search);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
 
         textView = (EditText)view.findViewById(R.id.search);
-
         textView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -93,19 +78,14 @@ public class SearchFragment extends Fragment {
                         @Override
                         public void onResponse(Call<List<BoardData>> call, Response<List<BoardData>> response) {
                             if (response.isSuccessful()) {
-                                // dataList.notifyAll();
                                 dataList2 = response.body();
                                 Log.d("ExpertFragment", dataList2.toString());
 
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                                 recyclerViewAdapter = new RecyclerViewAdapter(getContext(), dataList2);
                                 recyclerView.setAdapter(recyclerViewAdapter);
-
-                                //textView = (TextView)mView.findViewById(R.id.text);
-                                //textView.setText(response.body().toString());
                             } else {
                                 Log.d("log", "Status Code " + response.code());
-                                //Log.d("log", textView.getText().toString());
                             }
                         }
 
@@ -122,6 +102,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        // 검색 버튼 눌렀을 때 editText에 있는 것들이 제목이나 질문에 포함되면 조회
         Button button = (Button)view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,26 +112,20 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onResponse(Call<List<BoardData>> call, Response<List<BoardData>> response) {
                         if (response.isSuccessful()) {
-                            // dataList.notifyAll();
                             dataList2 = response.body();
                             Log.d("ExpertFragment", dataList2.toString());
 
                             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             recyclerViewAdapter = new RecyclerViewAdapter(getContext(), dataList2);
                             recyclerView.setAdapter(recyclerViewAdapter);
-
-                            //textView = (TextView)mView.findViewById(R.id.text);
-                            //textView.setText(response.body().toString());
                         } else {
                             Log.d("log", "Status Code " + response.code());
-                            //Log.d("log", textView.getText().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<BoardData>> call, Throwable t) {
                         Log.d("log", "Fail");
-                        //t.printStackTrace();
                     }
                 };
                 jsonApi.getSearchBoards(textView.getText().toString()).enqueue(callback);

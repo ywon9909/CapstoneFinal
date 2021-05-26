@@ -38,8 +38,8 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     Retrofit retrofit;
     JsonApi jsonApi;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.129:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.129:8080";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -67,7 +67,6 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
         holder.answer.setText(dataList.get(position).getAnswer());
         holder.comment_id.setText(" " + dataList.get(position).getComment_id());
         holder.comment_like_count.setText(String.valueOf(dataList.get(position).getComment_like()));
-        //holder.comment_date.setText(dataList.get(position).getComment_date());
 
         String str = dataList.get(position).getComment_date().toString();
         String date = str.substring(0, str.indexOf("T"));
@@ -82,8 +81,6 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        //public View mView;
-
         TextView answer;
         TextView comment_date;
         TextView comment_id;
@@ -94,14 +91,6 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            /*
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-             */
-            //jsonApi = retrofit.create(JsonApi.class);
             jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
             username = loadUsername();
@@ -121,6 +110,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                     String id = str1.substring(str1.indexOf(" ") +1);
                     Log.i("id", id);
 
+                    // login된 username이랑 댓글 작성자의 id랑 같다면 삭제 가능
                     if(username.equals(id)) {
                         comment_no = dataList.get(getAdapterPosition()).getComment_no();
                         Log.i("comment_no", String.valueOf(comment_no));
@@ -129,14 +119,12 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if (!response.isSuccessful()) {
-
                                     Log.i("board delete", "comment_no=" + comment_no);
 
                                     //1번누르면 DB에서 삭제,2번 누르면 datalist에서 삭제
                                     dataList.remove(getAdapterPosition());
                                     notifyItemRemoved(getAdapterPosition());
                                     notifyItemRangeChanged(getAdapterPosition(), getItemCount());
-
                                 }
                             }
 
@@ -184,6 +172,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
             });
         }
 
+        // token 보내고 username 받아오기
         private String loadUsername(){
             Callback<Username> call = new Callback<Username>(){
                 @RequiresApi(api = Build.VERSION_CODES.N)

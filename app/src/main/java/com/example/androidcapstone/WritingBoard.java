@@ -54,8 +54,8 @@ public class WritingBoard extends AppCompatActivity {
 
     String username;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -68,6 +68,7 @@ public class WritingBoard extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         bar.hide();
 
+        // ExpertFragment에서 글 등록을 받아오거나 ArticleDetail에서 글 수정을 받아오기
         Intent intent = getIntent();
         String mode = intent.getExtras().getString("mode");
 
@@ -84,18 +85,10 @@ public class WritingBoard extends AppCompatActivity {
         tag4 = (EditText)findViewById(R.id.tag4);
         tag5 = (EditText)findViewById(R.id.tag5);
 
-        /*
-        retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        jsonApi = retrofit.create(JsonApi.class);
-         */
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         username = loadUsername();
-
+        // imageUploadButton 눌렀을 때 갤러리의 사진을 선택할 수 있도록.
         imageUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,6 +196,7 @@ public class WritingBoard extends AppCompatActivity {
         });
     }
 
+    // token 보내고 username 받아오기
     private String loadUsername(){
         Callback<Username> call = new Callback<Username>(){
             @RequiresApi(api = Build.VERSION_CODES.N)

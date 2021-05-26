@@ -25,11 +25,10 @@ public class PromotionRecyclerViewAdapter extends RecyclerView.Adapter<Promotion
     private Context c;
     private List<BoardData> dataList;
 
-    Retrofit retrofit;
     JsonApi jsonApi;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.129:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.129:8080";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -47,7 +46,6 @@ public class PromotionRecyclerViewAdapter extends RecyclerView.Adapter<Promotion
 
     @Override
     public void onBindViewHolder(@NonNull PromotionRecyclerViewAdapter.ViewHolder holder, int position) {
-        //holder.no.setText(String.valueOf(dataList.get(position).getBoard_no()));
         holder.title.setText(dataList.get(position).getTitle());
 
         String str = dataList.get(position).getBoard_date();
@@ -82,6 +80,7 @@ public class PromotionRecyclerViewAdapter extends RecyclerView.Adapter<Promotion
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
+                        // recyclerview의 선택된 item의 모든 것을 PromotionDetail로 넘겨주기
                         Intent intent = new Intent(v.getContext(), PromotionDetail.class);
 
                         intent.putExtra("category", dataList.get(pos).getCategory());

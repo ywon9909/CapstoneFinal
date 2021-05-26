@@ -77,8 +77,8 @@ public class ArticleDetail extends AppCompatActivity {
 
     String username;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -95,18 +95,16 @@ public class ArticleDetail extends AppCompatActivity {
         datetime = (TextView)findViewById(R.id.datetime);
         title = (TextView)findViewById(R.id.title);
         question = (TextView)findViewById(R.id.question);
-
         tag1 = (TextView)findViewById(R.id.tag1);
         tag2 = (TextView)findViewById(R.id.tag2);
         tag3 = (TextView)findViewById(R.id.tag3);
         tag4 = (TextView)findViewById(R.id.tag4);
         tag5 = (TextView)findViewById(R.id.tag5);
-
         goodcount = (TextView)findViewById(R.id.goodcount);
         commentcount = (TextView)findViewById(R.id.commentcount);
-
         boardImage = (ImageView)findViewById(R.id.boardImage);
 
+        // ExpertFragment - RecyclerViewAdapter에서 받아옴
         Intent intent = getIntent();
 
         String c = intent.getExtras().getString("category");
@@ -130,15 +128,18 @@ public class ArticleDetail extends AppCompatActivity {
         String mCommentcount = intent.getExtras().getString("commentcount");
         commentcount.setText(mCommentcount);
 
-        // 태그 조회
         String mTag1 = intent.getExtras().getString("tag1");
         tag1.setText(mTag1);
+
         String mTag2 = intent.getExtras().getString("tag2");
         tag2.setText(mTag2);
+
         String mTag3 = intent.getExtras().getString("tag3");
         tag3.setText(mTag3);
+
         String mTag4 = intent.getExtras().getString("tag4");
         tag4.setText(mTag4);
+
         String mTag5 = intent.getExtras().getString("tag5");
         tag5.setText(mTag5);
 
@@ -157,18 +158,8 @@ public class ArticleDetail extends AppCompatActivity {
 
         num = intent.getExtras().getInt("num");
 
-        /*
-        // retrofit 통신 연결 - Spring 웹 서버와 연결
-        retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-         */
-
         recyclerView2 = findViewById(R.id.recycler_view2);
 
-        //jsonApi = retrofit.create(JsonApi.class);
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         username = loadUsername();
@@ -178,6 +169,7 @@ public class ArticleDetail extends AppCompatActivity {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 좋아요 수만 1 늘리고 나머지값은 그대로 똑같이 받아서 보내기
                 BoardData bd = new BoardData();
                 bd.title = title.getText().toString();
                 bd.question = question.getText().toString();
@@ -197,7 +189,9 @@ public class ArticleDetail extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 로그인된 username이랑 글 작성자의 id가 같다면 수정 가능
                 if(username.equals(id)) {
+                    // WritingBoard로 모든 값 그대로 넘겨주기 + "edit"라고 수정 모드라는 걸 넘겨주기
                     Intent intent = new Intent(getApplicationContext(), WritingBoard.class);
                     intent.putExtra("mode", "edit");
                     intent.putExtra("board_no", num);
@@ -224,6 +218,7 @@ public class ArticleDetail extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 로그인된 username이랑 글 작성자의 id가 같다면 삭제 가능
                 if(username.equals(id)) {
                     deletePost(num);
 
@@ -279,7 +274,6 @@ public class ArticleDetail extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<CommentData>> call, Throwable t) {
-                //Log.d("log", "Fail");
                 t.printStackTrace();
             }
         };
@@ -297,7 +291,6 @@ public class ArticleDetail extends AppCompatActivity {
 
                     Log.i("board delete", "num="+no);
 
-                    //textViewResult.setText("code: " + response.code());boar
                     Intent intent2=new Intent(ArticleDetail.this, ArticleBoard.class);
                     String name=ArticleBoard.name;
                     intent2.putExtra("values",name);
@@ -346,6 +339,7 @@ public class ArticleDetail extends AppCompatActivity {
         });
     }
 
+    // token 보내고 username 받아오기
     private String loadUsername(){
         Callback<Username> call = new Callback<Username>(){
             @RequiresApi(api = Build.VERSION_CODES.N)

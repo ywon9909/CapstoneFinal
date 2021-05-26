@@ -52,8 +52,8 @@ public class ExpertFragment extends Fragment implements TextWatcher {
     Button button;
     TextView category;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -82,15 +82,6 @@ public class ExpertFragment extends Fragment implements TextWatcher {
 
         recyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
 
-        /*
-        retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-         */
-
-        //jsonApi = retrofit.create(JsonApi.class);
         jsonApi = ServiceGenerator.createService(JsonApi.class, token);
 
         return loadStores();
@@ -122,6 +113,7 @@ public class ExpertFragment extends Fragment implements TextWatcher {
         };
         jsonApi.getBoard(data).enqueue(callback);
 
+        // token 보내고 username 받아오기
         Callback<Username> call = new Callback<Username>(){
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override

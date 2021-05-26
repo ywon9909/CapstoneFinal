@@ -30,8 +30,8 @@ public class InfoFragment extends Fragment {
     View mView;
     TextView ID;
 
-    //static final String URL = "http://192.168.35.91:8080";
-    static final String URL = "http://223.194.154.52:8080";
+    static final String URL = "http://192.168.35.91:8080";
+    //static final String URL = "http://223.194.154.52:8080";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     @Override
@@ -48,6 +48,7 @@ public class InfoFragment extends Fragment {
     }
 
     public View loadStores() {
+        // token 보내고 username 받아오기
         Callback<Username> call = new Callback<Username>(){
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
